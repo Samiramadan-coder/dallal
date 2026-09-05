@@ -1,0 +1,1289 @@
+{
+  "Navbar": {
+    "browse": "Browse",
+    "goldPrices": "Gold Prices",
+    "calculator": "Calculator",
+    "forSellers": "For Sellers",
+    "getVerified": "Get Verified",
+    "about": "About"
+  },
+  "Footer": {
+    "description": "The UAE's most trusted marketplace for buying and selling gold jewelry, diamonds, and precious metals.",
+    "location": "Dubai, United Arab Emirates",
+    "copyright": "© 2026 Dallal Hoolee. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+
+    "browse": {
+      "title": "Browse",
+      "goldJewelry": "Gold Jewelry",
+      "diamonds": "Diamonds",
+      "watches": "Watches",
+      "coinsBars": "Coins & Bars",
+      "allListings": "All Listings"
+    },
+
+    "tools": {
+      "title": "Tools",
+      "goldPriceCalculator": "Gold Price Calculator",
+      "liveGoldChart": "Live Gold Chart",
+      "karatComparison": "Karat Comparison",
+      "marketTracker": "Market Tracker"
+    },
+
+    "sellers": {
+      "title": "For Sellers",
+      "postListing": "Post a Listing",
+      "sellerDashboard": "Seller Dashboard",
+      "pricingGuide": "Pricing Guide",
+      "becomeVerified": "Become Verified",
+      "sellerFaq": "Seller FAQ"
+    },
+
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "howItWorks": "How It Works",
+      "careers": "Careers",
+      "press": "Press",
+      "contact": "Contact"
+    }
+  },
+  "Auth": {
+    "Hero": {
+      "eyebrow": "THE UAE'S PREMIER MARKETPLACE",
+      "title": "Buy & Sell Gold",
+      "titleSecond": "with",
+      "highlight": "Confidence",
+      "description": "Join thousands of verified buyers and sellers trading gold, diamonds, watches, and precious metals safely across the UAE.",
+      "features": {
+        "verified": "Verified Sellers Only",
+        "rating": "4.9 Average Rating",
+        "members": "50,000+ Active Members"
+      },
+      "testimonial": {
+        "text": "Finally a marketplace that understands the gold trade. The price transparency is unmatched.",
+        "author": "Fatima Al Rashidi, Dubai"
+      }
+    },
+    "Forms": {
+      "welcome": "Member Access",
+      "yourAccount": "Your Account",
+      "accessListening": "Access your listings, messages, and offers.",
+      "or": "OR",
+      "continueWithGoogle": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create Account",
+      "protectedBy": "Protected by 256-bit SSL encryption.",
+      "privacyPolicy": "Privacy Policy",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "forgotPassword": "Forgot Password?",
+      "resetPassword": "Reset Password"
+    },
+    "SignIn": {
+      "fields": {
+        "email": {
+          "label": "Email or Phone",
+          "placeholder": "ahmad@example.com or +971 50...",
+          "required": "Email Or Phone is required"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Your Password",
+          "required": "Password is required"
+        }
+      }
+    },
+    "SignUp": {
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "Ahmad Al Mansoori",
+          "required": "Full Name is required",
+          "minLength": "Full Name must be at least 2 characters"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "ahmad@example.com",
+          "required": "Email Or Phone is required",
+          "invalid": "Please enter a valid email address"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "50 123 4567",
+          "invalid": "Please enter a valid phone number"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Min. 8 characters",
+          "required": "Password is required",
+          "minLength": "Password must be at least 8 characters"
+        },
+        "passwordConfirmation": {
+          "label": "Confirm Password",
+          "placeholder": "Repeat password",
+          "required": "Password confirmation is required",
+          "match": "Passwords must match"
+        },
+        "terms": {
+          "accept": "Accept",
+          "terms": "Terms of Service",
+          "and": "and",
+          "privacy": "Privacy Policy",
+          "required": "You must accept the terms and conditions"
+        }
+      }
+    },
+    "ForgotPassword": {
+      "SendResetLink": "Send Reset Link",
+      "fields": {
+        "email": {
+          "label": "Email Address",
+          "placeholder": "ahmad@example.com or +971 50...",
+          "required": "Email Address is required",
+          "invalid": "Please enter a valid email address"
+        }
+      }
+    },
+    "ResetPassword": {
+      "fields": {
+        "email": {
+          "label": "Email Address",
+          "placeholder": "ahmad@example.com",
+          "required": "Email Address is required",
+          "invalid": "Please enter a valid email address"
+        },
+        "password": {
+          "label": "New Password",
+          "placeholder": "Min. 8 characters",
+          "required": "New password is required",
+          "minLength": "Password must be at least 8 characters"
+        },
+        "passwordConfirmation": {
+          "label": "Confirm New Password",
+          "placeholder": "Repeat new password",
+          "required": "Password confirmation is required",
+          "match": "Passwords must match"
+        }
+      }
+    }
+  },
+  "Home": {
+    "hero": {
+      "eyebrow": "UAE's Premier Gold Marketplace",
+      "titleFirst": "Where Gold Finds",
+      "titleSecond": "Its",
+      "titleHighlight": "True Worth",
+      "description": "Buy and sell authentic gold jewelry, diamonds, and precious metals with live pricing, verified sellers, and complete peace of mind.",
+      "search": {
+        "categoryLabel": "Select category",
+        "placeholder": "Search gold necklace, diamond ring, Rolex...",
+        "location": "Dubai, UAE",
+        "button": "Search",
+        "locationLabel": "Search location",
+        "categories": {
+          "jewelry": "Gold Jewelry",
+          "diamonds": "Diamonds",
+          "watches": "Watches",
+          "coins": "Coins & Bars"
+        }
+      },
+      "quickBrowse": {
+        "label": "Quick Browse",
+        "jewelry": "Gold Jewelry",
+        "diamonds": "Diamonds",
+        "watches": "Watches",
+        "coins": "Coins & Bars",
+        "all": "View All"
+      },
+      "stats": {
+        "listings": {
+          "value": "12,400+",
+          "label": "Active Listings"
+        },
+        "sellers": {
+          "value": "3,200+",
+          "label": "Verified Sellers"
+        },
+        "transactions": {
+          "value": "AED 2.4B",
+          "label": "Transactions"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "Trust Rating"
+        }
+      }
+    },
+    "goldPrices": {
+      "eyebrow": "Live Market Data",
+      "title": "Today's",
+      "titleHighlight": "Gold Prices",
+      "description": "Real-time gold rates in UAE Dirhams, updated every minute from the Dubai Gold & Commodities Exchange.",
+      "refresh": "Refresh",
+      "viewChart": "View Full Chart",
+      "currency": "AED",
+      "perGram": "per gram",
+      "perTola": "Per Tola",
+      "rates": {
+        "24k": {
+          "karat": "24K",
+          "type": "Pure Gold"
+        },
+        "22k": {
+          "karat": "22K",
+          "type": "High Karat"
+        },
+        "21k": {
+          "karat": "21K",
+          "type": "Gulf Standard"
+        },
+        "18k": {
+          "karat": "18K",
+          "type": "Fashion Gold"
+        }
+      },
+      "source": "Prices sourced from Dubai Gold & Commodities Exchange (DGCX) · Updated 2 mins ago",
+      "calculator": "Calculate your jewelry value"
+    },
+    "latest": {
+      "eyebrow": "Curated Picks",
+      "title": "Latest",
+      "titleHighlight": "Near You",
+      "description": "Latest Near You",
+      "location": "in Oman",
+      "descriptionEnd": "every item priced against live gold rates.",
+      "categories": {
+        "all": "All",
+        "gold": "Gold",
+        "diamonds": "Diamonds",
+        "watches": "Watches"
+      },
+      "verified": "Verified",
+      "favorite": "Add to favorites",
+      "currency": "AED",
+      "belowMarket": "below market",
+      "viewAll": "View All Listings"
+    },
+    "promise": {
+      "eyebrow": "Our Promise",
+      "title": "Why",
+      "titleHighlight": "Dallal Hoolee",
+      "description": "We built the platform we wished existed — transparent pricing, trustworthy sellers, and frictionless transactions for the UAE gold market.",
+      "items": {
+        "prices": {
+          "title": "Live Gold Prices",
+          "description": "Every listing is automatically priced against real-time DGCX gold rates so you always know the fair market value before you transact.",
+          "badge": "Real-Time Data"
+        },
+        "verified": {
+          "title": "Verified Sellers",
+          "description": "Every seller undergoes identity verification and trade license checks. Verified badges mean your counterpart is who they claim to be.",
+          "badge": "ID Verified"
+        },
+        "safe": {
+          "title": "Safe Transactions",
+          "description": "Our escrow-style meeting protocol and in-app guidance ensure both parties are protected from listing to handover.",
+          "badge": "Buyer Protection"
+        },
+        "free": {
+          "title": "Free to Browse",
+          "description": "No subscription, no hidden fees. Browse thousands of listings, check gold prices, and use the calculator — completely free.",
+          "badge": "Always Free"
+        }
+      }
+    },
+    "verifiedShops": {
+      "eyebrow": "Trusted Partners",
+      "title": "Verified",
+      "titleHighlight": "Gold Shops",
+      "description": "Established jewellers and licensed dealers who have passed our rigorous verification process.",
+      "browseAll": "Browse All Shops",
+      "verified": "Verified",
+      "viewShop": "View Shop",
+      "established": "Est. {year}",
+      "reviews": "{count} reviews",
+      "activeListings": "active listings",
+      "shops": {
+        "alfardan": {
+          "name": "Al Fardan Jewellers",
+          "location": "Dubai, Gold Souk",
+          "category": "22K Traditional"
+        },
+        "damas": {
+          "name": "Damas Luxury",
+          "location": "Abu Dhabi Mall",
+          "category": "Diamond & Gold"
+        },
+        "malabar": {
+          "name": "Malabar Gold",
+          "location": "Dubai Festival City",
+          "category": "18K & 22K"
+        },
+        "joyalukkas": {
+          "name": "Joyalukkas UAE",
+          "location": "Sharjah City Centre",
+          "category": "Bridal Gold"
+        }
+      }
+    },
+    "howItWorks": {
+      "eyebrow": "The Process",
+      "title": "How It",
+      "titleHighlight": "Works",
+      "description": "A transparent, trusted process — whether you are here to buy a piece or find it a new home.",
+      "tabs": {
+        "buyers": "For Buyers",
+        "sellers": "For Sellers"
+      },
+      "buyers": {
+        "steps": {
+          "browse": {
+            "badge": "Live Pricing on Every Item",
+            "title": "Browse & Discover",
+            "description": "Search thousands of listings filtered by karat, weight, price range, and emirate. The built-in live calculator instantly tells you whether a price is fair against today's gold rate."
+          },
+          "connect": {
+            "badge": "Verified Sellers Only",
+            "title": "Connect Directly",
+            "description": "Message identity-verified sellers through our secure in-platform inbox. Ask for additional photos, request the hallmark certificate, or make an offer — all in one place."
+          },
+          "complete": {
+            "badge": "Safe-Meeting Protocol",
+            "title": "Complete With Confidence",
+            "description": "Follow our safe-meeting guide to finalise the transaction in person. Inspect the piece, confirm the weight and karat, and leave a review to build the community's trust layer."
+          }
+        },
+        "cta": {
+          "title": "Find Gold You Can Trust",
+          "description": "Every listing is priced against today's live gold rate. Every seller is identity-verified. Browse with complete confidence.",
+          "label": "Browse Listings"
+        }
+      },
+      "sellers": {
+        "steps": {
+          "post": {
+            "badge": "No Listing Fees, Ever",
+            "title": "Post in Minutes",
+            "description": "Upload your photos, enter the karat and weight, and our engine automatically suggests a fair asking price based on today's live gold rate. Posting is always free — no listing fees."
+          },
+          "offers": {
+            "badge": "Verified Buyer Community",
+            "title": "Receive Genuine Offers",
+            "description": "Verified buyers browse your listing and reach out through the platform. Our trust system surfaces serious buyers and filters time-wasters before they can contact you."
+          },
+          "close": {
+            "badge": "Reputation You Own",
+            "title": "Close the Sale",
+            "description": "Meet the buyer at an agreed location, hand over the piece, and mark the listing as sold. Every completed sale builds your seller reputation score — your most valuable asset on the platform."
+          }
+        },
+        "cta": {
+          "title": "Reach Serious Buyers Today",
+          "description": "Post your listing free in minutes. Our live gold pricing engine does the valuation for you — no haggling with tyre-kickers.",
+          "label": "Post Free Listing"
+        }
+      }
+    },
+    "mobileApp": {
+      "eyebrow": "Mobile App",
+      "title": "Take Dallal Hoolee",
+      "titleHighlight": "with you",
+      "description": "Browse listings on the go, get live gold price alerts, message sellers instantly, and post your jewelry in under 60 seconds. The full marketplace, in your pocket.",
+      "stats": {
+        "appStore": "App Store",
+        "googlePlay": "Google Play",
+        "downloads": "downloads"
+      },
+      "stores": {
+        "downloadOn": "Download on the",
+        "getItOn": "Get it on",
+        "appStore": "App Store",
+        "googlePlay": "Google Play"
+      },
+      "imageAlt": "Dallal Hoolee mobile application"
+    },
+    "calculator": {
+      "eyebrow": "Live Gold Calculator",
+      "title": "Is the price",
+      "titleHighlight": "fair?",
+      "description": "Instantly calculate the true gold value of any piece against today's live DGCX market rates — before you buy or sell.",
+      "weight": "Weight",
+      "units": {
+        "grams": "Grams",
+        "tola": "Tola"
+      },
+      "karat": "Gold Karat",
+      "makingCharges": "Making Charges",
+      "karats": {
+        "24k": "Pure Gold",
+        "22k": "High Karat",
+        "21k": "Gulf Standard",
+        "18k": "Fashion Gold"
+      },
+      "results": {
+        "liveRate": "Live Rate",
+        "goldValue": "Gold Value",
+        "makingCharges": "Making Charges",
+        "total": "Total Estimated Value",
+        "fairPrice": "Listings priced within 5% of this value are considered fair market price on Dallal Hoolee.",
+        "info": "Rates from DGCX, updated every minute. Making charges vary by jeweller, typically between 5–15%."
+      },
+      "actions": {
+        "findListings": "Find Listings at This Price",
+        "openCalculator": "Open Full Calculator"
+      },
+      "currency": "AED"
+    }
+  },
+  "Calculator": {
+    "hero": {
+      "eyebrow": "Gold Tools",
+      "title": "Gold",
+      "titleHighlight": "Calculator",
+      "description": "Calculate the exact AED value of any gold piece based on today's live DGCX spot rate — or check whether a seller's price is fair before you buy.",
+      "liveStatus": "Live rates — updated 05:20 PM GST · Source: DGCX",
+      "perGram": "AED / gram",
+      "rates": {
+        "24k": {
+          "label": "24K"
+        },
+        "22k": {
+          "label": "22K"
+        },
+        "21k": {
+          "label": "21K"
+        },
+        "18k": {
+          "label": "18K"
+        }
+      }
+    },
+    "education": {
+      "eyebrow": "Education",
+      "title": "How gold is priced in the UAE",
+      "description": "Understanding the components of a gold price helps you buy and sell with confidence and clarity.",
+      "items": {
+        "karat": {
+          "title": "Gold is priced by karat purity",
+          "description": "24K is 99.9% pure gold — the international benchmark. 22K is 91.6%, 21K is 87.5%, and 18K is 75%. Each gram of lower-karat gold contains less actual gold, so the price per gram is proportionally lower."
+        },
+        "spotRate": {
+          "title": "Spot rate converted to AED per gram",
+          "description": "The global spot price is quoted in USD per troy ounce on COMEX. UAE jewellers convert this to AED per gram daily using the official exchange rate. The Dubai Multi Commodities Centre publishes the benchmark used across the UAE."
+        },
+        "makingCharges": {
+          "title": "Making charges are added on top",
+          "description": "Jewellers add a making charge, typically 5–15%, to cover craftsmanship. Simple pieces carry lower charges, while intricate jewellery may cost more. When buying second-hand, you often pay closer to raw gold value."
+        },
+        "vat": {
+          "title": "VAT applies to new purchases only",
+          "description": "The UAE levies 5% VAT on new jewellery sales. Resale transactions between individuals are typically VAT-exempt. Always check whether a listed price includes VAT before comparing."
+        }
+      }
+    },
+    "marketplace": {
+      "eyebrow": "Marketplace",
+      "title": "Verified listings near market rate",
+      "description": "Real listings from verified sellers — priced transparently against today's gold rate.",
+      "allListings": "All Listings",
+      "browse": "Browse All Listings",
+      "currency": "AED",
+      "verified": "Verified",
+      "below": "below",
+      "items": {
+        "necklace": {
+          "title": "22K Gold Pearl Drop Necklace — Bridal Set"
+        },
+        "bangles": {
+          "title": "21K Gold Bangle Set × 6 — Geometric Pattern"
+        },
+        "coins": {
+          "title": "24K Gold Sovereign Coins — British Royal Mint × 10"
+        },
+        "earrings": {
+          "title": "22K Gold Chandelier Earrings — Bridal Filigree"
+        }
+      }
+    },
+    "footerNote": {
+      "disclaimer": "Gold rates sourced from DGCX. For informational purposes only — not financial advice.",
+      "links": {
+        "goldPrices": "Gold Prices",
+        "listings": "Browse Listings",
+        "home": "Dallal Hoolee"
+      }
+    }
+  },
+  "Browse": {
+    "hero": {
+      "eyebrow": "Marketplace",
+      "title": "Browse",
+      "titleHighlight": "Listings",
+      "description": "Verified gold jewelry, diamonds, watches and bullion from trusted sellers across the UAE — priced against today's live market rate.",
+      "stats": {
+        "listings": {
+          "value": "1,248",
+          "label": "Active Listings"
+        },
+        "sellers": {
+          "value": "342",
+          "label": "Verified Sellers"
+        },
+        "cities": {
+          "value": "7",
+          "label": "Cities Covered"
+        }
+      }
+    }
+  },
+
+  "About": {
+    "hero": {
+      "eyebrow": "About Dallal Hoolee",
+      "titleFirst": "Where Trust",
+      "titleSecond": "Meets Treasure.",
+      "description": "The gold market in the UAE moves billions of dirhams every day — yet most individual buyers and sellers still trade blind, with no way to know if a price is truly fair or if a seller is who they claim to be. We built Dallal Hoolee to change that."
+    },
+    "story": {
+      "eyebrow": "Our Story",
+      "titleFirst": "Built for a market that",
+      "titleEmphasis": "deserved better.",
+      "items": {
+        "market": {
+          "title": "A market without transparency",
+          "description": "Gold trading in the UAE is a multi-billion dirham market — yet individual buyers routinely overpay because they have no way to verify whether an asking price reflects today's real market rate."
+        },
+        "sellers": {
+          "title": "Sellers without reach",
+          "description": "Private sellers and small jewellers struggle to find serious buyers beyond their immediate network. Trust is built on word of mouth, and that limits who can participate."
+        },
+        "solution": {
+          "title": "The solution we built",
+          "description": "Every listing on Dallal Hoolee is priced against the live Dubai gold market rate in real time. Every seller goes through identity verification. Buyers know the fair price. Sellers reach thousands of qualified buyers."
+        }
+      },
+      "imageAlt": "Gold jewellery shops in Dubai Gold Souk",
+      "imageCaption": "Dubai Gold Souk — where it all began"
+    },
+    "numbers": {
+      "eyebrow": "The Numbers",
+      "title": "A platform the UAE trusts",
+      "listings": {
+        "value": "10,000",
+        "suffix": "+",
+        "label": "Listings Posted",
+        "description": "Across all categories"
+      },
+      "sellers": {
+        "value": "2,500",
+        "suffix": "+",
+        "label": "Verified Sellers",
+        "description": "ID & trade license checked"
+      },
+      "cities": {
+        "value": "15",
+        "label": "UAE Cities Covered",
+        "description": "From Dubai to Fujairah"
+      },
+      "transactions": {
+        "value": "AED 50M",
+        "suffix": "+",
+        "label": "Transactions Facilitated",
+        "description": "And growing daily"
+      }
+    },
+    "buyers": {
+      "eyebrow": "For Buyers",
+      "title": "Find gold you can",
+      "titleHighlight": "trust.",
+      "description": "Every step of your purchase is supported by live market data and verified seller identities.",
+      "step": "Step {number}",
+      "steps": {
+        "browse": {
+          "title": "Browse verified listings",
+          "description": "Search by category, karat, purity, price range, and city. Every listing is from a real, verified seller."
+        },
+        "compare": {
+          "title": "See the live price comparison",
+          "description": "Each listing shows whether the asking price is above, below, or at today's UAE gold market rate — instantly."
+        },
+        "contact": {
+          "title": "Contact the seller directly",
+          "description": "Message the seller, ask for more photos, or make an offer — all within the platform."
+        },
+        "buy": {
+          "title": "Meet and buy safely",
+          "description": "Agree on a public meeting point, inspect the piece in person, and pay only when you are satisfied."
+        }
+      },
+      "cta": "Browse Listings"
+    },
+    "sellers": {
+      "eyebrow": "For Sellers",
+      "title": "Reach thousands of",
+      "titleHighlight": "serious buyers.",
+      "description": "From posting to payout — the entire process is built around your control and your timeline.",
+      "step": "Step {number}",
+      "steps": {
+        "post": {
+          "title": "Post your listing for free",
+          "description": "Takes under 2 minutes. The platform auto-calculates a fair asking price from live Dubai gold rates."
+        },
+        "verify": {
+          "title": "Get verified",
+          "description": "Add a trust badge to your profile. Verified sellers receive significantly more enquiries and offers."
+        },
+        "offers": {
+          "title": "Receive offers and messages",
+          "description": "Manage all buyer communication, counter-offers, and enquiries from your personal dashboard."
+        },
+        "complete": {
+          "title": "Meet and complete the sale",
+          "description": "You control the transaction — choose the time, place, and terms. Dallal Hoolee never takes a cut."
+        }
+      },
+      "stat": {
+        "label": "More enquiries",
+        "description": "Verified sellers receive 3.8× more buyer enquiries than unverified ones."
+      },
+      "imageAlt": "Gold jewellery seller displaying a necklace",
+      "cta": "Post Your First Listing"
+    },
+    "trust": {
+      "eyebrow": "Trust & Verification",
+      "title": "Trust is everything in",
+      "titleHighlight": "gold trading.",
+      "description": "We verify every seller's identity so buyers always know exactly who they are dealing with — before they ever send a message.",
+      "tier": "Verification Tier",
+      "individual": {
+        "title": "Verified Individual",
+        "badge": "Most Popular",
+        "features": {
+          "1": "Emirates ID verified against national registry",
+          "2": "Real person confirmation — no anonymous sellers",
+          "3": "Emerald trust badge on every listing",
+          "4": "Increased buyer confidence and enquiry rate"
+        }
+      },
+      "shop": {
+        "title": "Verified Shop",
+        "badge": "Best for Businesses",
+        "features": {
+          "1": "UAE Trade License verified by our team",
+          "2": "Confirmed legitimate registered business",
+          "3": "Gold diamond badge — highest trust tier",
+          "4": "Priority placement in browse and search"
+        }
+      },
+      "cta": "Get Verified"
+    },
+    "prices": {
+      "eyebrow": "Live Gold Prices",
+      "title": "Always know if",
+      "titleHighlight": "the price is fair.",
+      "description": "Every listing on Dallal Hoolee shows whether the asking price is above, below, or exactly at today's UAE gold market rate. We pull live prices directly from the Dubai gold market — so buyers never overpay and sellers always price competitively.",
+      "imageAlt": "Live gold market price chart",
+      "rates": {
+        "title": "Live Dubai Gold Rates",
+        "unit": "per gram · AED",
+        "gold": "Gold {karat}",
+        "purity": "{purity} purity",
+        "currency": "AED",
+        "footer": "Updated in real-time from Dubai Gold & Commodities Exchange"
+      }
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Get in Touch",
+      "description": "Have questions? We'd love to hear from you.",
+      "email": {
+        "label": "Email Us",
+        "value": "contact@dallalhoolee.com",
+        "description": "We reply within 24 hours"
+      },
+      "whatsapp": {
+        "label": "WhatsApp",
+        "value": "+971 50 123 4567",
+        "description": "Mon – Sat, 9 AM – 6 PM UAE"
+      },
+      "instagram": {
+        "label": "Instagram",
+        "value": "@dallalhoolee",
+        "description": "Follow us for market updates"
+      }
+    }
+  },
+  "GetVerified": {
+    "hero": {
+      "eyebrow": "Verification Programme",
+      "title": "Build Trust.",
+      "titleHighlight": "Sell More.",
+      "description": "Gold trading depends entirely on trust. Verified sellers on Dallal Hoolee receive a prominent badge on every listing, rank higher in search results, and convert browsers into buyers — because buyers know exactly who they are dealing with.",
+      "stats": {
+        "messages": {
+          "value": "4.2×",
+          "label": "More Buyer Messages"
+        },
+        "views": {
+          "value": "68%",
+          "label": "Higher Listing Views"
+        },
+        "review": {
+          "value": "24h",
+          "label": "Average Review Time"
+        }
+      }
+    },
+    "plans": {
+      "currency": "AED",
+      "whatYouGet": "What You Get",
+      "documentsRequired": "Documents Required",
+      "individual": {
+        "badge": "Verified Individual",
+        "title": "Individual Verified",
+        "description": "For individuals selling personal jewelry pieces, watches, or coins.",
+        "priceDescription": "One-time fee — no renewal required",
+        "features": {
+          "badge": "Green ✓ Verified Individual badge on all listings",
+          "search": "Higher placement in search results",
+          "listings": "Up to 15 listings per month",
+          "profile": "Verified seller profile page",
+          "trust": "Buyer trust signal in listing cards",
+          "support": "Priority customer support"
+        },
+        "documents": {
+          "idFront": "Emirates ID — front side",
+          "idBack": "Emirates ID — back side",
+          "selfie": "Selfie holding your Emirates ID"
+        },
+        "cta": "Apply Now — AED 29"
+      },
+      "shop": {
+        "recommended": "Recommended for Businesses",
+        "badge": "◆ Verified Shop",
+        "title": "Verified Shop",
+        "description": "For registered gold shops, jewelry retailers, and licensed bullion dealers.",
+        "priceDescription": "One-time fee — renew only if trade license expires",
+        "features": {
+          "badge": "Prestigious gold ◆ Verified Shop badge",
+          "page": "Dedicated branded shop page",
+          "search": "Priority search placement — above unverified",
+          "featured": "Featured in Verified Shops on homepage",
+          "plans": "Access to Gold & Diamond subscription plans",
+          "listings": "Unlimited listings (plan-dependent)",
+          "analytics": "Shop analytics dashboard",
+          "contact": "Business contact display on profile"
+        },
+        "documents": {
+          "license": "Valid UAE Trade License",
+          "register": "Commercial Register extract",
+          "trn": "Tax Registration Certificate (TRN)",
+          "ownerId": "Owner / Manager Emirates ID"
+        },
+        "cta": "Apply Now — AED 99"
+      }
+    },
+    "process": {
+      "eyebrow": "The Process",
+      "title": "How Verification Works",
+      "steps": {
+        "submit": {
+          "title": "Submit Documents",
+          "description": "Create your account and upload the required documents securely through your dashboard. All files are encrypted in transit and at rest."
+        },
+        "review": {
+          "title": "Manual Team Review",
+          "description": "Our UAE-based team manually reviews every application within 24–48 hours. We verify identity documents against official UAE databases."
+        },
+        "activated": {
+          "title": "Badge Activated",
+          "description": "Once approved, your verification badge appears on all current and future listings automatically. You receive an email confirmation."
+        },
+        "sell": {
+          "title": "Sell with Confidence",
+          "description": "Verified sellers see up to 4× more buyer enquiries. Your listings rank above unverified sellers in every search and category page."
+        }
+      }
+    },
+    "assurances": {
+      "manualReview": {
+        "title": "Manual review by our team",
+        "description": "Every application is personally reviewed by a Dallal Hoolee team member — no automated approvals."
+      },
+      "dataSecurity": {
+        "title": "Your data is secure",
+        "description": "Documents are encrypted, never shared with third parties, and deleted from our servers after verification is complete."
+      },
+      "renewal": {
+        "title": "Renewal not required",
+        "description": "Individual verification is permanent. Shop verification renews only when your trade license expires — we remind you in advance."
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions about verification",
+      "items": {
+        "duration": {
+          "question": "How long does verification take?",
+          "answer": "Most applications are reviewed within 24 hours. Complex shop applications requiring additional document checks may take up to 48 hours. You will receive an email at every stage — submitted, under review, approved, or if further information is needed."
+        },
+        "rejected": {
+          "question": "What happens if my application is rejected?",
+          "answer": "If we are unable to verify your documents, you will receive a clear explanation by email. You can resubmit with corrected documents at any time — there is no additional fee for resubmission within 30 days of the original application."
+        },
+        "upgrade": {
+          "question": "Can I upgrade from Individual to Verified Shop later?",
+          "answer": "Yes. If you register a trade license after getting Individual Verified, you can apply for Verified Shop by paying the difference (AED 70) rather than the full AED 99. Simply open a support ticket from your dashboard."
+        },
+        "refund": {
+          "question": "Is the verification fee refundable?",
+          "answer": "The fee covers the manual review process conducted by our team. If your application is approved, the fee is non-refundable. If your application is declined and you believe it was in error, contact us within 7 days for a review — if the error was ours, you will be refunded in full."
+        },
+        "documents": {
+          "question": "Will buyers see what documents I submitted?",
+          "answer": "No. Buyers only see your verification badge and the tier (Individual or Shop). The specific documents you submitted are never displayed publicly and are deleted from our systems after verification is complete."
+        },
+        "expiry": {
+          "question": "Does verification expire?",
+          "answer": "Individual Verified badges do not expire. Verified Shop badges remain active as long as your trade license is valid. We send renewal reminders 60 days before your license expiry date. Renewing is free if the rest of your information is unchanged."
+        }
+      }
+    }
+  },
+  "ForSellers": {
+    "hero": {
+      "eyebrow": "Plans & Pricing",
+      "title": "Choose Your",
+      "titleHighlight": "Plan",
+      "description": "Whether you're selling one piece or running a full jewellery business, there's a plan built for you."
+    },
+    "pricing": {
+      "billing": {
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "save": "Save 20%"
+      },
+      "currency": "AED",
+      "month": "mo",
+      "billedAnnually": "Billed AED {price}/yr — save 20%",
+      "popular": "Most Popular",
+      "bestValue": "Best Value",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "Individuals selling one-off pieces",
+          "cta": "Get Started Free",
+          "features": {
+            "1": {
+              "label": "Active listings",
+              "included": "true",
+              "highlight": "Up to 3"
+            },
+            "2": {
+              "label": "Photo uploads per listing",
+              "included": "true",
+              "highlight": "3 photos"
+            },
+            "3": {
+              "label": "Basic listing page",
+              "included": "true",
+              "highlight": ""
+            },
+            "4": {
+              "label": "Chat with buyers",
+              "included": "true",
+              "highlight": ""
+            },
+            "5": {
+              "label": "Auto gold price calculator",
+              "included": "true",
+              "highlight": ""
+            },
+            "6": {
+              "label": "Verified badge",
+              "included": "false",
+              "highlight": ""
+            },
+            "7": {
+              "label": "Featured in search",
+              "included": "false",
+              "highlight": ""
+            },
+            "8": {
+              "label": "Analytics dashboard",
+              "included": "false",
+              "highlight": ""
+            },
+            "9": {
+              "label": "Priority support",
+              "included": "false",
+              "highlight": ""
+            },
+            "10": {
+              "label": "Shop profile page",
+              "included": "false",
+              "highlight": ""
+            },
+            "11": {
+              "label": "Bulk listing tools",
+              "included": "false",
+              "highlight": ""
+            }
+          }
+        },
+        "silver": {
+          "name": "Silver",
+          "description": "Hobbyists & occasional traders",
+          "cta": "Start Silver Plan",
+          "features": {
+            "1": {
+              "label": "Active listings",
+              "included": "true",
+              "highlight": "Up to 20"
+            },
+            "2": {
+              "label": "Photo uploads per listing",
+              "included": "true",
+              "highlight": "8 photos"
+            },
+            "3": {
+              "label": "Basic listing page",
+              "included": "true",
+              "highlight": ""
+            },
+            "4": {
+              "label": "Chat with buyers",
+              "included": "true",
+              "highlight": ""
+            },
+            "5": {
+              "label": "Auto gold price calculator",
+              "included": "true",
+              "highlight": ""
+            },
+            "6": {
+              "label": "Verified badge",
+              "included": "true",
+              "highlight": ""
+            },
+            "7": {
+              "label": "Featured in search",
+              "included": "false",
+              "highlight": ""
+            },
+            "8": {
+              "label": "Analytics dashboard",
+              "included": "false",
+              "highlight": ""
+            },
+            "9": {
+              "label": "Priority support",
+              "included": "false",
+              "highlight": ""
+            },
+            "10": {
+              "label": "Shop profile page",
+              "included": "false",
+              "highlight": ""
+            },
+            "11": {
+              "label": "Bulk listing tools",
+              "included": "false",
+              "highlight": ""
+            }
+          }
+        },
+        "gold": {
+          "name": "Gold",
+          "description": "Active traders & small shops",
+          "cta": "Start Gold Plan",
+          "features": {
+            "1": {
+              "label": "Active listings",
+              "included": "true",
+              "highlight": "Up to 60"
+            },
+            "2": {
+              "label": "Photo uploads per listing",
+              "included": "true",
+              "highlight": "12 photos"
+            },
+            "3": {
+              "label": "Basic listing page",
+              "included": "true",
+              "highlight": ""
+            },
+            "4": {
+              "label": "Chat with buyers",
+              "included": "true",
+              "highlight": ""
+            },
+            "5": {
+              "label": "Auto gold price calculator",
+              "included": "true",
+              "highlight": ""
+            },
+            "6": {
+              "label": "Verified badge",
+              "included": "true",
+              "highlight": ""
+            },
+            "7": {
+              "label": "Featured in search",
+              "included": "true",
+              "highlight": "2 / month"
+            },
+            "8": {
+              "label": "Analytics dashboard",
+              "included": "true",
+              "highlight": ""
+            },
+            "9": {
+              "label": "Priority support",
+              "included": "true",
+              "highlight": ""
+            },
+            "10": {
+              "label": "Shop profile page",
+              "included": "true",
+              "highlight": ""
+            },
+            "11": {
+              "label": "Bulk listing tools",
+              "included": "false",
+              "highlight": ""
+            }
+          }
+        },
+        "diamond": {
+          "name": "Diamond VIP",
+          "description": "Jewellery shops & large traders",
+          "cta": "Contact Sales",
+          "features": {
+            "1": {
+              "label": "Active listings",
+              "included": "true",
+              "highlight": "Unlimited"
+            },
+            "2": {
+              "label": "Photo uploads per listing",
+              "included": "true",
+              "highlight": "20 photos"
+            },
+            "3": {
+              "label": "Basic listing page",
+              "included": "true",
+              "highlight": ""
+            },
+            "4": {
+              "label": "Chat with buyers",
+              "included": "true",
+              "highlight": ""
+            },
+            "5": {
+              "label": "Auto gold price calculator",
+              "included": "true",
+              "highlight": ""
+            },
+            "6": {
+              "label": "Verified badge",
+              "included": "true",
+              "highlight": ""
+            },
+            "7": {
+              "label": "Featured in search",
+              "included": "true",
+              "highlight": "Unlimited"
+            },
+            "8": {
+              "label": "Analytics dashboard",
+              "included": "true",
+              "highlight": ""
+            },
+            "9": {
+              "label": "Priority support",
+              "included": "true",
+              "highlight": "Dedicated manager"
+            },
+            "10": {
+              "label": "Shop profile page",
+              "included": "true",
+              "highlight": ""
+            },
+            "11": {
+              "label": "Bulk listing tools",
+              "included": "true",
+              "highlight": ""
+            }
+          }
+        }
+      }
+    },
+    "comparison": {
+      "eyebrow": "Full Breakdown",
+      "title": "Compare All Plans",
+      "feature": "Feature",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "cta": "Start Free"
+        },
+        "silver": {
+          "name": "Silver",
+          "cta": "Start Silver"
+        },
+        "gold": {
+          "name": "Gold",
+          "cta": "Start Gold"
+        },
+        "diamond": {
+          "name": "Diamond VIP",
+          "cta": "Contact Sales"
+        }
+      },
+      "rows": {
+        "activeListings": {
+          "label": "Active listings",
+          "free": "3",
+          "silver": "20",
+          "gold": "60",
+          "diamond": "Unlimited"
+        },
+        "photos": {
+          "label": "Photos per listing",
+          "free": "3",
+          "silver": "8",
+          "gold": "12",
+          "diamond": "20"
+        },
+        "chat": {
+          "label": "Chat with buyers"
+        },
+        "calculator": {
+          "label": "Gold price calculator"
+        },
+        "verified": {
+          "label": "Verified badge"
+        },
+        "shopProfile": {
+          "label": "Shop profile page"
+        },
+        "featured": {
+          "label": "Featured in search",
+          "gold": "2 / month",
+          "diamond": "Unlimited"
+        },
+        "analytics": {
+          "label": "Analytics dashboard"
+        },
+        "boostCredits": {
+          "label": "Boost credits / month",
+          "silver": "1 credit",
+          "gold": "3 credits",
+          "diamond": "10 credits"
+        },
+        "support": {
+          "label": "Priority support",
+          "diamond": "Dedicated manager"
+        },
+        "bulkTools": {
+          "label": "Bulk listing tools"
+        },
+        "api": {
+          "label": "API & data export"
+        },
+        "banner": {
+          "label": "Custom shop banner"
+        },
+        "offers": {
+          "label": "Offer & negotiation tools"
+        }
+      }
+    },
+    "boosts": {
+      "eyebrow": "Pay-Per-Boost",
+      "title": "Boost a Single Listing",
+      "description": "No subscription needed. Buy a one-time boost for any listing and get instant visibility with no strings attached.",
+      "currency": "AED",
+      "oneTime": "One-time payment",
+      "bestValue": "Best Value",
+      "items": {
+        "featured": {
+          "title": "Featured",
+          "duration": "Active for 7 days",
+          "description": "Your listing appears at the top of search results and in the Featured section on the homepage.",
+          "price": "49",
+          "cta": "Buy Featured Boost"
+        },
+        "bump": {
+          "title": "Bump",
+          "duration": "Active for 24 hours",
+          "description": "Re-sorts your listing to the top of its category, as if it was just posted today.",
+          "price": "19",
+          "cta": "Buy Bump Boost"
+        },
+        "pinned": {
+          "title": "Pinned",
+          "duration": "Active for 14 days",
+          "description": "Pins your listing to the top of category pages with a gold border and 'Pinned' badge.",
+          "price": "89",
+          "cta": "Buy Pinned Boost"
+        }
+      },
+      "footer": "Boosts are applied immediately after purchase. All prices include VAT."
+    },
+    "guarantees": {
+      "moneyBack": {
+        "title": "7-Day Money Back",
+        "description": "Not happy in the first week? We'll refund you in full — no questions asked."
+      },
+      "cancel": {
+        "title": "Cancel Anytime",
+        "description": "No lock-in contracts. Cancel your plan from your dashboard in one click."
+      },
+      "payment": {
+        "title": "Secure Payment",
+        "description": "All transactions are processed via 256-bit SSL encryption. Your card data is never stored."
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently Asked Questions",
+      "items": {
+        "cancel": {
+          "question": "Can I cancel my subscription at any time?",
+          "answer": "Yes — you can cancel from your dashboard settings with one click. Your plan stays active until the end of the current billing period, and you won't be charged again."
+        },
+        "trial": {
+          "question": "Is there a free trial for paid plans?",
+          "answer": "We offer a 7-day money-back guarantee on all paid plans. If you're not satisfied within the first week, contact us for a full refund — no questions asked."
+        },
+        "downgrade": {
+          "question": "What happens to my listings if I downgrade?",
+          "answer": "Your active listings are preserved. If you have more listings than your new plan allows, excess listings are paused (not deleted) until you either upgrade again or remove some."
+        },
+        "annual": {
+          "question": "How does the Annual billing discount work?",
+          "answer": "Choosing annual billing locks in a 20% discount for 12 months, billed as a single payment. You save the equivalent of 2.4 months compared to monthly billing."
+        },
+        "boosts": {
+          "question": "Do boost purchases count toward my plan quota?",
+          "answer": "No — boosts are one-time purchases that work independently of your subscription. You can boost any active listing regardless of which plan you're on."
+        },
+        "business": {
+          "question": "Can businesses get custom pricing or invoicing?",
+          "answer": "Yes. Diamond VIP plan holders can request custom invoicing and volume pricing. Contact our business team through the dashboard or email us at business@dallalhoolee.com."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to start selling?",
+      "description": "Join thousands of trusted sellers on Dallal Hoolee. Start for free — upgrade whenever you need more.",
+      "primary": "Get Started Free",
+      "secondary": "Browse Listings"
+    }
+  }
+}
