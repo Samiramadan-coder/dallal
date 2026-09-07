@@ -1,5 +1,5 @@
 import type { SignUpFormData } from "@/types/sign-up";
-import { http, ValidationError } from "../http";
+import { http, ValidationError } from "./http";
 
 // SignUpResponse represents the possible responses from the sign-up API.
 type SignUpResponse =

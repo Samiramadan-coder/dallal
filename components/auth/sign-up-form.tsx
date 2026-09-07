@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
-import { signUp } from "@/lib/auth/sign-up";
+import { signUp } from "@/lib/auth";
 import { toast } from "sonner";
 
 export default function SignUp({ countries }: { countries: Country[] }) {
