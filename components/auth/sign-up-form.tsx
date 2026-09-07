@@ -9,7 +9,9 @@ import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SignUpFormData, signUpSchema } from "@/lib/auth/sign-up";
+import { SignUpFormData, signUpSchema } from "@/types/sign-up";
+import { signUp } from "@/lib/auth/sign-up";
+import { toast } from "sonner";
 
 export default function SignUp({ countries }: { countries: Country[] }) {
   const t = useTranslations("Auth.SignUp");
@@ -19,6 +21,7 @@ export default function SignUp({ countries }: { countries: Country[] }) {
   const {
     control,
     register,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
@@ -26,7 +29,23 @@ export default function SignUp({ countries }: { countries: Country[] }) {
   });
 
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
-    console.log(data);
+    const result = await signUp(data);
+
+    if (result.success) {
+      toast.success(result.message);
+      return;
+    }
+
+    if (result.errors) {
+      Object.entries(result.errors).forEach(([field, message]) => {
+        if (!message) return;
+        toast.error(message);
+        setError(field as keyof SignUpFormData, { type: "server", message });
+      });
+      return;
+    }
+
+    toast.error(t("error"));
   };
 
   return (
@@ -80,7 +99,7 @@ export default function SignUp({ countries }: { countries: Country[] }) {
 
       <Select
         control={control}
-        name="type"
+        name="account_type"
         label={t("fields.type.label")}
         placeholder={t("fields.type.placeholder")}
         required

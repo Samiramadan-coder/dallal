@@ -97,6 +97,7 @@
       }
     },
     "SignUp": {
+      "error": "An error occurred while creating your account. Please try again.",
       "fields": {
         "name": {
           "label": "Full Name",

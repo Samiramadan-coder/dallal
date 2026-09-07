@@ -1,39 +1,38 @@
-import z from "zod";
-import { T } from "@/types/global";
+import type { SignUpFormData } from "@/types/sign-up";
+import { http, ValidationError } from "../http";
 
-export const signUpSchema = (t: T) =>
-  z
-    .object({
-      name: z
-        .string()
-        .min(1, t("fields.name.required"))
-        .min(2, t("fields.name.minLength")),
-      email: z
-        .string()
-        .min(1, t("fields.email.required"))
-        .pipe(z.email(t("fields.email.invalid"))),
-      phone: z
-        .string()
-        .trim()
-        .regex(/^5[024568]\d{7}$/, t("fields.phone.invalid")),
-      country_id: z.string().min(1, t("fields.country.required")),
-      type: z.string().min(1, t("fields.type.required")),
-      password: z
-        .string()
-        .min(1, t("fields.password.required"))
-        .min(8, t("fields.password.minLength")),
-      password_confirmation: z
-        .string()
-        .min(1, t("fields.passwordConfirmation.required")),
-    })
-    .superRefine(({ password, password_confirmation }, ctx) => {
-      if (password !== password_confirmation) {
-        ctx.addIssue({
-          code: "custom",
-          message: t("fields.passwordConfirmation.match"),
-          path: ["password_confirmation"],
-        });
-      }
-    });
+// SignUpResponse represents the possible responses from the sign-up API.
+type SignUpResponse =
+  | { success: true; message: string }
+  | {
+      success: false;
+      errors?: Partial<Record<keyof SignUpFormData, string>>;
+      message?: string;
+    };
 
-export type SignUpFormData = z.infer<ReturnType<typeof signUpSchema>>;
+export async function signUp(
+  formData: SignUpFormData,
+): Promise<SignUpResponse> {
+  try {
+    const { data } = await http.post<{ message: string }>(
+      "/api/v1/auth/register",
+      formData,
+    );
+
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error("Error In signUp", error);
+    if (error instanceof ValidationError) {
+      const errors = Object.fromEntries(
+        Object.entries(error.errors).map(([field, messages]) => [
+          field,
+          messages[0] ?? "Invalid value",
+        ]),
+      ) as Partial<Record<keyof SignUpFormData, string>>;
+
+      return { success: false, errors, message: error.responseMessage };
+    }
+
+    return { success: false };
+  }
+}
