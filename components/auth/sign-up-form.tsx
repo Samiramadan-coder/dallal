@@ -1,19 +1,21 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import Input from "../form/input";
 import Select from "../form/select";
+import { signUp } from "@/lib/auth";
 import SubmitBtn from "./submit-btn";
 import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
-import { signUp } from "@/lib/auth";
-import { toast } from "sonner";
+import { useForm, SubmitHandler, useWatch } from "react-hook-form";
 
 export default function SignUp({ countries }: { countries: Country[] }) {
+  const router = useRouter();
   const t = useTranslations("Auth.SignUp");
   const tForms = useTranslations("Auth.Forms");
   const [showPassword, setShowPassword] = useState(false);
@@ -28,12 +30,21 @@ export default function SignUp({ countries }: { countries: Country[] }) {
     resolver: zodResolver(signUpSchema(t)),
   });
 
+  // Watch the phone field to get its value for redirection after successful sign-up
+  const phone = useWatch({ control, name: "phone" });
+
+  // Handle form submission
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     const result = await signUp(data);
 
     if (result.success) {
       toast.success(result.message);
+      router.push(`/auth/otp-verify?phone=${phone}`);
       return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
     }
 
     if (result.errors) {

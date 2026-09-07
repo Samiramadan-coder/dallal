@@ -176,6 +176,13 @@
           "match": "Passwords must match"
         }
       }
+    },
+    "OTP": {
+      "title": "Verify Your Account",
+      "enterCode": "Enter the 6-digit code sent to your phone number.",
+      "continue": "Continue",
+      "resend": "Resend Code",
+      "invalid": "Invalid code. Please try again."
     }
   },
   "Home": {
