@@ -16,6 +16,8 @@ export const signUpSchema = (t: T) =>
         .string()
         .trim()
         .regex(/^5[024568]\d{7}$/, t("fields.phone.invalid")),
+      country_id: z.string().min(1, t("fields.country.required")),
+      type: z.string().min(1, t("fields.type.required")),
       password: z
         .string()
         .min(1, t("fields.password.required"))
@@ -23,9 +25,6 @@ export const signUpSchema = (t: T) =>
       password_confirmation: z
         .string()
         .min(1, t("fields.passwordConfirmation.required")),
-      terms: z.boolean().refine((val) => val === true, {
-        message: t("fields.terms.required"),
-      }),
     })
     .superRefine(({ password, password_confirmation }, ctx) => {
       if (password !== password_confirmation) {

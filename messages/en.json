@@ -107,8 +107,22 @@
         "email": {
           "label": "Email",
           "placeholder": "ahmad@example.com",
-          "required": "Email Or Phone is required",
+          "required": "Email address is required",
           "invalid": "Please enter a valid email address"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": "Select your country",
+          "required": "Country is required"
+        },
+        "type": {
+          "label": "Account Type",
+          "placeholder": "Select account type",
+          "required": "Account Type is required",
+          "options": {
+            "individual": "Individual",
+            "shop": "Shop"
+          }
         },
         "phone": {
           "label": "Phone Number",
@@ -126,13 +140,6 @@
           "placeholder": "Repeat password",
           "required": "Password confirmation is required",
           "match": "Passwords must match"
-        },
-        "terms": {
-          "accept": "Accept",
-          "terms": "Terms of Service",
-          "and": "and",
-          "privacy": "Privacy Policy",
-          "required": "You must accept the terms and conditions"
         }
       }
     },

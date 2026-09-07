@@ -2,18 +2,16 @@
 
 import { useState } from "react";
 import Input from "../form/input";
-import { Label } from "../ui/label";
+import Select from "../form/select";
 import SubmitBtn from "./submit-btn";
-import { Link } from "@/i18n/navigation";
-import { Checkbox } from "../ui/checkbox";
+import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
-import { Field, FieldError } from "../ui/field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { SignUpFormData, signUpSchema } from "@/lib/auth/sign-up";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-export default function SignUp() {
+export default function SignUp({ countries }: { countries: Country[] }) {
   const t = useTranslations("Auth.SignUp");
   const tForms = useTranslations("Auth.Forms");
   const [showPassword, setShowPassword] = useState(false);
@@ -67,6 +65,38 @@ export default function SignUp() {
         }
       />
 
+      <Select
+        control={control}
+        name="country_id"
+        label={t("fields.country.label")}
+        placeholder={t("fields.country.placeholder")}
+        required
+        errors={errors}
+        options={countries.map((c) => ({
+          label: c.name,
+          value: c.id.toString(),
+        }))}
+      />
+
+      <Select
+        control={control}
+        name="type"
+        label={t("fields.type.label")}
+        placeholder={t("fields.type.placeholder")}
+        required
+        errors={errors}
+        options={[
+          {
+            label: t("fields.type.options.individual"),
+            value: "individual",
+          },
+          {
+            label: t("fields.type.options.shop"),
+            value: "shop",
+          },
+        ]}
+      />
+
       <Input
         register={register}
         required
@@ -99,43 +129,6 @@ export default function SignUp() {
             <Eye className="size-4" onClick={() => setShowPassword(true)} />
           )
         }
-      />
-
-      <Controller
-        control={control}
-        name="terms"
-        render={({ field }) => {
-          const { value, onChange } = field;
-
-          return (
-            <>
-              <Field orientation="horizontal" data-invalid={!!errors.terms}>
-                <Checkbox
-                  checked={value}
-                  onCheckedChange={(checked) => onChange(checked === true)}
-                  id="terms-checkbox"
-                  name="terms-checkbox"
-                  className="bg-white size-4 border-2 border-secondary/50"
-                />
-                <Label
-                  htmlFor="terms-checkbox"
-                  className="gap-1 text-xs text-[#4A4840] leading-relaxed"
-                >
-                  {t("fields.terms.accept")}{" "}
-                  <Link href="/terms" className="text-secondary">
-                    {t("fields.terms.terms")}
-                  </Link>{" "}
-                  {t("fields.terms.and")}{" "}
-                  <Link href="/privacy-policy" className="text-secondary">
-                    {t("fields.terms.privacy")}
-                  </Link>
-                </Label>
-              </Field>
-
-              <FieldError errors={[errors.terms]} />
-            </>
-          );
-        }}
       />
 
       <SubmitBtn loading={isSubmitting}>{tForms("signUp")}</SubmitBtn>
