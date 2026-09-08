@@ -182,7 +182,9 @@
       "enterCode": "Enter the 6-digit code sent to your phone number.",
       "continue": "Continue",
       "resend": "Resend Code",
-      "invalid": "Invalid code. Please try again."
+      "invalid": "Invalid code. Please try again.",
+      "errorInResend": "An error occurred while resending the code. Please try again.",
+      "errorInVerify": "An error occurred while verifying the code. Please try again."
     }
   },
   "Home": {

@@ -6,29 +6,81 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
 } from "@/components/ui/input-otp";
+
+import { toast } from "sonner";
+import { useState } from "react";
 import SubmitBtn from "./submit-btn";
 import { Button } from "../ui/button";
+import { resendOTP, verifyOTP } from "@/lib/auth";
+import { Spinner } from "../ui/spinner";
 import { FieldError } from "../ui/field";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { OTPVerifyFormData, otpVerifySchema } from "@/types/otp-verify";
+import { saveToken } from "@/lib/cookies";
 
-export default function OTPVerify() {
+export default function OTPVerify({ phone }: { phone: string }) {
   const t = useTranslations("Auth.OTP");
+  const [loading, setLoading] = useState(false);
+
+  // Initialize the form using react-hook-form with zod validation
   const {
     control,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<OTPVerifyFormData>({
+    resolver: zodResolver(otpVerifySchema(t)),
     defaultValues: {
+      phone,
       verification_code: "",
     },
-    resolver: zodResolver(otpVerifySchema(t)),
   });
 
+  // Function to handle resending the OTP code
+  async function resendCode() {
+    setLoading(true);
+    const result = await resendOTP(phone);
+    setLoading(false);
+
+    if (result.success) {
+      toast.success(result.message);
+      return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
+      return;
+    }
+
+    toast.error(t("errorInResend"));
+  }
+
+  // Handle form submission for OTP verification
   const onSubmit: SubmitHandler<OTPVerifyFormData> = async (data) => {
-    console.log("Verification code submitted:", data);
+    const result = await verifyOTP(data);
+
+    if (result.success) {
+      toast.success(result.message);
+      saveToken(result.token);
+      return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
+    }
+
+    if (result.errors) {
+      Object.entries(result.errors).forEach(([field, message]) => {
+        if (!message) return;
+        toast.error(message);
+        setError(field as keyof OTPVerifyFormData, { type: "server", message });
+      });
+      return;
+    }
+
+    toast.error(t("errorInVerify"));
   };
 
   return (
@@ -76,9 +128,11 @@ export default function OTPVerify() {
 
       <Button
         type="button"
+        onClick={resendCode}
         className="w-full h-11 uppercase rounded-xl font-semibold text-white"
+        disabled={loading}
       >
-        {t("resend")}
+        {loading && <Spinner />} {t("resend")}
       </Button>
     </form>
   );
