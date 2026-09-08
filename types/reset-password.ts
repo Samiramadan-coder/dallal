@@ -5,6 +5,7 @@ export const resetPasswordSchema = (t: T) =>
   z
     .object({
       phone: z.string().optional(),
+
       verification_code: z
         .string()
         .min(1, t("fields.verificationCode.required"))

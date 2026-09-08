@@ -164,6 +164,7 @@
       }
     },
     "ResetPassword": {
+      "error": "An error occurred while resetting the password. Please try again.",
       "fields": {
         "verificationCode": {
           "label": "Verification Code",

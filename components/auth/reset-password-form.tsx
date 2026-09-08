@@ -11,8 +11,13 @@ import { useTranslations } from "next-intl";
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { resetPassword } from "@/lib/auth";
+import { toast } from "sonner";
+import { saveToken } from "@/lib/cookies";
+import { useRouter } from "@/i18n/navigation";
 
-export default function ResetPassword() {
+export default function ResetPassword({ phone }: { phone?: string }) {
+  const router = useRouter();
   const t = useTranslations("Auth.ResetPassword");
   const tForms = useTranslations("Auth.Forms");
   const [showPassword, setShowPassword] = useState(false);
@@ -20,11 +25,12 @@ export default function ResetPassword() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema(t)),
     defaultValues: {
-      phone: "",
+      phone: phone ? "+" + phone.trim() : "",
       verification_code: "",
       password: "",
       password_confirmation: "",
@@ -32,7 +38,32 @@ export default function ResetPassword() {
   });
 
   const onSubmit: SubmitHandler<ResetPasswordFormData> = async (data) => {
-    console.log(data);
+    // console.log(data);
+    const result = await resetPassword(data);
+
+    if (result.success) {
+      toast.success(result.message);
+      await saveToken(result.token);
+      router.push("/");
+      return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
+    }
+
+    if (result.errors) {
+      Object.entries(result.errors).forEach(([field, message]) => {
+        if (!message) return;
+        setError(field as keyof ResetPasswordFormData, {
+          type: "server",
+          message,
+        });
+      });
+      return;
+    }
+
+    toast.error(t("error"));
   };
 
   return (
