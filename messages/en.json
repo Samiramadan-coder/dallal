@@ -1322,6 +1322,7 @@
       "description": "Manage your profile, listings, saved items and subscription."
     },
     "profileData": {
+      "logout": "Logout",
       "accountSettings": "Account Settings",
       "personalInfo": "Personal Information",
       "personalInfoDescription": "Manage your public profile and account credentials."

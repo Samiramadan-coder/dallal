@@ -2,16 +2,33 @@
 
 import { Card } from "../ui/card";
 import { useLocale } from "next-intl";
+import { Button } from "../ui/button";
+import { LogOut } from "lucide-react";
+import { useTranslations } from "use-intl";
+import EyeBrow from "../reusable/eye-brow";
 import { useUser } from "@/providers/user-data";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import EyeBrow from "../reusable/eye-brow";
-import { useTranslations } from "use-intl";
+import { useState } from "react";
+import { http } from "@/lib/http";
+import { deleteToken } from "@/lib/cookies";
+import { useRouter } from "@/i18n/navigation";
+import { Spinner } from "../ui/spinner";
 
 export default function ProfileData() {
   const locale = useLocale();
-  const { user } = useUser();
-  const fontClass = locale === "en" ? "font-playfair" : "";
+  const { user, setUser } = useUser();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const t = useTranslations("Profile.profileData");
+  const fontClass = locale === "en" ? "font-playfair" : "";
+
+  async function handleLogout() {
+    setLoading(true);
+    await http.post("/api/v1/auth/logout");
+    await deleteToken();
+    setUser(null);
+    router.push(`/`);
+  }
 
   return (
     <div className="bg-card-foreground">
@@ -36,6 +53,16 @@ export default function ProfileData() {
                 </p>
               </div>
             </Card>
+
+            <Button
+              className="mt-4 w-full h-11"
+              variant="destructive"
+              onClick={handleLogout}
+              disabled={loading}
+            >
+              {loading ? <Spinner /> : <LogOut />}
+              {t("logout")}
+            </Button>
           </div>
 
           <div className="md:col-span-3">
