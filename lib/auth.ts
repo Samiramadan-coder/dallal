@@ -1,5 +1,5 @@
 import type { SignUpFormData } from "@/types/sign-up";
-import { http, ValidationError } from "./http";
+import { http, HttpError, ValidationError } from "./http";
 import { OTPVerifyFormData } from "@/types/otp-verify";
 import { SignInFormData } from "@/types/sign-in";
 import { ForgotPasswordFormData } from "@/types/forgot-password";
@@ -130,6 +130,7 @@ type SignInResponse =
   | {
       success: false;
       message?: string;
+      phone?: string;
       errors?: Partial<Record<keyof SignInFormData, string>>;
     };
 
@@ -159,6 +160,15 @@ export async function signIn(
         success: false,
         errors,
         message: error.responseMessage,
+      };
+    }
+
+    if (error instanceof HttpError && error.status === 403) {
+      const responseData = (error.data as { data?: { phone?: string } })?.data;
+      console.error("SignIn forbidden (403) response:", responseData);
+      return {
+        success: false,
+        phone: responseData?.phone,
       };
     }
 

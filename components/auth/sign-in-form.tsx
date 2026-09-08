@@ -1,17 +1,17 @@
 "use client";
 
+import { toast } from "sonner";
 import { useState } from "react";
 import Input from "../form/input";
+import { signIn } from "@/lib/auth";
 import SubmitBtn from "./submit-btn";
-import { Link, useRouter } from "@/i18n/navigation";
+import { saveToken } from "@/lib/cookies";
 import { useTranslations } from "next-intl";
+import { Link, useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SignInFormData, signInSchema } from "@/types/sign-in";
-import { signIn } from "@/lib/auth";
-import { toast } from "sonner";
-import { saveToken } from "@/lib/cookies";
 
 export default function SignIn() {
   const router = useRouter();
@@ -29,14 +29,17 @@ export default function SignIn() {
   });
 
   const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
-    // console.log(data);
     const result = await signIn(data);
 
-    // console.log("SignIn result:", result);
     if (result.success) {
       toast.success(result.message);
       await saveToken(result.token);
       router.push("/");
+      return;
+    }
+
+    if (result.phone) {
+      router.push(`/auth/otp-verify?phone=${result.phone}`);
       return;
     }
 

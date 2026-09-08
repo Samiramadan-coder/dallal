@@ -16,12 +16,26 @@ interface HttpResponse<T = unknown> {
 class HttpError extends Error {
   status: number;
   data: unknown;
+  responseMessage?: string;
 
   constructor(message: string, status: number, data: unknown) {
     super(message);
     this.name = "HttpError";
     this.status = status;
     this.data = data;
+    this.responseMessage = HttpError.parseMessage(data);
+  }
+
+  private static parseMessage(data: unknown): string | undefined {
+    if (
+      data !== null &&
+      typeof data === "object" &&
+      "message" in data &&
+      typeof (data as Record<string, unknown>).message === "string"
+    ) {
+      return (data as { message: string }).message;
+    }
+    return undefined;
   }
 }
 
@@ -175,6 +189,10 @@ function createHttp(baseURL: string) {
     if (!response.ok) {
       if (response.status === 401) {
         await handleUnauthorized();
+      }
+
+      if (response.status === 403) {
+        console.error(`Forbidden (403) response for ${method} ${url}:`, data);
       }
 
       if (response.status === 422) {
