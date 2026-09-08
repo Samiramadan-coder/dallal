@@ -11,14 +11,14 @@ import { toast } from "sonner";
 import { useState } from "react";
 import SubmitBtn from "./submit-btn";
 import { Button } from "../ui/button";
-import { resendOTP, verifyOTP } from "@/lib/auth";
 import { Spinner } from "../ui/spinner";
 import { FieldError } from "../ui/field";
+import { saveToken } from "@/lib/cookies";
 import { useTranslations } from "next-intl";
+import { resendOTP, verifyOTP } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { OTPVerifyFormData, otpVerifySchema } from "@/types/otp-verify";
-import { saveToken } from "@/lib/cookies";
 
 export default function OTPVerify({ phone }: { phone: string }) {
   const t = useTranslations("Auth.OTP");

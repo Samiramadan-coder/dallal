@@ -79,12 +79,12 @@ export default async function Page({
 
       <div className="w-full space-y-5 mt-4">
         <p className="text-center text-xs text-muted-foreground">
-          {t("noAccount")}{" "}
+          {action === "sign-in" ? t("noAccount") : t("alreadyHaveAccount")}{" "}
           <Link
-            href="/auth?action=sign-up"
+            href={`/auth?action=${action === "sign-in" ? "sign-up" : "sign-in"}`}
             className="font-medium text-secondary underline underline-offset-2"
           >
-            {t("createAccount")}
+            {action === "sign-in" ? t("createAccount") : t("signIn")}
           </Link>
         </p>
 

@@ -80,7 +80,8 @@
       "signIn": "Sign In",
       "signUp": "Sign Up",
       "forgotPassword": "Forgot Password?",
-      "resetPassword": "Reset Password"
+      "resetPassword": "Reset Password",
+      "alreadyHaveAccount": "Already have an account?"
     },
     "SignIn": {
       "fields": {
@@ -127,7 +128,7 @@
         },
         "phone": {
           "label": "Phone Number",
-          "placeholder": "50 123 4567",
+          "placeholder": "Enter your phone number",
           "invalid": "Please enter a valid phone number"
         },
         "password": {

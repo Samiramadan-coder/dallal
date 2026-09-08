@@ -80,7 +80,8 @@
       "signIn": "تسجيل الدخول",
       "signUp": "تسجيل جديد",
       "forgotPassword": "نسيت كلمة المرور؟",
-      "resetPassword": "إعادة تعيين كلمة المرور"
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "alreadyHaveAccount": "هل لديك حساب بالفعل؟"
     },
     "SignIn": {
       "fields": {
@@ -127,7 +128,7 @@
         },
         "phone": {
           "label": "رقم الهاتف",
-          "placeholder": "50 123 4567",
+          "placeholder": "أدخل رقم الهاتف",
           "invalid": "يرجى إدخال رقم هاتف صالح"
         },
         "password": {

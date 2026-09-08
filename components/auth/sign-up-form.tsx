@@ -32,6 +32,8 @@ export default function SignUp({ countries }: { countries: Country[] }) {
 
   // Watch the phone field to get its value for redirection after successful sign-up
   const phone = useWatch({ control, name: "phone" });
+  const country_id = useWatch({ control, name: "country_id" });
+  const choosedCountry = countries.find((c) => c.id === Number(country_id));
 
   // Handle form submission
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
@@ -61,6 +63,25 @@ export default function SignUp({ countries }: { countries: Country[] }) {
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+      <Select
+        control={control}
+        name="account_type"
+        label={t("fields.type.label")}
+        placeholder={t("fields.type.placeholder")}
+        required
+        errors={errors}
+        options={[
+          {
+            label: t("fields.type.options.individual"),
+            value: "individual",
+          },
+          {
+            label: t("fields.type.options.shop"),
+            value: "shop",
+          },
+        ]}
+      />
+
       <Input
         register={register}
         required
@@ -80,21 +101,6 @@ export default function SignUp({ countries }: { countries: Country[] }) {
         prefix={<Mail className="size-4" />}
       />
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="phone"
-        label={t("fields.phone.label")}
-        placeholder={t("fields.phone.placeholder")}
-        prefix={
-          <div className="flex items-center gap-1">
-            <Phone className="size-4" />
-            <span className="text-sm">+971</span>
-          </div>
-        }
-      />
-
       <Select
         control={control}
         name="country_id"
@@ -108,23 +114,19 @@ export default function SignUp({ countries }: { countries: Country[] }) {
         }))}
       />
 
-      <Select
-        control={control}
-        name="account_type"
-        label={t("fields.type.label")}
-        placeholder={t("fields.type.placeholder")}
+      <Input
+        register={register}
         required
         errors={errors}
-        options={[
-          {
-            label: t("fields.type.options.individual"),
-            value: "individual",
-          },
-          {
-            label: t("fields.type.options.shop"),
-            value: "shop",
-          },
-        ]}
+        name="phone"
+        label={t("fields.phone.label")}
+        placeholder={t("fields.phone.placeholder")}
+        prefix={
+          <div className="flex items-center gap-1">
+            <Phone className="size-4" />
+            <span className="text-sm">{choosedCountry?.dial_code}</span>
+          </div>
+        }
       />
 
       <Input
