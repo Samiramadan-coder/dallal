@@ -15,12 +15,14 @@ import { Spinner } from "../ui/spinner";
 import { FieldError } from "../ui/field";
 import { saveToken } from "@/lib/cookies";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { resendOTP, verifyOTP } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { OTPVerifyFormData, otpVerifySchema } from "@/types/otp-verify";
 
 export default function OTPVerify({ phone }: { phone: string }) {
+  const router = useRouter();
   const t = useTranslations("Auth.OTP");
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +35,7 @@ export default function OTPVerify({ phone }: { phone: string }) {
   } = useForm<OTPVerifyFormData>({
     resolver: zodResolver(otpVerifySchema(t)),
     defaultValues: {
-      phone,
+      phone: "+" + phone.trim(),
       verification_code: "",
     },
   });
@@ -63,7 +65,8 @@ export default function OTPVerify({ phone }: { phone: string }) {
 
     if (result.success) {
       toast.success(result.message);
-      saveToken(result.token);
+      await saveToken(result.token);
+      router.push("/");
       return;
     }
 

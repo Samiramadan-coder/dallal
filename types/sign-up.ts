@@ -12,10 +12,7 @@ export const signUpSchema = (t: T) =>
         .string()
         .min(1, t("fields.email.required"))
         .pipe(z.email(t("fields.email.invalid"))),
-      phone: z
-        .string()
-        .trim()
-        .regex(/^5[024568]\d{7}$/, t("fields.phone.invalid")),
+      phone: z.string().trim().min(5, t("fields.phone.invalid")),
       country_id: z.string().min(1, t("fields.country.required")),
       account_type: z.string().min(1, t("fields.type.required")),
       password: z

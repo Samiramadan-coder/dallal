@@ -41,7 +41,9 @@ export default function SignUp({ countries }: { countries: Country[] }) {
 
     if (result.success) {
       toast.success(result.message);
-      router.push(`/auth/otp-verify?phone=${phone}`);
+      router.push(
+        `/auth/otp-verify?phone=${choosedCountry?.dial_code + phone}`,
+      );
       return;
     }
 
