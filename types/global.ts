@@ -8,3 +8,19 @@ export type Country = {
   name: string;
   id: number;
 };
+
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  account_type: "individual" | "shop";
+  status: "active" | "inactive";
+  phones: {
+    id: number;
+    phone: string;
+    national_number: string;
+    is_primary: boolean;
+    is_verified: boolean;
+    country: Country;
+  }[];
+};
