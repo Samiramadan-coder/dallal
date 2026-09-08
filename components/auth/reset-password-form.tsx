@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import Input from "../form/input";
-import SubmitBtn from "./submit-btn";
-import { useTranslations } from "next-intl";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
 } from "@/types/reset-password";
+import { useState } from "react";
+import Input from "../form/input";
+import SubmitBtn from "./submit-btn";
+import { useTranslations } from "next-intl";
+import { Eye, EyeOff, Lock } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function ResetPassword() {
   const t = useTranslations("Auth.ResetPassword");
@@ -23,6 +23,12 @@ export default function ResetPassword() {
     formState: { errors, isSubmitting },
   } = useForm<ResetPasswordFormData>({
     resolver: zodResolver(resetPasswordSchema(t)),
+    defaultValues: {
+      phone: "",
+      verification_code: "",
+      password: "",
+      password_confirmation: "",
+    },
   });
 
   const onSubmit: SubmitHandler<ResetPasswordFormData> = async (data) => {
@@ -35,10 +41,9 @@ export default function ResetPassword() {
         register={register}
         required
         errors={errors}
-        name="email"
-        label={t("fields.email.label")}
-        placeholder={t("fields.email.placeholder")}
-        prefix={<Mail className="size-4" />}
+        name="verification_code"
+        label={t("fields.verificationCode.label")}
+        placeholder={t("fields.verificationCode.placeholder")}
       />
 
       <Input

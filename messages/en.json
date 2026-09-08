@@ -165,11 +165,11 @@
     },
     "ResetPassword": {
       "fields": {
-        "email": {
-          "label": "Email Address",
-          "placeholder": "ahmad@example.com",
-          "required": "Email Address is required",
-          "invalid": "Please enter a valid email address"
+        "verificationCode": {
+          "label": "Verification Code",
+          "placeholder": "Enter the 6-digit code",
+          "required": "Verification code is required",
+          "invalid": "Please enter a valid verification code"
         },
         "password": {
           "label": "New Password",

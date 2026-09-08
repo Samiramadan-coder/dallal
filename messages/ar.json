@@ -165,11 +165,11 @@
     },
     "ResetPassword": {
       "fields": {
-        "email": {
-          "label": "البريد الإلكتروني أو الهاتف",
-          "placeholder": "ahmad@example.com أو +971 50...",
-          "required": "البريد الإلكتروني أو الهاتف مطلوب",
-          "invalid": "يرجى إدخال بريد إلكتروني صالح"
+        "verificationCode": {
+          "label": "كود التحقق",
+          "placeholder": "أدخل الكود المكون من 6 أرقام",
+          "required": "كود التحقق مطلوب",
+          "invalid": "يرجى إدخال كود تحقق صالح"
         },
         "password": {
           "label": "الرقم السري الجديد",

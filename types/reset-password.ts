@@ -4,10 +4,11 @@ import { T } from "@/types/global";
 export const resetPasswordSchema = (t: T) =>
   z
     .object({
-      email: z
+      phone: z.string().optional(),
+      verification_code: z
         .string()
-        .min(1, t("fields.email.required"))
-        .pipe(z.email(t("fields.email.invalid"))),
+        .min(1, t("fields.verificationCode.required"))
+        .max(6, t("fields.verificationCode.invalid")),
 
       password: z
         .string()
