@@ -214,7 +214,7 @@ export async function sendForgotPasswordOTP(
 
 // Reset Password
 type ResetPasswordResponse =
-  | { success: true; token: string; message: string }
+  | { success: true; message: string }
   | {
       success: false;
       message?: string;
@@ -231,7 +231,6 @@ export async function resetPassword(
     }>("/api/v1/auth/password/reset", formData);
     return {
       success: true,
-      token: data.data.token,
       message: data.message,
     };
   } catch (error) {

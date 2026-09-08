@@ -5,7 +5,10 @@
     "calculator": "Calculator",
     "forSellers": "For Sellers",
     "getVerified": "Get Verified",
-    "about": "About"
+    "about": "About",
+    "signIn": "Sign In",
+    "postListing": "Post a Listing",
+    "manageProfile": "Manage Profile"
   },
   "Footer": {
     "description": "The UAE's most trusted marketplace for buying and selling gold jewelry, diamonds, and precious metals.",
@@ -565,7 +568,6 @@
       }
     }
   },
-
   "About": {
     "hero": {
       "eyebrow": "About Dallal Hoolee",

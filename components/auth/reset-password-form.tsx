@@ -4,17 +4,16 @@ import {
   ResetPasswordFormData,
   resetPasswordSchema,
 } from "@/types/reset-password";
+import { toast } from "sonner";
 import { useState } from "react";
 import Input from "../form/input";
 import SubmitBtn from "./submit-btn";
+import { resetPassword } from "@/lib/auth";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { resetPassword } from "@/lib/auth";
-import { toast } from "sonner";
-import { saveToken } from "@/lib/cookies";
-import { useRouter } from "@/i18n/navigation";
 
 export default function ResetPassword({ phone }: { phone?: string }) {
   const router = useRouter();
@@ -38,13 +37,11 @@ export default function ResetPassword({ phone }: { phone?: string }) {
   });
 
   const onSubmit: SubmitHandler<ResetPasswordFormData> = async (data) => {
-    // console.log(data);
     const result = await resetPassword(data);
 
     if (result.success) {
       toast.success(result.message);
-      await saveToken(result.token);
-      router.push("/");
+      router.push("/auth?action=sign-in");
       return;
     }
 

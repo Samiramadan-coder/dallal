@@ -22,8 +22,10 @@ import { useTranslations } from "next-intl";
 import Logo from "@/components/reusable/logo";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useUser } from "@/providers/user-data";
 
 export default function MobileMenu() {
+  const { user } = useUser();
   const t = useTranslations("Navbar");
 
   return (
@@ -63,13 +65,30 @@ export default function MobileMenu() {
             <Separator className="my-4" />
 
             <div className="flex flex-col gap-3">
-              <Button asChild variant="ghost" className="hover:bg-transparent">
-                <Link href="/auth?action=sign-in">
-                  <span className="whitespace-nowrap text-[11px] tracking-[0.08em] text-[rgba(245,240,232,0.7)] hover:text-primary transition-colors px-3 py-2 uppercase font-semibold">
-                    Sign In
-                  </span>
-                </Link>
-              </Button>
+              {user ? (
+                <Button
+                  asChild
+                  className="h-9.5 px-4 py-2.5 rounded bg-white hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
+                >
+                  <Link href="/post-listing">
+                    <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
+                      {t("manageProfile")}
+                    </span>
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="hover:bg-transparent"
+                >
+                  <Link href="/auth?action=sign-in">
+                    <span className="whitespace-nowrap text-[11px] tracking-[0.08em] text-[rgba(245,240,232,0.7)] hover:text-primary transition-colors px-3 py-2 uppercase font-semibold">
+                      {t("signIn")}
+                    </span>
+                  </Link>
+                </Button>
+              )}
 
               <Button
                 asChild
@@ -77,7 +96,7 @@ export default function MobileMenu() {
               >
                 <Link href="/post-listing">
                   <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
-                    Post a Listing
+                    {t("postListing")}
                   </span>
                 </Link>
               </Button>

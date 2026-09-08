@@ -61,7 +61,7 @@ export default async function Hero() {
         className="absolute inset-x-0 bottom-0 h-[35%] bg-linear-to-t from-background to-transparent"
       />
 
-      <div className="container max-w-7xl relative z-10 flex min-h-screen items-center py-20 lg:py-24">
+      <div className="container max-w-7xl relative z-10 flex min-h-screen items-center pt-40 pb-20 lg:pb-24">
         <div className="w-full max-w-205">
           <div className="flex items-center gap-4">
             <span className="h-px w-9 bg-primary/70" />
