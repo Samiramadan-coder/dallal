@@ -2,6 +2,7 @@ import type { SignUpFormData } from "@/types/sign-up";
 import { http, ValidationError } from "./http";
 import { OTPVerifyFormData } from "@/types/otp-verify";
 import { SignInFormData } from "@/types/sign-in";
+import { ForgotPasswordFormData } from "@/types/forgot-password";
 
 // SignUpResponse represents the possible responses from the sign-up API.
 type SignUpResponse =
@@ -124,6 +125,41 @@ export async function signIn(
           messages[0] ?? "Invalid value",
         ]),
       ) as Partial<Record<keyof SignInFormData, string>>;
+      return { success: false, errors, message: error.responseMessage };
+    }
+
+    return { success: false };
+  }
+}
+
+// Send Forgot Password OTP
+type SendForgotPasswordOTPResponse =
+  | { success: true; message: string }
+  | {
+      success: false;
+      message?: string;
+      errors?: Partial<Record<keyof ForgotPasswordFormData, string>>;
+    };
+
+export async function sendForgotPasswordOTP(
+  formData: ForgotPasswordFormData,
+): Promise<SendForgotPasswordOTPResponse> {
+  try {
+    const { data } = await http.post<{ message: string }>(
+      "/api/v1/auth/password/forgot",
+      formData,
+    );
+    return { success: true, message: data.message };
+  } catch (error) {
+    console.error("Error in sendForgotPasswordOTP", error);
+    if (error instanceof ValidationError) {
+      const errors = Object.fromEntries(
+        Object.entries(error.errors).map(([field, messages]) => [
+          field,
+          messages[0] ?? "Invalid value",
+        ]),
+      ) as Partial<Record<keyof ForgotPasswordFormData, string>>;
+
       return { success: false, errors, message: error.responseMessage };
     }
 

@@ -29,6 +29,8 @@ export default async function Page({
     throw new Error("Failed to fetch countries data");
   }
 
+  console.log("Fetched countries data:", data);
+
   return (
     <>
       <div className="mb-8">

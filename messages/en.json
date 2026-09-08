@@ -147,13 +147,19 @@
       }
     },
     "ForgotPassword": {
-      "SendResetLink": "Send Reset Link",
+      "SendOtp": "Send OTP",
+      "error": "An error occurred while sending the OTP. Please try again.",
       "fields": {
-        "email": {
-          "label": "Email Address",
-          "placeholder": "ahmad@example.com or +971 50...",
-          "required": "Email Address is required",
-          "invalid": "Please enter a valid email address"
+        "country": {
+          "label": "Country",
+          "placeholder": "Select your country",
+          "required": "Country is required"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "Please enter your phone number",
+          "required": "Phone Number is required",
+          "invalid": "Please enter a valid phone number"
         }
       }
     },
