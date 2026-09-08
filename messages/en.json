@@ -1313,5 +1313,18 @@
       "primary": "Get Started Free",
       "secondary": "Browse Listings"
     }
+  },
+  "Profile": {
+    "hero": {
+      "eyebrow": "My Account",
+      "account": "Account",
+      "center": "Center",
+      "description": "Manage your profile, listings, saved items and subscription."
+    },
+    "profileData": {
+      "accountSettings": "Account Settings",
+      "personalInfo": "Personal Information",
+      "personalInfoDescription": "Manage your public profile and account credentials."
+    }
   }
 }

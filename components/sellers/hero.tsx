@@ -7,7 +7,7 @@ export default async function Hero() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <section className="relative overflow-hidden bg-card mt-21">
+    <section className="relative overflow-hidden bg-card mt-30">
       <div className="relative z-10 mx-auto flex min-h-62.5 w-full max-w-275 flex-col items-center justify-center px-5 py-16 text-center sm:px-8 lg:py-20">
         <EyeBrow className="text-primary">{t("eyebrow")}</EyeBrow>
         <h1

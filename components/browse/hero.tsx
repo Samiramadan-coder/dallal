@@ -11,7 +11,7 @@ export default async function Hero() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <section className="relative overflow-hidden bg-card py-14 text-card-foreground lg:py-16 mt-21">
+    <section className="relative overflow-hidden bg-card py-14 text-card-foreground lg:py-16 mt-30">
       <div
         aria-hidden
         className="pointer-events-none absolute -inset-e-32 -top-52 size-120 rounded-full border border-primary/6"

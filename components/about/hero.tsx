@@ -7,7 +7,7 @@ export default async function Hero() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <section className="relative isolate overflow-hidden mt-20">
+    <section className="relative isolate overflow-hidden mt-30">
       <div
         aria-hidden
         className="

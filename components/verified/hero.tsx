@@ -9,7 +9,7 @@ export default async function Hero() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <section className="relative overflow-hidden bg-card mt-21">
+    <section className="relative overflow-hidden bg-card mt-30">
       <div
         aria-hidden="true"
         className="

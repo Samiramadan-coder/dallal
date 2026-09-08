@@ -80,7 +80,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <NextIntlClientProvider>
               <DirectionProvider dir={dir}>
                 <main>{children}</main>
-                <Toaster richColors position="top-right" />
+                <Toaster richColors position="top-center" />
               </DirectionProvider>
             </NextIntlClientProvider>
           </NuqsAdapter>
