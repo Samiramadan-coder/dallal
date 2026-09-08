@@ -10,7 +10,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import {
   ResetPasswordFormData,
   resetPasswordSchema,
-} from "@/lib/auth/reset-password";
+} from "@/types/reset-password";
 
 export default function ResetPassword() {
   const t = useTranslations("Auth.ResetPassword");
