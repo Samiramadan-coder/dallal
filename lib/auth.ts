@@ -7,7 +7,10 @@ import { ResetPasswordFormData } from "@/types/reset-password";
 
 // SignUpResponse represents the possible responses from the sign-up API.
 type SignUpResponse =
-  | { success: true; message: string }
+  | {
+      success: true;
+      message: string;
+    }
   | {
       success: false;
       errors?: Partial<Record<keyof SignUpFormData, string>>;
@@ -50,8 +53,14 @@ export async function signUp(
 
 // Resend OTP function to request a new OTP for the given phone number.
 type ResendOTPResponse =
-  | { success: true; message?: string }
-  | { success: false; message?: string };
+  | {
+      success: true;
+      message?: string;
+    }
+  | {
+      success: false;
+      message?: string;
+    };
 
 export async function resendOTP(phone: string): Promise<ResendOTPResponse> {
   try {
@@ -82,7 +91,11 @@ export async function resendOTP(phone: string): Promise<ResendOTPResponse> {
 
 // Verify OTP function to validate the OTP for the given phone number.
 type VerifyOTPResponse =
-  | { success: true; token: string; message: string }
+  | {
+      success: true;
+      token: string;
+      message: string;
+    }
   | {
       success: false;
       errors?: Partial<Record<keyof OTPVerifyFormData, string>>;
@@ -126,7 +139,11 @@ export async function verifyOTP(
 
 // SignIn
 type SignInResponse =
-  | { success: true; token: string; message: string }
+  | {
+      success: true;
+      token: string;
+      message: string;
+    }
   | {
       success: false;
       message?: string;
@@ -180,7 +197,10 @@ export async function signIn(
 
 // Send Forgot Password OTP
 type SendForgotPasswordOTPResponse =
-  | { success: true; message: string }
+  | {
+      success: true;
+      message: string;
+    }
   | {
       success: false;
       message?: string;
@@ -224,7 +244,10 @@ export async function sendForgotPasswordOTP(
 
 // Reset Password
 type ResetPasswordResponse =
-  | { success: true; message: string }
+  | {
+      success: true;
+      message: string;
+    }
   | {
       success: false;
       message?: string;
