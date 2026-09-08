@@ -84,8 +84,9 @@
       "alreadyHaveAccount": "Already have an account?"
     },
     "SignIn": {
+      "error": "An error occurred while signing in. Please try again.",
       "fields": {
-        "email": {
+        "emailOrPhone": {
           "label": "Email or Phone",
           "placeholder": "ahmad@example.com or +971 50...",
           "required": "Email Or Phone is required"

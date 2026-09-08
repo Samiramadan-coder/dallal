@@ -3,14 +3,18 @@
 import { useState } from "react";
 import Input from "../form/input";
 import SubmitBtn from "./submit-btn";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SignInFormData, signInSchema } from "@/lib/auth/sign-in";
+import { SignInFormData, signInSchema } from "@/types/sign-in";
+import { signIn } from "@/lib/auth";
+import { toast } from "sonner";
+import { saveToken } from "@/lib/cookies";
 
 export default function SignIn() {
+  const router = useRouter();
   const t = useTranslations("Auth.SignIn");
   const tForms = useTranslations("Auth.Forms");
   const [showPassword, setShowPassword] = useState(false);
@@ -18,13 +22,37 @@ export default function SignIn() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema(t)),
   });
 
   const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
-    console.log(data);
+    // console.log(data);
+    const result = await signIn(data);
+
+    // console.log("SignIn result:", result);
+    if (result.success) {
+      toast.success(result.message);
+      await saveToken(result.token);
+      router.push("/");
+      return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
+    }
+
+    if (result.errors) {
+      Object.entries(result.errors).forEach(([field, message]) => {
+        if (!message) return;
+        setError(field as keyof SignInFormData, { type: "server", message });
+      });
+      return;
+    }
+
+    toast.error(t("error"));
   };
 
   return (
@@ -33,9 +61,9 @@ export default function SignIn() {
         register={register}
         required
         errors={errors}
-        name="email"
-        label={t("fields.email.label")}
-        placeholder={t("fields.email.placeholder")}
+        name="email_or_phone"
+        label={t("fields.emailOrPhone.label")}
+        placeholder={t("fields.emailOrPhone.placeholder")}
         prefix={<Mail className="size-4" />}
       />
       <div>

@@ -54,7 +54,6 @@ export default function SignUp({ countries }: { countries: Country[] }) {
     if (result.errors) {
       Object.entries(result.errors).forEach(([field, message]) => {
         if (!message) return;
-        toast.error(message);
         setError(field as keyof SignUpFormData, { type: "server", message });
       });
       return;

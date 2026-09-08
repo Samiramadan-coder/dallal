@@ -1,6 +1,7 @@
 import type { SignUpFormData } from "@/types/sign-up";
 import { http, ValidationError } from "./http";
 import { OTPVerifyFormData } from "@/types/otp-verify";
+import { SignInFormData } from "@/types/sign-in";
 
 // SignUpResponse represents the possible responses from the sign-up API.
 type SignUpResponse =
@@ -89,6 +90,40 @@ export async function verifyOTP(
           messages[0] ?? "Invalid value",
         ]),
       ) as Partial<Record<keyof OTPVerifyFormData, string>>;
+      return { success: false, errors, message: error.responseMessage };
+    }
+
+    return { success: false };
+  }
+}
+
+// SignIn
+type SignInResponse =
+  | { success: true; token: string; message: string }
+  | {
+      success: false;
+      message?: string;
+      errors?: Partial<Record<keyof SignInFormData, string>>;
+    };
+
+export async function signIn(
+  formData: SignInFormData,
+): Promise<SignInResponse> {
+  try {
+    const { data } = await http.post<{
+      data: { token: string };
+      message: string;
+    }>("/api/v1/auth/login", { ...formData, device_name: "web" });
+    return { success: true, token: data.data.token, message: data.message };
+  } catch (error) {
+    console.error("Error in signIn", error);
+    if (error instanceof ValidationError) {
+      const errors = Object.fromEntries(
+        Object.entries(error.errors).map(([field, messages]) => [
+          field,
+          messages[0] ?? "Invalid value",
+        ]),
+      ) as Partial<Record<keyof SignInFormData, string>>;
       return { success: false, errors, message: error.responseMessage };
     }
 
