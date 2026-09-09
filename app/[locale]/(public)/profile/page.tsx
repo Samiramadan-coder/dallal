@@ -1,3 +1,4 @@
+import ProfileInfo from "@/components/profile/profile-info";
 import EyeBrow from "@/components/reusable/eye-brow";
 import { getLocale, getTranslations } from "next-intl/server";
 
@@ -8,7 +9,7 @@ export default async function Page() {
 
   return (
     <div>
-      <div className="md:col-span-3">
+      <div>
         <EyeBrow className="text-primary font-bold mb-2">
           {t("accountSettings")}
         </EyeBrow>
@@ -20,6 +21,10 @@ export default async function Page() {
         <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
           {t("personalInfoDescription")}
         </p>
+      </div>
+
+      <div className="mt-4">
+        <ProfileInfo />
       </div>
     </div>
   );
