@@ -1325,7 +1325,9 @@
       "logout": "Logout",
       "accountSettings": "Account Settings",
       "personalInfo": "Personal Information",
-      "personalInfoDescription": "Manage your public profile and account credentials."
+      "personalInfoDescription": "Manage your public profile and account credentials.",
+      "profileInfo": "Profile Info",
+      "myPhones": "My Phones"
     }
   }
 }
