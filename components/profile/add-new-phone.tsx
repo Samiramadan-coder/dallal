@@ -41,6 +41,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const t = useTranslations("Profile.myPhones");
   const formRef = useRef<HTMLFormElement | null>(null);
+  const closeBtn = useRef<HTMLButtonElement | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [phoneId, setPhoneId] = useState<number | null>(null);
 
@@ -143,7 +144,9 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
           </form>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">{t("cancel")}</Button>
+              <Button ref={closeBtn} variant="outline">
+                {t("cancel")}
+              </Button>
             </DialogClose>
             <Button
               type="submit"
@@ -160,7 +163,10 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
         <OTPVerificationDialog
           phoneId={phoneId}
           isOpen={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
+          onClose={() => {
+            setIsDialogOpen(false);
+            closeBtn.current?.click();
+          }}
         />
       )}
     </>

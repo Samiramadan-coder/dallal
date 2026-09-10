@@ -43,7 +43,11 @@ export default function DeletePhone({ phoneId }: { phoneId: number }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" className="hover:bg-primary/90">
+        <Button
+          size="icon"
+          variant="destructive"
+          className="hover:bg-primary/90"
+        >
           <Trash />
         </Button>
       </DialogTrigger>

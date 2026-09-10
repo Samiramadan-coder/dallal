@@ -110,6 +110,7 @@ export async function verifyPhone(
       `/api/v1/me/phones/${phoneId}/verify`,
       formData,
     );
+    updateTag("phones");
     return {
       success: true,
       message: data.message,

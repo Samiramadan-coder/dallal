@@ -1334,6 +1334,7 @@
       "phone": "Phone",
       "country": "Country",
       "isPrimary": "Is Primary",
+      "isVerified": "Is Verified",
       "addNewPhone": "Add New Phone",
       "addNewPhoneDescription": "Add a new phone number to your profile. Click save when you're done.",
       "cancel": "Cancel",

@@ -40,6 +40,9 @@ export default async function MyPhones({
               <TableHead className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                 {t("isPrimary")}
               </TableHead>
+              <TableHead className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                {t("isVerified")}
+              </TableHead>
               <TableHead className="px-4 py-3"></TableHead>
             </TableRow>
           </TableHeader>
@@ -61,7 +64,14 @@ export default async function MyPhones({
                   {phone.is_primary ? (
                     <CircleCheck className="text-emerald-600 size-5" />
                   ) : (
-                    <CircleX className="text-red-600 size-5" />
+                    <CircleX className="text-destructive size-5" />
+                  )}
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  {phone.is_verified ? (
+                    <CircleCheck className="text-emerald-600 size-5" />
+                  ) : (
+                    <CircleX className="text-destructive size-5" />
                   )}
                 </TableCell>
                 <TableCell className="px-4 py-3">
