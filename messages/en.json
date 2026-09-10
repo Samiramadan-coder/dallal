@@ -1343,7 +1343,8 @@
       "countryRequired": "Country is required",
       "phoneRequired": "Phone number is required",
       "phoneLabel": "Phone",
-      "phonePlaceholder": "Enter your phone number"
+      "phonePlaceholder": "Enter your phone number",
+      "errors": "Error in adding new phone"
     }
   }
 }

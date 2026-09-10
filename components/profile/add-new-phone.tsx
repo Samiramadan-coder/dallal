@@ -21,6 +21,8 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddNewPhoneFormValues, addNewPhoneSchema } from "@/types/profile";
 import { Spinner } from "../ui/spinner";
+import { addNewPhone } from "@/lib/profile";
+import { toast } from "sonner";
 
 export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const t = useTranslations("Profile.myPhones");
@@ -29,6 +31,7 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const {
     control,
     register,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<AddNewPhoneFormValues>({
@@ -41,7 +44,29 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const choosedCountry = countries.find((c) => c.id.toString() === country_id);
 
   const onSubmit = async (data: AddNewPhoneFormValues) => {
-    console.log(data);
+    const result = await addNewPhone(data);
+
+    if (result.success) {
+      toast.success(result.message);
+      return;
+    }
+
+    if (result.message) {
+      toast.error(result.message);
+    }
+
+    if (result.errors) {
+      Object.entries(result.errors).forEach(([field, message]) => {
+        if (!message) return;
+        setError(field as keyof AddNewPhoneFormValues, {
+          type: "server",
+          message,
+        });
+      });
+      return;
+    }
+
+    toast.error(t("error"));
   };
 
   return (

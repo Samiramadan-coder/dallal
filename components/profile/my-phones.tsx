@@ -8,7 +8,7 @@ import {
 } from "../ui/table";
 import Image from "next/image";
 import AddNewPhone from "./add-new-phone";
-import { CircleCheck } from "lucide-react";
+import { CircleCheck, CircleX } from "lucide-react";
 import { Country, Phone } from "@/types/global";
 import { getTranslations } from "next-intl/server";
 
@@ -58,7 +58,9 @@ export default async function MyPhones({
                 <TableCell className="px-4 py-3">
                   {phone.is_primary ? (
                     <CircleCheck className="text-emerald-600 size-5" />
-                  ) : null}
+                  ) : (
+                    <CircleX className="text-red-600 size-5" />
+                  )}
                 </TableCell>
               </TableRow>
             ))}

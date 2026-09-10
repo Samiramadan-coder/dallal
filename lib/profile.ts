@@ -1,9 +1,12 @@
-import { AddNewPhoneFormValues } from "@/types/profile";
 import { http, ValidationError } from "./http";
+import { AddNewPhoneFormValues } from "@/types/profile";
 
 // Add New Phone
 type AddNewPhoneResponse =
-  | { success: boolean; message?: string }
+  | {
+      success: true;
+      message?: string;
+    }
   | {
       success: false;
       message?: string;
