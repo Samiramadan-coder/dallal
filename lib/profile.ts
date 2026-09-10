@@ -133,3 +133,38 @@ export async function verifyPhone(
     return { success: false };
   }
 }
+
+// Set Primary Phone
+type SetPrimaryPhoneResponse =
+  | {
+      success: true;
+      message?: string;
+    }
+  | {
+      success: false;
+      message?: string;
+    };
+
+export async function setPrimaryPhone(
+  phoneId: number,
+): Promise<SetPrimaryPhoneResponse> {
+  try {
+    const { data } = await http.post<{ message: string }>(
+      `/api/v1/me/phones/${phoneId}/primary`,
+    );
+    updateTag("phones");
+    return {
+      success: true,
+      message: data.message,
+    };
+  } catch (error) {
+    console.error("Error setting primary phone:", error);
+    if (error instanceof ValidationError) {
+      return {
+        success: false,
+        message: error.responseMessage,
+      };
+    }
+    return { success: false };
+  }
+}

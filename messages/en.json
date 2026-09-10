@@ -1353,7 +1353,10 @@
       "enterVerificationCode": "Enter the verification code",
       "pleaseEnterVerificationCode": "Please enter the verification code sent to your phone",
       "verify": "Verify",
-      "otpError": "There was an error verifying the OTP"
+      "otpError": "There was an error verifying the OTP",
+      "setPrimary": "Set as Primary",
+      "setPrimaryConfirmation": "Are you sure you want to set this phone number as your primary?",
+      "errorSettingPrimary": "Error setting primary phone"
     }
   }
 }

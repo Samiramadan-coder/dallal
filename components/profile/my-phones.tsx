@@ -12,6 +12,7 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { Country, Phone } from "@/types/global";
 import { getTranslations } from "next-intl/server";
 import DeletePhone from "./delete-phone";
+import SetPrimaryPhone from "./set-primary-phone";
 
 export default async function MyPhones({
   phones,
@@ -74,8 +75,12 @@ export default async function MyPhones({
                     <CircleX className="text-destructive size-5" />
                   )}
                 </TableCell>
-                <TableCell className="px-4 py-3">
-                  {phone.is_primary ? "" : <DeletePhone phoneId={phone.id} />}
+                <TableCell className="px-4 py-3 space-x-2">
+                  {!phone.is_primary && <DeletePhone phoneId={phone.id} />}
+
+                  {!phone.is_primary && phone.is_verified && (
+                    <SetPrimaryPhone phoneId={phone.id} />
+                  )}
                 </TableCell>
               </TableRow>
             ))}

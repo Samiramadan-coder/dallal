@@ -1304,5 +1304,50 @@
       "primary": "ابدأ مجانًا",
       "secondary": "تصفح الإعلانات"
     }
+  },
+  "Profile": {
+    "hero": {
+      "eyebrow": "حسابي",
+      "account": "الحساب",
+      "center": "المركز",
+      "description": "قم بإدارة ملفك الشخصي، إعلاناتك، العناصر المحفوظة والاشتراك الخاص بك."
+    },
+    "profileData": {
+      "logout": "تسجيل الخروج",
+      "accountSettings": "إعدادات الحساب",
+      "personalInfo": "المعلومات الشخصية",
+      "personalInfoDescription": "قم بإدارة ملفك الشخصي العام وبيانات اعتماد الحساب.",
+      "profileInfo": "معلومات الملف الشخصي",
+      "myPhones": "أرقام هاتفي",
+      "uploadPhoto": "تحميل صورة"
+    },
+    "myPhones": {
+      "phone": "الهاتف",
+      "country": "الدولة",
+      "isPrimary": "رئيسي",
+      "isVerified": "تم التحقق",
+      "addNewPhone": "إضافة رقم هاتف جديد",
+      "addNewPhoneDescription": "أضف رقم هاتف جديد إلى ملفك الشخصي. انقر على حفظ عند الانتهاء.",
+      "cancel": "إلغاء",
+      "saveChanges": "حفظ التغييرات",
+      "countryLabel": "الدولة",
+      "countryPlaceholder": "اختر دولتك",
+      "countryRequired": "الدولة مطلوبة",
+      "phoneRequired": "رقم الهاتف مطلوب",
+      "phoneLabel": "الهاتف",
+      "phonePlaceholder": "أدخل رقم هاتفك",
+      "errors": "حدث خطأ أثناء إضافة رقم الهاتف الجديد",
+      "delete": "حذف الهاتف",
+      "deleteConfirmation": "هل أنت متأكد أنك تريد حذف رقم الهاتف هذا؟",
+      "errorDeleting": "حدث خطأ أثناء حذف الهاتف",
+      "verificationCodeRequired": "رمز التحقق مطلوب",
+      "enterVerificationCode": "أدخل رمز التحقق",
+      "pleaseEnterVerificationCode": "يرجى إدخال رمز التحقق المرسل إلى هاتفك",
+      "verify": "تحقق",
+      "otpError": "حدث خطأ أثناء التحقق من رمز OTP",
+      "setPrimary": "تعيين كرقم رئيسي",
+      "setPrimaryConfirmation": "هل أنت متأكد أنك تريد تعيين رقم الهاتف هذا كرقم رئيسي؟",
+      "errorSettingPrimary": "حدث خطأ أثناء تعيين الهاتف الرئيسي"
+    }
   }
 }
