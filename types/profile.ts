@@ -10,3 +10,12 @@ export const addNewPhoneSchema = (t: T) =>
 export type AddNewPhoneFormValues = z.infer<
   ReturnType<typeof addNewPhoneSchema>
 >;
+
+export const otpVerificationSchema = (t: T) =>
+  z.object({
+    verification_code: z.string().length(6, t("verificationCodeRequired")),
+  });
+
+export type OTPVerificationFormValues = z.infer<
+  ReturnType<typeof otpVerificationSchema>
+>;
