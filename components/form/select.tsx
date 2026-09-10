@@ -45,6 +45,7 @@ type SelectProps<T extends FieldValues> = {
   triggerClassName?: string;
   disabled?: boolean;
   description?: ReactNode;
+  labelClassName?: string;
 };
 
 export default function Select<T extends FieldValues>({
@@ -59,6 +60,7 @@ export default function Select<T extends FieldValues>({
   triggerClassName,
   disabled = false,
   description,
+  labelClassName,
 }: SelectProps<T>) {
   const error = get(errors, name);
 
@@ -70,6 +72,7 @@ export default function Select<T extends FieldValues>({
           className={cn(
             "text-xs font-semibold tracking-wider text-[#4A4840] uppercase",
             required && "after:ms-1 after:text-destructive after:content-['*']",
+            labelClassName,
           )}
         >
           {label}

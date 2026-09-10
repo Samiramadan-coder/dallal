@@ -34,6 +34,7 @@ type InputProps<T extends FieldValues> = {
   prefix?: ReactNode;
   suffix?: ReactNode;
   description?: ReactNode;
+  labelClassName?: string;
 };
 
 export default function Input<T extends FieldValues>({
@@ -50,6 +51,7 @@ export default function Input<T extends FieldValues>({
   prefix,
   suffix,
   description,
+  labelClassName,
 }: InputProps<T>) {
   const error = get(errors, name);
 
@@ -70,6 +72,7 @@ export default function Input<T extends FieldValues>({
           className={cn(
             "text-xs font-semibold tracking-wider text-[#4A4840] uppercase",
             required && "after:ms-1 after:text-destructive after:content-['*']",
+            labelClassName,
           )}
         >
           {label}

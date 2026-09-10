@@ -1329,6 +1329,21 @@
       "profileInfo": "Profile Info",
       "myPhones": "My Phones",
       "uploadPhoto": "Upload Photo"
+    },
+    "myPhones": {
+      "phone": "Phone",
+      "country": "Country",
+      "isPrimary": "Is Primary",
+      "addNewPhone": "Add New Phone",
+      "addNewPhoneDescription": "Add a new phone number to your profile. Click save when you're done.",
+      "cancel": "Cancel",
+      "saveChanges": "Save changes",
+      "countryLabel": "Country",
+      "countryPlaceholder": "Select your country",
+      "countryRequired": "Country is required",
+      "phoneRequired": "Phone number is required",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "Enter your phone number"
     }
   }
 }
