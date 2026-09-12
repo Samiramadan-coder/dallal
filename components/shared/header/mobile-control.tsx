@@ -54,7 +54,9 @@ export default function MobileMenu() {
                   {links.map((link) => (
                     <NavigationMenuItem key={link.href}>
                       <NavigationMenuLink asChild>
-                        <NavLink href={link.href}>{t(link.key)}</NavLink>
+                        <DrawerClose asChild>
+                          <NavLink href={link.href}>{t(link.key)}</NavLink>
+                        </DrawerClose>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
@@ -70,11 +72,13 @@ export default function MobileMenu() {
                   asChild
                   className="h-9.5 px-4 py-2.5 rounded bg-white hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
                 >
-                  <Link href="/post-listing">
-                    <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
-                      {t("manageProfile")}
-                    </span>
-                  </Link>
+                  <DrawerClose asChild>
+                    <Link href="/post-listing">
+                      <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
+                        {t("manageProfile")}
+                      </span>
+                    </Link>
+                  </DrawerClose>
                 </Button>
               ) : (
                 <Button
@@ -82,11 +86,13 @@ export default function MobileMenu() {
                   variant="ghost"
                   className="hover:bg-transparent"
                 >
-                  <Link href="/auth?action=sign-in">
-                    <span className="whitespace-nowrap text-[11px] tracking-[0.08em] text-[rgba(245,240,232,0.7)] hover:text-primary transition-colors px-3 py-2 uppercase font-semibold">
-                      {t("signIn")}
-                    </span>
-                  </Link>
+                  <DrawerClose asChild>
+                    <Link href="/auth?action=sign-in">
+                      <span className="whitespace-nowrap text-[11px] tracking-[0.08em] text-[rgba(245,240,232,0.7)] hover:text-primary transition-colors px-3 py-2 uppercase font-semibold">
+                        {t("signIn")}
+                      </span>
+                    </Link>
+                  </DrawerClose>
                 </Button>
               )}
 
@@ -94,11 +100,13 @@ export default function MobileMenu() {
                 asChild
                 className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
               >
-                <Link href="/post-listing">
-                  <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
-                    {t("postListing")}
-                  </span>
-                </Link>
+                <DrawerClose asChild>
+                  <Link href="/post-listing">
+                    <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
+                      {t("postListing")}
+                    </span>
+                  </Link>
+                </DrawerClose>
               </Button>
             </div>
           </div>
