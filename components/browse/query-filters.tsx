@@ -64,13 +64,14 @@ export default function QueryFilters() {
       </InputGroup>
 
       {/* Category Filters */}
-      <Tabs
-        defaultValue="all"
-        value={filters.category}
-        onValueChange={(value) => setFilters({ category: value })}
-      >
-        <TabsList
-          className="
+      <div className="overflow-x-auto">
+        <Tabs
+          defaultValue="all"
+          value={filters.category}
+          onValueChange={(value) => setFilters({ category: value })}
+        >
+          <TabsList
+            className="
             h-auto!
             border
             p-1
@@ -81,12 +82,12 @@ export default function QueryFilters() {
             bg-white
             border-accent/20
           "
-        >
-          {categories.map((category) => (
-            <TabsTrigger
-              key={category.label}
-              value={category.value}
-              className="
+          >
+            {categories.map((category) => (
+              <TabsTrigger
+                key={category.label}
+                value={category.value}
+                className="
                 rounded-xl
                 px-5
                 py-2.5
@@ -104,21 +105,22 @@ export default function QueryFilters() {
                 data-[state=active]:text-white
                 data-[state=active]:shadow-none
               "
-            >
-              <category.icon className="me-2 h-4 w-4" />
-              {category.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
+              >
+                <category.icon className="me-2 h-4 w-4" />
+                {category.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </Tabs>
+      </div>
 
       {/* Newest Filters */}
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex items-center flex-wrap justify-between gap-6">
         <p className="text-[#4A4840] text-sm">
           <b>9</b> listings found
         </p>
 
-        <div className="flex items-stretch gap-2">
+        <div className="flex items-stretch flex-wrap gap-2">
           <Select
             value={filters.sort}
             onValueChange={(value) => setFilters({ sort: value })}
