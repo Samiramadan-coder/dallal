@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Column } from "./column";
-import { Mail, MapPin } from "lucide-react";
-import Logo from "@/components/reusable/logo";
+import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { browse, company, sellers, tools } from "@/constants/shared";
+import { footerColumns } from "@/constants/shared";
+import { countries } from "@/constants/marketplace";
 
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -14,88 +13,79 @@ export default function Footer() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <footer className="bg-[rgb(7,30,20)] text-muted-foreground border-t border-[rgba(201,164,69,0.18)]">
-      <div className="container max-w-350 py-16">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
-          <div>
-            <div className="flex flex-col gap-2 mb-6">
-              <Logo width={60} />
-              <div>
-                <p
+    <footer className="border-t border-[rgba(201,164,69,0.18)] bg-[#071E14]">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-14">
+        <div className="grid gap-10 lg:grid-cols-5">
+          <div className="lg:col-span-2">
+            <Link href="/" className="inline-flex items-center gap-3">
+              <Image
+                src="/logo.png"
+                alt=""
+                width={56}
+                height={56}
+                className="object-contain"
+              />
+              <span>
+                <span
                   className={cn(
-                    "text-lg font-bold tracking-widest gold-text uppercase leading-none",
+                    "gold-text block text-lg font-bold uppercase leading-none tracking-widest",
                     fontClass,
                   )}
                 >
-                  DALLAL HOOLEE
-                </p>
-                <p className="text-[10px] tracking-[0.15em] uppercase mt-1">
-                  Where trust meets treasure
-                </p>
-              </div>
-            </div>
-
-            <p className="text-sm leading-relaxed mb-6">{t("description")}</p>
-
-            <div className="mt-5 space-y-2 text-xs">
-              <div className="flex items-center gap-2">
-                <MapPin className="size-3.5 text-primary" />
-                <span>{t("location")}</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Mail className="size-3.5 text-primary" />
-                <a href="mailto:hello@dallalhoolee.ae">hello@dallalhoolee.ae</a>
-              </div>
-            </div>
-
-            <div className="mt-6 flex gap-3">
-              {["IG", "X", "FB", "YT"].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="flex size-8 items-center justify-center rounded-full border border-primary/30 text-[10px] transition hover:border-primary hover:text-primary"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
+                  {t("brand")}
+                </span>
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-[#8A8678]">
+                  {t("tagline")}
+                </span>
+              </span>
+            </Link>
           </div>
 
-          <Column
-            title={t("browse.title")}
-            links={browse}
-            t={(key) => t(`browse.${key}`)}
-          />
-
-          <Column
-            title={t("tools.title")}
-            links={tools}
-            t={(key) => t(`tools.${key}`)}
-          />
-
-          <Column
-            title={t("sellers.title")}
-            links={sellers}
-            t={(key) => t(`sellers.${key}`)}
-          />
-
-          <Column
-            title={t("company.title")}
-            links={company}
-            t={(key) => t(`company.${key}`)}
-          />
+          {footerColumns.map((column) => (
+            <nav key={column.key} aria-label={t(`${column.key}.title`)}>
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A445]">
+                {t(`${column.key}.title`)}
+              </h3>
+              <ul className="space-y-3">
+                {column.links.map((link) => (
+                  <li key={link.key}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[#B9B5A6] transition-colors hover:text-[#FAF6EF]"
+                    >
+                      {t(`${column.key}.${link.key}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
         </div>
-      </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-350 flex-col gap-4 px-6 py-5 text-xs md:flex-row md:items-center md:justify-between">
-          <p>{t("copyright")}</p>
-          <div className="flex flex-wrap gap-6">
-            <Link href="/privacy">{t("privacy")}</Link>
-            <Link href="/terms">{t("terms")}</Link>
-            <Link href="/cookies">{t("cookies")}</Link>
-          </div>
+        <div className="mt-12 border-t border-[rgba(201,164,69,0.12)] pt-6">
+          <h3 className="sr-only">{t("countries")}</h3>
+          <ul className="flex flex-wrap gap-3">
+            {countries.map((c) => (
+              <li
+                key={c.key}
+                className={cn(
+                  "flex items-center gap-2 rounded-full border px-4 py-2 text-sm",
+                  c.available
+                    ? "border-[rgba(201,164,69,0.4)] text-[#FAF6EF]"
+                    : "border-[rgba(201,164,69,0.12)] text-[#8A8678]",
+                )}
+              >
+                <span aria-hidden="true">{c.flag}</span>
+                {c.name}
+                {!c.available && (
+                  <span className="rounded-full bg-[rgba(201,164,69,0.12)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#C9A445]">
+                    {t("soon")}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-[#8A8678]">{t("disclaimer")}</p>
         </div>
       </div>
     </footer>

@@ -10,7 +10,7 @@ import { useLocale, useTranslations } from "next-intl";
 const tabs = [
   { key: "buyers", href: "/browse" },
   { key: "selling", href: "/sell" },
-  { key: "stores", href: "/sellers" },
+  { key: "stores", href: "/packages" },
 ] as const;
 
 type TabKey = (typeof tabs)[number]["key"];

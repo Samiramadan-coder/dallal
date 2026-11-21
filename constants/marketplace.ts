@@ -5,33 +5,82 @@ export type Metal = "gold" | "silver" | "platinum";
 
 export type MetalRate = {
   label: string;
+  /** Purity in percent, e.g. 99.9. */
+  purity: number;
+  /** Price per gram in AED. */
   price: number;
+  /** Change vs yesterday, in percent. */
   change: number;
 };
 
+export const metals: Metal[] = ["gold", "silver", "platinum"];
+
 export const metalRates: Record<Metal, MetalRate[]> = {
   gold: [
-    { label: "24K", price: 539, change: 0.72 },
-    { label: "22K", price: 499, change: 0.72 },
-    { label: "21K", price: 479, change: 0.72 },
-    { label: "18K", price: 410, change: -0.26 },
-    { label: "14K", price: 315, change: -0.26 },
+    { label: "24K", purity: 99.9, price: 539.25, change: 0.72 },
+    { label: "22K", purity: 91.6, price: 499.25, change: 0.72 },
+    { label: "21K", purity: 87.5, price: 478.75, change: 0.72 },
+    { label: "18K", purity: 75, price: 410.25, change: -0.26 },
+    { label: "14K", purity: 58.5, price: 315, change: -0.26 },
   ],
   silver: [
-    { label: "999", price: 4.1, change: 0.35 },
-    { label: "958", price: 3.93, change: 0.35 },
-    { label: "925", price: 3.79, change: -0.12 },
-    { label: "900", price: 3.69, change: -0.12 },
-    { label: "800", price: 3.28, change: -0.12 },
+    { label: "999", purity: 99.9, price: 6.2, change: 0.41 },
+    { label: "958", purity: 95.8, price: 5.95, change: 0.41 },
+    { label: "925", purity: 92.5, price: 5.74, change: 0.41 },
+    { label: "900", purity: 90, price: 5.58, change: -0.12 },
+    { label: "800", purity: 80, price: 4.96, change: -0.12 },
   ],
   platinum: [
-    { label: "999", price: 128, change: -0.41 },
-    { label: "950", price: 122, change: -0.41 },
-    { label: "900", price: 115, change: 0.18 },
-    { label: "850", price: 109, change: 0.18 },
-    { label: "585", price: 75, change: 0.18 },
+    { label: "999", purity: 99.9, price: 168, change: -0.18 },
+    { label: "950", purity: 95, price: 159.75, change: -0.18 },
+    { label: "900", purity: 90, price: 151.35, change: -0.18 },
+    { label: "850", purity: 85, price: 142.95, change: 0.11 },
+    { label: "585", purity: 58.5, price: 98.4, change: 0.11 },
   ],
 };
+
+export const TOLA_GRAMS = 11.6638;
+export const TROY_OUNCE_GRAMS = 31.1035;
+
+export const weightUnits = [
+  { key: "gram", grams: 1 },
+  { key: "g10", grams: 10 },
+  { key: "g100", grams: 100 },
+  { key: "tola", grams: TOLA_GRAMS },
+  { key: "ounce", grams: TROY_OUNCE_GRAMS },
+  { key: "kg", grams: 1000 },
+] as const;
+
+export const chartRanges = ["7d", "1m", "3m", "1y"] as const;
+export type ChartRange = (typeof chartRanges)[number];
+
+const rangeDays: Record<ChartRange, number> = { "7d": 7, "1m": 30, "3m": 90, "1y": 365 };
+
+/** Deterministic mock price history ending at `current`. */
+export function priceHistory(metal: Metal, range: ChartRange, current: number) {
+  const days = rangeDays[range];
+  const points = Math.min(days, 60);
+  const seed = metal.length * 17 + days;
+  const drift = metal === "platinum" ? -0.06 : 0.08; // overall trend over the range
+  const out: number[] = [];
+  for (let i = 0; i < points; i++) {
+    const t = i / (points - 1);
+    const wave =
+      Math.sin((i + seed) * 0.9) * 0.012 + Math.sin((i + seed) * 0.23) * 0.02;
+    out.push(current * (1 - drift * (1 - t) * (days / 365 + 0.15) + wave * (1 - t)));
+  }
+  out[out.length - 1] = current;
+  return out;
+}
+
+export const countries = [
+  { key: "uae", name: "UAE", flag: "🇦🇪", available: true },
+  { key: "sa", name: "Saudi Arabia", flag: "🇸🇦", available: true },
+  { key: "kw", name: "Kuwait", flag: "🇰🇼", available: false },
+  { key: "qa", name: "Qatar", flag: "🇶🇦", available: false },
+  { key: "bh", name: "Bahrain", flag: "🇧🇭", available: false },
+  { key: "om", name: "Oman", flag: "🇴🇲", available: false },
+] as const;
 
 export type CategoryKey =
   | "goldJewelry"
@@ -366,6 +415,109 @@ export const marketCategories = [
   { key: "antiques", slug: "antiques-collectibles" },
   { key: "beads", slug: "prayer-beads" },
 ] as const;
+
+export type MarketCategoryKey = (typeof marketCategories)[number]["key"];
+
+/** Listing counts per market category (mock). */
+export const marketCategoryCounts: Record<MarketCategoryKey, number> = {
+  tools: 3,
+  silver: 4,
+  watches: 2,
+  accessories: 2,
+  antiques: 2,
+  beads: 2,
+};
+
+export type MarketListing = {
+  id: string;
+  title: { en: string; ar: string };
+  image: string;
+  category: MarketCategoryKey;
+  price: number;
+  city: City;
+  /** Individual seller name; omitted when listed by a store. */
+  seller?: string;
+  /** Store slug when the item is listed by a verified store. */
+  store?: string;
+  badge?: "certified" | "accessory";
+};
+
+export const marketListings: MarketListing[] = [
+  {
+    id: "m-001",
+    title: { en: "Sterling silver Arabic coffee dallah with 6 cups", ar: "دلة قهوة عربية من الفضة الإسترلينية مع 6 فناجين" },
+    image: "/market/silver-tea-set.webp",
+    category: "silver",
+    price: 1450,
+    city: "dubai",
+    seller: "Layla H.",
+  },
+  {
+    id: "m-005",
+    title: { en: "Casio G-Shock GA-2100 with box", ar: "كاسيو جي-شوك GA-2100 مع العلبة" },
+    image: "/listing-watch.webp",
+    category: "watches",
+    price: 340,
+    city: "dubai",
+    seller: "Yousef M.",
+  },
+  {
+    id: "m-s01",
+    title: { en: "Hand-engraved 925 sterling silver tray", ar: "صينية فضة إسترلينية عيار 925 بنقش يدوي" },
+    image: "/market/silver-tea-set.webp",
+    category: "silver",
+    price: 1550,
+    city: "dubai",
+    store: "al-faris-jewellers",
+  },
+  {
+    id: "m-003",
+    title: { en: "Digital jewellery scale 0.01 g, up to 500 g", ar: "ميزان مجوهرات رقمي 0.01 غرام، حتى 500 غرام" },
+    image: "/market/jewellery-scale.webp",
+    category: "tools",
+    price: 180,
+    city: "sharjah",
+    seller: "Omar K.",
+  },
+  {
+    id: "m-011",
+    title: { en: "Baltic amber misbaha, 33 beads, with tassel", ar: "مسبحة كهرمان بلطيق، 33 حبة، مع شرابة" },
+    image: "/market/amber-misbaha.webp",
+    category: "beads",
+    price: 850,
+    city: "dubai",
+    seller: "Mariam A.",
+    badge: "certified",
+  },
+  {
+    id: "m-007",
+    title: { en: "Gold-plated statement necklace with glass beads", ar: "عقد بارز مطلي بالذهب بخرز زجاجي" },
+    image: "/market/costume-necklace.webp",
+    category: "accessories",
+    price: 120,
+    city: "dubai",
+    seller: "Mariam A.",
+    badge: "accessory",
+  },
+  {
+    id: "m-014",
+    title: { en: "Silver bar 100 g, 999 fine", ar: "سبيكة فضة 100 غرام، نقاء 999" },
+    image: "/listing-coin.webp",
+    category: "silver",
+    price: 340,
+    city: "dubai",
+    seller: "Layla H.",
+  },
+  {
+    id: "m-002",
+    title: { en: "Handmade silver chain bracelet, unknown hallmark", ar: "سوار سلسلة فضة بيد، دمغة غير معروفة" },
+    image: "/listing-bracelet.webp",
+    category: "silver",
+    price: 320,
+    city: "abuDhabi",
+    seller: "Noura S.",
+  },
+];
 
 export function formatPrice(value: number, currency: string, locale: string) {
   const amount = value.toLocaleString("en-US", { maximumFractionDigits: 2 });

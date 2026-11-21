@@ -1,15 +1,17 @@
-import FooterNote from "@/components/calculator/footer-note";
-import GoldPricingEducation from "@/components/calculator/gold-pricing-education.tsx";
 import Hero from "@/components/calculator/hero";
-import Marketplace from "@/components/calculator/marketplace";
+import Listings from "@/components/calculator/listings";
+import Education from "@/components/calculator/education";
+import Calculator from "@/components/calculator/calculator";
 
 export default function Page() {
   return (
-    <div>
+    <div className="min-h-screen bg-[#FAF6EF]">
       <Hero />
-      <GoldPricingEducation />
-      <Marketplace />
-      <FooterNote />
+      <div className="mx-auto max-w-6xl px-6 py-14">
+        <Calculator />
+        <Education />
+        <Listings />
+      </div>
     </div>
   );
 }

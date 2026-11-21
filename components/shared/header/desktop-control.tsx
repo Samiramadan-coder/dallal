@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "../../ui/button";
+import LanguageSwitcher from "./language-switcher";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/providers/user-data";
@@ -12,10 +13,12 @@ export function DesktopControl() {
 
   return (
     <div className="flex items-center gap-3">
+      <LanguageSwitcher />
+
       {user ? (
         <Link href="/profile">
           <Avatar>
-            <AvatarImage src={""} alt="@shadcn" className="grayscale" />
+            <AvatarImage src={""} alt={user.name ?? ""} className="grayscale" />
             <AvatarFallback className="text-white">
               {user?.name?.[0] ?? "?"}
             </AvatarFallback>

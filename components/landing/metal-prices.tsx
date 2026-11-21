@@ -56,7 +56,7 @@ export default function MetalPrices() {
           <div className="flex items-center gap-4 text-xs text-[#8A8678]">
             <span>{t("unit")}</span>
             <Link
-              href="/gold-prices"
+              href="/metal-prices"
               className="inline-flex items-center gap-1 font-semibold text-[#C9A445] hover:underline"
             >
               {t("allPrices")}

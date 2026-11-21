@@ -22,6 +22,7 @@ import { useTranslations } from "next-intl";
 import Logo from "@/components/reusable/logo";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import LanguageSwitcher from "./language-switcher";
 import { useUser } from "@/providers/user-data";
 
 export default function MobileMenu() {
@@ -66,6 +67,8 @@ export default function MobileMenu() {
 
             <Separator className="my-4" />
 
+            <LanguageSwitcher className="mb-4 w-fit" />
+
             <div className="flex flex-col gap-3">
               {user ? (
                 <Button
@@ -73,7 +76,7 @@ export default function MobileMenu() {
                   className="h-9.5 px-4 py-2.5 rounded bg-white hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
                 >
                   <DrawerClose asChild>
-                    <Link href="/post-listing">
+                    <Link href="/profile">
                       <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
                         {t("manageProfile")}
                       </span>

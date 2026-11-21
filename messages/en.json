@@ -1,52 +1,49 @@
 {
   "Navbar": {
     "browse": "Browse",
-    "goldPrices": "Gold Prices",
+    "individualMarket": "Individual market",
+    "metalPrices": "Metal Prices",
     "calculator": "Calculator",
-    "forSellers": "For Sellers",
-    "getVerified": "Get Verified",
-    "about": "About",
+    "forMerchants": "For Merchants",
     "signIn": "Sign In",
     "postListing": "Post a Listing",
-    "manageProfile": "Manage Profile"
+    "manageProfile": "Manage Profile",
+    "language": "Language",
+    "ticker": {
+      "title": "Gold Today · AED",
+      "gold": "Gold {karat}",
+      "silver": "Silver",
+      "platinum": "Platinum",
+      "currency": "AED"
+    }
   },
   "Footer": {
-    "description": "The UAE's most trusted marketplace for buying and selling gold jewelry, diamonds, and precious metals.",
-    "location": "Dubai, United Arab Emirates",
-    "copyright": "© 2026 Dallal Hoolee. All rights reserved.",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service",
-    "cookies": "Cookie Policy",
-    "browse": {
-      "title": "Browse",
-      "goldJewelry": "Gold Jewelry",
-      "diamonds": "Diamonds",
-      "watches": "Watches",
-      "coinsBars": "Coins & Bars",
-      "allListings": "All Listings"
+    "brand": "Dallal Hoolee",
+    "tagline": "Where trust meets treasure",
+    "countries": "Countries",
+    "soon": "Soon",
+    "disclaimer": "Dallal Hoolee is a listings platform. We don't hold payments or ship items.",
+    "explore": {
+      "title": "Explore",
+      "browse": "Browse",
+      "nearbyStores": "Stores near you",
+      "individualMarket": "Individual market",
+      "metalPrices": "Metal prices",
+      "calculator": "Calculator"
     },
-    "tools": {
-      "title": "Tools",
-      "goldPriceCalculator": "Gold Price Calculator",
-      "liveGoldChart": "Live Gold Chart",
-      "karatComparison": "Karat Comparison",
-      "marketTracker": "Market Tracker"
-    },
-    "sellers": {
-      "title": "For Sellers",
-      "postListing": "Post a Listing",
-      "sellerDashboard": "Seller Dashboard",
-      "pricingGuide": "Pricing Guide",
-      "becomeVerified": "Become Verified",
-      "sellerFaq": "Seller FAQ"
+    "sell": {
+      "title": "Sell",
+      "sellGold": "Sell your gold",
+      "forStores": "For stores",
+      "openStore": "Open your store"
     },
     "company": {
       "title": "Company",
-      "about": "About Us",
-      "howItWorks": "How It Works",
-      "careers": "Careers",
-      "press": "Press",
-      "contact": "Contact"
+      "about": "About",
+      "support": "Support",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "prohibited": "Prohibited items"
     }
   },
   "Auth": {
@@ -350,26 +347,130 @@
   },
   "Calculator": {
     "hero": {
-      "eyebrow": "Gold Tools",
-      "title": "Gold",
+      "eyebrow": "Precious Metal Tools",
+      "title": "Metal",
       "titleHighlight": "Calculator",
-      "description": "Calculate the exact AED value of any gold piece based on today's live DGCX spot rate — or check whether a seller's price is fair before you buy.",
-      "liveStatus": "Live rates — updated 05:20 PM GST · Source: DGCX",
+      "description": "Calculate the exact AED value of any gold, silver or platinum piece using today's indicative rate in UAE — or check whether a seller's price is fair before you buy.",
       "perGram": "AED / gram",
-      "rates": {
-        "24k": {
-          "label": "24K"
-        },
-        "22k": {
-          "label": "22K"
-        },
-        "21k": {
-          "label": "21K"
-        },
-        "18k": {
-          "label": "18K"
-        }
+      "updated": "Indicative rates — last updated {time}",
+      "silver": "Silver",
+      "platinum": "Platinum"
+    },
+    "metals": {
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum"
+    },
+    "chooseMetal": "Choose a metal",
+    "modes": {
+      "value": {
+        "title": "Calculate Value",
+        "subtitle": "Weight + karat → local currency",
+        "body": "Find out exactly what a piece is worth today."
+      },
+      "sell": {
+        "title": "If You Sell",
+        "subtitle": "What stores may pay",
+        "body": "See the metal value of your piece and get offers from verified stores."
+      },
+      "compare": {
+        "title": "Compare Listing",
+        "subtitle": "Is the seller's price fair?",
+        "body": "Check any asking price against today's live market rate."
+      },
+      "converter": {
+        "title": "Converter",
+        "subtitle": "Weight units & karats",
+        "body": "Switch between g, tola, oz and kg, or between karats."
       }
+    },
+    "panel": {
+      "value": "Value Calculator",
+      "sell": "Selling Estimate",
+      "compare": "Listing Check",
+      "converter": "Converter",
+      "liveRate": "DGCX Live Rate"
+    },
+    "form": {
+      "purity": {
+        "gold": "Gold karat",
+        "silver": "Silver purity",
+        "platinum": "Platinum purity"
+      },
+      "perGram": "{price} / gram",
+      "weight": "Weight",
+      "units": {
+        "g": "Grams",
+        "tola": "Tola",
+        "oz": "Troy ounce",
+        "kg": "Kilogram"
+      },
+      "unitShort": {
+        "g": "g",
+        "tola": "tola",
+        "oz": "oz",
+        "kg": "kg"
+      },
+      "weightPlaceholder": "Enter weight…",
+      "weightLabel": "{metal} weight in {unit}",
+      "making": "Making Charges",
+      "makingRange": "Typical range in the Gulf: 5–15%",
+      "makingHint": "Set to 0% for bullion bars and coins",
+      "vat": "Include VAT (5%)",
+      "vatHint": "Applies to new purchases in UAE",
+      "asking": "Seller's Asking Price",
+      "askingPlaceholder": "e.g. 4500"
+    },
+    "result": {
+      "estimated": "Estimated Value",
+      "metalValue": "{metal} value",
+      "metalValueHint": "{weight} g × {price} / gram",
+      "making": "Making Charges",
+      "makingHint": "{value}% of {metal} value",
+      "vat": "VAT (5%)",
+      "vatHint": "On subtotal",
+      "total": "Total",
+      "disclaimer": "Estimate based on today's indicative market rate. Actual retail prices vary with design, brand, and condition.",
+      "findListings": "Find Listings at This Price",
+      "postPiece": "Post This Piece for Sale",
+      "rate": "Rate: AED {price}/g for {metal} {purity}",
+      "sellValue": "Metal value",
+      "sellHint": "Raw {metal} only",
+      "sellNote": "Stores usually buy at the metal value without making charge, and may deduct a small margin.",
+      "getOffers": "Get offers from verified stores",
+      "verdictEmpty": "Enter the details to see the verdict",
+      "verdictHint": "Fill in purity, weight, and asking price to instantly see if it's a fair deal.",
+      "marketValue": "Market Value",
+      "askingPrice": "Asking Price",
+      "difference": "Difference",
+      "vsMarket": "{value}% vs market",
+      "below": "30% below market",
+      "above": "30% above market",
+      "greatDeal": "Great Deal",
+      "fairPrice": "Fair Price",
+      "slightlyAbove": "Slightly Above Market",
+      "significantlyAbove": "Significantly Above Market",
+      "fairNote": "A fair price includes making charges (5–15%) on top of raw {metal} value. A price 5–10% above the market rate is normal for quality jewelry.",
+      "viewSimilar": "View Similar Listings"
+    },
+    "converter": {
+      "weightTitle": "Weight units",
+      "weightHint": "Type in any field and the others update together.",
+      "purityTitle": {
+        "gold": "Karat converter",
+        "silver": "Purity converter",
+        "platinum": "Purity converter"
+      },
+      "purityHint": "Find how much pure {metal} a piece holds, and the weight of the same metal at another purity.",
+      "from": "From",
+      "to": "To",
+      "pieceWeight": "Piece Weight (grams)",
+      "piecePlaceholder": "e.g. 18.5",
+      "pure": "Pure {metal}",
+      "pureHint": "{value}% of the weight",
+      "equivalent": "Weight at {purity}",
+      "equivalentHint": "Same pure {metal} content",
+      "grams": "{value} g"
     },
     "education": {
       "eyebrow": "Education",
@@ -378,53 +479,30 @@
       "items": {
         "karat": {
           "title": "Gold is priced by karat purity",
-          "description": "24K is 99.9% pure gold — the international benchmark. 22K is 91.6%, 21K is 87.5%, and 18K is 75%. Each gram of lower-karat gold contains less actual gold, so the price per gram is proportionally lower."
+          "body": "24K is 99.9% pure gold — the international benchmark. 22K is 91.6%, 21K is 87.5%, and 18K is 75%. Each gram of lower-karat gold contains less actual gold, so the price per gram is proportionally lower."
         },
-        "spotRate": {
+        "spot": {
           "title": "Spot rate converted to AED per gram",
-          "description": "The global spot price is quoted in USD per troy ounce on COMEX. UAE jewellers convert this to AED per gram daily using the official exchange rate. The Dubai Multi Commodities Centre publishes the benchmark used across the UAE."
+          "body": "The global spot price is quoted in USD per troy ounce on COMEX. UAE jewellers convert this to AED per gram daily using the official exchange rate. The Dubai Multi Commodities Centre (DMCC) publishes the official benchmark used across the UAE."
         },
-        "makingCharges": {
+        "making": {
           "title": "Making charges are added on top",
-          "description": "Jewellers add a making charge, typically 5–15%, to cover craftsmanship. Simple pieces carry lower charges, while intricate jewellery may cost more. When buying second-hand, you often pay closer to raw gold value."
+          "body": "Jewellers add a making charge (5–15%) to cover craftsmanship. Simple bangles carry the lowest charges; intricate bridal sets can be 12–15%. When buying second-hand on Dallal Hoolee, you often pay close to raw gold value with minimal charges."
         },
         "vat": {
           "title": "VAT applies to new purchases only",
-          "description": "The UAE levies 5% VAT on new jewellery sales. Resale transactions between individuals are typically VAT-exempt. Always check whether a listed price includes VAT before comparing."
+          "body": "The UAE levies 5% VAT on new jewelry sales. Resale transactions between individuals are typically VAT-exempt. Always check whether a listed price is VAT-inclusive before comparing."
         }
       }
     },
-    "marketplace": {
+    "listings": {
       "eyebrow": "Marketplace",
       "title": "Verified listings near market rate",
-      "description": "Real listings from verified sellers — priced transparently against today's gold rate.",
-      "allListings": "All Listings",
-      "browse": "Browse All Listings",
-      "currency": "AED",
+      "description": "Real listings from verified sellers — transparently priced against today's gold rate.",
+      "all": "All listings",
+      "below": "{value}% below",
       "verified": "Verified",
-      "below": "below",
-      "items": {
-        "necklace": {
-          "title": "22K Gold Pearl Drop Necklace — Bridal Set"
-        },
-        "bangles": {
-          "title": "21K Gold Bangle Set × 6 — Geometric Pattern"
-        },
-        "coins": {
-          "title": "24K Gold Sovereign Coins — British Royal Mint × 10"
-        },
-        "earrings": {
-          "title": "22K Gold Chandelier Earrings — Bridal Filigree"
-        }
-      }
-    },
-    "footerNote": {
-      "disclaimer": "Gold rates sourced from DGCX. For informational purposes only — not financial advice.",
-      "links": {
-        "goldPrices": "Gold Prices",
-        "listings": "Browse Listings",
-        "home": "Dallal Hoolee"
-      }
+      "browseAll": "Browse All Listings"
     }
   },
   "Browse": {
@@ -1316,5 +1394,330 @@
     "save": "Save listing",
     "km": "km",
     "currency": "AED"
+  },
+  "Market": {
+    "hero": {
+      "eyebrow": "Dallal Hoolee",
+      "title": "Individual market",
+      "description": "Pre-owned items from verified individuals — meet in a public place",
+      "post": "Post in the market",
+      "searchLabel": "Search the individual market",
+      "placeholder": "Search silver, watches, misbaha, tools...",
+      "search": "Search"
+    },
+    "categories": {
+      "title": "Browse by category",
+      "count": "{count, plural, =0 {No listings} one {# listing} other {# listings}}",
+      "items": {
+        "tools": {
+          "name": "Tools & Equipment",
+          "blurb": "Scales, safes, display cases and testers"
+        },
+        "silver": {
+          "name": "Silver",
+          "blurb": "Jewellery, tableware, decor and bars"
+        },
+        "watches": {
+          "name": "Everyday & Smart Watches",
+          "blurb": "Analog and smart watches"
+        },
+        "accessories": {
+          "name": "Accessories & Costume",
+          "blurb": "Costume jewellery and fashion pieces"
+        },
+        "antiques": {
+          "name": "Antiques & Collectibles",
+          "blurb": "Furniture, coins, pottery and manuscripts"
+        },
+        "beads": {
+          "name": "Prayer Beads (Misbaha)",
+          "blurb": "Amber, wood and stone misbahas"
+        }
+      }
+    },
+    "latest": {
+      "title": "Latest listings",
+      "results": "Results for “{q}”",
+      "empty": "Nothing matches that search. Try a shorter word or pick a category below.",
+      "clear": "Clear search"
+    },
+    "card": {
+      "save": "Save listing",
+      "verifiedIndividual": "Verified individual",
+      "country": "UAE",
+      "badges": "Listing badges",
+      "certified": "Certified",
+      "accessory": "Accessory — not gold"
+    },
+    "safety": {
+      "title": "Buy and sell safely",
+      "tips": {
+        "meet": "Meet in a public place such as a mall or a bank branch.",
+        "inspect": "Inspect the item before you pay, and never send a deposit to someone you have not met.",
+        "stores": "Gold, diamonds and luxury watches are not sold here. Those are listed by verified stores only."
+      }
+    }
+  },
+  "MetalPrices": {
+    "metals": {
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum"
+    },
+    "chooseMetal": "Choose a metal",
+    "hero": {
+      "breadcrumb": "Breadcrumb",
+      "home": "Home",
+      "current": "Metal Prices in UAE",
+      "soon": "Soon",
+      "eyebrow": "UAE — Live Rates · AED",
+      "title": "{metal} Prices in 🇦🇪 UAE",
+      "today": "Today",
+      "description": {
+        "gold": "Live gold prices for 24K, 22K, 21K and 18K in AED, updated every minute.",
+        "silver": "Live silver prices for 999, 958, 925 and 900 in AED, updated every minute.",
+        "platinum": "Live platinum prices for 999, 950, 900 and 850 in AED, updated every minute."
+      },
+      "vat": "VAT 5% applies.",
+      "lastUpdated": "Last Updated",
+      "marketOpen": "Market open"
+    },
+    "cards": {
+      "pure": "{value}% pure",
+      "perGram": "/gram",
+      "vsYesterday": "vs yesterday",
+      "perTola": "Per tola",
+      "perOunce": "Per ounce"
+    },
+    "chart": {
+      "title": "Price history",
+      "subtitle": "{metal} {karat} — AED per gram",
+      "rangeLabel": "Chart range",
+      "ranges": {
+        "7d": "7D",
+        "1m": "1M",
+        "3m": "3M",
+        "1y": "1Y"
+      },
+      "change": "{range} change",
+      "low": "Low",
+      "high": "High"
+    },
+    "conversion": {
+      "eyebrow": "Quick Reference",
+      "title": "Weight Conversion Table",
+      "subtitle": "{metal} value by weight in AED",
+      "weight": "Weight",
+      "units": {
+        "gram": "1 gram",
+        "g10": "10 g",
+        "g100": "100 g",
+        "tola": "1 tola",
+        "ounce": "1 ounce",
+        "kg": "1 kg"
+      },
+      "note": "Tola = 11.6638 g. Ounce = troy ounce, 31.1035 g. Values in AED, metal value only."
+    },
+    "stores": {
+      "title": "Gold price at stores near you",
+      "description": "Price per gram in AED: today's live rate plus each store's usual making charge.",
+      "openMap": "Open the store map",
+      "km": "{value} km",
+      "view": "View {name}"
+    },
+    "alert": {
+      "title": "Price alert",
+      "description": "Get notified when gold crosses the price you are waiting for. You need to be signed in. Saved alerts appear in your account.",
+      "notify": "Notify me when",
+      "above": "goes above",
+      "below": "goes below",
+      "amount": "an amount",
+      "now": "Now: AED {value} per gram",
+      "submit": "Set alert",
+      "saved": "Alert saved"
+    },
+    "cta": {
+      "eyebrow": "Put today's rates to work",
+      "title": "Buying or selling gold? Start from the live price.",
+      "sell": "Sell your gold to stores",
+      "browse": "Browse gold jewelry"
+    },
+    "faq": {
+      "eyebrow": "Help & Answers",
+      "title": "Frequently Asked Questions",
+      "description": "Everything you need to know about gold prices in UAE.",
+      "items": {
+        "q1": {
+          "q": "What is the gold price in UAE today?",
+          "a": "Today 24K gold is AED 539.25 per gram in UAE. 22K is AED 499.25/g, 21K is AED 478.75/g, and 18K is AED 410.25/g. Rates are indicative and refresh in five-minute windows."
+        },
+        "q2": {
+          "q": "Why are there different prices for 22K, 21K, and 24K gold?",
+          "a": "Gold karats indicate purity. 24K is 99.9% pure gold, 22K is 91.6%, 21K is 87.5%, and 18K is 75%. The higher the karat, the more pure gold the piece contains, and the higher the price per gram."
+        },
+        "q3": {
+          "q": "How is gold priced in UAE?",
+          "a": "Local prices are derived from the international spot price of gold (USD per troy ounce), converted to AED per gram. VAT of 5% applies to new jewellery purchases in UAE."
+        },
+        "q4": {
+          "q": "Where is the best place to buy gold in UAE?",
+          "a": "Established gold souks and licensed jewellers in Dubai, Abu Dhabi and Sharjah offer competitive rates. On Dallal Hoolee you can compare verified sellers and often find pieces priced below the current market rate."
+        },
+        "q5": {
+          "q": "What is a 'making charge'?",
+          "a": "Making charges are fees jewellers add on top of the raw gold value to cover craftsmanship. They typically range from 5% to 15% of the gold value, depending on the complexity of the design. Second-hand listings on Dallal Hoolee often carry lower making charges."
+        },
+        "q6": {
+          "q": "Is it a good time to buy gold right now?",
+          "a": "Gold prices fluctuate daily with USD strength, geopolitical events, and central bank policy. Check the price history chart above to see recent trends. For investment purchases, 24K coins and bars carry the lowest premium over spot price."
+        }
+      }
+    }
+  },
+  "Packages": {
+    "hero": {
+      "eyebrow": "Plans for merchants",
+      "title": "Grow your gold business on Dallal Hoolee",
+      "individual": "Selling as an individual is free",
+      "sellLink": "Sell your gold to stores"
+    },
+    "billing": {
+      "label": "Billing period",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "save": "Save {value}%",
+      "perMonth": "/ month",
+      "billedMonthly": "Billed monthly, cancel anytime",
+      "billedYearly": "Billed yearly: AED {value} per year",
+      "currency": "AED"
+    },
+    "plans": {
+      "personal": {
+        "name": "Personal"
+      },
+      "gold": {
+        "name": "Gold",
+        "who": "Verified shops & active traders",
+        "badge": "Most popular",
+        "cta": "Start 14-day free trial"
+      },
+      "vip": {
+        "name": "Diamond VIP",
+        "who": "Jewellery groups & large traders",
+        "badge": "Best Value",
+        "cta": "Choose plan"
+      }
+    },
+    "values": {
+      "unlimited": "Unlimited",
+      "plusVideo": "{n} + video",
+      "perMonth": "{n} / month",
+      "oneHour": "1 hour before Gold",
+      "individualMarket": "{n} (individual market)",
+      "full": "Full",
+      "priority": "Priority",
+      "accountManager": "Account manager"
+    },
+    "features": {
+      "activeListings": "Active listings",
+      "activeSellRequests": "Active sell requests",
+      "photos": "Photos per listing",
+      "merchantCategories": "Merchant categories",
+      "branches": "Branches",
+      "offers": "Offers on sell requests",
+      "earlyAccess": "Sell requests early access",
+      "seesEarly": "Sees sell requests early",
+      "freeFeatured": "Free Featured",
+      "freeFeaturedMonth": "Free Featured / month",
+      "boostCredits": "Boost credits",
+      "boostCreditsMonth": "Boost credits / month",
+      "fullAnalytics": "Full analytics",
+      "analytics": "Analytics dashboard",
+      "bulkUpload": "Bulk upload",
+      "exportApi": "Data export & API",
+      "team": "Team members",
+      "homepagePriority": "Homepage priority",
+      "prioritySupport": "Priority support",
+      "accountManager": "Dedicated account manager",
+      "support": "Support"
+    },
+    "compare": {
+      "eyebrow": "Full Breakdown",
+      "title": "Compare All Plans",
+      "feature": "Feature",
+      "included": "Included",
+      "notIncluded": "Not included",
+      "signUp": "Sign up free",
+      "startGold": "Start Gold",
+      "contactSales": "Contact Sales"
+    },
+    "boosts": {
+      "eyebrow": "Boosts",
+      "title": "Boost a single listing",
+      "description": "Pay per boost or use the credits that come with your plan. Boosts are non-refundable once started.",
+      "yourListing": "Your listing",
+      "otherListing": "Other listing",
+      "credits": "{count, plural, one {or # credit} other {or # credits}}",
+      "cta": "Boost a listing",
+      "oneTime": "One time",
+      "days": "{n} days",
+      "where": "Where a {name} boost appears: {place}",
+      "items": {
+        "bump": {
+          "name": "Bump",
+          "desc": "Re-sorts your listing to the top of its category, as if it was just posted today.",
+          "place": "Category page",
+          "tag": "Moved up"
+        },
+        "featured": {
+          "name": "Featured",
+          "desc": "Your listing appears at the top of search results and in the Featured section on the homepage.",
+          "place": "Search results and homepage",
+          "tag": "Featured"
+        },
+        "pinned": {
+          "name": "Pinned",
+          "desc": "Pins your listing to the top of category pages with a gold border and 'Pinned' badge.",
+          "place": "Top of the category page",
+          "tag": "Pinned"
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Plans and billing questions",
+      "items": {
+        "q1": {
+          "q": "Can I cancel anytime?",
+          "a": "Yes. Cancel from your billing page and your plan stays active until the end of the period you already paid for."
+        },
+        "q2": {
+          "q": "What happens after the free trial?",
+          "a": "Every verified store gets a 14-day Gold trial. When it ends, choose a plan to keep your Gold features. If you do not, the store returns to a personal account and listings over the free limit are paused, not deleted."
+        },
+        "q3": {
+          "q": "What happens if I downgrade?",
+          "a": "Listings over the new plan's limit are paused, oldest first. Nothing is deleted, and you get a 7-day grace period before they are paused. Upgrade again and they go live straight away."
+        },
+        "q4": {
+          "q": "Is there a money-back guarantee?",
+          "a": "Yes. Your first paid subscription is covered by a 7-day money-back guarantee. It does not apply to renewals or plan changes."
+        },
+        "q5": {
+          "q": "Can I get a refund on a boost?",
+          "a": "No. Boosts are non-refundable once they have started."
+        },
+        "q6": {
+          "q": "Do prices include VAT?",
+          "a": "Prices are set per country and shown in local currency. They include VAT where it applies, and your invoice shows the VAT amount separately."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to start selling?",
+      "description": "Open a verified store and try Gold free for 14 days. Upgrade whenever you need more.",
+      "open": "Open a store",
+      "browse": "Browse listings"
+    }
   }
 }

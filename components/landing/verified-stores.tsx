@@ -145,7 +145,7 @@ export default function VerifiedStores() {
         </ul>
 
         <Link
-          href="/sellers"
+          href="/packages"
           className="mt-6 inline-block text-sm font-semibold text-[#C9A445] hover:underline"
         >
           {t("plans")}
