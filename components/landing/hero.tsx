@@ -1,207 +1,105 @@
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import EyeBrow from "../reusable/eye-brow";
-import { MapPin, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { headingFont } from "./data";
+import { ArrowRight, MapPin, Search } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
-const quickBrowse = [
-  {
-    key: "jewelry",
-    href: "/listings?category=jewelry",
-  },
-  {
-    key: "diamonds",
-    href: "/listings?category=diamonds",
-  },
-  {
-    key: "watches",
-    href: "/listings?category=watches",
-  },
-  {
-    key: "coins",
-    href: "/listings?category=coins",
-  },
+const cities = [
+  { key: "dubai", value: "Dubai" },
+  { key: "abuDhabi", value: "Abu Dhabi" },
+  { key: "sharjah", value: "Sharjah" },
+  { key: "ajman", value: "Ajman" },
+  { key: "rasAlKhaimah", value: "Ras Al Khaimah" },
+  { key: "fujairah", value: "Fujairah" },
+  { key: "ummAlQuwain", value: "Umm Al Quwain" },
 ] as const;
-
-const stats = ["listings", "sellers", "transactions", "rating"] as const;
 
 export default async function Hero() {
   const locale = await getLocale();
   const t = await getTranslations("Home.hero");
-  const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background text-card-foreground">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[url('/hero.png')] bg-cover bg-center bg-no-repeat"
+    <section className="relative overflow-hidden bg-[#071E14]">
+      <Image
+        src="/hero-jewelry.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover opacity-30"
       />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(7,30,20,0.55),#071E14)]" />
 
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,30,20,0.98)_0%,rgba(7,30,20,0.92)_35%,rgba(7,30,20,0.70)_65%,rgba(7,30,20,0.78)_100%)]"
-      />
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 pb-20 pt-44 text-center md:pb-28 md:pt-52">
+        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-[#C9A445]">
+          {t("badge")}
+        </p>
 
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[35%] bg-linear-to-t from-background to-transparent"
-      />
+        <h1
+          className={`text-balance ${headingFont(locale)} text-4xl font-bold leading-tight text-[#FAF6EF] md:text-6xl`}
+        >
+          {t("title")}
+        </h1>
 
-      <div className="container max-w-7xl relative z-10 flex min-h-screen items-center pt-40 pb-20 lg:pb-24">
-        <div className="w-full max-w-205">
-          <div className="flex items-center gap-4">
-            <span className="h-px w-9 bg-primary/70" />
-            <EyeBrow className="text-primary text-xs">{t("eyebrow")}</EyeBrow>
-            <span className="h-px w-9 bg-primary/70" />
-          </div>
+        <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#B9B5A6] md:text-lg">
+          {t("description")}
+        </p>
 
-          <h1
-            className={`mt-7 max-w-175 ${fontClass} text-5xl font-bold leading-[1.05] text-balance text-card-foreground md:text-6xl lg:text-7xl`}
-          >
-            {t("titleFirst")}
-            <br />
-            {t("titleSecond")}{" "}
-            <span className="gold-text">{t("titleHighlight")}</span>
-          </h1>
+        <form
+          role="search"
+          action={`${locale === "en" ? "" : `/${locale}`}/browse`}
+          method="GET"
+          className="mt-9 flex w-full flex-col gap-2 rounded-2xl border border-[rgba(201,164,69,0.25)] bg-[#0F4A31] p-2 md:flex-row"
+        >
+          <label className="flex flex-1 items-center gap-2 rounded-xl bg-[#071E14] px-4">
+            <Search className="size-4 shrink-0 text-[#8A8678]" aria-hidden />
+            <span className="sr-only">{t("keywordLabel")}</span>
+            <input
+              type="search"
+              name="q"
+              placeholder={t("placeholder")}
+              className="h-12 w-full bg-transparent text-sm text-[#FAF6EF] placeholder:text-[#8A8678] focus:outline-none"
+            />
+          </label>
 
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed  text-[#f5f0e8a6] md:text-xl">
-            {t("description")}
-          </p>
-
-          <form
-            action="/listings"
-            method="GET"
-            className="mt-10 flex flex-col overflow-hidden rounded-xl border border-[#c9a4454d] bg-card/90 shadow-[0_15px_50px_rgba(0,0,0,0.25)] backdrop-blur-md lg:flex-row lg:items-center"
-          >
-            {/* Category */}
-            <Select name="category" defaultValue="jewelry">
-              <SelectTrigger
-                className="h-14 w-full rounded-none border-0 bg-transparent px-5 text-sm text-card-foreground shadow-none focus-visible:ring-0 lg:w-40 lg:border-e lg:border-primary/20"
-                aria-label={t("search.categoryLabel")}
-              >
-                <SelectValue />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectItem value="jewelry">
-                  {t("search.categories.jewelry")}
-                </SelectItem>
-                <SelectItem value="diamonds">
-                  {t("search.categories.diamonds")}
-                </SelectItem>
-                <SelectItem value="watches">
-                  {t("search.categories.watches")}
-                </SelectItem>
-                <SelectItem value="coins">
-                  {t("search.categories.coins")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-
-            {/* Search */}
-            <InputGroup className="h-14 flex-1 rounded-none border-0 bg-transparent shadow-none focus-within:ring-0 lg:border-e lg:border-primary/20">
-              <InputGroupInput
-                type="search"
-                name="q"
-                placeholder={t("search.placeholder")}
-                className="text-card-foreground placeholder:text-card-foreground/35"
-              />
-
-              <InputGroupAddon
-                align="inline-start"
-                className="text-card-foreground/45"
-              >
-                <Search className="size-4" />
-              </InputGroupAddon>
-            </InputGroup>
-
-            {/* Location */}
-            <InputGroup className="h-14 rounded-none border-0 bg-transparent shadow-none focus-within:ring-0 lg:w-48">
-              <InputGroupInput
-                type="text"
-                name="location"
-                placeholder={t("search.location")}
-                aria-label={t("search.locationLabel")}
-                autoComplete="address-level2"
-                className="text-sm text-card-foreground placeholder:text-card-foreground/45"
-              />
-
-              <InputGroupAddon
-                align="inline-start"
-                className="text-card-foreground/45"
-              >
-                <MapPin className="size-4" />
-              </InputGroupAddon>
-            </InputGroup>
-
-            {/* Submit */}
-            <div className="p-1.5">
-              <Button
-                type="submit"
-                className="h-11 w-full rounded-lg bg-primary px-7 text-xs font-bold uppercase tracking-[0.12em] text-primary-foreground hover:opacity-90 lg:w-auto"
-              >
-                {t("search.button")}
-              </Button>
-            </div>
-          </form>
-
-          {/* Quick Browse */}
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <span className="me-1 text-xs uppercase tracking-[0.08em] text-muted-foreground">
-              {t("quickBrowse.label")}:
-            </span>
-
-            {quickBrowse.map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className="rounded-full border border-primary/25 px-3.5 py-1.5 text-sm text-[#f5f0e8a6] transition-colors hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
-              >
-                {t(`quickBrowse.${item.key}`)}
-              </Link>
-            ))}
-
-            <Link
-              href="/listings"
-              className="rounded-full border border-primary/25 px-3.5 py-1.5 text-sm text-[#f5f0e8a6] transition-colors hover:border-primary/60 hover:bg-primary/10 hover:text-primary"
+          <label className="flex items-center gap-2 rounded-xl bg-[#071E14] px-4 md:w-56">
+            <MapPin className="size-4 shrink-0 text-[#8A8678]" aria-hidden />
+            <span className="sr-only">{t("cityLabel")}</span>
+            <select
+              name="city"
+              defaultValue=""
+              className="h-12 w-full bg-transparent text-sm text-[#FAF6EF] focus:outline-none"
             >
-              {t("quickBrowse.all")}
-            </Link>
-          </div>
+              <option value="" className="bg-[#071E14]">
+                {t("allCities")}
+              </option>
+              {cities.map((city) => (
+                <option
+                  key={city.key}
+                  value={city.value}
+                  className="bg-[#071E14]"
+                >
+                  {t(`cities.${city.key}`)}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <div className="mt-16 grid max-w-150 grid-cols-2 gap-y-7 sm:grid-cols-4 sm:gap-0">
-            {stats.map((stat, index) => (
-              <div
-                key={stat}
-                className={[
-                  "border-s-2 border-[#c9a44580] px-4",
-                  index === 0 ? "ps-4" : "",
-                ].join(" ")}
-              >
-                <p className={`text-xl font-bold gold-text ${fontClass}`}>
-                  {t(`stats.${stat}.value`)}
-                </p>
-                <p className="mt-0.5 text-xs tracking-wider text-muted-foreground">
-                  {t(`stats.${stat}.label`)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+          <button
+            type="submit"
+            className="h-12 rounded-xl bg-[#C9A445] px-7 text-sm font-bold text-[#071E14] transition-colors hover:bg-[#D9B55A]"
+          >
+            {t("search")}
+          </button>
+        </form>
+
+        <Link
+          href="/sell"
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-[rgba(201,164,69,0.5)] px-6 py-3 text-sm font-semibold text-[#FAF6EF] transition-colors hover:bg-[rgba(201,164,69,0.12)]"
+        >
+          {t("sellGold")}
+          <ArrowRight className="size-4 rtl:rotate-180" />
+        </Link>
       </div>
     </section>
   );

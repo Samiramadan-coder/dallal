@@ -1,214 +1,83 @@
 import Image from "next/image";
 import Apple from "../icons/apple";
-import Title from "../reusable/title";
-import EyeBrow from "../reusable/eye-brow";
+import { headingFont } from "./data";
+import { Smartphone } from "lucide-react";
 import GooglePlay from "../icons/google-play";
-import { Smartphone, Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function MobileApp() {
   const locale = await getLocale();
   const t = await getTranslations("Home.mobileApp");
-  const fontClass = locale === "en" ? "font-playfair" : "";
+
+  const badges = [
+    { icon: <Apple />, top: t("downloadOn"), name: t("appStore") },
+    { icon: <GooglePlay />, top: t("getItOn"), name: t("googlePlay") },
+  ];
 
   return (
-    <section className="relative overflow-hidden py-20 text-card-foreground lg:py-24">
-      <div className="container max-w-7xl">
-        <div
-          className="
-            overflow-hidden
-            rounded-xl
-            border
-            border-primary/20
-            bg-card
-          "
-        >
-          <div
-            className="
-              grid
-              items-center
-              gap-12
-              px-7
-              py-10
-              md:px-12
-              lg:grid-cols-2
-              lg:gap-16
-              lg:px-14
-              lg:py-14
-            "
-          >
-            <div>
-              <div className="flex items-center gap-3">
-                <div
-                  className="
-                    flex
-                    size-10
-                    items-center
-                    justify-center
-                    rounded-lg
-                    border
-                    border-primary/30
-                    bg-primary/10
-                    text-primary
-                  "
-                >
-                  <Smartphone className="size-4" strokeWidth={1.8} />
+    <section className="relative overflow-hidden bg-[#071E14] py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_700px_500px_at_50%_50%,rgba(42,138,95,0.08),transparent)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(to_right,transparent,rgba(201,164,69,0.3),transparent)]" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="overflow-hidden rounded-2xl border border-[rgba(201,164,69,0.22)] bg-[#0F4A31]">
+          <div className="grid grid-cols-1 items-center lg:grid-cols-2">
+            <div className="p-10 lg:p-14">
+              <div className="mb-6 flex items-center gap-2">
+                <div className="flex size-10 items-center justify-center rounded-xl border border-[rgba(201,164,69,0.28)] bg-[rgba(201,164,69,0.12)]">
+                  <Smartphone className="size-5 text-[#C9A445]" />
                 </div>
-                <EyeBrow className="text-xs text-primary">
+                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C9A445]">
                   {t("eyebrow")}
-                </EyeBrow>
+                </span>
               </div>
 
-              <Title
-                className={`
-                  mt-7
-                  max-w-lg
-                  text-4xl
-                  font-bold
-                  leading-tight
-                  text-card-foreground
-                  md:text-5xl
-                  ${fontClass}
-                `}
+              <h2
+                className={`${headingFont(locale)} mb-4 text-4xl font-bold leading-tight text-[#FAF6EF] md:text-5xl`}
               >
                 {t("title")}
                 <br />
                 <span className="gold-text">{t("titleHighlight")}</span>
-              </Title>
+              </h2>
 
-              <p
-                className="
-                  mt-5
-                  max-w-xl
-                  text-base
-                  leading-relaxed
-                  text-muted-foreground
-                  md:text-lg
-                "
-              >
+              <p className="mb-8 text-base leading-relaxed text-[#8A8678]">
                 {t("description")}
               </p>
 
-              {/* Stats */}
-              <div className="mt-8 flex flex-wrap items-stretch gap-4">
-                <RatingCard rating="4.9" label={t("stats.appStore")} />
-                <RatingCard rating="4.8" label={t("stats.googlePlay")} />
-
-                <div className="flex min-w-28 flex-col justify-center px-2">
-                  <p className="text-base font-bold text-card-foreground">
-                    50,000+
-                  </p>
-
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {t("stats.downloads")}
-                  </p>
-                </div>
-              </div>
-
-              {/* Stores */}
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href="#"
-                  aria-label={t("stores.appStore")}
-                  className="
-                    flex
-                    min-w-41
-                    items-center
-                    gap-3
-                    rounded-lg
-                    bg-[#faf6ef]
-                    px-5
-                    py-3
-                    text-foreground
-                    transition-transform
-                    hover:-translate-y-0.5
-                  "
-                >
-                  <Apple />
-
-                  <div className="text-start">
-                    <p className="text-[9px] leading-none text-muted-foreground">
-                      {t("stores.downloadOn")}
-                    </p>
-
-                    <p className="mt-1 text-sm font-bold">
-                      {t("stores.appStore")}
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="#"
-                  aria-label={t("stores.googlePlay")}
-                  className="
-                    flex
-                    min-w-41
-                    items-center
-                    gap-3
-                    rounded-lg
-                    bg-[#faf6ef]
-                    px-5
-                    py-3
-                    text-foreground
-                    transition-transform
-                    hover:-translate-y-0.5
-                  "
-                >
-                  <GooglePlay />
-
-                  <div className="text-start">
-                    <p className="text-[9px] leading-none text-muted-foreground">
-                      {t("stores.getItOn")}
-                    </p>
-
-                    <p className="mt-1 text-sm font-bold">
-                      {t("stores.googlePlay")}
-                    </p>
-                  </div>
-                </a>
+              <div className="flex flex-wrap gap-4">
+                {badges.map((badge) => (
+                  <button
+                    key={badge.name}
+                    type="button"
+                    className="flex items-center gap-3 rounded-xl bg-[#FAF6EF] px-5 py-3 font-medium text-[#071E14] transition-all duration-200 hover:bg-white"
+                  >
+                    {badge.icon}
+                    <div className="text-start">
+                      <div className="text-[10px] tracking-wider opacity-70">
+                        {badge.top}
+                      </div>
+                      <div className="text-sm font-bold tracking-wide">
+                        {badge.name}
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Image */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative aspect-square w-full max-w-110 overflow-hidden">
-                <Image
-                  src="/landing-mobile.png"
-                  alt={t("imageAlt")}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 440px"
-                  className="object-cover"
-                />
-              </div>
+            <div className="relative h-80 overflow-hidden lg:h-auto lg:min-h-130">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,164,69,0.07),transparent_70%)]" />
+              <Image
+                src="/app-mockup.webp"
+                alt={t("imageAlt")}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-contain object-center p-8 lg:p-10"
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function RatingCard({ rating, label }: { rating: string; label: string }) {
-  return (
-    <div
-      className="
-        min-w-27
-        rounded-lg
-        border
-        border-primary/20
-        bg-card/20
-        px-4
-        py-3
-        text-center
-      "
-    >
-      <div className="flex items-center justify-center gap-0.5">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <Star key={index} className="size-3 fill-primary text-primary" />
-        ))}
-      </div>
-      <p className="mt-2 text-lg font-bold text-card-foreground">{rating}</p>
-      <p className="mt-0.5 text-[10px] text-muted-foreground">{label}</p>
-    </div>
   );
 }

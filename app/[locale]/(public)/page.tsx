@@ -1,22 +1,26 @@
-import GoldCalculatorPreview from "@/components/landing/gold-calculator-preview";
-import GoldPrices from "@/components/landing/gold-prices";
 import Hero from "@/components/landing/hero";
-import HowItWorks from "@/components/landing/how-it-works";
-import LatestListings from "@/components/landing/latest-listings";
 import MobileApp from "@/components/landing/mobile-app";
-import Promise from "@/components/landing/promise";
-import VerifiedShops from "@/components/landing/verified-shops";
+import SellGold from "@/components/landing/sell-gold";
+import Categories from "@/components/landing/categories";
+import HowItWorks from "@/components/landing/how-it-works";
+import StoresNear from "@/components/landing/stores-near";
+import MetalPrices from "@/components/landing/metal-prices";
+import MarketTeaser from "@/components/landing/market-teaser";
+import VerifiedStores from "@/components/landing/verified-stores";
+import FeaturedListings from "@/components/landing/featured-listings";
 
 export default async function Page() {
   return (
-    <div>
+    <div className="overflow-x-hidden bg-[#071E14]">
       <Hero />
-      <GoldPrices />
-      <LatestListings />
-      <Promise />
-      <VerifiedShops />
+      <MetalPrices />
+      <Categories />
+      <StoresNear />
+      <FeaturedListings />
+      <SellGold />
+      <MarketTeaser />
+      <VerifiedStores />
       <HowItWorks />
-      <GoldCalculatorPreview />
       <MobileApp />
     </div>
   );

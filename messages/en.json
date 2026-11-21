@@ -17,7 +17,6 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "cookies": "Cookie Policy",
-
     "browse": {
       "title": "Browse",
       "goldJewelry": "Gold Jewelry",
@@ -26,7 +25,6 @@
       "coinsBars": "Coins & Bars",
       "allListings": "All Listings"
     },
-
     "tools": {
       "title": "Tools",
       "goldPriceCalculator": "Gold Price Calculator",
@@ -34,7 +32,6 @@
       "karatComparison": "Karat Comparison",
       "marketTracker": "Market Tracker"
     },
-
     "sellers": {
       "title": "For Sellers",
       "postListing": "Post a Listing",
@@ -43,7 +40,6 @@
       "becomeVerified": "Become Verified",
       "sellerFaq": "Seller FAQ"
     },
-
     "company": {
       "title": "Company",
       "about": "About Us",
@@ -201,270 +197,172 @@
   },
   "Home": {
     "hero": {
-      "eyebrow": "UAE's Premier Gold Marketplace",
-      "titleFirst": "Where Gold Finds",
-      "titleSecond": "Its",
-      "titleHighlight": "True Worth",
-      "description": "Buy and sell authentic gold jewelry, diamonds, and precious metals with live pricing, verified sellers, and complete peace of mind.",
-      "search": {
-        "categoryLabel": "Select category",
-        "placeholder": "Search gold necklace, diamond ring, Rolex...",
-        "location": "Dubai, UAE",
-        "button": "Search",
-        "locationLabel": "Search location",
-        "categories": {
-          "jewelry": "Gold Jewelry",
-          "diamonds": "Diamonds",
-          "watches": "Watches",
-          "coins": "Coins & Bars"
-        }
+      "badge": "🇦🇪 UAE",
+      "title": "Gold, diamonds and watches from verified stores — at live market prices",
+      "description": "Every store is verified. Every price follows today's rate.",
+      "keywordLabel": "Keyword",
+      "placeholder": "Search gold rings, solitaire, Rolex…",
+      "cityLabel": "City",
+      "allCities": "All UAE",
+      "cities": {
+        "dubai": "Dubai",
+        "abuDhabi": "Abu Dhabi",
+        "sharjah": "Sharjah",
+        "ajman": "Ajman",
+        "rasAlKhaimah": "Ras Al Khaimah",
+        "fujairah": "Fujairah",
+        "ummAlQuwain": "Umm Al Quwain"
       },
-      "quickBrowse": {
-        "label": "Quick Browse",
-        "jewelry": "Gold Jewelry",
-        "diamonds": "Diamonds",
-        "watches": "Watches",
-        "coins": "Coins & Bars",
-        "all": "View All"
-      },
-      "stats": {
-        "listings": {
-          "value": "12,400+",
-          "label": "Active Listings"
-        },
-        "sellers": {
-          "value": "3,200+",
-          "label": "Verified Sellers"
-        },
-        "transactions": {
-          "value": "AED 2.4B",
-          "label": "Transactions"
-        },
-        "rating": {
-          "value": "4.9★",
-          "label": "Trust Rating"
-        }
-      }
+      "search": "Search",
+      "sellGold": "Sell your gold"
     },
-    "goldPrices": {
-      "eyebrow": "Live Market Data",
-      "title": "Today's",
-      "titleHighlight": "Gold Prices",
-      "description": "Real-time gold rates in UAE Dirhams, updated every minute from the Dubai Gold & Commodities Exchange.",
-      "refresh": "Refresh",
-      "viewChart": "View Full Chart",
-      "currency": "AED",
-      "perGram": "per gram",
-      "perTola": "Per Tola",
-      "rates": {
-        "24k": {
-          "karat": "24K",
-          "type": "Pure Gold"
-        },
-        "22k": {
-          "karat": "22K",
-          "type": "High Karat"
-        },
-        "21k": {
-          "karat": "21K",
-          "type": "Gulf Standard"
-        },
-        "18k": {
-          "karat": "18K",
-          "type": "Fashion Gold"
-        }
-      },
-      "source": "Prices sourced from Dubai Gold & Commodities Exchange (DGCX) · Updated 2 mins ago",
-      "calculator": "Calculate your jewelry value"
+    "metals": {
+      "title": "Live metal prices",
+      "gold": "Gold",
+      "silver": "Silver",
+      "platinum": "Platinum",
+      "unit": "AED per gram",
+      "allPrices": "All prices",
+      "currency": "AED"
     },
-    "latest": {
-      "eyebrow": "Curated Picks",
-      "title": "Latest",
-      "titleHighlight": "Near You",
-      "description": "Latest Near You",
-      "location": "in Oman",
-      "descriptionEnd": "every item priced against live gold rates.",
-      "categories": {
-        "all": "All",
-        "gold": "Gold",
-        "diamonds": "Diamonds",
-        "watches": "Watches"
-      },
-      "verified": "Verified",
-      "favorite": "Add to favorites",
-      "currency": "AED",
-      "belowMarket": "below market",
-      "viewAll": "View All Listings"
-    },
-    "promise": {
-      "eyebrow": "Our Promise",
-      "title": "Why",
-      "titleHighlight": "Dallal Hoolee",
-      "description": "We built the platform we wished existed — transparent pricing, trustworthy sellers, and frictionless transactions for the UAE gold market.",
+    "categories": {
+      "title": "Shop by category",
+      "description": "Listed only by verified stores.",
       "items": {
-        "prices": {
-          "title": "Live Gold Prices",
-          "description": "Every listing is automatically priced against real-time DGCX gold rates so you always know the fair market value before you transact.",
-          "badge": "Real-Time Data"
-        },
-        "verified": {
-          "title": "Verified Sellers",
-          "description": "Every seller undergoes identity verification and trade license checks. Verified badges mean your counterpart is who they claim to be.",
-          "badge": "ID Verified"
-        },
-        "safe": {
-          "title": "Safe Transactions",
-          "description": "Our escrow-style meeting protocol and in-app guidance ensure both parties are protected from listing to handover.",
-          "badge": "Buyer Protection"
-        },
-        "free": {
-          "title": "Free to Browse",
-          "description": "No subscription, no hidden fees. Browse thousands of listings, check gold prices, and use the calculator — completely free.",
-          "badge": "Always Free"
-        }
+        "goldJewelry": "Gold Jewelry",
+        "coinsBars": "Coins & Bars",
+        "diamonds": "Diamonds",
+        "luxuryWatches": "Luxury Watches",
+        "stonesPearls": "Precious Stones & Pearls"
       }
     },
-    "verifiedShops": {
-      "eyebrow": "Trusted Partners",
-      "title": "Verified",
-      "titleHighlight": "Gold Shops",
-      "description": "Established jewellers and licensed dealers who have passed our rigorous verification process.",
-      "browseAll": "Browse All Shops",
-      "verified": "Verified",
-      "viewShop": "View Shop",
-      "established": "Est. {year}",
-      "reviews": "{count} reviews",
-      "activeListings": "active listings",
-      "shops": {
-        "alfardan": {
-          "name": "Al Fardan Jewellers",
-          "location": "Dubai, Gold Souk",
-          "category": "22K Traditional"
+    "nearby": {
+      "title": "Stores near you",
+      "description": "Verified stores with a trade licence, on the map in UAE.",
+      "openMap": "Open the map",
+      "mapSoon": "Map preview",
+      "openNow": "Open now",
+      "closed": "Closed",
+      "km": "km"
+    },
+    "featured": {
+      "title": "Featured listings",
+      "description": "Boosted by their stores in UAE.",
+      "browseAll": "Browse all",
+      "pinned": "Pinned",
+      "featured": "Featured",
+      "reserved": "Reserved",
+      "livePrice": "Live price",
+      "belowMarket": "{value}% below market",
+      "verifiedMerchant": "Verified merchant",
+      "save": "Save listing",
+      "km": "km"
+    },
+    "sellGold": {
+      "title": "Sell your old gold safely",
+      "description": "You deal only with verified stores, never with strangers.",
+      "step": "Step {n}",
+      "steps": {
+        "photo": {
+          "title": "Photograph your gold",
+          "body": "Use the in-app camera so stores know the photos are live and the item is yours."
         },
-        "damas": {
-          "name": "Damas Luxury",
-          "location": "Abu Dhabi Mall",
-          "category": "Diamond & Gold"
+        "offers": {
+          "title": "Stores send offers",
+          "body": "Verified stores in your country bid on it. Each offer stays open for 48 hours."
         },
-        "malabar": {
-          "name": "Malabar Gold",
-          "location": "Dubai Festival City",
-          "category": "18K & 22K"
-        },
-        "joyalukkas": {
-          "name": "Joyalukkas UAE",
-          "location": "Sharjah City Centre",
-          "category": "Bridal Gold"
+        "meet": {
+          "title": "Pick one and meet",
+          "body": "Choose the best offer, reserve it at that price and complete the sale in the store."
         }
+      },
+      "cta": "Get offers"
+    },
+    "market": {
+      "title": "The individual market",
+      "description": "Everyday items from verified individuals. Gold, diamonds and luxury watches are for stores only.",
+      "cta": "Visit the market",
+      "items": {
+        "tools": "Tools & Equipment",
+        "silver": "Silver",
+        "watches": "Everyday & Smart Watches",
+        "accessories": "Accessories & Costume",
+        "antiques": "Antiques & Collectibles",
+        "beads": "Prayer Beads (Misbaha)"
       }
+    },
+    "verifiedStores": {
+      "title": "Verified stores",
+      "description": "Each one has a checked trade licence.",
+      "previous": "Previous stores",
+      "next": "Next stores",
+      "listings": "{count} listings",
+      "plans": "Run a store? See plans"
     },
     "howItWorks": {
-      "eyebrow": "The Process",
-      "title": "How It",
-      "titleHighlight": "Works",
-      "description": "A transparent, trusted process — whether you are here to buy a piece or find it a new home.",
+      "title": "How it works",
+      "step": "Step {n}",
       "tabs": {
-        "buyers": "For Buyers",
-        "sellers": "For Sellers"
+        "buyers": "Buyers",
+        "selling": "Selling your gold",
+        "stores": "Stores"
       },
       "buyers": {
-        "steps": {
-          "browse": {
-            "badge": "Live Pricing on Every Item",
-            "title": "Browse & Discover",
-            "description": "Search thousands of listings filtered by karat, weight, price range, and emirate. The built-in live calculator instantly tells you whether a price is fair against today's gold rate."
-          },
-          "connect": {
-            "badge": "Verified Sellers Only",
-            "title": "Connect Directly",
-            "description": "Message identity-verified sellers through our secure in-platform inbox. Ask for additional photos, request the hallmark certificate, or make an offer — all in one place."
-          },
-          "complete": {
-            "badge": "Safe-Meeting Protocol",
-            "title": "Complete With Confidence",
-            "description": "Follow our safe-meeting guide to finalise the transaction in person. Inspect the piece, confirm the weight and karat, and leave a review to build the community's trust layer."
-          }
+        "s1": {
+          "title": "Browse live prices",
+          "body": "Gold items are priced from today's rate, so you see weight, karat and making charge clearly."
         },
-        "cta": {
-          "title": "Find Gold You Can Trust",
-          "description": "Every listing is priced against today's live gold rate. Every seller is identity-verified. Browse with complete confidence.",
-          "label": "Browse Listings"
-        }
+        "s2": {
+          "title": "Message or make an offer",
+          "body": "Talk to the store directly. Offers stay open for 48 hours."
+        },
+        "s3": {
+          "title": "Reserve and visit",
+          "body": "Reserve the item at the offer price for 2 to 48 hours, then pay and collect in the store."
+        },
+        "cta": "Browse listings"
       },
-      "sellers": {
-        "steps": {
-          "post": {
-            "badge": "No Listing Fees, Ever",
-            "title": "Post in Minutes",
-            "description": "Upload your photos, enter the karat and weight, and our engine automatically suggests a fair asking price based on today's live gold rate. Posting is always free — no listing fees."
-          },
-          "offers": {
-            "badge": "Verified Buyer Community",
-            "title": "Receive Genuine Offers",
-            "description": "Verified buyers browse your listing and reach out through the platform. Our trust system surfaces serious buyers and filters time-wasters before they can contact you."
-          },
-          "close": {
-            "badge": "Reputation You Own",
-            "title": "Close the Sale",
-            "description": "Meet the buyer at an agreed location, hand over the piece, and mark the listing as sold. Every completed sale builds your seller reputation score — your most valuable asset on the platform."
-          }
+      "selling": {
+        "s1": {
+          "title": "Verify and photograph",
+          "body": "Confirm your identity once and take photos with the in-app camera."
         },
-        "cta": {
-          "title": "Reach Serious Buyers Today",
-          "description": "Post your listing free in minutes. Our live gold pricing engine does the valuation for you — no haggling with tyre-kickers.",
-          "label": "Post Free Listing"
-        }
+        "s2": {
+          "title": "Receive offers",
+          "body": "Verified stores near you send offers. Compare them side by side."
+        },
+        "s3": {
+          "title": "Accept and meet",
+          "body": "Accept the best offer and complete the sale at the store."
+        },
+        "cta": "Sell your gold"
+      },
+      "stores": {
+        "s1": {
+          "title": "Submit your trade licence",
+          "body": "We check the licence and the owner's identity. Verification is free."
+        },
+        "s2": {
+          "title": "List at live prices",
+          "body": "Set karat, weight and making charge. The price follows the market."
+        },
+        "s3": {
+          "title": "Reach buyers and sellers",
+          "body": "Get found on the map, answer offers and build reviews from confirmed deals."
+        },
+        "cta": "See plans"
       }
     },
     "mobileApp": {
       "eyebrow": "Mobile App",
       "title": "Take Dallal Hoolee",
       "titleHighlight": "with you",
-      "description": "Browse listings on the go, get live gold price alerts, message sellers instantly, and post your jewelry in under 60 seconds. The full marketplace, in your pocket.",
-      "stats": {
-        "appStore": "App Store",
-        "googlePlay": "Google Play",
-        "downloads": "downloads"
-      },
-      "stores": {
-        "downloadOn": "Download on the",
-        "getItOn": "Get it on",
-        "appStore": "App Store",
-        "googlePlay": "Google Play"
-      },
-      "imageAlt": "Dallal Hoolee mobile application"
-    },
-    "calculator": {
-      "eyebrow": "Live Gold Calculator",
-      "title": "Is the price",
-      "titleHighlight": "fair?",
-      "description": "Instantly calculate the true gold value of any piece against today's live DGCX market rates — before you buy or sell.",
-      "weight": "Weight",
-      "units": {
-        "grams": "Grams",
-        "tola": "Tola"
-      },
-      "karat": "Gold Karat",
-      "makingCharges": "Making Charges",
-      "karats": {
-        "24k": "Pure Gold",
-        "22k": "High Karat",
-        "21k": "Gulf Standard",
-        "18k": "Fashion Gold"
-      },
-      "results": {
-        "liveRate": "Live Rate",
-        "goldValue": "Gold Value",
-        "makingCharges": "Making Charges",
-        "total": "Total Estimated Value",
-        "fairPrice": "Listings priced within 5% of this value are considered fair market price on Dallal Hoolee.",
-        "info": "Rates from DGCX, updated every minute. Making charges vary by jeweller, typically between 5–15%."
-      },
-      "actions": {
-        "findListings": "Find Listings at This Price",
-        "openCalculator": "Open Full Calculator"
-      },
-      "currency": "AED"
+      "description": "Browse stores, follow live metal prices and message sellers from your phone.",
+      "downloadOn": "Download on the",
+      "getItOn": "Get it on",
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "imageAlt": "Dallal Hoolee mobile app"
     }
   },
   "Calculator": {
