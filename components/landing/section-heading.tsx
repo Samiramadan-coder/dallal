@@ -1,4 +1,4 @@
-import { headingFont } from "./data";
+import { headingFont } from "@/constants/marketplace";
 import { getLocale } from "next-intl/server";
 
 export default async function SectionHeading({

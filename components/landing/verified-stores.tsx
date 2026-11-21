@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
-import { headingFont, stores } from "./data";
+import { headingFont, stores } from "@/constants/marketplace";
 import { useLocale, useTranslations } from "next-intl";
 import {
   BadgeCheck,
@@ -17,7 +17,7 @@ import {
 export default function VerifiedStores() {
   const locale = useLocale();
   const t = useTranslations("Home.verifiedStores");
-  const tCities = useTranslations("Home.hero.cities");
+  const tCities = useTranslations("Cities");
   const listRef = useRef<HTMLUListElement>(null);
   const isRtl = locale === "ar";
   const [atStart, setAtStart] = useState(true);

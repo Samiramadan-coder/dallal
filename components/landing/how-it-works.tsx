@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { headingFont } from "./data";
+import { headingFont } from "@/constants/marketplace";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";

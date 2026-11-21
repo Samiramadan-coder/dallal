@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, TrendingDown, TrendingUp } from "lucide-react";
-import { formatPrice, headingFont, metalRates, type Metal } from "./data";
+import { formatPrice, headingFont, metalRates, type Metal } from "@/constants/marketplace";
 
 const metals: Metal[] = ["gold", "silver", "platinum"];
 

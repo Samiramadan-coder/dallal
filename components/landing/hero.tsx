@@ -1,22 +1,13 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { headingFont } from "./data";
+import { cities, headingFont } from "@/constants/marketplace";
 import { ArrowRight, MapPin, Search } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
-
-const cities = [
-  { key: "dubai", value: "Dubai" },
-  { key: "abuDhabi", value: "Abu Dhabi" },
-  { key: "sharjah", value: "Sharjah" },
-  { key: "ajman", value: "Ajman" },
-  { key: "rasAlKhaimah", value: "Ras Al Khaimah" },
-  { key: "fujairah", value: "Fujairah" },
-  { key: "ummAlQuwain", value: "Umm Al Quwain" },
-] as const;
 
 export default async function Hero() {
   const locale = await getLocale();
   const t = await getTranslations("Home.hero");
+  const tCities = await getTranslations("Cities");
 
   return (
     <section className="relative overflow-hidden bg-[#071E14]">
@@ -79,7 +70,7 @@ export default async function Hero() {
                   value={city.value}
                   className="bg-[#071E14]"
                 >
-                  {t(`cities.${city.key}`)}
+                  {tCities(city.key)}
                 </option>
               ))}
             </select>

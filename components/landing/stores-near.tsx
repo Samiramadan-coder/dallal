@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { nearbyStores } from "./data";
+import { nearbyStores } from "@/constants/marketplace";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
 import { getTranslations } from "next-intl/server";
@@ -16,7 +16,7 @@ const pins = [
 
 export default async function StoresNear() {
   const t = await getTranslations("Home.nearby");
-  const tCities = await getTranslations("Home.hero.cities");
+  const tCities = await getTranslations("Cities");
 
   return (
     <section

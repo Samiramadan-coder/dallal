@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { marketCategories } from "./data";
+import { marketCategories } from "@/constants/marketplace";
 import SectionHeading from "./section-heading";
 import { getTranslations } from "next-intl/server";
 import {

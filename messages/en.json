@@ -204,15 +204,6 @@
       "placeholder": "Search gold rings, solitaire, Rolex…",
       "cityLabel": "City",
       "allCities": "All UAE",
-      "cities": {
-        "dubai": "Dubai",
-        "abuDhabi": "Abu Dhabi",
-        "sharjah": "Sharjah",
-        "ajman": "Ajman",
-        "rasAlKhaimah": "Ras Al Khaimah",
-        "fujairah": "Fujairah",
-        "ummAlQuwain": "Umm Al Quwain"
-      },
       "search": "Search",
       "sellGold": "Sell your gold"
     },
@@ -248,15 +239,7 @@
     "featured": {
       "title": "Featured listings",
       "description": "Boosted by their stores in UAE.",
-      "browseAll": "Browse all",
-      "pinned": "Pinned",
-      "featured": "Featured",
-      "reserved": "Reserved",
-      "livePrice": "Live price",
-      "belowMarket": "{value}% below market",
-      "verifiedMerchant": "Verified merchant",
-      "save": "Save listing",
-      "km": "km"
+      "browseAll": "Browse all"
     },
     "sellGold": {
       "title": "Sell your old gold safely",
@@ -464,6 +447,63 @@
           "label": "Cities Covered"
         }
       }
+    },
+    "search": {
+      "label": "Search listings",
+      "placeholder": "Search — e.g. 22K necklace, Rolex Datejust, diamond solitaire…"
+    },
+    "categoriesLabel": "Categories",
+    "all": "All",
+    "individualMarket": "Individual market",
+    "filters": {
+      "title": "Filters",
+      "hint": "Pick a category to refine by karat, carat, brand and more.",
+      "price": "Price (AED)",
+      "min": "Min",
+      "max": "Max",
+      "minLabel": "Minimum (AED)",
+      "maxLabel": "Maximum (AED)",
+      "location": "Location",
+      "city": "City",
+      "allCities": "All UAE",
+      "condition": "Condition",
+      "sellerDelivery": "Seller & delivery",
+      "negotiable": "Negotiable",
+      "rating4": "Store rating 4+",
+      "openNow": "Open now",
+      "delivers": "Delivers in country",
+      "reset": "Reset",
+      "close": "Close filters",
+      "showResults": "Show {count} results"
+    },
+    "toolbar": {
+      "results": "{count, plural, =0 {No listings} one {# listing} other {# listings}}",
+      "saveSearch": "Save this search",
+      "searchSaved": "Search saved",
+      "sortBy": "Sort by",
+      "sort": {
+        "recommended": "Recommended",
+        "price_asc": "Price: low to high",
+        "price_desc": "Price: high to low",
+        "newest": "Newest",
+        "nearest": "Nearest"
+      },
+      "layout": "Layout",
+      "grid": "Grid view",
+      "list": "List view",
+      "map": "Map view"
+    },
+    "active": {
+      "title": "Active filters",
+      "clearAll": "Clear all",
+      "remove": "Remove filter {label}"
+    },
+    "empty": {
+      "title": "No listings found",
+      "description": "Nothing matches your current filters. Try widening your search or clearing some filters."
+    },
+    "map": {
+      "preview": "Map preview"
     }
   },
   "About": {
@@ -1256,5 +1296,25 @@
       "setPrimaryConfirmation": "Are you sure you want to set this phone number as your primary?",
       "errorSettingPrimary": "Error setting primary phone"
     }
+  },
+  "Cities": {
+    "dubai": "Dubai",
+    "abuDhabi": "Abu Dhabi",
+    "sharjah": "Sharjah",
+    "ajman": "Ajman",
+    "rasAlKhaimah": "Ras Al Khaimah",
+    "fujairah": "Fujairah",
+    "ummAlQuwain": "Umm Al Quwain"
+  },
+  "Listing": {
+    "pinned": "Pinned",
+    "featured": "Featured",
+    "reserved": "Reserved",
+    "livePrice": "Live price",
+    "belowMarket": "{value}% below market",
+    "verifiedMerchant": "Verified merchant",
+    "save": "Save listing",
+    "km": "km",
+    "currency": "AED"
   }
 }

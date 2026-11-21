@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
-import Title from "../reusable/title";
-import EyeBrow from "../reusable/eye-brow";
+import { headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
 
 const stats = ["listings", "sellers", "cities"] as const;
@@ -8,59 +7,51 @@ const stats = ["listings", "sellers", "cities"] as const;
 export default async function Hero() {
   const locale = await getLocale();
   const t = await getTranslations("Browse.hero");
-  const fontClass = locale === "en" ? "font-playfair" : "";
+  const font = headingFont(locale);
 
   return (
-    <section className="relative overflow-hidden bg-card py-14 text-card-foreground lg:py-16 mt-30">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-e-32 -top-52 size-120 rounded-full border border-primary/6"
-      />
+    <div className="relative mt-30 overflow-hidden bg-[#0F4A31]">
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute end-0 top-0 h-full select-none opacity-[0.06]"
+        viewBox="0 0 400 200"
+        fill="none"
+      >
+        <circle cx="350" cy="0" r="180" stroke="#E8D5A0" strokeWidth="1" />
+        <circle cx="350" cy="0" r="220" stroke="#E8D5A0" strokeWidth="0.5" />
+        <circle cx="350" cy="0" r="260" stroke="#E8D5A0" strokeWidth="0.5" />
+        <line x1="170" y1="0" x2="400" y2="200" stroke="#E8D5A0" strokeWidth="0.5" />
+        <line x1="220" y1="0" x2="400" y2="150" stroke="#E8D5A0" strokeWidth="0.5" />
+      </svg>
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-e-16 -top-40 size-96 rounded-full border border-primary/6"
-      />
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-e-2 -top-28 size-72 rounded-full border border-primary/6"
-      />
-
-      <div className="container relative z-10 max-w-7xl">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-primary/70" />
-              <EyeBrow className="text-xs text-primary">{t("eyebrow")}</EyeBrow>
-            </div>
-            <Title
+      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-8 md:px-6 md:pb-10 md:pt-12">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8">
+          <div>
+            <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#C9A445]/80">
+              <span className="h-px w-8 bg-[#C9A445]/50" />
+              {t("eyebrow")}
+            </p>
+            <h1
               className={cn(
-                "mt-5 text-4xl font-bold leading-tight text-card-foreground md:text-5xl",
-                fontClass,
+                font,
+                "text-balance text-5xl font-bold leading-tight text-[#FAF6EF]",
               )}
             >
               {t("title")}{" "}
               <span className="gold-text italic">{t("titleHighlight")}</span>
-            </Title>
-            <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">
+            </h1>
+            <p className="mt-3 max-w-lg text-sm leading-relaxed text-[rgba(245,240,232,0.5)]">
               {t("description")}
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 lg:gap-12">
+          <div className="flex items-center gap-4 md:gap-6">
             {stats.map((stat) => (
-              <div key={stat} className="text-center lg:min-w-24">
-                <p
-                  className={cn(
-                    "text-3xl font-bold leading-none gold-text",
-                    fontClass,
-                  )}
-                >
+              <div key={stat} className="text-center">
+                <p className={cn(font, "gold-text text-3xl font-bold")}>
                   {t(`stats.${stat}.value`)}
                 </p>
-                <p className="mt-2 text-[10px] font-medium uppercase tracking-widest text-[#f5f0e873]">
+                <p className="mt-0.5 text-[10px] uppercase tracking-widest text-[rgba(245,240,232,0.45)]">
                   {t(`stats.${stat}.label`)}
                 </p>
               </div>
@@ -68,6 +59,8 @@ export default async function Hero() {
           </div>
         </div>
       </div>
-    </section>
+
+      <div className="h-px bg-linear-to-r from-transparent via-[rgba(201,164,69,0.4)] to-transparent" />
+    </div>
   );
 }

@@ -195,15 +195,6 @@
       "placeholder": "ابحث عن خواتم ذهب، سوليتير، رولكس…",
       "cityLabel": "المدينة",
       "allCities": "كل UAE",
-      "cities": {
-        "dubai": "دبي",
-        "abuDhabi": "أبوظبي",
-        "sharjah": "الشارقة",
-        "ajman": "عجمان",
-        "rasAlKhaimah": "رأس الخيمة",
-        "fujairah": "الفجيرة",
-        "ummAlQuwain": "أم القيوين"
-      },
       "search": "بحث",
       "sellGold": "بِع ذهبك"
     },
@@ -239,15 +230,7 @@
     "featured": {
       "title": "الإعلانات المميّزة",
       "description": "مميّز من متاجرهم في UAE.",
-      "browseAll": "تصفّح الكل",
-      "pinned": "مثبّت",
-      "featured": "مميّز",
-      "reserved": "محجوز",
-      "livePrice": "السعر المباشر",
-      "belowMarket": "أقل من السوق بنسبة {value}%",
-      "verifiedMerchant": "تاجر موثّق",
-      "save": "حفظ الإعلان",
-      "km": "كم"
+      "browseAll": "تصفّح الكل"
     },
     "sellGold": {
       "title": "بِع ذهبك القديم بأمان",
@@ -438,23 +421,80 @@
   "Browse": {
     "hero": {
       "eyebrow": "السوق",
-      "title": "تصفح",
+      "title": "تصفّح",
       "titleHighlight": "الإعلانات",
-      "description": "تصفح المجوهرات الذهبية والألماس والساعات والسبائك من بائعين موثّقين في الإمارات، مع أسعار مقارنة بسعر السوق المباشر.",
+      "description": "مجوهرات ذهب وألماس وساعات وسبائك موثّقة من بائعين موثوقين في أنحاء الإمارات — مسعّرة وفق سعر السوق المباشر اليوم.",
       "stats": {
         "listings": {
           "value": "1,248",
-          "label": "إعلان نشط"
+          "label": "الإعلانات النشطة"
         },
         "sellers": {
           "value": "342",
-          "label": "بائع موثّق"
+          "label": "بائعون موثّقون"
         },
         "cities": {
           "value": "7",
-          "label": "مدن مغطاة"
+          "label": "المدن المغطّاة"
         }
       }
+    },
+    "search": {
+      "label": "البحث في الإعلانات",
+      "placeholder": "ابحث — مثل: عقد عيار 22، رولكس ديت جست، خاتم ألماس سوليتير…"
+    },
+    "categoriesLabel": "الفئات",
+    "all": "الكل",
+    "individualMarket": "سوق الأفراد",
+    "filters": {
+      "title": "الفلاتر",
+      "hint": "اختر فئة لتضييق النتائج حسب العيار والقيراط والعلامة التجارية وغيرها.",
+      "price": "السعر (AED)",
+      "min": "Min",
+      "max": "Max",
+      "minLabel": "الحد الأدنى (AED)",
+      "maxLabel": "الحد الأقصى (AED)",
+      "location": "الموقع",
+      "city": "المدينة",
+      "allCities": "كل UAE",
+      "condition": "الحالة",
+      "sellerDelivery": "البائع والتوصيل",
+      "negotiable": "قابل للتفاوض",
+      "rating4": "تقييم المتجر 4 فأكثر",
+      "openNow": "مفتوح الآن",
+      "delivers": "يوصّل داخل الدولة",
+      "reset": "إعادة تعيين",
+      "close": "إغلاق الفلاتر",
+      "showResults": "عرض {count} نتيجة"
+    },
+    "toolbar": {
+      "results": "{count, plural, =0 {لا توجد إعلانات} one {إعلان واحد} two {إعلانان} few {# إعلانات} many {# إعلانًا} other {# إعلان}}",
+      "saveSearch": "حفظ البحث",
+      "searchSaved": "تم حفظ البحث",
+      "sortBy": "ترتيب حسب",
+      "sort": {
+        "recommended": "الموصى به",
+        "price_asc": "السعر: من الأقل إلى الأعلى",
+        "price_desc": "السعر: من الأعلى إلى الأقل",
+        "newest": "الأحدث",
+        "nearest": "الأقرب"
+      },
+      "layout": "التخطيط",
+      "grid": "عرض الشبكة",
+      "list": "عرض القائمة",
+      "map": "عرض الخريطة"
+    },
+    "active": {
+      "title": "الفلاتر النشطة",
+      "clearAll": "مسح الكل",
+      "remove": "إزالة الفلتر {label}"
+    },
+    "empty": {
+      "title": "لم يتم العثور على إعلانات",
+      "description": "لا شيء يطابق الفلاتر الحالية. جرّب توسيع البحث أو مسح بعض الفلاتر."
+    },
+    "map": {
+      "preview": "معاينة الخريطة"
     }
   },
   "About": {
@@ -1247,5 +1287,25 @@
       "setPrimaryConfirmation": "هل أنت متأكد أنك تريد تعيين رقم الهاتف هذا كرقم رئيسي؟",
       "errorSettingPrimary": "حدث خطأ أثناء تعيين الهاتف الرئيسي"
     }
+  },
+  "Cities": {
+    "dubai": "دبي",
+    "abuDhabi": "أبوظبي",
+    "sharjah": "الشارقة",
+    "ajman": "عجمان",
+    "rasAlKhaimah": "رأس الخيمة",
+    "fujairah": "الفجيرة",
+    "ummAlQuwain": "أم القيوين"
+  },
+  "Listing": {
+    "pinned": "مثبّت",
+    "featured": "مميّز",
+    "reserved": "محجوز",
+    "livePrice": "السعر المباشر",
+    "belowMarket": "أقل من السوق بنسبة {value}%",
+    "verifiedMerchant": "تاجر موثّق",
+    "save": "حفظ الإعلان",
+    "km": "كم",
+    "currency": "د.إ"
   }
 }

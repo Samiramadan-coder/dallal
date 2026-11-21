@@ -1,4 +1,4 @@
-import { headingFont } from "./data";
+import { headingFont } from "@/constants/marketplace";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
 import { getLocale, getTranslations } from "next-intl/server";

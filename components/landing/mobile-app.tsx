@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Apple from "../icons/apple";
-import { headingFont } from "./data";
+import { headingFont } from "@/constants/marketplace";
 import { Smartphone } from "lucide-react";
 import GooglePlay from "../icons/google-play";
 import { getLocale, getTranslations } from "next-intl/server";

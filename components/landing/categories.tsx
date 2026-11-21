@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
-import { categories, headingFont } from "./data";
+import { categories, headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function Categories() {

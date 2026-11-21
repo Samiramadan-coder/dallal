@@ -1,67 +1,54 @@
 import { Suspense } from "react";
 import Hero from "@/components/browse/hero";
-import Filters from "@/components/browse/filters";
-import GridItem from "@/components/browse/grid-item";
-import ListItem from "@/components/browse/list-item";
-import QueryFilters from "@/components/browse/query-filters";
+import Results from "@/components/browse/results";
+import Toolbar from "@/components/browse/toolbar";
+import SearchBar from "@/components/browse/search-bar";
+import FiltersSidebar from "@/components/browse/filters";
+import CategoryTabs from "@/components/browse/category-tabs";
+import ActiveFilters from "@/components/browse/active-filters";
 import { BrowseFiltersProvider } from "@/providers/browse-filters";
+import { ListingCardSkeleton } from "@/components/reusable/listing-card";
 
-type SearchParams = {
-  show_type: "list" | "map";
-};
-
-async function ListItems({ searchParams }: { searchParams: SearchParams }) {
-  const { show_type } = searchParams;
-
-  if (show_type === "list") {
-    return (
-      <div className="grid grid-cols-1 gap-5">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <ListItem key={index} />
-        ))}
-      </div>
-    );
-  }
-
-  if (show_type === "map") {
-    return <div>Map Item</div>;
-  }
-
+function ResultsSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {Array.from({ length: 6 }).map((_, index) => (
-        <GridItem key={index} />
+    <div
+      aria-busy="true"
+      className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3"
+    >
+      {Array.from({ length: 6 }).map((_, i) => (
+        <ListingCardSkeleton key={i} />
       ))}
     </div>
   );
 }
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>;
-}) {
+export default function Page() {
   return (
-    <div>
+    <div className="min-h-screen bg-[#FAF6EF]">
       <Hero />
 
-      <BrowseFiltersProvider>
-        <div className="pt-12 pb-20 bg-card-foreground">
-          <div className="container max-w-7xl">
-            <div className="grid items-start grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              <Filters />
+      <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-10">
+        <Suspense fallback={<ResultsSkeleton />}>
+          <BrowseFiltersProvider>
+            <div className="mb-5">
+              <SearchBar />
+            </div>
+            <div className="mb-5">
+              <CategoryTabs />
+            </div>
 
-              <div className="lg:col-span-3 space-y-5">
-                <QueryFilters />
+            <div className="flex items-start gap-8">
+              <FiltersSidebar />
 
-                <Suspense fallback={<p>Loading....</p>}>
-                  <ListItems searchParams={await searchParams} />
-                </Suspense>
+              <div className="min-w-0 flex-1">
+                <Toolbar />
+                <ActiveFilters />
+                <Results />
               </div>
             </div>
-          </div>
-        </div>
-      </BrowseFiltersProvider>
+          </BrowseFiltersProvider>
+        </Suspense>
+      </div>
     </div>
   );
 }
