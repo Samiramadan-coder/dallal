@@ -3,9 +3,12 @@ import { Link } from "@/i18n/navigation";
 import { Plus, Search } from "lucide-react";
 import { headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
+import { localizePath } from "@/lib/auth-routes";
+import { getCountryCode } from "@/lib/api/selected-country";
 
 export default async function Hero({ q }: { q: string }) {
   const locale = await getLocale();
+  const countryCode = await getCountryCode();
   const t = await getTranslations("Market.hero");
 
   return (
@@ -40,7 +43,7 @@ export default async function Hero({ q }: { q: string }) {
 
         <form
           role="search"
-          action={`${locale === "en" ? "" : `/${locale}`}/market`}
+          action={localizePath("/market", locale, countryCode)}
           className="flex max-w-2xl gap-2"
         >
           <label htmlFor="market-search" className="sr-only">

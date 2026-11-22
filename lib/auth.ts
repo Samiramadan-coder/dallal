@@ -1,12 +1,13 @@
 "use server";
 
-import { redirect } from "@/i18n/navigation";
+import { redirect } from "@/i18n/server-navigation";
 import { api } from "@/lib/api/client";
 import { clearAuthToken, setAuthToken } from "@/lib/api/auth-token";
 import { ForbiddenError, runAction } from "@/lib/api/errors";
 import type { ActionResult } from "@/lib/api/errors";
 import { resolveLocale } from "@/lib/api/locale";
 import { HOME_PATH, localizePath, safeCallbackUrl } from "@/lib/auth-routes";
+import { getCountryCode } from "@/lib/api/selected-country";
 import type { ForgotPasswordFormData } from "@/types/forgot-password";
 import type { OTPVerifyFormData } from "@/types/otp-verify";
 import type { ResetPasswordFormData } from "@/types/reset-password";
@@ -26,7 +27,7 @@ async function afterSignInUrl(callbackUrl?: string | null): Promise<string> {
   return safeCallbackUrl(
     // Action arguments come from the client, so don't trust the type
     typeof callbackUrl === "string" ? callbackUrl : null,
-    localizePath(HOME_PATH, await resolveLocale()),
+    localizePath(HOME_PATH, await resolveLocale(), await getCountryCode()),
   );
 }
 
@@ -157,5 +158,5 @@ export async function signOut(): Promise<void> {
   }
 
   await clearAuthToken();
-  redirect({ href: HOME_PATH, locale: await resolveLocale() });
+  await redirect({ href: HOME_PATH, locale: await resolveLocale() });
 }

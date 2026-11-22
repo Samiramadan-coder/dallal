@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { unstable_rethrow } from "next/navigation";
 import type { Locale } from "next-intl";
 
-import { redirect } from "@/i18n/navigation";
+import { redirect } from "@/i18n/server-navigation";
 import {
   CALLBACK_URL_PARAM,
   PATHNAME_HEADER,

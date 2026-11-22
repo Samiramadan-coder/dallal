@@ -1,5 +1,11 @@
-import { createNavigation } from "next-intl/navigation";
-import { routing } from "./routing";
+import { base } from "./base-navigation";
 
-export const { Link, getPathname, redirect, usePathname, useRouter } =
-  createNavigation(routing);
+// Write paths without the country ("/browse"): it's added automatically.
+// On the server, use `redirect` from "./server-navigation"
+export { Link } from "./link";
+export {
+  useCountryParam,
+  usePathname,
+  useRouter,
+} from "./client-navigation";
+export const { getPathname } = base;

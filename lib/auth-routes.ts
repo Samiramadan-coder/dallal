@@ -2,9 +2,11 @@ import type { Locale } from "next-intl";
 import { hasLocale } from "next-intl";
 
 import { routing } from "@/i18n/routing";
+import { addCountry, isCountrySegment } from "@/lib/country";
 
 // Shared between the proxy and server code, so it must stay free of
-// `server-only` and request-time APIs. All paths are unprefixed (no locale)
+// `server-only` and request-time APIs. All paths are unprefixed
+// (no locale, no country)
 
 // Shows the sign-in form when there's no `?action=sign-up`
 export const SIGN_IN_PATH = "/auth";
@@ -40,11 +42,34 @@ export function splitLocale(pathname: string): {
   return { locale: routing.defaultLocale, pathname };
 }
 
-// Adds the locale prefix the way next-intl does for "as-needed"
-export function localizePath(pathname: string, locale: Locale): string {
-  if (locale === routing.defaultLocale) return pathname;
+// Splits "/ar/sa/profile" into { locale: "ar", country: "sa", pathname: "/profile" }.
+// `country` is null when the URL has none (it keeps its original case)
+export function splitPath(pathname: string): {
+  locale: Locale;
+  country: string | null;
+  pathname: string;
+} {
+  const { locale, pathname: rest } = splitLocale(pathname);
+  const [, first, ...tail] = rest.split("/");
 
-  return pathname === "/" ? `/${locale}` : `/${locale}${pathname}`;
+  if (isCountrySegment(first)) {
+    return { locale, country: first, pathname: `/${tail.join("/")}` };
+  }
+
+  return { locale, country: null, pathname: rest };
+}
+
+// Adds the country and the locale prefix ("as-needed"):
+// ("/profile", "ar", "sa") → "/ar/sa/profile", ("/", "en", "sa") → "/sa"
+export function localizePath(
+  pathname: string,
+  locale: Locale,
+  country: string,
+): string {
+  const withCountry = addCountry(pathname, country);
+  if (locale === routing.defaultLocale) return withCountry;
+
+  return `/${locale}${withCountry}`;
 }
 
 function matchesRoute(pathname: string, route: string): boolean {
@@ -57,17 +82,17 @@ function matchesRoute(pathname: string, route: string): boolean {
   return normalized === route || normalized.startsWith(`${route}/`);
 }
 
-// `pathname` may include the locale prefix
+// `pathname` may include the locale and country prefixes
 export function isProtectedRoute(pathname: string): boolean {
   if (isGuestOnlyRoute(pathname)) return false;
 
-  const unprefixed = splitLocale(pathname).pathname;
+  const unprefixed = splitPath(pathname).pathname;
   return PROTECTED_ROUTES.some((route) => matchesRoute(unprefixed, route));
 }
 
-// `pathname` may include the locale prefix
+// `pathname` may include the locale and country prefixes
 export function isGuestOnlyRoute(pathname: string): boolean {
-  const unprefixed = splitLocale(pathname).pathname;
+  const unprefixed = splitPath(pathname).pathname;
   return GUEST_ONLY_ROUTES.some((route) => matchesRoute(unprefixed, route));
 }
 

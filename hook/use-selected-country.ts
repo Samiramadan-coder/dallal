@@ -1,46 +1,35 @@
 "use client";
 
-import { useSyncExternalStore, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { Country } from "@/types/global";
-import { COUNTRY_COOKIE, resolveCountry } from "@/lib/country";
+import { resolveCountry } from "@/lib/country";
+import { useCountryParam, usePathname, useRouter } from "@/i18n/navigation";
 
-const CHANGE_EVENT = "country-change";
-
-const subscribe = (cb: () => void) => {
-  window.addEventListener(CHANGE_EVENT, cb);
-  return () => window.removeEventListener(CHANGE_EVENT, cb);
-};
-
-const readCookie = () => {
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${COUNTRY_COOKIE}=([^;]*)`),
-  );
-  return match ? decodeURIComponent(match[1]) : null;
-};
-
-// Selected country code from the cookie (null on the server / before choosing)
+// Country code of the current URL ("sa")
 export function useSelectedCountryCode() {
-  return useSyncExternalStore(subscribe, readCookie, () => null);
+  return useCountryParam();
 }
 
-// Selected country, persisted in a cookie so the server can read it too.
-// Falls back to the first live country.
+// Country of the current URL. Selecting another one opens the same page
+// in that country ("/sa/browse" → "/ae/browse")
 export function useSelectedCountry(countries: Country[]) {
-  const code = useSelectedCountryCode();
-
+  const code = useCountryParam();
   const router = useRouter();
+  const pathname = usePathname();
   const [pending, startTransition] = useTransition();
 
   const isLive = (c: Country) => c.status === "live";
   const selected = resolveCountry(countries, code);
 
   const select = (country: Country) => {
-    if (!isLive(country)) return;
-    document.cookie = `${COUNTRY_COOKIE}=${encodeURIComponent(country.code)}; path=/; max-age=31536000; samesite=lax`;
-    window.dispatchEvent(new Event(CHANGE_EVENT));
-    // Re-render server components (hero, prices…) with the new country
-    startTransition(() => router.refresh());
+    if (!isLive(country) || country.code.toLowerCase() === code) return;
+    // Keep the current query string (filters, tabs…)
+    const search = window.location.search;
+    startTransition(() => {
+      router.replace(`${pathname}${search}`, {
+        country: country.code.toLowerCase(),
+      });
+    });
   };
 
   return { selected, select, isLive, pending };

@@ -15,6 +15,7 @@ import {
 import {
   getSelectedCountry,
   getSelectedCountryCities,
+  getCountryCode,
 } from "@/lib/api/selected-country";
 
 import Image from "next/image";
@@ -23,9 +24,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Search } from "lucide-react";
 import { headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
+import { localizePath } from "@/lib/auth-routes";
 
 export default async function Hero() {
   const locale = await getLocale();
+  const countryCode = await getCountryCode();
   const t = await getTranslations("Home.hero");
 
   const [country, cities] = await Promise.all([
@@ -71,7 +74,7 @@ export default async function Hero() {
 
         <form
           role="search"
-          action={`${locale === "en" ? "" : `/${locale}`}/browse`}
+          action={localizePath("/browse", locale, countryCode)}
           method="GET"
           className="mt-9 flex w-full flex-col gap-2 rounded-2xl border border-primary/25 bg-card p-2 md:flex-row"
         >

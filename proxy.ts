@@ -15,8 +15,14 @@ import {
   isProtectedRoute,
   localizePath,
   safeCallbackUrl,
-  splitLocale,
+  splitPath,
 } from "./lib/auth-routes";
+import {
+  COUNTRY_COOKIE,
+  COUNTRY_HEADER,
+  DEFAULT_COUNTRY,
+  isCountrySegment,
+} from "./lib/country";
 import { routing } from "./i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
@@ -64,14 +70,30 @@ export default function proxy(request: NextRequest) {
   // Let next-intl's own redirects (e.g. adding the locale prefix) run first;
   // past this point the URL's locale is the final one
   if (!isRedirect) {
-    const { locale } = splitLocale(nextUrl.pathname);
+    const { locale, country, pathname } = splitPath(nextUrl.pathname);
 
-    if (!isSignedIn && isProtectedRoute(nextUrl.pathname)) {
+    if (!country || country !== country.toLowerCase()) {
+      // No country in the URL ("/", "/browse"): use the remembered one.
+      // An upper-case one ("/SA/browse") is sent to its canonical form
+      const remembered = request.cookies.get(COUNTRY_COOKIE)?.value;
+      const target =
+        country?.toLowerCase() ??
+        (isCountrySegment(remembered)
+          ? remembered!.toLowerCase()
+          : DEFAULT_COUNTRY);
+
+      const url = new URL(localizePath(pathname, locale, target), request.url);
+      url.search = nextUrl.search;
+      response = NextResponse.redirect(url, country ? 308 : 307);
+    } else if (!isSignedIn && isProtectedRoute(nextUrl.pathname)) {
       const callbackSearch = new URLSearchParams(nextUrl.search);
       callbackSearch.delete(SESSION_PARAM);
       const query = callbackSearch.toString();
 
-      const url = new URL(localizePath(SIGN_IN_PATH, locale), request.url);
+      const url = new URL(
+        localizePath(SIGN_IN_PATH, locale, country),
+        request.url,
+      );
       url.searchParams.set(
         CALLBACK_URL_PARAM,
         `${nextUrl.pathname}${query ? `?${query}` : ""}`,
@@ -80,7 +102,7 @@ export default function proxy(request: NextRequest) {
     } else if (isSignedIn && isGuestOnlyRoute(nextUrl.pathname)) {
       const target = safeCallbackUrl(
         nextUrl.searchParams.get(CALLBACK_URL_PARAM),
-        localizePath(HOME_PATH, locale),
+        localizePath(HOME_PATH, locale, country),
       );
       response = NextResponse.redirect(new URL(target, request.url));
     } else {
@@ -91,6 +113,7 @@ export default function proxy(request: NextRequest) {
         PATHNAME_HEADER,
         `${nextUrl.pathname}${nextUrl.search}`,
       );
+      forwardRequestHeader(request, response, COUNTRY_HEADER, country);
     }
   }
 
