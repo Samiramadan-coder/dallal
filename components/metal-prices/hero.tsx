@@ -6,11 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Clock, Radio } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  useBrowseCountry,
-  useCurrency,
-  useVatRate,
-} from "@/hook/use-currency";
+import { useBrowseCountry, useCurrency, useVatRate } from "@/hook/use-currency";
 import Image from "next/image";
 import { headingFont } from "@/constants/marketplace";
 import { useCountries } from "@/providers/countries";
@@ -79,7 +75,7 @@ export default function Hero() {
       />
       <div
         aria-hidden
-        className="absolute bottom-0 end-0 top-0 w-1/3 bg-linear-to-l from-primary/5 to-transparent rtl:bg-linear-to-r"
+        className="absolute bottom-0 inset-e-0 top-0 w-1/3 bg-linear-to-l from-primary/5 to-transparent rtl:bg-linear-to-r"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 md:px-6">
@@ -155,7 +151,9 @@ export default function Hero() {
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-[rgba(245,240,232,0.55)]">
               {t(`hero.description.${metal}`, { currency })}
-              <span className="ms-1 text-primary">{t("hero.vat", { rate: Math.round(vatRate * 1000) / 10 })}</span>
+              <span className="ms-1 text-primary">
+                {t("hero.vat", { rate: Math.round(vatRate * 1000) / 10 })}
+              </span>
             </p>
           </div>
 

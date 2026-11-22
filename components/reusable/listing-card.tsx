@@ -56,8 +56,8 @@ export default function ListingCard({
         className={cn(
           "relative overflow-hidden bg-[#F5F0E8]",
           isList
-            ? "aspect-[4/3] sm:aspect-auto sm:w-64 sm:shrink-0"
-            : "aspect-[4/3]",
+            ? "aspect-4/3 sm:aspect-auto sm:w-64 sm:shrink-0"
+            : "aspect-4/3",
         )}
       >
         <Image
@@ -72,7 +72,7 @@ export default function ListingCard({
           className="object-cover"
         />
 
-        <div className="absolute top-3 start-3 z-10 flex flex-col items-start gap-1.5">
+        <div className="absolute top-3 inset-s-3 z-10 flex flex-col items-start gap-1.5">
           {listing.pinned && (
             <span className="rounded-full bg-[#1B6B4A] px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest text-card-foreground shadow-md">
               {t("pinned")}
@@ -85,7 +85,7 @@ export default function ListingCard({
           )}
         </div>
 
-        <span className="absolute bottom-3 end-3 z-10 inline-flex items-center gap-1 rounded-full bg-background/75 px-2 py-0.5 text-[10px] font-semibold text-card-foreground backdrop-blur-sm">
+        <span className="absolute bottom-3 inset-e-3 z-10 inline-flex items-center gap-1 rounded-full bg-background/75 px-2 py-0.5 text-[10px] font-semibold text-card-foreground backdrop-blur-sm">
           <Eye className="size-3" />
           {listing.views}
         </span>
@@ -183,7 +183,7 @@ export default function ListingCard({
 export function ListingCardSkeleton() {
   return (
     <div className="animate-pulse overflow-hidden rounded-2xl border border-[rgba(27,107,74,0.08)] bg-white">
-      <div className="aspect-[4/3] bg-[#F0EBE0]" />
+      <div className="aspect-4/3 bg-[#F0EBE0]" />
       <div className="flex-1 space-y-3 p-4">
         <div className="h-3 w-1/3 rounded bg-[#F0EBE0]" />
         <div className="h-4 w-4/5 rounded bg-[#F0EBE0]" />

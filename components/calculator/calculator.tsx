@@ -17,11 +17,7 @@ import {
   type Metal,
   type MetalRate,
 } from "@/constants/marketplace";
-import {
-  useBrowseCountry,
-  useCurrency,
-  useVatRate,
-} from "@/hook/use-currency";
+import { useBrowseCountry, useCurrency, useVatRate } from "@/hook/use-currency";
 import { useMetalRates } from "@/hook/use-metal-rates";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -56,7 +52,9 @@ function useFormat() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-      return locale === "ar" ? `${amount} ${currency}` : `${currency} ${amount}`;
+      return locale === "ar"
+        ? `${amount} ${currency}`
+        : `${currency} ${amount}`;
     },
     num: (v: number, digits = 3) =>
       v.toLocaleString("en-US", { maximumFractionDigits: digits }),
@@ -121,7 +119,9 @@ function PurityPicker({
               <div
                 className={cn(
                   "mt-1.5 text-[10px] font-semibold",
-                  active ? "text-[rgba(232,213,160,0.6)]" : "text-muted-foreground",
+                  active
+                    ? "text-[rgba(232,213,160,0.6)]"
+                    : "text-muted-foreground",
                 )}
               >
                 {t("perGram", { price: money(rate.price) })}
@@ -209,7 +209,7 @@ function WeightInput({
           })}
           className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.04)] outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
         />
-        <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
+        <span className="absolute inset-e-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
           {t(`form.unitShort.${unit}`)}
         </span>
       </div>
@@ -296,8 +296,12 @@ function VatToggle({
       )}
     >
       <div className="text-start">
-        <div className="text-sm font-bold text-foreground">{t("vat", { rate: percent })}</div>
-        <div className="mt-0.5 text-[10px] text-muted-foreground">{t("vatHint", { country: country?.name ?? "" })}</div>
+        <div className="text-sm font-bold text-foreground">
+          {t("vat", { rate: percent })}
+        </div>
+        <div className="mt-0.5 text-[10px] text-muted-foreground">
+          {t("vatHint", { country: country?.name ?? "" })}
+        </div>
       </div>
       <div
         className={cn(
@@ -308,7 +312,7 @@ function VatToggle({
         <div
           className={cn(
             "absolute top-1 size-4 rounded-full bg-white shadow-sm transition-all duration-300",
-            value ? "start-7" : "start-1",
+            value ? "inset-s-7" : "inset-s-1",
           )}
         />
       </div>
@@ -393,7 +397,9 @@ function Row({
     <div className="flex items-center justify-between gap-3">
       <div>
         <div className="text-xs font-bold text-[#4A4840]">{label}</div>
-        {hint && <div className="text-[10px] text-muted-foreground">{hint}</div>}
+        {hint && (
+          <div className="text-[10px] text-muted-foreground">{hint}</div>
+        )}
       </div>
       <div className="shrink-0 text-sm font-bold text-foreground">{value}</div>
     </div>
@@ -610,7 +616,8 @@ function CompareMode(s: Shared) {
             ? { key: "slightlyAbove", color: "#E8C35A" }
             : { key: "significantlyAbove", color: "#F87171" };
   // Position of the marker on a -30%…+30% scale.
-  const marker = diff == null ? 50 : Math.min(100, Math.max(0, ((diff + 30) / 60) * 100));
+  const marker =
+    diff == null ? 50 : Math.min(100, Math.max(0, ((diff + 30) / 60) * 100));
 
   return (
     <div className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
@@ -639,7 +646,7 @@ function CompareMode(s: Shared) {
               placeholder={t("form.askingPlaceholder")}
               className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-foreground outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
             />
-            <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
+            <span className="absolute inset-e-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
               {currency}
             </span>
           </div>
@@ -664,7 +671,10 @@ function CompareMode(s: Shared) {
                 >
                   {t(`result.${verdict.key}`)}
                 </p>
-                <p dir="auto" className="mt-1 text-sm text-[rgba(245,240,232,0.6)]">
+                <p
+                  dir="auto"
+                  className="mt-1 text-sm text-[rgba(245,240,232,0.6)]"
+                >
                   {t("result.vsMarket", {
                     value: `${diff > 0 ? "+" : ""}${diff.toFixed(1)}`,
                   })}
@@ -800,7 +810,7 @@ function ConverterMode({ metal }: { metal: Metal }) {
                     }}
                     className="h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 pe-12 text-lg font-bold text-foreground focus:border-[#1B6B4A] focus:outline-none"
                   />
-                  <span className="absolute end-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-muted-foreground">
+                  <span className="absolute inset-e-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-muted-foreground">
                     {t(`form.unitShort.${u}`)}
                   </span>
                 </div>
@@ -827,7 +837,9 @@ function ConverterMode({ metal }: { metal: Metal }) {
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className={cn(labelClass, "mb-2")}>{t("converter.from")}</span>
+            <span className={cn(labelClass, "mb-2")}>
+              {t("converter.from")}
+            </span>
             <select
               value={from}
               onChange={(e) => setFrom(e.target.value)}
@@ -958,7 +970,10 @@ export default function Calculator() {
         </div>
       </div>
 
-      <div role="tablist" className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div
+        role="tablist"
+        className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+      >
         {modes.map(({ key, icon: Icon }) => {
           const active = mode === key;
           return (
@@ -1001,7 +1016,9 @@ export default function Calculator() {
                   <div
                     className={cn(
                       "mt-0.5 text-[10px] font-semibold",
-                      active ? "text-[rgba(232,213,160,0.5)]" : "text-muted-foreground",
+                      active
+                        ? "text-[rgba(232,213,160,0.5)]"
+                        : "text-muted-foreground",
                     )}
                   >
                     {t(`modes.${key}.subtitle`)}
@@ -1009,7 +1026,9 @@ export default function Calculator() {
                   <div
                     className={cn(
                       "mt-2 hidden text-[11px] leading-relaxed sm:block",
-                      active ? "text-[rgba(245,240,232,0.45)]" : "text-muted-foreground",
+                      active
+                        ? "text-[rgba(245,240,232,0.45)]"
+                        : "text-muted-foreground",
                     )}
                   >
                     {t(`modes.${key}.body`)}
