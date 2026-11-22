@@ -1719,5 +1719,35 @@
       "open": "Open a store",
       "browse": "Browse listings"
     }
+  },
+  "Sell": {
+    "hero": {
+      "eyebrow": "Sell your gold",
+      "title": "Sell your gold to a verified store. Get offers, compare them, and sell safely in person.",
+      "description": "Your request is never public. It only reaches verified stores in your city, so you deal face to face with a business you can check.",
+      "start": "Start",
+      "storesIn": "{count} stores in",
+      "city": "City",
+      "buyingGold": "buying gold"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "step": "Step {n}",
+      "steps": {
+        "describe": {
+          "title": "Describe and photograph",
+          "body": "Tell us what you are selling and add 3 to 10 clear photos. Serial numbers stay private."
+        },
+        "offers": {
+          "title": "Stores send offers",
+          "body": "Verified stores in your city see your request and send their best prices. Compare them side by side."
+        },
+        "sell": {
+          "title": "Pick one and sell at the store",
+          "body": "Accept the offer you like and visit the store. The price is confirmed after weighing."
+        }
+      },
+      "note": "Selling gold, bars, diamonds, luxury watches or stones from a personal account always goes through verified stores."
+    }
   }
 }
