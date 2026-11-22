@@ -2,17 +2,20 @@
 
 import { Button } from "../../ui/button";
 import { Link } from "@/i18n/navigation";
+import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/providers/user-data";
 import LanguageSwitcher from "./language-switcher";
+import { CountryDropdown } from "./country-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function DesktopControl() {
+export function DesktopControl({ countries }: { countries: Country[] }) {
   const t = useTranslations("Navbar");
   const { user } = useUser();
 
   return (
     <div className="flex items-center gap-3">
+      <CountryDropdown countries={countries} />
       <LanguageSwitcher />
 
       {user ? (

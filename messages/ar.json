@@ -9,6 +9,9 @@
     "postListing": "أضف إعلانًا",
     "manageProfile": "إدارة الحساب",
     "language": "اللغة",
+    "selectCountry": "اختر الدولة",
+    "countryCurrency": "الدولة والعملة",
+    "comingSoon": "قريباً",
     "ticker": {
       "title": "الذهب اليوم · AED",
       "gold": "ذهب {karat}",

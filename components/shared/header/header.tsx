@@ -6,6 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "../../ui/navigation-menu";
+
 import { cn } from "@/lib/utils";
 import { NavLink } from "./nav-link";
 import Logo from "../../reusable/logo";
@@ -15,11 +16,14 @@ import { links } from "@/constants/shared";
 import { useTranslations } from "next-intl";
 import { DesktopControl } from "./desktop-control";
 import { useIsScroll } from "@/hook/use-is-scroll";
+import { Country } from "@/types/global";
 
 export default function Header({
   actLikeIsScroll,
+  countries,
 }: {
   actLikeIsScroll?: boolean;
+  countries: Country[];
 }) {
   const isScroll = useIsScroll(84);
   const t = useTranslations("Navbar");
@@ -50,11 +54,11 @@ export default function Header({
         </nav>
 
         <div className="hidden lg:block">
-          <DesktopControl />
+          <DesktopControl countries={countries} />
         </div>
 
         <div className="lg:hidden">
-          <MobileMenu />
+          <MobileMenu countries={countries} />
         </div>
       </div>
 

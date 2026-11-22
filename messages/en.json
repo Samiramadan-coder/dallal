@@ -9,6 +9,9 @@
     "postListing": "Post a Listing",
     "manageProfile": "Manage Profile",
     "language": "Language",
+    "selectCountry": "Select country",
+    "countryCurrency": "Country & currency",
+    "comingSoon": "Coming soon",
     "ticker": {
       "title": "Gold Today · AED",
       "gold": "Gold {karat}",

@@ -24,8 +24,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import LanguageSwitcher from "./language-switcher";
 import { useUser } from "@/providers/user-data";
+import { Country } from "@/types/global";
+import { CountryGrid } from "./country-switcher";
 
-export default function MobileMenu() {
+export default function MobileMenu({ countries }: { countries: Country[] }) {
   const { user } = useUser();
   const t = useTranslations("Navbar");
 
@@ -68,6 +70,10 @@ export default function MobileMenu() {
             <Separator className="my-4" />
 
             <LanguageSwitcher className="mb-4 w-fit" />
+
+            <CountryGrid countries={countries} />
+
+            <Separator className="my-4" />
 
             <div className="flex flex-col gap-3">
               {user ? (

@@ -1,16 +1,19 @@
 import Header from "@/components/shared/header/header";
 import AuthHeroContent from "@/components/auth/auth-hero-content";
+import { getCountries } from "@/lib/api/global";
 
 // Signed-in users are sent away from these pages by the proxy
 // (see GUEST_ONLY_ROUTES in lib/auth-routes.ts)
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const countries = await getCountries();
+
   return (
     <main>
-      <Header actLikeIsScroll />
+      <Header actLikeIsScroll countries={countries} />
       <div className="grid grid-cols-1 lg:grid-cols-2 mt-21 lg:h-[calc(100vh-84px)]">
         <div className="relative hidden lg:block">
           <div className="absolute inset-0 bg-[url('/auth.png')] bg-cover bg-center" />
