@@ -18,19 +18,19 @@ export default function MetalPrices() {
   return (
     <section
       aria-labelledby="metal-strip-title"
-      className="border-y border-[rgba(201,164,69,0.18)] bg-[#0A2A1C]"
+      className="border-y border-primary/18 bg-[#0A2A1C]"
     >
       <div className="mx-auto max-w-7xl px-6 py-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-4">
             <h2
               id="metal-strip-title"
-              className={`${font} text-lg font-bold text-[#FAF6EF]`}
+              className={`${font} text-lg font-bold text-card-foreground`}
             >
               {t("title")}
             </h2>
             <div
-              className="flex rounded-full border border-[rgba(201,164,69,0.25)] p-0.5"
+              className="flex rounded-full border border-primary/25 p-0.5"
               role="tablist"
             >
               {metals.map((m) => (
@@ -43,8 +43,8 @@ export default function MetalPrices() {
                   className={cn(
                     "rounded-full px-4 py-1.5 text-xs font-semibold transition-colors",
                     metal === m
-                      ? "bg-[#C9A445] text-[#071E14]"
-                      : "text-[#B9B5A6] hover:text-[#FAF6EF]",
+                      ? "bg-primary text-background"
+                      : "text-[#B9B5A6] hover:text-card-foreground",
                   )}
                 >
                   {t(m)}
@@ -53,11 +53,11 @@ export default function MetalPrices() {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-[#8A8678]">
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <span>{t("unit")}</span>
             <Link
               href="/metal-prices"
-              className="inline-flex items-center gap-1 font-semibold text-[#C9A445] hover:underline"
+              className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
             >
               {t("allPrices")}
               <ArrowRight className="size-3.5 rtl:rotate-180" />
@@ -71,10 +71,10 @@ export default function MetalPrices() {
             return (
               <li
                 key={rate.label}
-                className="rounded-xl border border-[rgba(201,164,69,0.18)] bg-[#0F4A31] px-4 py-3"
+                className="rounded-xl border border-primary/18 bg-card px-4 py-3"
               >
                 <div className="flex items-center justify-between text-xs text-[#B9B5A6]">
-                  <span className="font-semibold text-[#FAF6EF]">
+                  <span className="font-semibold text-card-foreground">
                     {rate.label}
                   </span>
                   <span
@@ -94,7 +94,7 @@ export default function MetalPrices() {
                   </span>
                 </div>
                 <div
-                  className={`mt-1 ${font} text-xl font-bold text-[#FAF6EF]`}
+                  className={`mt-1 ${font} text-xl font-bold text-card-foreground`}
                 >
                   {formatPrice(rate.price, t("currency"), locale)}
                 </div>

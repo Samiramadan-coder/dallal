@@ -13,7 +13,7 @@ export default function Footer() {
   const fontClass = locale === "en" ? "font-playfair" : "";
 
   return (
-    <footer className="border-t border-[rgba(201,164,69,0.18)] bg-[#071E14]">
+    <footer className="border-t border-primary/18 bg-background">
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-14">
         <div className="grid gap-10 lg:grid-cols-5">
           <div className="lg:col-span-2">
@@ -34,7 +34,7 @@ export default function Footer() {
                 >
                   {t("brand")}
                 </span>
-                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-[#8A8678]">
+                <span className="mt-1 block text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
                   {t("tagline")}
                 </span>
               </span>
@@ -43,7 +43,7 @@ export default function Footer() {
 
           {footerColumns.map((column) => (
             <nav key={column.key} aria-label={t(`${column.key}.title`)}>
-              <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#C9A445]">
+              <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
                 {t(`${column.key}.title`)}
               </h3>
               <ul className="space-y-3">
@@ -51,7 +51,7 @@ export default function Footer() {
                   <li key={link.key}>
                     <Link
                       href={link.href}
-                      className="text-sm text-[#B9B5A6] transition-colors hover:text-[#FAF6EF]"
+                      className="text-sm text-[#B9B5A6] transition-colors hover:text-card-foreground"
                     >
                       {t(`${column.key}.${link.key}`)}
                     </Link>
@@ -62,7 +62,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 border-t border-[rgba(201,164,69,0.12)] pt-6">
+        <div className="mt-12 border-t border-primary/12 pt-6">
           <h3 className="sr-only">{t("countries")}</h3>
           <ul className="flex flex-wrap gap-3">
             {countries.map((c) => (
@@ -71,21 +71,21 @@ export default function Footer() {
                 className={cn(
                   "flex items-center gap-2 rounded-full border px-4 py-2 text-sm",
                   c.available
-                    ? "border-[rgba(201,164,69,0.4)] text-[#FAF6EF]"
-                    : "border-[rgba(201,164,69,0.12)] text-[#8A8678]",
+                    ? "border-primary/40 text-card-foreground"
+                    : "border-primary/12 text-muted-foreground",
                 )}
               >
                 <span aria-hidden="true">{c.flag}</span>
                 {c.name}
                 {!c.available && (
-                  <span className="rounded-full bg-[rgba(201,164,69,0.12)] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#C9A445]">
+                  <span className="rounded-full bg-primary/12 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     {t("soon")}
                   </span>
                 )}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm text-[#8A8678]">{t("disclaimer")}</p>
+          <p className="mt-6 text-sm text-muted-foreground">{t("disclaimer")}</p>
         </div>
       </div>
     </footer>

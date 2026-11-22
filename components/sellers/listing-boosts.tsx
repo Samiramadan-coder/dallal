@@ -52,14 +52,14 @@ export default async function ListingBoosts() {
                       "border-2 border-primary",
                       "bg-card",
                       "text-card-foreground",
-                      "shadow-[0_18px_50px_rgba(201,164,69,0.14)]",
+                      "shadow-[0_18px_50px_color-mix(in_srgb,var(--primary)_14%,transparent)]",
                     ].join(" ")
                   : [
                       "border border-border",
                       "bg-white",
                       "hover:-translate-y-1",
                       "hover:border-accent/30",
-                      "hover:shadow-[0_16px_40px_rgba(7,30,20,0.06)]",
+                      "hover:shadow-[0_16px_40px_color-mix(in_srgb,var(--background)_6%,transparent)]",
                     ].join(" "),
               ].join(" ")}
             >

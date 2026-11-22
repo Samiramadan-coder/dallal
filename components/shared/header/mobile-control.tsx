@@ -73,7 +73,7 @@ export default function MobileMenu() {
               {user ? (
                 <Button
                   asChild
-                  className="h-9.5 px-4 py-2.5 rounded bg-white hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
+                  className="h-9.5 px-4 py-2.5 rounded bg-white hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
                 >
                   <DrawerClose asChild>
                     <Link href="/profile">
@@ -101,7 +101,7 @@ export default function MobileMenu() {
 
               <Button
                 asChild
-                className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_rgba(201,164,69,0.28)]"
+                className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
               >
                 <DrawerClose asChild>
                   <Link href="/post-listing">

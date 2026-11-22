@@ -67,7 +67,7 @@ export default function ActiveFilters() {
 
   return (
     <div className="mb-5 flex flex-wrap items-center gap-2">
-      <span className="text-xs font-semibold text-[#8A8678]">
+      <span className="text-xs font-semibold text-muted-foreground">
         {t("active.title")}:
       </span>
       {chips.map((chip) => (
@@ -85,7 +85,7 @@ export default function ActiveFilters() {
       <button
         type="button"
         onClick={resetFilters}
-        className="text-xs font-semibold text-[#8A8678] hover:text-[#1B6B4A] hover:underline"
+        className="text-xs font-semibold text-muted-foreground hover:text-[#1B6B4A] hover:underline"
       >
         {t("active.clearAll")}
       </button>

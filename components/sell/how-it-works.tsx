@@ -21,7 +21,7 @@ export default async function HowItWorks() {
     >
       <h2
         id="how-it-works"
-        className={cn(font, "mb-8 text-2xl font-bold text-[#1A1A14]")}
+        className={cn(font, "mb-8 text-2xl font-bold text-foreground")}
       >
         {t("title")}
       </h2>
@@ -36,11 +36,11 @@ export default async function HowItWorks() {
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(27,107,74,0.1)] text-[#1B6B4A]">
                 <Icon size={20} aria-hidden />
               </span>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#8A8678]">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                 {t("step", { n: i + 1 })}
               </span>
             </div>
-            <h3 className={cn(font, "text-lg font-bold text-[#1A1A14]")}>
+            <h3 className={cn(font, "text-lg font-bold text-foreground")}>
               {t(`steps.${key}.title`)}
             </h3>
             <p className="text-sm leading-relaxed text-[#6B6858]">
@@ -50,7 +50,7 @@ export default async function HowItWorks() {
         ))}
       </ol>
 
-      <p className="mt-8 text-sm text-[#8A8678]">{t("note")}</p>
+      <p className="mt-8 text-sm text-muted-foreground">{t("note")}</p>
     </section>
   );
 }

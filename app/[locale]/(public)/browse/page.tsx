@@ -24,7 +24,7 @@ function ResultsSkeleton() {
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-[#FAF6EF]">
+    <div className="min-h-screen bg-card-foreground">
       <Hero />
 
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-10">

@@ -57,7 +57,7 @@ export default function AuthHeroContent() {
         <div className="space-y-4">
           {features.map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[rgba(201,164,69,0.15)] border border-[rgba(201,164,69,0.25)] flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-primary/15 border border-primary/25 flex items-center justify-center shrink-0">
                 <Icon className="size-4 text-primary" />
               </div>
               <p className="text-sm text-[rgba(245,240,232,0.8)] font-medium">
@@ -67,7 +67,7 @@ export default function AuthHeroContent() {
           ))}
         </div>
 
-        <div className="mt-4 border-l-2 border-[rgba(201,164,69,0.4)] pl-4">
+        <div className="mt-4 border-l-2 border-primary/40 pl-4">
           <p className="text-xs italic text-[rgba(245,240,232,0.5)] leading-relaxed">
             “{t("testimonial.text")}”
           </p>

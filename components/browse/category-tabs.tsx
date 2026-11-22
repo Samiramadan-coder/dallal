@@ -54,14 +54,14 @@ export default function CategoryTabs() {
               className={cn(
                 "flex items-center gap-2 whitespace-nowrap rounded-lg px-3.5 py-2 text-sm font-semibold tracking-wide transition-all duration-150",
                 active
-                  ? "bg-[#1B6B4A] text-[#FAF6EF] shadow-sm"
+                  ? "bg-[#1B6B4A] text-card-foreground shadow-sm"
                   : "text-[#4A4840] hover:bg-[rgba(27,107,74,0.06)] hover:text-[#1B6B4A]",
               )}
             >
               <Icon
                 className={cn(
                   "size-4",
-                  active ? "text-[#E8D5A0]" : "text-[#8A8678]",
+                  active ? "text-[#E8D5A0]" : "text-muted-foreground",
                 )}
               />
               {tab.label}
@@ -69,7 +69,7 @@ export default function CategoryTabs() {
                 className={cn(
                   "rounded-full px-1.5 py-px text-[11px] font-bold",
                   active
-                    ? "bg-[rgba(250,246,239,0.2)] text-[#FAF6EF]"
+                    ? "bg-card-foreground/20 text-card-foreground"
                     : "bg-[rgba(27,107,74,0.08)] text-[#4A4840]",
                 )}
               >

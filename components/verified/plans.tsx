@@ -152,7 +152,7 @@ export default async function Plans() {
               bg-background
               p-7
               text-card-foreground
-              shadow-[0_20px_55px_rgba(201,164,69,0.08)]
+              shadow-[0_20px_55px_color-mix(in_srgb,var(--primary)_8%,transparent)]
               lg:p-8
             "
           >
@@ -173,7 +173,7 @@ export default async function Plans() {
                 uppercase
                 tracking-wide
                 text-primary-foreground
-                shadow-[0_4px_20px_rgba(201,164,69,0.4)]
+                shadow-[0_4px_20px_color-mix(in_srgb,var(--primary)_40%,transparent)]
               "
             >
               {t("shop.recommended")}

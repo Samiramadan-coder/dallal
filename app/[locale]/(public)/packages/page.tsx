@@ -17,15 +17,15 @@ export default async function Page() {
   return (
     <div>
       {/* Hero */}
-      <div className="mt-30 bg-[#0F4A31] pb-16 pt-14">
+      <div className="mt-30 bg-card pb-16 pt-14">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-[#C9A445]/70">
+          <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-primary/70">
             {t("hero.eyebrow")}
           </p>
           <h1
             className={cn(
               font,
-              "text-balance text-4xl font-bold text-[#FAF6EF] md:text-5xl",
+              "text-balance text-4xl font-bold text-card-foreground md:text-5xl",
             )}
           >
             {t("hero.title")}
@@ -55,7 +55,7 @@ export default async function Page() {
               {t("faq.eyebrow")}
             </p>
             <h2
-              className={cn(font, "text-balance text-3xl font-bold text-[#1A1A14]")}
+              className={cn(font, "text-balance text-3xl font-bold text-foreground")}
             >
               {t("faq.title")}
             </h2>
@@ -63,9 +63,9 @@ export default async function Page() {
           <div className="flex flex-col divide-y divide-[rgba(27,107,74,0.1)]">
             {faqs.map((id) => (
               <details key={id} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-start font-semibold text-[#1A1A14] [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-start font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                   {t(`faq.items.${id}.q`)}
-                  <ChevronDown className="size-4 shrink-0 text-[#8A8678] transition-transform group-open:rotate-180" />
+                  <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-[#4A4840]">
                   {t(`faq.items.${id}.a`)}
@@ -77,12 +77,12 @@ export default async function Page() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#071E14] py-16">
+      <section className="bg-background py-16">
         <div className="mx-auto max-w-2xl px-6 text-center">
           <h2
             className={cn(
               font,
-              "mb-3 text-balance text-3xl font-bold text-[#FAF6EF]",
+              "mb-3 text-balance text-3xl font-bold text-card-foreground",
             )}
           >
             {t("cta.title")}
@@ -93,13 +93,13 @@ export default async function Page() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/store/open"
-              className="rounded-xl bg-[#C9A445] px-8 py-3.5 text-sm font-bold tracking-wide text-[#071E14] shadow-[0_4px_24px_rgba(201,164,69,0.35)] transition-all duration-200 hover:bg-[#E8D5A0]"
+              className="rounded-xl bg-primary px-8 py-3.5 text-sm font-bold tracking-wide text-background shadow-[0_4px_24px_color-mix(in_srgb,var(--primary)_35%,transparent)] transition-all duration-200 hover:bg-[#E8D5A0]"
             >
               {t("cta.open")}
             </Link>
             <Link
               href="/browse"
-              className="rounded-xl border border-[rgba(201,164,69,0.25)] px-8 py-3.5 text-sm font-medium tracking-wide text-[rgba(245,240,232,0.7)] transition-all duration-200 hover:border-[rgba(201,164,69,0.5)] hover:text-[#C9A445]"
+              className="rounded-xl border border-primary/25 px-8 py-3.5 text-sm font-medium tracking-wide text-[rgba(245,240,232,0.7)] transition-all duration-200 hover:border-primary/50 hover:text-primary"
             >
               {t("cta.browse")}
             </Link>

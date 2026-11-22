@@ -11,7 +11,7 @@ export default async function Categories() {
   return (
     <section
       aria-labelledby="merchant-categories-title"
-      className="bg-[#071E14] py-16 md:py-20"
+      className="bg-background py-16 md:py-20"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-8">
@@ -27,7 +27,7 @@ export default async function Categories() {
             <li key={category.key}>
               <Link
                 href={`/browse?category=${category.slug}`}
-                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-[rgba(201,164,69,0.2)]"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-primary/20"
               >
                 <Image
                   src={category.image}
@@ -36,9 +36,9 @@ export default async function Categories() {
                   sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(7,30,20,0.92),rgba(7,30,20,0.05)_60%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_srgb,var(--background)_92%,transparent),color-mix(in_srgb,var(--background)_5%,transparent)_60%)]" />
                 <span
-                  className={`absolute inset-x-0 bottom-0 p-4 ${headingFont(locale)} text-lg font-bold leading-tight text-[#FAF6EF]`}
+                  className={`absolute inset-x-0 bottom-0 p-4 ${headingFont(locale)} text-lg font-bold leading-tight text-card-foreground`}
                 >
                   {t(`items.${category.key}`)}
                 </span>

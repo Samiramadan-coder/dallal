@@ -31,7 +31,7 @@ export default function LanguageSwitcher({ className }: { className?: string }) 
       role="group"
       aria-label={t("language")}
       className={cn(
-        "flex items-center rounded-lg border border-[rgba(201,164,69,0.25)] bg-[rgba(201,164,69,0.07)] p-0.5",
+        "flex items-center rounded-lg border border-primary/25 bg-primary/7 p-0.5",
         pending && "opacity-60",
         className,
       )}

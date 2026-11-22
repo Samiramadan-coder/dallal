@@ -32,18 +32,18 @@ export default async function SellGold() {
           {steps.map(({ key, icon: Icon }, i) => (
             <li
               key={key}
-              className="rounded-2xl border border-[rgba(201,164,69,0.2)] bg-[#0F4A31] p-6"
+              className="rounded-2xl border border-primary/20 bg-card p-6"
             >
               <div className="mb-4 flex items-center gap-3">
-                <span className="flex size-11 items-center justify-center rounded-xl bg-[rgba(201,164,69,0.12)] text-[#C9A445]">
+                <span className="flex size-11 items-center justify-center rounded-xl bg-primary/12 text-primary">
                   <Icon className="size-5" />
                 </span>
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#8A8678]">
+                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                   {t("step", { n: i + 1 })}
                 </span>
               </div>
               <h3
-                className={`${headingFont(locale)} text-xl font-bold text-[#FAF6EF]`}
+                className={`${headingFont(locale)} text-xl font-bold text-card-foreground`}
               >
                 {t(`steps.${key}.title`)}
               </h3>
@@ -56,7 +56,7 @@ export default async function SellGold() {
 
         <Link
           href="/sell/new"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#C9A445] px-7 py-3 text-sm font-bold text-[#071E14] hover:bg-[#D9B55A]"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-background hover:bg-[#D9B55A]"
         >
           {t("cta")}
           <ArrowRight className="size-4 rtl:rotate-180" />

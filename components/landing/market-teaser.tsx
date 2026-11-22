@@ -27,7 +27,7 @@ export default async function MarketTeaser() {
   return (
     <section
       aria-labelledby="market-teaser-title"
-      className="bg-[#071E14] py-16 md:py-20"
+      className="bg-background py-16 md:py-20"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -38,7 +38,7 @@ export default async function MarketTeaser() {
           />
           <Link
             href="/market"
-            className="inline-flex items-center gap-2 self-start rounded-full border border-[rgba(201,164,69,0.5)] px-6 py-3 text-sm font-semibold text-[#FAF6EF] hover:bg-[rgba(201,164,69,0.12)] md:self-auto"
+            className="inline-flex items-center gap-2 self-start rounded-full border border-primary/50 px-6 py-3 text-sm font-semibold text-card-foreground hover:bg-primary/12 md:self-auto"
           >
             {t("cta")}
             <ArrowRight className="size-4 rtl:rotate-180" />
@@ -52,12 +52,12 @@ export default async function MarketTeaser() {
               <li key={item.key}>
                 <Link
                   href={`/market/${item.slug}`}
-                  className="flex h-full flex-col items-start gap-3 rounded-2xl border border-[rgba(201,164,69,0.2)] bg-[#0F4A31] p-5 transition-colors hover:border-[rgba(201,164,69,0.5)]"
+                  className="flex h-full flex-col items-start gap-3 rounded-2xl border border-primary/20 bg-card p-5 transition-colors hover:border-primary/50"
                 >
-                  <span className="flex size-10 items-center justify-center rounded-xl bg-[rgba(201,164,69,0.12)] text-[#C9A445]">
+                  <span className="flex size-10 items-center justify-center rounded-xl bg-primary/12 text-primary">
                     <Icon className="size-5" />
                   </span>
-                  <span className="text-sm font-semibold leading-snug text-[#FAF6EF]">
+                  <span className="text-sm font-semibold leading-snug text-card-foreground">
                     {t(`items.${item.key}`)}
                   </span>
                 </Link>

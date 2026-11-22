@@ -11,7 +11,7 @@ export default async function FeaturedListings() {
   return (
     <section
       aria-labelledby="featured-title"
-      className="bg-[#071E14] py-16 md:py-20"
+      className="bg-background py-16 md:py-20"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-8 flex items-end justify-between gap-4">
@@ -22,7 +22,7 @@ export default async function FeaturedListings() {
           />
           <Link
             href="/browse"
-            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[#C9A445] hover:underline"
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
           >
             {t("browseAll")}
             <ArrowRight className="size-4 rtl:rotate-180" />

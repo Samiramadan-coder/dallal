@@ -52,17 +52,17 @@ export default async function Listings() {
     <section className="border-t border-[rgba(27,107,74,0.08)] py-16">
       <div className="mb-8 flex items-end justify-between">
         <div>
-          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-[#C9A445]">
+          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-primary">
             {t("eyebrow")}
           </p>
-          <h2 className={cn(font, "text-3xl font-bold text-[#1A1A14]")}>
+          <h2 className={cn(font, "text-3xl font-bold text-foreground")}>
             {t("title")}
           </h2>
-          <p className="mt-1 text-sm text-[#8A8678]">{t("description")}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{t("description")}</p>
         </div>
         <Link
           href="/browse"
-          className="hidden items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1B6B4A] transition-colors hover:text-[#0F4A31] sm:flex"
+          className="hidden items-center gap-2 text-xs font-black uppercase tracking-wider text-[#1B6B4A] transition-colors hover:text-card sm:flex"
         >
           {t("all")}
           <ArrowRight className="size-4 rtl:rotate-180" />
@@ -86,7 +86,7 @@ export default async function Listings() {
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <span className="absolute start-3 top-3 rounded-full bg-[#0F4A31]/90 px-2.5 py-1 text-[10px] font-black tracking-wide text-[#E8D5A0]">
+                <span className="absolute start-3 top-3 rounded-full bg-card/90 px-2.5 py-1 text-[10px] font-black tracking-wide text-[#E8D5A0]">
                   {item.karat}
                 </span>
                 <span className="absolute end-3 top-3 flex items-center gap-1 rounded-full bg-[rgba(21,128,61,0.92)] px-2 py-1 text-[10px] font-black text-white">
@@ -95,7 +95,7 @@ export default async function Listings() {
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-4">
-                <p className="line-clamp-2 flex-1 text-xs font-bold leading-snug text-[#1A1A14]">
+                <p className="line-clamp-2 flex-1 text-xs font-bold leading-snug text-foreground">
                   {item.title[lang]}
                 </p>
                 <div className="mt-3 flex items-center justify-between">
@@ -103,7 +103,7 @@ export default async function Listings() {
                     <div className={cn(font, "text-lg font-bold text-[#1B6B4A]")}>
                       {formatPrice(item.price, currency, locale)}
                     </div>
-                    <div className="text-[10px] text-[#8A8678] line-through">
+                    <div className="text-[10px] text-muted-foreground line-through">
                       {formatPrice(item.market, currency, locale)}
                     </div>
                   </div>
@@ -121,7 +121,7 @@ export default async function Listings() {
       <div className="mt-8 text-center">
         <Link
           href="/browse"
-          className="inline-flex items-center gap-2 rounded-xl bg-[#1B6B4A] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_4px_20px_rgba(27,107,74,0.25)] transition-colors duration-200 hover:bg-[#0F4A31]"
+          className="inline-flex items-center gap-2 rounded-xl bg-[#1B6B4A] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white shadow-[0_4px_20px_rgba(27,107,74,0.25)] transition-colors duration-200 hover:bg-card"
         >
           {t("browseAll")}
           <ArrowRight className="size-4 rtl:rotate-180" />

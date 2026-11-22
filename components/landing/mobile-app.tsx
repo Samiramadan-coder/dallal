@@ -15,32 +15,32 @@ export default async function MobileApp() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#071E14] py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_700px_500px_at_50%_50%,rgba(42,138,95,0.08),transparent)]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(to_right,transparent,rgba(201,164,69,0.3),transparent)]" />
+    <section className="relative overflow-hidden bg-background py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_700px_500px_at_50%_50%,color-mix(in_srgb,var(--accent)_8%,transparent),transparent)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(to_right,transparent,color-mix(in_srgb,var(--primary)_30%,transparent),transparent)]" />
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="overflow-hidden rounded-2xl border border-[rgba(201,164,69,0.22)] bg-[#0F4A31]">
+        <div className="overflow-hidden rounded-2xl border border-primary/22 bg-card">
           <div className="grid grid-cols-1 items-center lg:grid-cols-2">
             <div className="p-10 lg:p-14">
               <div className="mb-6 flex items-center gap-2">
-                <div className="flex size-10 items-center justify-center rounded-xl border border-[rgba(201,164,69,0.28)] bg-[rgba(201,164,69,0.12)]">
-                  <Smartphone className="size-5 text-[#C9A445]" />
+                <div className="flex size-10 items-center justify-center rounded-xl border border-primary/28 bg-primary/12">
+                  <Smartphone className="size-5 text-primary" />
                 </div>
-                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#C9A445]">
+                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
                   {t("eyebrow")}
                 </span>
               </div>
 
               <h2
-                className={`${headingFont(locale)} mb-4 text-4xl font-bold leading-tight text-[#FAF6EF] md:text-5xl`}
+                className={`${headingFont(locale)} mb-4 text-4xl font-bold leading-tight text-card-foreground md:text-5xl`}
               >
                 {t("title")}
                 <br />
                 <span className="gold-text">{t("titleHighlight")}</span>
               </h2>
 
-              <p className="mb-8 text-base leading-relaxed text-[#8A8678]">
+              <p className="mb-8 text-base leading-relaxed text-muted-foreground">
                 {t("description")}
               </p>
 
@@ -49,7 +49,7 @@ export default async function MobileApp() {
                   <button
                     key={badge.name}
                     type="button"
-                    className="flex items-center gap-3 rounded-xl bg-[#FAF6EF] px-5 py-3 font-medium text-[#071E14] transition-all duration-200 hover:bg-white"
+                    className="flex items-center gap-3 rounded-xl bg-card-foreground px-5 py-3 font-medium text-background transition-all duration-200 hover:bg-white"
                   >
                     {badge.icon}
                     <div className="text-start">
@@ -66,7 +66,7 @@ export default async function MobileApp() {
             </div>
 
             <div className="relative h-80 overflow-hidden lg:h-auto lg:min-h-130">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,164,69,0.07),transparent_70%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--primary)_7%,transparent),transparent_70%)]" />
               <Image
                 src="/app-mockup.webp"
                 alt={t("imageAlt")}

@@ -32,13 +32,13 @@ function MapView({ items }: { items: Listing[] }) {
               key={item.id}
               href={`/listing/${item.id}`}
               style={pos}
-              className="absolute -translate-x-1/2 -translate-y-full rounded-full bg-[#1B6B4A] px-2.5 py-1 text-[11px] font-bold whitespace-nowrap text-[#FAF6EF] shadow-md transition-colors hover:bg-[#C9A445] hover:text-[#071E14]"
+              className="absolute -translate-x-1/2 -translate-y-full rounded-full bg-[#1B6B4A] px-2.5 py-1 text-[11px] font-bold whitespace-nowrap text-card-foreground shadow-md transition-colors hover:bg-primary hover:text-background"
             >
               {formatPrice(item.price, tListing("currency"), locale)}
             </Link>
           );
         })}
-        <span className="absolute bottom-4 start-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-[#1A1A14] shadow-sm">
+        <span className="absolute bottom-4 start-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm">
           {t("preview")}
         </span>
       </div>
@@ -60,13 +60,13 @@ function MapView({ items }: { items: Listing[] }) {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-[#1A1A14]">
+                <p className="truncate text-sm font-semibold text-foreground">
                   {item.title[lang]}
                 </p>
                 <p className="mt-0.5 text-sm font-bold text-[#1B6B4A]">
                   {formatPrice(item.price, tListing("currency"), locale)}
                 </p>
-                <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-[#8A8678]">
+                <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
                   <MapPin className="size-3" />
                   {item.distance} {tListing("km")}
                 </p>
@@ -89,16 +89,16 @@ export default function Results() {
         <span className="flex size-12 items-center justify-center rounded-full bg-[rgba(27,107,74,0.08)] text-[#1B6B4A]">
           <SearchX className="size-6" />
         </span>
-        <h3 className="mt-4 text-lg font-bold text-[#1A1A14]">
+        <h3 className="mt-4 text-lg font-bold text-foreground">
           {t("empty.title")}
         </h3>
-        <p className="mt-1 max-w-sm text-sm text-[#8A8678]">
+        <p className="mt-1 max-w-sm text-sm text-muted-foreground">
           {t("empty.description")}
         </p>
         <button
           type="button"
           onClick={resetFilters}
-          className="mt-5 rounded-lg bg-[#1B6B4A] px-4 py-2 text-sm font-semibold text-[#FAF6EF]"
+          className="mt-5 rounded-lg bg-[#1B6B4A] px-4 py-2 text-sm font-semibold text-card-foreground"
         >
           {t("active.clearAll")}
         </button>

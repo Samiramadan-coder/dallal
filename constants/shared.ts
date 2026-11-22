@@ -30,9 +30,9 @@ export const footerColumns = [
     links: [
       { key: "about", href: "/about" },
       { key: "support", href: "/support" },
-      { key: "terms", href: "/legal#terms" },
-      { key: "privacy", href: "/legal#privacy" },
-      { key: "prohibited", href: "/legal#prohibited-items" },
+      { key: "terms", href: "/legal/terms" },
+      { key: "privacy", href: "/legal/privacy" },
+      { key: "prohibited", href: "/legal/terms#prohibited-items" },
     ],
   },
 ] as const;

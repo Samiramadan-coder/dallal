@@ -9,8 +9,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { headingFont } from "@/constants/marketplace";
 
 const columns = [
-  { key: "personal", color: "#8A8678", text: "text-[#1B6B4A]", check: "bg-[rgba(27,107,74,0.1)] text-[#1B6B4A]", highlight: false },
-  { key: "gold", color: "#C9A445", text: "text-[#C9A445]", check: "bg-[rgba(201,164,69,0.15)] text-[#9A7B22]", highlight: true },
+  { key: "personal", color: "var(--muted-foreground)", text: "text-[#1B6B4A]", check: "bg-[rgba(27,107,74,0.1)] text-[#1B6B4A]", highlight: false },
+  { key: "gold", color: "var(--primary)", text: "text-primary", check: "bg-primary/15 text-[#9A7B22]", highlight: true },
   { key: "vip", color: "#0E9FB0", text: "text-[#1B6B4A]", check: "bg-[rgba(27,107,74,0.1)] text-[#1B6B4A]", highlight: false },
 ] as const;
 
@@ -25,7 +25,7 @@ export default function CompareTable() {
   const t = useTranslations("Packages");
   const text = useFeatureText();
   const font = headingFont(locale);
-  const goldBg = "bg-[rgba(201,164,69,0.04)]";
+  const goldBg = "bg-primary/4";
 
   return (
     <section className="bg-white py-16">
@@ -35,7 +35,7 @@ export default function CompareTable() {
             {t("compare.eyebrow")}
           </p>
           <h2
-            className={cn(font, "text-balance text-3xl font-bold text-[#1A1A14]")}
+            className={cn(font, "text-balance text-3xl font-bold text-foreground")}
           >
             {t("compare.title")}
           </h2>
@@ -45,7 +45,7 @@ export default function CompareTable() {
           <table className="w-full min-w-160 border-collapse">
             <thead>
               <tr className="border-b-2 border-[rgba(27,107,74,0.12)]">
-                <th className="w-48 py-4 pe-6 text-start text-xs font-bold uppercase tracking-widest text-[#8A8678]">
+                <th className="w-48 py-4 pe-6 text-start text-xs font-bold uppercase tracking-widest text-muted-foreground">
                   {t("compare.feature")}
                 </th>
                 {columns.map((col) => (
@@ -72,7 +72,7 @@ export default function CompareTable() {
                   key={row.feature}
                   className={cn(
                     "border-b border-[rgba(27,107,74,0.07)] transition-colors hover:bg-[rgba(27,107,74,0.025)]",
-                    i % 2 === 1 && "bg-[rgba(250,246,239,0.5)]",
+                    i % 2 === 1 && "bg-card-foreground/50",
                   )}
                 >
                   <td className="py-3.5 pe-6 text-sm font-medium text-[#4A4840]">
@@ -127,7 +127,7 @@ export default function CompareTable() {
                       className={cn(
                         "block rounded-lg py-2.5 text-center text-xs font-bold tracking-wide transition-all duration-200",
                         f.primary
-                          ? "bg-[#C9A445] text-[#071E14] hover:bg-[#E8D5A0]"
+                          ? "bg-primary text-background hover:bg-[#E8D5A0]"
                           : "border border-[rgba(27,107,74,0.25)] text-[#1B6B4A] hover:bg-[rgba(27,107,74,0.05)]",
                       )}
                     >

@@ -66,7 +66,7 @@ export default function MarketListingCard({
           <h3
             className={cn(
               headingFont(locale),
-              "line-clamp-2 text-base font-bold leading-snug text-[#1A1A14]",
+              "line-clamp-2 text-base font-bold leading-snug text-foreground",
             )}
           >
             {title}
@@ -77,13 +77,13 @@ export default function MarketListingCard({
 
           <div className="mt-auto flex flex-col gap-1.5 border-t border-[#EFE9D8] pt-3 text-xs text-[#4A4840]">
             {listing.store ? (
-              <p className="flex items-center gap-1.5 font-semibold text-[#1A1A14]">
+              <p className="flex items-center gap-1.5 font-semibold text-foreground">
                 <Store className="size-3.5 text-[#1B6B4A]" />
                 {getStore(listing.store).name}
               </p>
             ) : (
               <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span className="font-semibold text-[#1A1A14]">
+                <span className="font-semibold text-foreground">
                   {listing.seller}
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#E4F2E9] px-2 py-0.5 text-[11px] font-bold text-[#17653F]">
@@ -92,7 +92,7 @@ export default function MarketListingCard({
                 </span>
               </p>
             )}
-            <p className="flex items-center gap-1 text-[#8A8678]">
+            <p className="flex items-center gap-1 text-muted-foreground">
               <MapPin className="size-3" />
               {tCities(listing.city)}, {t("country")}
             </p>

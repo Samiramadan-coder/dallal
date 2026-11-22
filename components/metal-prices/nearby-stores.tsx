@@ -28,12 +28,12 @@ export default async function NearbyStores() {
             <h2
               className={cn(
                 headingFont(locale),
-                "text-xl font-bold text-[#1A1A14]",
+                "text-xl font-bold text-foreground",
               )}
             >
               {t("title")}
             </h2>
-            <p className="mt-1 max-w-xl text-xs text-[#8A8678]">
+            <p className="mt-1 max-w-xl text-xs text-muted-foreground">
               {t("description")}
             </p>
           </div>
@@ -49,7 +49,7 @@ export default async function NearbyStores() {
         <div className="-mx-5 overflow-x-auto px-5 md:-mx-6 md:px-6">
           <table className="w-full min-w-150 text-sm">
             <thead>
-              <tr className="border-b border-[rgba(27,107,74,0.1)] text-[11px] uppercase tracking-wider text-[#8A8678]">
+              <tr className="border-b border-[rgba(27,107,74,0.1)] text-[11px] uppercase tracking-wider text-muted-foreground">
                 <th scope="col" className="py-2.5 text-start font-bold">
                   <span className="sr-only">Store</span>
                 </th>
@@ -82,17 +82,17 @@ export default async function NearbyStores() {
                           className="size-10 shrink-0 rounded-lg object-cover"
                         />
                         <span className="min-w-0">
-                          <span className="flex items-center gap-1 font-semibold text-[#1A1A14] group-hover:text-[#1B6B4A]">
+                          <span className="flex items-center gap-1 font-semibold text-foreground group-hover:text-[#1B6B4A]">
                             {store.name}
                             <BadgeCheck className="size-3.5 text-[#1B6B4A]" />
                           </span>
-                          <span className="mt-0.5 flex items-center gap-2 text-[11px] text-[#8A8678]">
+                          <span className="mt-0.5 flex items-center gap-2 text-[11px] text-muted-foreground">
                             <span className="inline-flex items-center gap-0.5">
                               <MapPin className="size-3" />
                               {tCities(store.city)} · {t("km", { value: distance })}
                             </span>
                             <span className="inline-flex items-center gap-0.5">
-                              <Star className="size-3 fill-[#C9A445] text-[#C9A445]" />
+                              <Star className="size-3 fill-primary text-primary" />
                               {store.rating}
                             </span>
                           </span>
@@ -102,7 +102,7 @@ export default async function NearbyStores() {
                     {karats.map((k) => (
                       <td
                         key={k.label}
-                        className="py-3 text-end font-semibold text-[#1A1A14]"
+                        className="py-3 text-end font-semibold text-foreground"
                       >
                         {formatPrice(
                           Number((k.price * (1 + making / 100)).toFixed(2)),

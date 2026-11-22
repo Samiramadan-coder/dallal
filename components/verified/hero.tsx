@@ -16,7 +16,7 @@ export default async function Hero() {
           pointer-events-none
           absolute inset-0
           opacity-20
-          bg-[radial-gradient(rgba(201,164,69,0.15)_0.8px,transparent_0.8px)]
+          bg-[radial-gradient(color-mix(in_srgb,var(--primary)_15%,transparent)_0.8px,transparent_0.8px)]
           bg-size-[18px_18px]
         "
       />

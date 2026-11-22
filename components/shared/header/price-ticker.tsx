@@ -30,7 +30,7 @@ export default function PriceTicker() {
 
   return (
     <div className="flex h-9 w-full overflow-hidden bg-card">
-      <div className="flex shrink-0 items-center bg-[#caaa43] px-4 text-[11px] font-bold uppercase tracking-wider text-[#071E14] sm:px-6">
+      <div className="flex shrink-0 items-center bg-[#caaa43] px-4 text-[11px] font-bold uppercase tracking-wider text-background sm:px-6">
         {t("title")}
       </div>
 

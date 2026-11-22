@@ -48,7 +48,7 @@ export default function VerifiedStores() {
   };
 
   const navBtn =
-    "flex size-10 items-center justify-center rounded-full border border-[rgba(201,164,69,0.3)] text-[#FAF6EF] transition-colors hover:bg-[rgba(201,164,69,0.12)] disabled:pointer-events-none disabled:opacity-35";
+    "flex size-10 items-center justify-center rounded-full border border-primary/30 text-card-foreground transition-colors hover:bg-primary/12 disabled:pointer-events-none disabled:opacity-35";
 
   return (
     <section
@@ -60,7 +60,7 @@ export default function VerifiedStores() {
           <div className="max-w-2xl">
             <h2
               id="verified-stores-title"
-              className={`${headingFont(locale)} text-3xl font-bold text-[#FAF6EF] md:text-4xl`}
+              className={`${headingFont(locale)} text-3xl font-bold text-card-foreground md:text-4xl`}
             >
               {t("title")}
             </h2>
@@ -98,10 +98,10 @@ export default function VerifiedStores() {
               <Link
                 href={`/store/${store.slug}`}
                 className={cn(
-                  "flex h-full flex-col gap-4 rounded-2xl border bg-[#0F4A31] p-5 transition-colors hover:border-[rgba(201,164,69,0.6)]",
+                  "flex h-full flex-col gap-4 rounded-2xl border bg-card p-5 transition-colors hover:border-primary/60",
                   store.tier
-                    ? "border-[rgba(201,164,69,0.55)]"
-                    : "border-[rgba(201,164,69,0.2)]",
+                    ? "border-primary/55"
+                    : "border-primary/20",
                 )}
               >
                 <div className="flex items-center gap-3">
@@ -115,11 +115,11 @@ export default function VerifiedStores() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <span
-                        className={`truncate ${headingFont(locale)} text-base font-bold text-[#FAF6EF]`}
+                        className={`truncate ${headingFont(locale)} text-base font-bold text-card-foreground`}
                       >
                         {store.name}
                       </span>
-                      <BadgeCheck className="size-4 shrink-0 text-[#C9A445]" />
+                      <BadgeCheck className="size-4 shrink-0 text-primary" />
                     </div>
                     <div className="mt-0.5 flex items-center gap-1 text-xs text-[#B9B5A6]">
                       <MapPin className="size-3" />
@@ -128,14 +128,14 @@ export default function VerifiedStores() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-[#B9B5A6]">
-                  <span className="inline-flex items-center gap-1 text-[#FAF6EF]">
-                    <Star className="size-3 fill-[#C9A445] text-[#C9A445]" />
+                  <span className="inline-flex items-center gap-1 text-card-foreground">
+                    <Star className="size-3 fill-primary text-primary" />
                     {store.rating} ({store.reviews})
                   </span>
                   <span>{t("listings", { count: store.listings })}</span>
                 </div>
                 {store.tier && (
-                  <span className="self-start rounded-full bg-[rgba(201,164,69,0.15)] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#C9A445]">
+                  <span className="self-start rounded-full bg-primary/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-primary">
                     {store.tier}
                   </span>
                 )}
@@ -146,7 +146,7 @@ export default function VerifiedStores() {
 
         <Link
           href="/packages"
-          className="mt-6 inline-block text-sm font-semibold text-[#C9A445] hover:underline"
+          className="mt-6 inline-block text-sm font-semibold text-primary hover:underline"
         >
           {t("plans")}
         </Link>

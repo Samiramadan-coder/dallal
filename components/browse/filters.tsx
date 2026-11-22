@@ -13,7 +13,7 @@ import {
 } from "@/constants/marketplace";
 
 const inputClass =
-  "w-full rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 py-2 text-sm text-[#1A1A14] placeholder:text-[#8A8678] focus:border-[#1B6B4A] focus:outline-none focus:ring-2 focus:ring-[rgba(27,107,74,0.12)]";
+  "w-full rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-[#1B6B4A] focus:outline-none focus:ring-2 focus:ring-[rgba(27,107,74,0.12)]";
 
 function Section({
   title,
@@ -32,12 +32,12 @@ function Section({
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between py-4 text-start"
       >
-        <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#1A1A14]">
+        <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-foreground">
           {title}
         </span>
         <ChevronDown
           className={cn(
-            "size-4 text-[#8A8678] transition-transform",
+            "size-4 text-muted-foreground transition-transform",
             open && "rotate-180",
           )}
         />
@@ -102,7 +102,7 @@ export function FilterFields() {
 
   return (
     <div>
-      <p className="mb-1 border-b border-[rgba(27,107,74,0.08)] pb-3 text-xs leading-relaxed text-[#8A8678]">
+      <p className="mb-1 border-b border-[rgba(27,107,74,0.08)] pb-3 text-xs leading-relaxed text-muted-foreground">
         {t("hint")}
       </p>
 
@@ -120,7 +120,7 @@ export function FilterFields() {
             }
             className={cn(inputClass, "min-w-0 flex-1")}
           />
-          <span className="text-[#8A8678]">–</span>
+          <span className="text-muted-foreground">–</span>
           <input
             type="number"
             inputMode="decimal"
@@ -231,7 +231,7 @@ export default function FiltersSidebar() {
   return (
     <aside className="sticky top-36 hidden max-h-[calc(100vh-10rem)] w-72 shrink-0 overflow-y-auto rounded-2xl border border-[rgba(27,107,74,0.1)] bg-white px-5 py-3 shadow-sm lg:block">
       <div className="flex items-center justify-between py-2">
-        <h2 className="text-sm font-bold text-[#1A1A14]">{t("title")}</h2>
+        <h2 className="text-sm font-bold text-foreground">{t("title")}</h2>
         {hasFilters && (
           <button
             type="button"

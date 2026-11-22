@@ -33,7 +33,7 @@ function Change({ value, className }: { value: number; className?: string }) {
       dir="ltr"
       className={cn(
         "inline-flex items-center gap-1 font-semibold",
-        up ? "text-[#15803D]" : "text-[#C0453B]",
+        up ? "text-[#15803D]" : "text-destructive",
         className,
       )}
     >
@@ -64,7 +64,7 @@ function MetalTabs() {
           className={cn(
             "rounded-lg px-4 py-2 text-sm font-bold transition-colors",
             metal === m
-              ? "bg-[#1B6B4A] text-[#FAF6EF] shadow-sm"
+              ? "bg-[#1B6B4A] text-card-foreground shadow-sm"
               : "text-[#4A4840] hover:text-[#1B6B4A]",
           )}
         >
@@ -90,7 +90,7 @@ function RateCards() {
           className={cn(
             "rounded-2xl border bg-white p-5 shadow-sm",
             i === 0
-              ? "border-[rgba(201,164,69,0.5)] shadow-[0_8px_30px_rgba(201,164,69,0.12)]"
+              ? "border-primary/50 shadow-[0_8px_30px_color-mix(in_srgb,var(--primary)_12%,transparent)]"
               : "border-[rgba(27,107,74,0.1)]",
           )}
         >
@@ -104,7 +104,7 @@ function RateCards() {
               >
                 {rate.label}
               </p>
-              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-[#8A8678]">
+              <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                 {t("pure", { value: rate.purity })}
               </p>
             </div>
@@ -115,25 +115,25 @@ function RateCards() {
             <span
               className={cn(
                 headingFont(locale),
-                "text-3xl font-bold text-[#1A1A14]",
+                "text-3xl font-bold text-foreground",
               )}
             >
               {money(rate.price)}
             </span>
-            <span className="ms-1 text-xs text-[#8A8678]">{t("perGram")}</span>
+            <span className="ms-1 text-xs text-muted-foreground">{t("perGram")}</span>
           </p>
-          <p className="mt-1 text-[11px] text-[#8A8678]">{t("vsYesterday")}</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">{t("vsYesterday")}</p>
 
           <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-[rgba(27,107,74,0.08)] pt-4 text-xs">
             <div>
-              <dt className="text-[#8A8678]">{t("perTola")}</dt>
-              <dd className="mt-0.5 font-bold text-[#1A1A14]">
+              <dt className="text-muted-foreground">{t("perTola")}</dt>
+              <dd className="mt-0.5 font-bold text-foreground">
                 {money(rate.price * TOLA_GRAMS)}
               </dd>
             </div>
             <div>
-              <dt className="text-[#8A8678]">{t("perOunce")}</dt>
-              <dd className="mt-0.5 font-bold text-[#1A1A14]">
+              <dt className="text-muted-foreground">{t("perOunce")}</dt>
+              <dd className="mt-0.5 font-bold text-foreground">
                 {money(rate.price * TROY_OUNCE_GRAMS)}
               </dd>
             </div>
@@ -180,12 +180,12 @@ function PriceChart() {
           <h2
             className={cn(
               headingFont(locale),
-              "text-xl font-bold text-[#1A1A14]",
+              "text-xl font-bold text-foreground",
             )}
           >
             {t("chart.title")}
           </h2>
-          <p className="mt-1 text-xs text-[#8A8678]">
+          <p className="mt-1 text-xs text-muted-foreground">
             {t("chart.subtitle", { metal: t(`metals.${metal}`), karat: top.label })}
           </p>
         </div>
@@ -203,7 +203,7 @@ function PriceChart() {
               className={cn(
                 "rounded-md px-3 py-1.5 text-xs font-bold transition-colors",
                 range === r
-                  ? "bg-[#1B6B4A] text-[#FAF6EF]"
+                  ? "bg-[#1B6B4A] text-card-foreground"
                   : "text-[#4A4840] hover:text-[#1B6B4A]",
               )}
             >
@@ -222,8 +222,8 @@ function PriceChart() {
       >
         <defs>
           <linearGradient id="mp-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#C9A445" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#C9A445" stopOpacity="0" />
+            <stop offset="0%" style={{ stopColor: "var(--primary)", stopOpacity: 0.28 }} />
+            <stop offset="100%" style={{ stopColor: "var(--primary)", stopOpacity: 0 }} />
           </linearGradient>
         </defs>
         {[0.25, 0.5, 0.75].map((y) => (
@@ -250,7 +250,7 @@ function PriceChart() {
 
       <dl className="mt-4 grid grid-cols-3 gap-3 border-t border-[rgba(27,107,74,0.08)] pt-4 text-xs">
         <div>
-          <dt className="text-[#8A8678]">
+          <dt className="text-muted-foreground">
             {t("chart.change", { range: t(`chart.ranges.${range}`) })}
           </dt>
           <dd className="mt-0.5">
@@ -258,12 +258,12 @@ function PriceChart() {
           </dd>
         </div>
         <div>
-          <dt className="text-[#8A8678]">{t("chart.low")}</dt>
-          <dd className="mt-0.5 font-bold text-[#1A1A14]">{money(min)}</dd>
+          <dt className="text-muted-foreground">{t("chart.low")}</dt>
+          <dd className="mt-0.5 font-bold text-foreground">{money(min)}</dd>
         </div>
         <div>
-          <dt className="text-[#8A8678]">{t("chart.high")}</dt>
-          <dd className="mt-0.5 font-bold text-[#1A1A14]">{money(max)}</dd>
+          <dt className="text-muted-foreground">{t("chart.high")}</dt>
+          <dd className="mt-0.5 font-bold text-foreground">{money(max)}</dd>
         </div>
       </dl>
     </div>
@@ -283,18 +283,18 @@ function ConversionTable() {
         {t("conversion.eyebrow")}
       </p>
       <h2
-        className={cn(headingFont(locale), "text-xl font-bold text-[#1A1A14]")}
+        className={cn(headingFont(locale), "text-xl font-bold text-foreground")}
       >
         {t("conversion.title")}
       </h2>
-      <p className="mt-1 text-xs text-[#8A8678]">
+      <p className="mt-1 text-xs text-muted-foreground">
         {t("conversion.subtitle", { metal: t(`metals.${metal}`) })}
       </p>
 
       <div className="-mx-5 mt-5 overflow-x-auto px-5 md:-mx-6 md:px-6">
         <table className="w-full min-w-120 text-sm">
           <thead>
-            <tr className="border-b border-[rgba(27,107,74,0.1)] text-[11px] uppercase tracking-wider text-[#8A8678]">
+            <tr className="border-b border-[rgba(27,107,74,0.1)] text-[11px] uppercase tracking-wider text-muted-foreground">
               <th scope="col" className="py-2.5 text-start font-bold">
                 {t("conversion.weight")}
               </th>
@@ -311,7 +311,7 @@ function ConversionTable() {
                 key={unit.key}
                 className="border-b border-[rgba(27,107,74,0.06)] last:border-0"
               >
-                <th scope="row" className="py-3 text-start font-semibold text-[#1A1A14]">
+                <th scope="row" className="py-3 text-start font-semibold text-foreground">
                   {t(`conversion.units.${unit.key}`)}
                 </th>
                 {rates.map((r) => (
@@ -324,7 +324,7 @@ function ConversionTable() {
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-[11px] text-[#8A8678]">{t("conversion.note")}</p>
+      <p className="mt-4 text-[11px] text-muted-foreground">{t("conversion.note")}</p>
     </div>
   );
 }

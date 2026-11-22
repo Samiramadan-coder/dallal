@@ -1,23 +1,17 @@
 import Hero from "@/components/about/hero";
-import Story from "@/components/about/story";
-import Buyers from "@/components/about/buyers";
-import Numbers from "@/components/about/Numbers";
-import Sellers from "@/components/about/sellers";
+import NotDo from "@/components/about/not-do";
+import Audiences from "@/components/about/audiences";
 import Trust from "@/components/about/trust";
-import Prices from "@/components/about/prices";
-import Contact from "@/components/about/contact";
+import Countries from "@/components/about/countries";
 
 export default function Page() {
   return (
-    <div>
+    <div className="bg-card-foreground">
       <Hero />
-      <Story />
-      <Numbers />
-      <Buyers />
-      <Sellers />
+      <NotDo />
+      <Audiences />
       <Trust />
-      <Prices />
-      <Contact />
+      <Countries />
     </div>
   );
 }

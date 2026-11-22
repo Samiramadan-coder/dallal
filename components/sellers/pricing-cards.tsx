@@ -114,13 +114,13 @@ export default function PricingCards({
                       "border-2 border-primary",
                       "bg-card",
                       "text-card-foreground",
-                      "shadow-[0_20px_60px_rgba(201,164,69,0.14)]",
+                      "shadow-[0_20px_60px_color-mix(in_srgb,var(--primary)_14%,transparent)]",
                     ].join(" ")
                   : [
                       "border-border",
                       "bg-white",
                       "hover:border-accent/30",
-                      "hover:shadow-[0_15px_40px_rgba(7,30,20,0.06)]",
+                      "hover:shadow-[0_15px_40px_color-mix(in_srgb,var(--background)_6%,transparent)]",
                     ].join(" "),
               ].join(" ")}
             >

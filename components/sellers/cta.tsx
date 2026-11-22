@@ -30,7 +30,7 @@ export default async function Cta() {
               px-7
               font-semibold
               text-primary-foreground
-              shadow-[0_10px_30px_rgba(201,164,69,0.16)]
+              shadow-[0_10px_30px_color-mix(in_srgb,var(--primary)_16%,transparent)]
               transition-all
               hover:-translate-y-0.5
               hover:opacity-90

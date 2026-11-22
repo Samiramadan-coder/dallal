@@ -10,7 +10,7 @@ export default async function Hero() {
   const font = headingFont(locale);
 
   return (
-    <div className="relative mt-30 overflow-hidden bg-[#0F4A31]">
+    <div className="relative mt-30 overflow-hidden bg-card">
       <svg
         aria-hidden="true"
         className="pointer-events-none absolute end-0 top-0 h-full select-none opacity-[0.06]"
@@ -27,14 +27,14 @@ export default async function Hero() {
       <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-8 md:px-6 md:pb-10 md:pt-12">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end md:gap-8">
           <div>
-            <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#C9A445]/80">
-              <span className="h-px w-8 bg-[#C9A445]/50" />
+            <p className="mb-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.28em] text-primary/80">
+              <span className="h-px w-8 bg-primary/50" />
               {t("eyebrow")}
             </p>
             <h1
               className={cn(
                 font,
-                "text-balance text-5xl font-bold leading-tight text-[#FAF6EF]",
+                "text-balance text-5xl font-bold leading-tight text-card-foreground",
               )}
             >
               {t("title")}{" "}
@@ -60,7 +60,7 @@ export default async function Hero() {
         </div>
       </div>
 
-      <div className="h-px bg-linear-to-r from-transparent via-[rgba(201,164,69,0.4)] to-transparent" />
+      <div className="h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
     </div>
   );
 }

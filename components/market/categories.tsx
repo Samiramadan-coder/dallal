@@ -33,7 +33,7 @@ export default async function Categories() {
     <section aria-labelledby="categories-heading">
       <h2
         id="categories-heading"
-        className={cn(font, "mb-4 text-xl font-bold text-[#1A1A14]")}
+        className={cn(font, "mb-4 text-xl font-bold text-foreground")}
       >
         {t("title")}
       </h2>
@@ -54,12 +54,12 @@ export default async function Categories() {
                   <span
                     className={cn(
                       font,
-                      "block text-base font-bold leading-tight text-[#1A1A14]",
+                      "block text-base font-bold leading-tight text-foreground",
                     )}
                   >
                     {t(`items.${category.key}.name`)}
                   </span>
-                  <span className="mt-1 block text-xs leading-relaxed text-[#8A8678]">
+                  <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
                     {t(`items.${category.key}.blurb`)}
                   </span>
                 </span>

@@ -23,18 +23,18 @@ export default function HowItWorks() {
   const current = tabs.find((tab) => tab.key === active)!;
 
   return (
-    <section aria-labelledby="how-title" className="bg-[#071E14] py-16 md:py-20">
+    <section aria-labelledby="how-title" className="bg-background py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <h2
             id="how-title"
-            className={`${font} text-3xl font-bold text-[#FAF6EF] md:text-4xl`}
+            className={`${font} text-3xl font-bold text-card-foreground md:text-4xl`}
           >
             {t("title")}
           </h2>
           <div
             role="tablist"
-            className="flex flex-wrap gap-1 self-start rounded-full border border-[rgba(201,164,69,0.25)] p-1"
+            className="flex flex-wrap gap-1 self-start rounded-full border border-primary/25 p-1"
           >
             {tabs.map((tab) => (
               <button
@@ -48,8 +48,8 @@ export default function HowItWorks() {
                 className={cn(
                   "rounded-full px-5 py-2 text-sm font-semibold transition-colors",
                   active === tab.key
-                    ? "bg-[#C9A445] text-[#071E14]"
-                    : "text-[#B9B5A6] hover:text-[#FAF6EF]",
+                    ? "bg-primary text-background"
+                    : "text-[#B9B5A6] hover:text-card-foreground",
                 )}
               >
                 {t(`tabs.${tab.key}`)}
@@ -67,12 +67,12 @@ export default function HowItWorks() {
             {(["s1", "s2", "s3"] as const).map((step, i) => (
               <li
                 key={`${active}-${step}`}
-                className="rounded-2xl border border-[rgba(201,164,69,0.2)] bg-[#0F4A31] p-6"
+                className="rounded-2xl border border-primary/20 bg-card p-6"
               >
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#C9A445]">
+                <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                   {t("step", { n: i + 1 })}
                 </span>
-                <h3 className={`mt-2 ${font} text-xl font-bold text-[#FAF6EF]`}>
+                <h3 className={`mt-2 ${font} text-xl font-bold text-card-foreground`}>
                   {t(`${active}.${step}.title`)}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#B9B5A6]">
@@ -84,7 +84,7 @@ export default function HowItWorks() {
 
           <Link
             href={current.href}
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#C9A445] px-7 py-3 text-sm font-bold text-[#071E14] hover:bg-[#D9B55A]"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-background hover:bg-[#D9B55A]"
           >
             {t(`${active}.cta`)}
             <ArrowRight className="size-4 rtl:rotate-180" />

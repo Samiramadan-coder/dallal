@@ -588,178 +588,55 @@
   },
   "About": {
     "hero": {
-      "eyebrow": "About Dallal Hoolee",
-      "titleFirst": "Where Trust",
-      "titleSecond": "Meets Treasure.",
-      "description": "The gold market in the UAE moves billions of dirhams every day — yet most individual buyers and sellers still trade blind, with no way to know if a price is truly fair or if a seller is who they claim to be. We built Dallal Hoolee to change that."
+      "eyebrow": "About",
+      "title": "Where trust meets treasure",
+      "description": "Dallal Hoolee is a marketplace where verified stores list gold, diamonds and watches at live market prices, and individuals sell their gold to stores safely."
     },
-    "story": {
-      "eyebrow": "Our Story",
-      "titleFirst": "Built for a market that",
-      "titleEmphasis": "deserved better.",
+    "notDo": {
+      "title": "What we don't do",
       "items": {
-        "market": {
-          "title": "A market without transparency",
-          "description": "Gold trading in the UAE is a multi-billion dirham market — yet individual buyers routinely overpay because they have no way to verify whether an asking price reflects today's real market rate."
-        },
-        "sellers": {
-          "title": "Sellers without reach",
-          "description": "Private sellers and small jewellers struggle to find serious buyers beyond their immediate network. Trust is built on word of mouth, and that limits who can participate."
-        },
-        "solution": {
-          "title": "The solution we built",
-          "description": "Every listing on Dallal Hoolee is priced against the live Dubai gold market rate in real time. Every seller goes through identity verification. Buyers know the fair price. Sellers reach thousands of qualified buyers."
-        }
+        "payments": "No payments",
+        "commission": "No commission",
+        "shipping": "No shipping"
       },
-      "imageAlt": "Gold jewellery shops in Dubai Gold Souk",
-      "imageCaption": "Dubai Gold Souk — where it all began"
+      "note": "Buyers and sellers agree the price and complete the deal in person. We are not a party to any sale."
     },
-    "numbers": {
-      "eyebrow": "The Numbers",
-      "title": "A platform the UAE trusts",
-      "listings": {
-        "value": "10,000",
-        "suffix": "+",
-        "label": "Listings Posted",
-        "description": "Across all categories"
+    "audiences": {
+      "title": "How each person uses it",
+      "buyers": {
+        "title": "Buyers",
+        "body": "Browse items priced from the live metal rate, message the store, make an offer and reserve at the offer price. You pay and collect in the store."
       },
       "sellers": {
-        "value": "2,500",
-        "suffix": "+",
-        "label": "Verified Sellers",
-        "description": "ID & trade license checked"
+        "title": "Individuals selling gold",
+        "body": "Photograph your gold with the in-app camera. Verified stores send offers that stay open for 48 hours. Pick one and complete the sale in the store."
       },
-      "cities": {
-        "value": "15",
-        "label": "UAE Cities Covered",
-        "description": "From Dubai to Fujairah"
-      },
-      "transactions": {
-        "value": "AED 50M",
-        "suffix": "+",
-        "label": "Transactions Facilitated",
-        "description": "And growing daily"
+      "stores": {
+        "title": "Stores",
+        "body": "Verify your trade licence, list at live prices and answer offers. Stores choose a subscription plan and start with a 14-day trial."
       }
-    },
-    "buyers": {
-      "eyebrow": "For Buyers",
-      "title": "Find gold you can",
-      "titleHighlight": "trust.",
-      "description": "Every step of your purchase is supported by live market data and verified seller identities.",
-      "step": "Step {number}",
-      "steps": {
-        "browse": {
-          "title": "Browse verified listings",
-          "description": "Search by category, karat, purity, price range, and city. Every listing is from a real, verified seller."
-        },
-        "compare": {
-          "title": "See the live price comparison",
-          "description": "Each listing shows whether the asking price is above, below, or at today's UAE gold market rate — instantly."
-        },
-        "contact": {
-          "title": "Contact the seller directly",
-          "description": "Message the seller, ask for more photos, or make an offer — all within the platform."
-        },
-        "buy": {
-          "title": "Meet and buy safely",
-          "description": "Agree on a public meeting point, inspect the piece in person, and pay only when you are satisfied."
-        }
-      },
-      "cta": "Browse Listings"
-    },
-    "sellers": {
-      "eyebrow": "For Sellers",
-      "title": "Reach thousands of",
-      "titleHighlight": "serious buyers.",
-      "description": "From posting to payout — the entire process is built around your control and your timeline.",
-      "step": "Step {number}",
-      "steps": {
-        "post": {
-          "title": "Post your listing for free",
-          "description": "Takes under 2 minutes. The platform auto-calculates a fair asking price from live Dubai gold rates."
-        },
-        "verify": {
-          "title": "Get verified",
-          "description": "Add a trust badge to your profile. Verified sellers receive significantly more enquiries and offers."
-        },
-        "offers": {
-          "title": "Receive offers and messages",
-          "description": "Manage all buyer communication, counter-offers, and enquiries from your personal dashboard."
-        },
-        "complete": {
-          "title": "Meet and complete the sale",
-          "description": "You control the transaction — choose the time, place, and terms. Dallal Hoolee never takes a cut."
-        }
-      },
-      "stat": {
-        "label": "More enquiries",
-        "description": "Verified sellers receive 3.8× more buyer enquiries than unverified ones."
-      },
-      "imageAlt": "Gold jewellery seller displaying a necklace",
-      "cta": "Post Your First Listing"
     },
     "trust": {
-      "eyebrow": "Trust & Verification",
-      "title": "Trust is everything in",
-      "titleHighlight": "gold trading.",
-      "description": "We verify every seller's identity so buyers always know exactly who they are dealing with — before they ever send a message.",
-      "tier": "Verification Tier",
-      "individual": {
-        "title": "Verified Individual",
-        "badge": "Most Popular",
-        "features": {
-          "1": "Emirates ID verified against national registry",
-          "2": "Real person confirmation — no anonymous sellers",
-          "3": "Emerald trust badge on every listing",
-          "4": "Increased buyer confidence and enquiry rate"
-        }
+      "title": "Trust",
+      "camera": {
+        "title": "Camera verification for everyone",
+        "body": "Documents and faces are captured live, so we know they are real and belong to you."
       },
-      "shop": {
-        "title": "Verified Shop",
-        "badge": "Best for Businesses",
-        "features": {
-          "1": "UAE Trade License verified by our team",
-          "2": "Confirmed legitimate registered business",
-          "3": "Gold diamond badge — highest trust tier",
-          "4": "Priority placement in browse and search"
-        }
+      "licence": {
+        "title": "Trade licence for stores",
+        "body": "A store is verified only after its licence and owner are checked."
       },
-      "cta": "Get Verified"
+      "reviews": {
+        "title": "Reviews after confirmed deals",
+        "body": "Only people who completed a deal with a store can review it."
+      },
+      "link": "How verification works"
     },
-    "prices": {
-      "eyebrow": "Live Gold Prices",
-      "title": "Always know if",
-      "titleHighlight": "the price is fair.",
-      "description": "Every listing on Dallal Hoolee shows whether the asking price is above, below, or exactly at today's UAE gold market rate. We pull live prices directly from the Dubai gold market — so buyers never overpay and sellers always price competitively.",
-      "imageAlt": "Live gold market price chart",
-      "rates": {
-        "title": "Live Dubai Gold Rates",
-        "unit": "per gram · AED",
-        "gold": "Gold {karat}",
-        "purity": "{purity} purity",
-        "currency": "AED",
-        "footer": "Updated in real-time from Dubai Gold & Commodities Exchange"
-      }
-    },
-    "contact": {
-      "eyebrow": "Contact",
-      "title": "Get in Touch",
-      "description": "Have questions? We'd love to hear from you.",
-      "email": {
-        "label": "Email Us",
-        "value": "contact@dallalhoolee.com",
-        "description": "We reply within 24 hours"
-      },
-      "whatsapp": {
-        "label": "WhatsApp",
-        "value": "+971 50 123 4567",
-        "description": "Mon – Sat, 9 AM – 6 PM UAE"
-      },
-      "instagram": {
-        "label": "Instagram",
-        "value": "@dallalhoolee",
-        "description": "Follow us for market updates"
-      }
+    "countries": {
+      "title": "Countries",
+      "soon": "Coming soon",
+      "questions": "Questions?",
+      "support": "Contact support"
     }
   },
   "GetVerified": {
@@ -1754,5 +1631,23 @@
   },
   "Api": {
     "genericError": "Something went wrong. Please try again."
+  },
+  "Legal": {
+    "eyebrow": "Legal",
+    "titleStart": "Terms &",
+    "titleHighlight": "Privacy",
+    "subtitle": "Our commitment to transparency — how the platform works, what rules apply, and how we protect your data.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "company": "Dallal Hoolee FZ-LLC",
+    "lastUpdatedOn": "Last updated {date}",
+    "lastUpdated": "Last updated:",
+    "contents": "Contents",
+    "tableOfContents": "Table of contents",
+    "legalEyebrow": "Dallal Hoolee · Legal",
+    "sections": "{count} sections",
+    "termsIntro": "Please read these Terms carefully before using Dallal Hoolee. By creating an account or posting a listing, you agree to be bound by these Terms.",
+    "privacyIntro": "This Privacy Policy explains how Dallal Hoolee collects, uses, and protects your personal information. We are committed to handling your data responsibly and transparently.",
+    "contact": "For questions about this document, contact us at"
   }
 }

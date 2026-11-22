@@ -29,7 +29,7 @@ export default function Header({
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent",
         (isScroll || actLikeIsScroll) &&
-          "bg-background border-b border-[rgba(201,164,69,0.18)] shadow-[0_4px_40px_rgba(0,0,0,0.6)]",
+          "bg-background border-b border-primary/18 shadow-[0_4px_40px_rgba(0,0,0,0.6)]",
       )}
     >
       <div className="container max-w-350 h-21 text-white flex items-center justify-between">

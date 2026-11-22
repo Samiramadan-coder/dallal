@@ -45,11 +45,11 @@ function MobileFilters() {
       </SheetTrigger>
       <SheetContent
         side={locale === "ar" ? "right" : "left"}
-        className="w-[88%] gap-0 bg-white text-[#1A1A14] sm:max-w-sm"
+        className="w-[88%] gap-0 bg-white text-foreground sm:max-w-sm"
         aria-describedby={undefined}
       >
         <SheetHeader className="border-b border-[rgba(27,107,74,0.08)]">
-          <SheetTitle className="text-sm font-bold text-[#1A1A14]">
+          <SheetTitle className="text-sm font-bold text-foreground">
             {t("title")}
           </SheetTitle>
         </SheetHeader>
@@ -67,7 +67,7 @@ function MobileFilters() {
           <SheetClose asChild>
             <button
               type="button"
-              className="flex-1 rounded-lg bg-[#1B6B4A] px-4 py-2.5 text-sm font-semibold text-[#FAF6EF]"
+              className="flex-1 rounded-lg bg-[#1B6B4A] px-4 py-2.5 text-sm font-semibold text-card-foreground"
             >
               {t("showResults", { count: results.length })}
             </button>
@@ -94,7 +94,7 @@ export default function Toolbar() {
         <button
           type="button"
           onClick={() => toast.success(t("searchSaved"))}
-          className="inline-flex items-center gap-2 rounded-lg border border-[rgba(201,164,69,0.5)] bg-[rgba(201,164,69,0.1)] px-3.5 py-2 text-sm font-semibold text-[#8B6914] transition-colors hover:bg-[rgba(201,164,69,0.18)]"
+          className="inline-flex items-center gap-2 rounded-lg border border-primary/50 bg-primary/10 px-3.5 py-2 text-sm font-semibold text-[#8B6914] transition-colors hover:bg-primary/18"
         >
           <Bookmark className="size-4" />
           {t("saveSearch")}
@@ -114,7 +114,7 @@ export default function Toolbar() {
                   : (e.target.value as SortOption),
             })
           }
-          className="rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 py-2 text-sm font-semibold text-[#1A1A14] focus:border-[#1B6B4A] focus:outline-none"
+          className="rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 py-2 text-sm font-semibold text-foreground focus:border-[#1B6B4A] focus:outline-none"
         >
           {sortOptions.map((option) => (
             <option key={option} value={option}>
@@ -138,8 +138,8 @@ export default function Toolbar() {
               className={cn(
                 "rounded-md p-2 transition-colors",
                 filters.view === key
-                  ? "bg-[#1B6B4A] text-[#FAF6EF]"
-                  : "text-[#8A8678] hover:text-[#1B6B4A]",
+                  ? "bg-[#1B6B4A] text-card-foreground"
+                  : "text-muted-foreground hover:text-[#1B6B4A]",
               )}
             >
               <Icon className="size-4" />

@@ -11,7 +11,7 @@ import FeaturedListings from "@/components/landing/featured-listings";
 
 export default async function Page() {
   return (
-    <div className="overflow-x-hidden bg-[#071E14]">
+    <div className="overflow-x-hidden bg-background">
       <Hero />
       <MetalPrices />
       <Categories />

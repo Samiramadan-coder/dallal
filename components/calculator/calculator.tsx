@@ -67,7 +67,7 @@ function parse(value: string) {
 /* ---------------------------------- Inputs --------------------------------- */
 
 const labelClass =
-  "block text-[10px] font-black uppercase tracking-[0.25em] text-[#8A8678]";
+  "block text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground";
 
 function PurityPicker({
   metal,
@@ -97,12 +97,12 @@ function PurityPicker({
               className={cn(
                 "relative rounded-2xl p-4 text-center transition-all duration-200",
                 active
-                  ? "bg-[#071E14] shadow-[0_8px_28px_rgba(7,30,20,0.3)]"
+                  ? "bg-background shadow-[0_8px_28px_color-mix(in_srgb,var(--background)_30%,transparent)]"
                   : "border-2 border-[rgba(27,107,74,0.12)] bg-white hover:border-[rgba(27,107,74,0.35)] hover:shadow-[0_4px_16px_rgba(27,107,74,0.08)]",
               )}
             >
               {active && (
-                <div className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-[#C9A445]" />
+                <div className="absolute inset-x-3 top-0 h-0.5 rounded-full bg-primary" />
               )}
               <div
                 className={cn(
@@ -116,7 +116,7 @@ function PurityPicker({
               <div
                 className={cn(
                   "mt-1.5 text-[10px] font-semibold",
-                  active ? "text-[rgba(232,213,160,0.6)]" : "text-[#8A8678]",
+                  active ? "text-[rgba(232,213,160,0.6)]" : "text-muted-foreground",
                 )}
               >
                 {t("perGram", { price: money(rate.price) })}
@@ -161,7 +161,7 @@ function WeightInput({
                 "rounded-full px-3 py-1.5 text-[10px] font-black uppercase tracking-wider transition-all duration-200",
                 unit === u
                   ? "bg-[#1B6B4A] text-white shadow-sm"
-                  : "text-[#8A8678] hover:text-[#1B6B4A]",
+                  : "text-muted-foreground hover:text-[#1B6B4A]",
               )}
             >
               {t(`form.units.${u}`)}
@@ -202,9 +202,9 @@ function WeightInput({
             metal: t(`metals.${metal}`),
             unit: t(`form.units.${unit}`),
           })}
-          className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-[#1A1A14] shadow-[0_2px_8px_rgba(0,0,0,0.04)] outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
+          className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-foreground shadow-[0_2px_8px_rgba(0,0,0,0.04)] outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
         />
-        <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-[#8A8678]">
+        <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
           {t(`form.unitShort.${unit}`)}
         </span>
       </div>
@@ -255,11 +255,11 @@ function MakingSlider({
         {makingTicks.map((tick) => (
           <div key={tick} className="flex flex-col items-center">
             <div className="mb-1 h-1 w-px bg-[#C4BFB6]" />
-            <span className="text-[10px] text-[#8A8678]">{tick}%</span>
+            <span className="text-[10px] text-muted-foreground">{tick}%</span>
           </div>
         ))}
       </div>
-      <p className="mt-1 text-center text-[10px] text-[#8A8678]">
+      <p className="mt-1 text-center text-[10px] text-muted-foreground">
         {t("makingRange")} · {t("makingHint")}
       </p>
     </div>
@@ -289,8 +289,8 @@ function VatToggle({
       )}
     >
       <div className="text-start">
-        <div className="text-sm font-bold text-[#1A1A14]">{t("vat")}</div>
-        <div className="mt-0.5 text-[10px] text-[#8A8678]">{t("vatHint")}</div>
+        <div className="text-sm font-bold text-foreground">{t("vat")}</div>
+        <div className="mt-0.5 text-[10px] text-muted-foreground">{t("vatHint")}</div>
       </div>
       <div
         className={cn(
@@ -329,22 +329,22 @@ function ResultCard({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-3xl border border-[rgba(201,164,69,0.2)] transition-all duration-500",
+        "overflow-hidden rounded-3xl border border-primary/20 transition-all duration-500",
         dim
-          ? "opacity-70 shadow-[0_8px_24px_rgba(7,30,20,0.08)]"
-          : "shadow-[0_16px_48px_rgba(7,30,20,0.16)]",
+          ? "opacity-70 shadow-[0_8px_24px_color-mix(in_srgb,var(--background)_8%,transparent)]"
+          : "shadow-[0_16px_48px_color-mix(in_srgb,var(--background)_16%,transparent)]",
       )}
     >
-      <div className="relative overflow-hidden bg-[#071E14] px-7 pb-6 pt-7">
+      <div className="relative overflow-hidden bg-background px-7 pb-6 pt-7">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-10"
           style={{
             background:
-              "radial-gradient(ellipse at 80% 50%, #C9A445, transparent 65%)",
+              "radial-gradient(ellipse at 80% 50%, var(--primary), transparent 65%)",
           }}
         />
-        <p className="relative text-[10px] font-black uppercase tracking-[0.25em] text-[rgba(201,164,69,0.55)]">
+        <p className="relative text-[10px] font-black uppercase tracking-[0.25em] text-primary/55">
           {title}
         </p>
         <div
@@ -362,7 +362,7 @@ function ResultCard({
       </div>
       <div className="space-y-4 bg-white px-7 py-6">{children}</div>
       {actions && (
-        <div className="space-y-3 border-t border-[rgba(201,164,69,0.12)] bg-[#FAF6EF] px-7 py-5">
+        <div className="space-y-3 border-t border-primary/12 bg-card-foreground px-7 py-5">
           {actions}
         </div>
       )}
@@ -383,9 +383,9 @@ function Row({
     <div className="flex items-center justify-between gap-3">
       <div>
         <div className="text-xs font-bold text-[#4A4840]">{label}</div>
-        {hint && <div className="text-[10px] text-[#8A8678]">{hint}</div>}
+        {hint && <div className="text-[10px] text-muted-foreground">{hint}</div>}
       </div>
-      <div className="shrink-0 text-sm font-bold text-[#1A1A14]">{value}</div>
+      <div className="shrink-0 text-sm font-bold text-foreground">{value}</div>
     </div>
   );
 }
@@ -412,8 +412,8 @@ function RateFootnote({ metal, rate }: { metal: Metal; rate: MetalRate }) {
   const t = useTranslations("Calculator");
   return (
     <div className="mt-4 flex items-center justify-center gap-2">
-      <Info className="size-3 text-[#8A8678]" />
-      <p className="text-[10px] text-[#8A8678]">
+      <Info className="size-3 text-muted-foreground" />
+      <p className="text-[10px] text-muted-foreground">
         {t("result.rate", {
           price: rate.price.toFixed(2),
           metal: t(`metals.${metal}`),
@@ -496,16 +496,16 @@ function ValueMode(s: Shared) {
               value={subtotal != null ? money(vatValue) : "—"}
             />
           )}
-          <div className="h-px bg-[rgba(201,164,69,0.2)]" />
+          <div className="h-px bg-primary/20" />
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-[#1A1A14]">
+            <span className="text-sm font-black text-foreground">
               {t("result.total")}
             </span>
             <span className="text-2xl font-bold text-[#1B6B4A]">
               {total != null ? money(total) : "—"}
             </span>
           </div>
-          <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-[#8A8678]">
+          <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-muted-foreground">
             {t("result.disclaimer")}
           </p>
         </ResultCard>
@@ -534,7 +534,7 @@ function SellMode(s: Shared) {
           value={s.weight}
           onChange={s.setWeight}
         />
-        <p className="flex items-start gap-2 rounded-2xl border border-[rgba(201,164,69,0.3)] bg-[#FBF6E9] p-4 text-xs leading-relaxed text-[#6B5E3C]">
+        <p className="flex items-start gap-2 rounded-2xl border border-primary/30 bg-[#FBF6E9] p-4 text-xs leading-relaxed text-[#6B5E3C]">
           <Info className="mt-0.5 size-4 shrink-0" />
           {t("result.sellNote")}
         </p>
@@ -565,7 +565,7 @@ function SellMode(s: Shared) {
             hint={t("result.sellHint", { metal: metalName })}
             value="0%"
           />
-          <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-[#8A8678]">
+          <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-muted-foreground">
             {t("result.disclaimer")}
           </p>
         </ResultCard>
@@ -623,9 +623,9 @@ function CompareMode(s: Shared) {
               value={asking}
               onChange={(e) => setAsking(e.target.value)}
               placeholder={t("form.askingPlaceholder")}
-              className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-[#1A1A14] outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
+              className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-foreground outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
             />
-            <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-[#8A8678]">
+            <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
               AED
             </span>
           </div>
@@ -635,13 +635,13 @@ function CompareMode(s: Shared) {
       <div className="lg:sticky lg:top-37">
         <div
           className={cn(
-            "overflow-hidden rounded-3xl border border-[rgba(201,164,69,0.2)] bg-white transition-all duration-500",
+            "overflow-hidden rounded-3xl border border-primary/20 bg-white transition-all duration-500",
             verdict
-              ? "shadow-[0_16px_48px_rgba(7,30,20,0.16)]"
-              : "opacity-70 shadow-[0_8px_24px_rgba(7,30,20,0.08)]",
+              ? "shadow-[0_16px_48px_color-mix(in_srgb,var(--background)_16%,transparent)]"
+              : "opacity-70 shadow-[0_8px_24px_color-mix(in_srgb,var(--background)_8%,transparent)]",
           )}
         >
-          <div className="bg-[#071E14] px-7 pb-6 pt-7">
+          <div className="bg-background px-7 pb-6 pt-7">
             {verdict && diff != null ? (
               <>
                 <p
@@ -668,10 +668,10 @@ function CompareMode(s: Shared) {
             )}
 
             <div className="mt-5">
-              <div className="relative h-2 rounded-full bg-[linear-gradient(to_right,#15803D,#6DD98A_40%,#E8C35A_70%,#C0453B)] rtl:bg-[linear-gradient(to_left,#15803D,#6DD98A_40%,#E8C35A_70%,#C0453B)]">
+              <div className="relative h-2 rounded-full bg-[linear-gradient(to_right,#15803D,#6DD98A_40%,#E8C35A_70%,var(--destructive))] rtl:bg-[linear-gradient(to_left,#15803D,#6DD98A_40%,#E8C35A_70%,var(--destructive))]">
                 <span
                   className={cn(
-                    "absolute top-1/2 size-4 -translate-y-1/2 rounded-full border-2 border-[#071E14] bg-white shadow transition-all duration-500 ltr:-translate-x-1/2 rtl:translate-x-1/2",
+                    "absolute top-1/2 size-4 -translate-y-1/2 rounded-full border-2 border-background bg-white shadow transition-all duration-500 ltr:-translate-x-1/2 rtl:translate-x-1/2",
                     !verdict && "opacity-0",
                   )}
                   style={{ insetInlineStart: `${marker}%` }}
@@ -693,17 +693,17 @@ function CompareMode(s: Shared) {
               label={t("result.askingPrice")}
               value={a != null ? money(a) : "—"}
             />
-            <div className="h-px bg-[rgba(201,164,69,0.2)]" />
+            <div className="h-px bg-primary/20" />
             <Row
               label={t("result.difference")}
               value={market != null && a != null ? money(a - market) : "—"}
             />
-            <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-[#8A8678]">
+            <p className="border-t border-[rgba(27,107,74,0.06)] pt-1 text-[10px] leading-relaxed text-muted-foreground">
               {t("result.fairNote", { metal: t(`metals.${s.metal}`) })}
             </p>
           </div>
 
-          <div className="border-t border-[rgba(201,164,69,0.12)] bg-[#FAF6EF] px-7 py-5">
+          <div className="border-t border-primary/12 bg-card-foreground px-7 py-5">
             <Link href="/browse" className={secondaryBtn}>
               <Search className="size-4" />
               {t("result.viewSimilar")}
@@ -739,7 +739,7 @@ function ConverterMode({ metal }: { metal: Metal }) {
   const equivalent = pure != null ? (pure * 100) / toRate.purity : null;
 
   const selectClass =
-    "h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 text-sm font-bold text-[#1A1A14] focus:border-[#1B6B4A] focus:outline-none";
+    "h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 text-sm font-bold text-foreground focus:border-[#1B6B4A] focus:outline-none";
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -749,10 +749,10 @@ function ConverterMode({ metal }: { metal: Metal }) {
             <Scale className="size-5" />
           </span>
           <div>
-            <h3 className="text-sm font-black text-[#1A1A14]">
+            <h3 className="text-sm font-black text-foreground">
               {t("converter.weightTitle")}
             </h3>
-            <p className="mt-0.5 text-xs text-[#8A8678]">
+            <p className="mt-0.5 text-xs text-muted-foreground">
               {t("converter.weightHint")}
             </p>
           </div>
@@ -784,9 +784,9 @@ function ConverterMode({ metal }: { metal: Metal }) {
                       const v = parse(e.target.value);
                       setGrams(v != null ? v * unitGrams[u] : null);
                     }}
-                    className="h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 pe-12 text-lg font-bold text-[#1A1A14] focus:border-[#1B6B4A] focus:outline-none"
+                    className="h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 pe-12 text-lg font-bold text-foreground focus:border-[#1B6B4A] focus:outline-none"
                   />
-                  <span className="absolute end-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-[#8A8678]">
+                  <span className="absolute end-3 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-muted-foreground">
                     {t(`form.unitShort.${u}`)}
                   </span>
                 </div>
@@ -802,10 +802,10 @@ function ConverterMode({ metal }: { metal: Metal }) {
             <ArrowLeftRight className="size-5" />
           </span>
           <div>
-            <h3 className="text-sm font-black text-[#1A1A14]">
+            <h3 className="text-sm font-black text-foreground">
               {t(`converter.purityTitle.${metal}`)}
             </h3>
-            <p className="mt-0.5 text-xs text-[#8A8678]">
+            <p className="mt-0.5 text-xs text-muted-foreground">
               {t("converter.purityHint", { metal: metalName })}
             </p>
           </div>
@@ -852,14 +852,14 @@ function ConverterMode({ metal }: { metal: Metal }) {
               value={piece}
               onChange={(e) => setPiece(e.target.value)}
               placeholder={t("converter.piecePlaceholder")}
-              className="h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 text-lg font-bold text-[#1A1A14] placeholder:text-[#C4BFB6] focus:border-[#1B6B4A] focus:outline-none"
+              className="h-12 w-full rounded-xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-3 text-lg font-bold text-foreground placeholder:text-[#C4BFB6] focus:border-[#1B6B4A] focus:outline-none"
             />
           </label>
         </div>
 
         <dl className="mt-5 grid grid-cols-2 gap-3">
-          <div className="rounded-xl bg-[#071E14] p-4">
-            <dt className="text-[10px] font-black uppercase tracking-wider text-[rgba(201,164,69,0.6)]">
+          <div className="rounded-xl bg-background p-4">
+            <dt className="text-[10px] font-black uppercase tracking-wider text-primary/60">
               {t("converter.pure", { metal: metalName })}
             </dt>
             <dd className="mt-1 text-xl font-bold text-[#E8D5A0]">
@@ -870,7 +870,7 @@ function ConverterMode({ metal }: { metal: Metal }) {
             </dd>
           </div>
           <div className="rounded-xl border border-[rgba(27,107,74,0.15)] bg-[#FDFAF5] p-4">
-            <dt className="text-[10px] font-black uppercase tracking-wider text-[#8A8678]">
+            <dt className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
               {t("converter.equivalent", { purity: toRate.label })}
             </dt>
             <dd className="mt-1 text-xl font-bold text-[#1B6B4A]">
@@ -878,7 +878,7 @@ function ConverterMode({ metal }: { metal: Metal }) {
                 ? t("converter.grams", { value: num(equivalent) })
                 : "—"}
             </dd>
-            <dd className="mt-0.5 text-[10px] text-[#8A8678]">
+            <dd className="mt-0.5 text-[10px] text-muted-foreground">
               {t("converter.equivalentHint", { metal: metalName })}
             </dd>
           </div>
@@ -933,7 +933,7 @@ export default function Calculator() {
               className={cn(
                 "rounded-lg px-4 py-2 text-sm font-bold transition-colors",
                 metal === m
-                  ? "bg-[#1B6B4A] text-[#FAF6EF] shadow-sm"
+                  ? "bg-[#1B6B4A] text-card-foreground shadow-sm"
                   : "text-[#4A4840] hover:text-[#1B6B4A]",
               )}
             >
@@ -956,19 +956,19 @@ export default function Calculator() {
               className={cn(
                 "group relative rounded-2xl p-5 text-start transition-all duration-300",
                 active
-                  ? "bg-[#071E14] shadow-[0_12px_40px_rgba(7,30,20,0.25)]"
+                  ? "bg-background shadow-[0_12px_40px_color-mix(in_srgb,var(--background)_25%,transparent)]"
                   : "border border-[rgba(27,107,74,0.12)] bg-white hover:border-[rgba(27,107,74,0.3)] hover:shadow-[0_8px_24px_rgba(27,107,74,0.08)]",
               )}
             >
               {active && (
-                <div className="absolute inset-x-6 top-0 h-0.5 rounded-full bg-[#C9A445]" />
+                <div className="absolute inset-x-6 top-0 h-0.5 rounded-full bg-primary" />
               )}
               <div className="flex items-start gap-4">
                 <div
                   className={cn(
                     "flex size-12 shrink-0 items-center justify-center rounded-2xl transition-all duration-300",
                     active
-                      ? "bg-[#C9A445] text-[#071E14] shadow-[0_4px_20px_rgba(201,164,69,0.4)]"
+                      ? "bg-primary text-background shadow-[0_4px_20px_color-mix(in_srgb,var(--primary)_40%,transparent)]"
                       : "border border-[rgba(27,107,74,0.12)] bg-[rgba(27,107,74,0.07)] text-[#1B6B4A] group-hover:bg-[rgba(27,107,74,0.12)]",
                   )}
                 >
@@ -978,7 +978,7 @@ export default function Calculator() {
                   <div
                     className={cn(
                       "text-sm font-black leading-tight tracking-wide",
-                      active ? "text-[#E8D5A0]" : "text-[#1A1A14]",
+                      active ? "text-[#E8D5A0]" : "text-foreground",
                     )}
                   >
                     {t(`modes.${key}.title`)}
@@ -986,7 +986,7 @@ export default function Calculator() {
                   <div
                     className={cn(
                       "mt-0.5 text-[10px] font-semibold",
-                      active ? "text-[rgba(232,213,160,0.5)]" : "text-[#8A8678]",
+                      active ? "text-[rgba(232,213,160,0.5)]" : "text-muted-foreground",
                     )}
                   >
                     {t(`modes.${key}.subtitle`)}
@@ -994,7 +994,7 @@ export default function Calculator() {
                   <div
                     className={cn(
                       "mt-2 hidden text-[11px] leading-relaxed sm:block",
-                      active ? "text-[rgba(245,240,232,0.45)]" : "text-[#8A8678]",
+                      active ? "text-[rgba(245,240,232,0.45)]" : "text-muted-foreground",
                     )}
                   >
                     {t(`modes.${key}.body`)}
@@ -1006,10 +1006,10 @@ export default function Calculator() {
         })}
       </div>
 
-      <div className="overflow-hidden rounded-3xl border border-[rgba(201,164,69,0.12)] shadow-[0_20px_60px_rgba(7,30,20,0.12)]">
-        <div className="flex items-center justify-between bg-[#0F4A31] px-8 py-4">
+      <div className="overflow-hidden rounded-3xl border border-primary/12 shadow-[0_20px_60px_color-mix(in_srgb,var(--background)_12%,transparent)]">
+        <div className="flex items-center justify-between bg-card px-8 py-4">
           <div className="flex items-center gap-3">
-            <div className="size-2 animate-pulse rounded-full bg-[#C9A445]" />
+            <div className="size-2 animate-pulse rounded-full bg-primary" />
             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[rgba(232,213,160,0.7)]">
               {t(`panel.${mode}`)}
             </span>

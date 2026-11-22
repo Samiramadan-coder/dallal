@@ -27,7 +27,7 @@ export default function SearchBar() {
       <div className="relative flex items-center overflow-hidden rounded-2xl border border-[rgba(27,107,74,0.14)] bg-white shadow-sm transition-all duration-200 group-focus-within:border-[#1B6B4A] group-focus-within:shadow-[0_0_0_3px_rgba(27,107,74,0.1)]">
         <Search
           aria-hidden
-          className="pointer-events-none absolute start-5 size-4.25 text-[#8A8678] transition-colors group-focus-within:text-[#1B6B4A]"
+          className="pointer-events-none absolute start-5 size-4.25 text-muted-foreground transition-colors group-focus-within:text-[#1B6B4A]"
         />
         <input
           ref={inputRef}
@@ -36,9 +36,9 @@ export default function SearchBar() {
           onChange={(e) => setFilters({ q: e.target.value || null })}
           placeholder={t("placeholder")}
           aria-label={t("label")}
-          className="w-full bg-transparent py-4 ps-13 pe-14 text-sm font-medium text-[#1A1A14] placeholder:text-[#8A8678] focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+          className="w-full bg-transparent py-4 ps-13 pe-14 text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none [&::-webkit-search-cancel-button]:hidden"
         />
-        <div className="absolute end-4 hidden select-none items-center rounded-md border border-[rgba(27,107,74,0.12)] px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-[#8A8678] sm:flex">
+        <div className="absolute end-4 hidden select-none items-center rounded-md border border-[rgba(27,107,74,0.12)] px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-muted-foreground sm:flex">
           ⌘ K
         </div>
       </div>

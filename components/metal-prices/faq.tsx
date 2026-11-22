@@ -20,11 +20,11 @@ export default function Faq() {
           {t("eyebrow")}
         </p>
         <h2
-          className={cn(headingFont(locale), "text-3xl font-bold text-[#1A1A14]")}
+          className={cn(headingFont(locale), "text-3xl font-bold text-foreground")}
         >
           {t("title")}
         </h2>
-        <p className="mx-auto mt-2 max-w-lg text-sm text-[#8A8678]">
+        <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
           {t("description")}
         </p>
       </div>
@@ -51,7 +51,7 @@ export default function Faq() {
                 <span
                   className={cn(
                     "text-sm font-semibold leading-snug transition-colors",
-                    isOpen ? "text-[#1B6B4A]" : "text-[#1A1A14]",
+                    isOpen ? "text-[#1B6B4A]" : "text-foreground",
                   )}
                 >
                   {t(`items.${id}.q`)}
@@ -61,7 +61,7 @@ export default function Faq() {
                     "flex size-7 shrink-0 items-center justify-center rounded-full transition-all duration-200",
                     isOpen
                       ? "rotate-180 bg-[#1B6B4A] text-white"
-                      : "bg-[#F5F0E8] text-[#8A8678]",
+                      : "bg-[#F5F0E8] text-muted-foreground",
                   )}
                 >
                   <ChevronDown className="size-4" />

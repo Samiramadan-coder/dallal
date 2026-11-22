@@ -20,9 +20,9 @@ export default async function Hero() {
   const font = headingFont(locale);
 
   return (
-    <section className="mt-30 bg-[#0F4A31] px-4 py-14 text-[#FAF6EF] sm:px-6 sm:py-20">
+    <section className="mt-30 bg-card px-4 py-14 text-card-foreground sm:px-6 sm:py-20">
       <div className="mx-auto flex max-w-5xl flex-col gap-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#C9A445]">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
           {t("eyebrow")}
         </p>
         <h1
@@ -40,13 +40,13 @@ export default async function Hero() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#C9A445] px-5 py-3 text-sm font-bold tracking-wide text-[#071E14] transition-colors hover:bg-[#E8D5A0]"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold tracking-wide text-background transition-colors hover:bg-[#E8D5A0]"
           >
             {t("start")}
           </button>
 
           <div className="flex flex-wrap items-center gap-2 text-sm text-[rgba(245,240,232,0.85)]">
-            <ShieldCheck size={18} className="text-[#C9A445]" aria-hidden />
+            <ShieldCheck size={18} className="text-primary" aria-hidden />
             <span>{t("storesIn", { count: 4 })}</span>
             <label className="sr-only" htmlFor="sell-intro-city">
               {t("city")}
@@ -54,7 +54,7 @@ export default async function Hero() {
             <select
               id="sell-intro-city"
               defaultValue="dubai"
-              className="rounded-lg border border-[rgba(201,164,69,0.4)] bg-[#0B3A26] px-2 py-1 text-sm font-semibold text-[#FAF6EF]"
+              className="rounded-lg border border-primary/40 bg-[#0B3A26] px-2 py-1 text-sm font-semibold text-card-foreground"
             >
               {cities.map((city) => (
                 <option key={city} value={city}>

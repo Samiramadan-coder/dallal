@@ -27,7 +27,7 @@ export default async function Page({
     : marketListings;
 
   return (
-    <div className="min-h-screen bg-[#FAF6EF]">
+    <div className="min-h-screen bg-card-foreground">
       <Hero q={q} />
 
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:px-6 md:py-10">
@@ -37,7 +37,7 @@ export default async function Page({
           <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
             <h2
               id="latest-heading"
-              className={cn(font, "text-xl font-bold text-[#1A1A14]")}
+              className={cn(font, "text-xl font-bold text-foreground")}
             >
               {query ? t("latest.results", { q }) : t("latest.title")}
             </h2>
@@ -60,7 +60,7 @@ export default async function Page({
               ))}
             </ul>
           ) : (
-            <p className="rounded-2xl border border-dashed border-[#E8E1D0] bg-white p-8 text-center text-sm text-[#8A8678]">
+            <p className="rounded-2xl border border-dashed border-[#E8E1D0] bg-white p-8 text-center text-sm text-muted-foreground">
               {t("latest.empty")}
             </p>
           )}

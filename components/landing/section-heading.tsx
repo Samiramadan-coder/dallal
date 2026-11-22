@@ -16,7 +16,7 @@ export default async function SectionHeading({
     <div className="max-w-2xl">
       <h2
         id={id}
-        className={`${headingFont(locale)} text-3xl font-bold text-[#FAF6EF] md:text-4xl`}
+        className={`${headingFont(locale)} text-3xl font-bold text-card-foreground md:text-4xl`}
       >
         {title}
       </h2>

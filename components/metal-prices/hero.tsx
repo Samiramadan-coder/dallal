@@ -21,13 +21,13 @@ function LastUpdated() {
   }, []);
 
   return (
-    <div className="flex shrink-0 items-center gap-3 rounded-xl border border-[rgba(201,164,69,0.2)] bg-[rgba(7,30,20,0.5)] px-5 py-4">
-      <Clock className="size-5 text-[#C9A445]" />
+    <div className="flex shrink-0 items-center gap-3 rounded-xl border border-primary/20 bg-background/50 px-5 py-4">
+      <Clock className="size-5 text-primary" />
       <div>
         <p className="text-[10px] uppercase tracking-wider text-[rgba(245,240,232,0.45)]">
           {t("lastUpdated")}
         </p>
-        <p className="mt-0.5 text-sm font-bold text-[#FAF6EF]">
+        <p className="mt-0.5 text-sm font-bold text-card-foreground">
           {now
             ? now.toLocaleTimeString(locale === "ar" ? "ar-AE" : "en-AE", {
                 hour: "2-digit",
@@ -51,19 +51,19 @@ export default function Hero() {
   const [country, setCountry] = useState<string>("uae");
 
   return (
-    <div className="relative mt-30 overflow-hidden bg-[#0F4A31] pb-14 pt-10">
+    <div className="relative mt-30 overflow-hidden bg-card pb-14 pt-10">
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(45deg, #C9A445 0, #C9A445 1px, transparent 0, transparent 50%)",
+            "repeating-linear-gradient(45deg, var(--primary) 0, var(--primary) 1px, transparent 0, transparent 50%)",
           backgroundSize: "24px 24px",
         }}
       />
       <div
         aria-hidden
-        className="absolute bottom-0 end-0 top-0 w-1/3 bg-linear-to-l from-[rgba(201,164,69,0.05)] to-transparent rtl:bg-linear-to-r"
+        className="absolute bottom-0 end-0 top-0 w-1/3 bg-linear-to-l from-primary/5 to-transparent rtl:bg-linear-to-r"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 md:px-6">
@@ -71,7 +71,7 @@ export default function Hero() {
           aria-label={t("hero.breadcrumb")}
           className="mb-5 flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-[rgba(245,240,232,0.45)]"
         >
-          <Link href="/" className="transition-colors hover:text-[#C9A445]">
+          <Link href="/" className="transition-colors hover:text-primary">
             {t("hero.home")}
           </Link>
           <span>›</span>
@@ -92,14 +92,14 @@ export default function Hero() {
                 className={cn(
                   "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-bold transition-all disabled:cursor-not-allowed disabled:opacity-45",
                   active
-                    ? "border-[#C9A445] bg-[#C9A445] text-[#071E14] shadow-[0_2px_12px_rgba(201,164,69,0.4)]"
-                    : "border-[rgba(201,164,69,0.2)] bg-transparent text-[rgba(245,240,232,0.6)] enabled:hover:border-[rgba(201,164,69,0.5)] enabled:hover:text-[rgba(245,240,232,0.9)]",
+                    ? "border-primary bg-primary text-background shadow-[0_2px_12px_color-mix(in_srgb,var(--primary)_40%,transparent)]"
+                    : "border-primary/20 bg-transparent text-[rgba(245,240,232,0.6)] enabled:hover:border-primary/50 enabled:hover:text-[rgba(245,240,232,0.9)]",
                 )}
               >
                 <span className={cn(!c.available && "grayscale")}>{c.flag}</span>
                 <span>{c.name}</span>
                 {!c.available && (
-                  <span className="text-[9px] uppercase tracking-wide text-[#C9A445]">
+                  <span className="text-[9px] uppercase tracking-wide text-primary">
                     {t("hero.soon")}
                   </span>
                 )}
@@ -110,14 +110,14 @@ export default function Hero() {
 
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
-            <p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#C9A445]">
+            <p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
               <Radio className="size-3.5" />
               {t("hero.eyebrow")}
             </p>
             <h1
               className={cn(
                 headingFont(locale),
-                "text-balance text-4xl font-bold leading-tight text-[#FAF6EF] lg:text-5xl",
+                "text-balance text-4xl font-bold leading-tight text-card-foreground lg:text-5xl",
               )}
             >
               {t("hero.title", { metal: t(`metals.${metal}`) })}{" "}
@@ -125,7 +125,7 @@ export default function Hero() {
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-[rgba(245,240,232,0.55)]">
               {t(`hero.description.${metal}`)}
-              <span className="ms-1 text-[#C9A445]">{t("hero.vat")}</span>
+              <span className="ms-1 text-primary">{t("hero.vat")}</span>
             </p>
           </div>
 
@@ -133,7 +133,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-[rgba(201,164,69,0.4)] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
     </div>
   );
 }
