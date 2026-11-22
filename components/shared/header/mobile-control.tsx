@@ -17,6 +17,7 @@ import {
 import { NavLink } from "./nav-link";
 import { Menu, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import GatedLink from "@/components/auth/gated-link";
 import { links } from "@/constants/shared";
 import { useTranslations } from "next-intl";
 import Logo from "@/components/reusable/logo";
@@ -25,7 +26,6 @@ import { Separator } from "@/components/ui/separator";
 import LanguageSwitcher from "./language-switcher";
 import { useUser } from "@/providers/user-data";
 import { Country } from "@/types/global";
-import GatedLink from "@/components/auth/gated-link";
 import { CountryGrid } from "./country-switcher";
 import MobileAccountMenu from "./mobile-account-menu";
 import { useState } from "react";
@@ -107,9 +107,9 @@ export default function MobileMenu({ countries }: { countries: Country[] }) {
                 className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
               >
                 <DrawerClose asChild>
-                  <GatedLink href="/post-listing">
+                  <GatedLink href="/sell">
                     <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
-                      {t("postListing")}
+                      {t("sellYourGold")}
                     </span>
                   </GatedLink>
                 </DrawerClose>

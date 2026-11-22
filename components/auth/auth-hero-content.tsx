@@ -16,11 +16,11 @@ export default function AuthHeroContent() {
     },
     {
       icon: Star,
-      label: t("features.rating"),
+      label: t("features.prices"),
     },
     {
       icon: Users,
-      label: t("features.members"),
+      label: t("features.reviews"),
     },
   ];
 

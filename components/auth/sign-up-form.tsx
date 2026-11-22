@@ -5,7 +5,6 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-  InputGroupText,
 } from "../ui/input-group";
 
 import {
@@ -36,7 +35,7 @@ import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Mail, Phone } from "lucide-react";
+import { Eye, EyeOff, Mail } from "lucide-react";
 import { fieldA11yProps } from "../form/input";
 import AuthField from "./auth-field";
 import PasswordStrength from "../form/password-strength";
@@ -44,8 +43,6 @@ import { SignUpFormData, signUpSchema } from "@/types/sign-up";
 
 const inputGroupClass =
   "h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white";
-const selectTriggerClass =
-  "w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white data-[size=default]:h-11";
 
 export default function SignUp({
   countries,
@@ -64,8 +61,15 @@ export default function SignUp({
   const router = useRouter();
   const t = useTranslations("Auth.SignUp");
   const tForms = useTranslations("Auth.Forms");
-  const tNav = useTranslations("Navbar");
   const [showPassword, setShowPassword] = useState(false);
+
+  // Sign-up is only open in live (GCC) countries
+  const liveCountries = countries.filter((c) => c.status === "live");
+  const dialCountries = liveCountries.length ? liveCountries : countries;
+  // The header's country if it's open for sign-up, else the first one
+  const initialCountryId =
+    dialCountries.find((c) => c.id === defaultCountryId)?.id ??
+    dialCountries[0]?.id;
 
   const {
     control,
@@ -76,14 +80,14 @@ export default function SignUp({
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema(t)),
     defaultValues: {
-      country_id: defaultCountryId ? String(defaultCountryId) : undefined,
+      country_id: initialCountryId ? String(initialCountryId) : undefined,
       accept_terms: false,
     },
   });
 
-  // The chosen country's dial code is shown before the phone input
+  // The chosen country's flag and dial code show in the picker
   const country_id = useWatch({ control, name: "country_id" });
-  const choosedCountry = countries.find((c) => c.id === Number(country_id));
+  const selectedCountry = countries.find((c) => c.id === Number(country_id));
   // Drives the strength meter
   const password = useWatch({ control, name: "password" }) ?? "";
 
@@ -123,81 +127,80 @@ export default function SignUp({
         />
       </AuthField>
 
-      <AuthField
-        id="country_id"
-        label={t("fields.country.label")}
-        error={errors.country_id}
-        required
-      >
-        <Controller
-          control={control}
-          name="country_id"
-          render={({ field }) => (
-            <Select
-              name={field.name}
-              value={field.value ?? ""}
-              onValueChange={field.onChange}
-              onOpenChange={(open) => {
-                if (!open) field.onBlur();
-              }}
-            >
-              <SelectTrigger
-                ref={field.ref}
-                {...fieldA11yProps("country_id", errors.country_id)}
-                className={selectTriggerClass}
-              >
-                <SelectValue placeholder={t("fields.country.placeholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map((c) => (
-                  <SelectItem
-                    key={c.id}
-                    value={c.id.toString()}
-                    // Sign-up is only open in live countries
-                    disabled={c.status !== "live"}
-                  >
-                    <Image
-                      src={c.flag}
-                      alt=""
-                      width={20}
-                      height={14}
-                      className="h-3.5 w-5 rounded-xs object-cover"
-                    />
-                    <span>{c.name}</span>
-                    <span dir="ltr" className="text-muted-foreground text-xs">
-                      {c.dial_code}
-                    </span>
-                    {c.status !== "live" && (
-                      <span className="ms-auto rounded-full border border-primary/40 px-2 py-0.5 text-[10px] font-bold text-primary">
-                        {tNav("comingSoon")}
-                      </span>
-                    )}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </AuthField>
-
+      {/* Dial-code picker + number, like the prototype. The picker sets
+          country_id, which the API needs */}
       <AuthField
         id="phone"
         label={t("fields.phone.label")}
-        error={errors.phone}
+        error={errors.phone ?? errors.country_id}
         required
       >
-        <InputGroup className={inputGroupClass}>
-          <InputGroupAddon>
-            <Phone />
-            <InputGroupText>{choosedCountry?.dial_code}</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
+        <div className="flex gap-2">
+          <Controller
+            control={control}
+            name="country_id"
+            render={({ field }) => (
+              <Select
+                name={field.name}
+                value={field.value ?? ""}
+                onValueChange={field.onChange}
+                onOpenChange={(open) => {
+                  if (!open) field.onBlur();
+                }}
+              >
+                <SelectTrigger
+                  ref={field.ref}
+                  aria-label={t("fields.country.codeLabel")}
+                  aria-invalid={errors.country_id ? true : undefined}
+                  className="w-29 shrink-0 rounded-xl border-[rgba(27,107,74,0.18)] bg-white px-3 data-[size=default]:h-11"
+                >
+                  <SelectValue placeholder="+">
+                    {selectedCountry && (
+                      <span dir="ltr" className="flex items-center gap-1.5">
+                        <Image
+                          src={selectedCountry.flag}
+                          alt=""
+                          width={20}
+                          height={14}
+                          className="h-3.5 w-5 rounded-xs object-cover"
+                        />
+                        <span className="text-sm text-[#1A1A14]">
+                          {selectedCountry.dial_code}
+                        </span>
+                      </span>
+                    )}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {dialCountries.map((c) => (
+                    <SelectItem key={c.id} value={c.id.toString()}>
+                      <Image
+                        src={c.flag}
+                        alt=""
+                        width={20}
+                        height={14}
+                        className="h-3.5 w-5 rounded-xs object-cover"
+                      />
+                      <span>{c.name}</span>
+                      <span dir="ltr" className="text-muted-foreground text-xs">
+                        {c.dial_code}
+                      </span>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <Input
             {...register("phone")}
             {...fieldA11yProps("phone", errors.phone)}
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel-national"
             placeholder={t("fields.phone.placeholder")}
-            className="placeholder:text-sm placeholder:text-[#B5B0A0]"
+            className="h-11 min-w-0 flex-1 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
-        </InputGroup>
+        </div>
       </AuthField>
 
       <AuthField
@@ -237,7 +240,6 @@ export default function SignUp({
                 {...fieldA11yProps(name, errors[name])}
                 type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
-                placeholder={t(`fields.${key}.placeholder`)}
                 className="placeholder:text-sm placeholder:text-[#B5B0A0]"
               />
               <InputGroupAddon align="inline-end">

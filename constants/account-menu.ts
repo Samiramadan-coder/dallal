@@ -1,16 +1,16 @@
 // Avatar menu items (header and mobile drawer). `key` is under
-// "AccountMenu.items". Pages other than /profile don't exist yet
+// "AccountMenu.items". Pages other than /account don't exist yet
 
 export type AccountMenuItem = { key: string; href: string };
 
 export const PERSONAL_MENU: readonly AccountMenuItem[] = [
-  { key: "myAccount", href: "/profile" },
-  { key: "saved", href: "/profile/saved" },
-  { key: "myOffers", href: "/profile/offers" },
-  { key: "searchAlerts", href: "/profile/alerts" },
-  { key: "mySellRequests", href: "/profile/sell-requests" },
-  { key: "myListings", href: "/profile/listings" },
-  { key: "settings", href: "/profile/settings" },
+  { key: "myAccount", href: "/account" },
+  { key: "saved", href: "/account/saved" },
+  { key: "myOffers", href: "/account/offers" },
+  { key: "searchAlerts", href: "/account/alerts" },
+  { key: "mySellRequests", href: "/account/sell-requests" },
+  { key: "myListings", href: "/account/listings" },
+  { key: "settings", href: "/account/settings" },
 ];
 
 export function storeMenu(storeId: number): readonly AccountMenuItem[] {
@@ -26,6 +26,6 @@ export function storeMenu(storeId: number): readonly AccountMenuItem[] {
 }
 
 // Where each mode starts
-export const PERSONAL_HOME = "/profile";
+export const PERSONAL_HOME = "/account";
 export const STORE_HOME = "/dashboard";
 export const OPEN_STORE_PATH = "/store/open";

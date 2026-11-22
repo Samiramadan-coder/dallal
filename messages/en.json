@@ -12,7 +12,7 @@
     "calculator": "Calculator",
     "forMerchants": "For Merchants",
     "signIn": "Sign In",
-    "postListing": "Post a Listing",
+    "sellYourGold": "Sell your gold",
     "manageProfile": "Manage Profile",
     "language": "Language",
     "selectCountry": "Select country",
@@ -63,9 +63,9 @@
       "highlight": "Confidence",
       "description": "Join thousands of verified buyers and sellers trading gold, diamonds, watches, and precious metals safely across the UAE.",
       "features": {
-        "verified": "Verified Sellers Only",
-        "rating": "4.9 Average Rating",
-        "members": "50,000+ Active Members"
+        "verified": "Verified stores only",
+        "prices": "Live market prices",
+        "reviews": "Reviews after confirmed deals"
       },
       "testimonial": {
         "text": "Finally a marketplace that understands the gold trade. The price transparency is unmatched.",
@@ -78,15 +78,15 @@
       "welcome": "Member Access",
       "yourAccount": "Your Account",
       "accessListening": "Access your listings, messages, and offers.",
-      "or": "OR",
+      "or": "or",
       "continueWithGoogle": "Continue with Google",
       "noAccount": "Don't have an account?",
-      "createAccount": "Create Account",
+      "createAccount": "Create account",
       "protectedBy": "Protected by 256-bit SSL encryption.",
       "privacyPolicy": "Privacy Policy",
-      "signIn": "Sign In",
-      "signUp": "Create Account",
-      "forgotPassword": "Forgot Password?",
+      "signIn": "Sign in",
+      "signUp": "Create account",
+      "forgotPassword": "Forgot password?",
       "resetPassword": "Reset Password",
       "alreadyHaveAccount": "Already have an account?"
     },
@@ -94,14 +94,12 @@
       "error": "An error occurred while signing in. Please try again.",
       "fields": {
         "emailOrPhone": {
-          "label": "Email or Phone",
-          "placeholder": "ahmad@example.com or +971 50...",
-          "required": "Email Or Phone is required"
+          "label": "Mobile number or email",
+          "required": "Enter your mobile number or email."
         },
         "password": {
           "label": "Password",
-          "placeholder": "Your Password",
-          "required": "Password is required"
+          "required": "Enter your password."
         }
       }
     },
@@ -109,42 +107,39 @@
       "error": "An error occurred while creating your account. Please try again.",
       "fields": {
         "name": {
-          "label": "Full Name",
-          "placeholder": "Ahmad Al Mansoori",
-          "required": "Full Name is required",
-          "minLength": "Full Name must be at least 2 characters"
+          "label": "Full name",
+          "placeholder": "As shown on your Emirates ID",
+          "required": "Enter your full name.",
+          "minLength": "Enter your full name."
         },
         "email": {
           "label": "Email",
-          "placeholder": "ahmad@example.com",
-          "required": "Email address is required",
-          "invalid": "Please enter a valid email address"
+          "placeholder": "name@example.com",
+          "required": "Enter your email.",
+          "invalid": "Enter a valid email."
         },
         "country": {
-          "label": "Country",
-          "placeholder": "Select your country",
-          "required": "Country is required"
+          "required": "Choose your country.",
+          "codeLabel": "Country code"
         },
         "phone": {
-          "label": "Phone Number",
-          "placeholder": "Enter your phone number",
-          "invalid": "Please enter a valid phone number"
+          "label": "Mobile number",
+          "placeholder": "50 123 4567",
+          "invalid": "Enter a valid mobile number."
         },
         "password": {
           "label": "Password",
-          "placeholder": "Min. 8 characters",
-          "required": "Password is required",
+          "required": "Enter a password.",
           "weak": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol (e.g. ! @ # $)."
         },
         "passwordConfirmation": {
-          "label": "Confirm Password",
-          "placeholder": "Repeat password",
-          "required": "Password confirmation is required",
-          "match": "Passwords must match"
+          "label": "Confirm password",
+          "required": "Confirm your password.",
+          "match": "Passwords do not match."
         },
         "acceptTerms": {
           "label": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
-          "required": "You must accept the terms and conditions"
+          "required": "Please accept the Terms and Privacy Policy to continue."
         }
       }
     },
@@ -163,28 +158,29 @@
       "error": "An error occurred while sending the OTP. Please try again."
     },
     "ResetPassword": {
-      "changeIdentifier": "Use a different number or email",
+      "sentByEmail": "Code sent by email to",
+      "sentToPhone": "Code sent to",
+      "changeEmail": "Change email",
       "title": "Choose a new password",
-      "description": "Enter the code we sent to",
-      "error": "An error occurred while resetting the password. Please try again.",
+      "description": "Set a new password to finish.",
+      "updatePassword": "Update password",
+      "doneTitle": "Password updated",
+      "doneDescription": "You can now sign in with your new password.",
+      "backToSignIn": "Back to sign in",
       "fields": {
         "verificationCode": {
-          "label": "Verification Code",
-          "placeholder": "Enter the 6-digit code",
-          "required": "Verification code is required",
-          "invalid": "Please enter a valid verification code"
+          "required": "Enter the 6-digit code.",
+          "invalid": "Enter the 6-digit code."
         },
         "password": {
-          "label": "New Password",
-          "placeholder": "Min. 8 characters",
-          "required": "New password is required",
+          "label": "New password",
+          "required": "Enter a new password.",
           "weak": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol (e.g. ! @ # $)."
         },
         "passwordConfirmation": {
-          "label": "Confirm New Password",
-          "placeholder": "Repeat new password",
-          "required": "Password confirmation is required",
-          "match": "Passwords must match"
+          "label": "Confirm new password",
+          "required": "Confirm your new password.",
+          "match": "Passwords do not match."
         }
       }
     },

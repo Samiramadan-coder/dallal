@@ -91,7 +91,6 @@ export default function SignIn({
           <InputGroupInput
             {...register("email_or_phone")}
             {...fieldA11yProps("email_or_phone", errors.email_or_phone)}
-            placeholder={t("fields.emailOrPhone.placeholder")}
             className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
         </InputGroup>
@@ -119,7 +118,6 @@ export default function SignIn({
             {...register("password")}
             {...fieldA11yProps("password", errors.password)}
             type={showPassword ? "text" : "password"}
-            placeholder={t("fields.password.placeholder")}
             className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
           <InputGroupAddon align="inline-end">

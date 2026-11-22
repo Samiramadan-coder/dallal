@@ -29,12 +29,12 @@ export default function SideBar() {
   const items = [
     {
       title: t("profileInfo"),
-      href: "/profile",
+      href: "/account",
       icon: User,
     },
     {
       title: t("myPhones"),
-      href: "/profile/phones",
+      href: "/account/phones",
       icon: Phone,
     },
   ];

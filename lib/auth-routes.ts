@@ -14,14 +14,14 @@ export const FORGOT_PASSWORD_PATH = "/auth/forgot-password";
 export const OTP_VERIFY_PATH = "/auth/otp-verify";
 export const HOME_PATH = "/";
 // The signed-in user's account page
-export const ACCOUNT_PATH = "/profile";
+export const ACCOUNT_PATH = "/account";
 
 // Pages that need a signed-in user (the route and all of its sub-paths).
 // Guest-only routes are never protected
 // (the gated buttons in the UI open the sign-up modal instead; this covers
 // opening the URL directly)
 export const PROTECTED_ROUTES: readonly string[] = [
-  "/profile",
+  "/account",
   "/post-listing",
   "/sell/new",
 ];
@@ -47,7 +47,7 @@ export function otpVerifyHref(
 // code can build a callbackUrl. Always overwritten, so it can't be spoofed
 export const PATHNAME_HEADER = "x-pathname";
 
-// Splits "/ar/profile" into { locale: "ar", pathname: "/profile" }.
+// Splits "/ar/account" into { locale: "ar", pathname: "/account" }.
 // Unprefixed paths belong to the default locale (localePrefix "as-needed")
 export function splitLocale(pathname: string): {
   locale: Locale;
@@ -62,7 +62,7 @@ export function splitLocale(pathname: string): {
   return { locale: routing.defaultLocale, pathname };
 }
 
-// Splits "/ar/sa/profile" into { locale: "ar", country: "sa", pathname: "/profile" }.
+// Splits "/ar/sa/account" into { locale: "ar", country: "sa", pathname: "/account" }.
 // `country` is null when the URL has none (it keeps its original case)
 export function splitPath(pathname: string): {
   locale: Locale;
@@ -80,7 +80,7 @@ export function splitPath(pathname: string): {
 }
 
 // Adds the country and the locale prefix ("as-needed"):
-// ("/profile", "ar", "sa") → "/ar/sa/profile", ("/", "en", "sa") → "/sa"
+// ("/account", "ar", "sa") → "/ar/sa/account", ("/", "en", "sa") → "/sa"
 export function localizePath(
   pathname: string,
   locale: Locale,
