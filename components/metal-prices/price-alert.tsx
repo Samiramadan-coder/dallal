@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 import { BellRing } from "lucide-react";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { headingFont, metalRates } from "@/constants/marketplace";
+import { headingFont } from "@/constants/marketplace";
+import { useMetalRates } from "@/hook/use-metal-rates";
 
 const fieldClass =
   "h-11 rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 text-sm text-foreground focus:border-[#1B6B4A] focus:outline-none focus:ring-2 focus:ring-[rgba(27,107,74,0.12)]";
@@ -13,7 +14,7 @@ const fieldClass =
 export default function PriceAlert() {
   const locale = useLocale();
   const t = useTranslations("MetalPrices.alert");
-  const rates = metalRates.gold.slice(0, 4);
+  const rates = useMetalRates().gold.slice(0, 4);
   const [purity, setPurity] = useState(rates[0].label);
   const [direction, setDirection] = useState<"above" | "below">("above");
   const [amount, setAmount] = useState("");

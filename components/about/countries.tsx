@@ -1,11 +1,15 @@
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { countries, headingFont } from "@/constants/marketplace";
+import Image from "next/image";
+import { headingFont } from "@/constants/marketplace";
+import { getCountries } from "@/lib/api/global";
 
 export default async function Countries() {
   const locale = await getLocale();
   const t = await getTranslations("About.countries");
+  // From the API, in the page's language
+  const countries = await getCountries();
   const font = headingFont(locale);
 
   return (
@@ -20,17 +24,25 @@ export default async function Countries() {
         <ul className="mt-6 flex flex-wrap gap-3">
           {countries.map((c) => (
             <li
-              key={c.key}
+              key={c.code}
               className={cn(
                 "flex items-center gap-2 rounded-full border px-4 py-2 text-sm",
-                c.available
+                c.status === "live"
                   ? "border-[rgba(27,107,74,0.4)] bg-card-foreground text-card"
                   : "border-[rgba(27,107,74,0.12)] text-muted-foreground",
               )}
             >
-              <span aria-hidden="true">{c.flag}</span>
+              {c.flag && (
+                <Image
+                  src={c.flag}
+                  alt=""
+                  width={20}
+                  height={14}
+                  className="h-3.5 w-5 rounded-xs object-cover"
+                />
+              )}
               {c.name}
-              {!c.available && (
+              {c.status !== "live" && (
                 <span className="text-[11px] font-semibold uppercase">{t("soon")}</span>
               )}
             </li>

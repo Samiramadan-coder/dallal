@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
 import {
@@ -64,6 +64,15 @@ function getClientIp(request: NextRequest): string | null {
   return request.headers.get("x-real-ip");
 }
 
+// Arabic is the default for everyone: only the URL or the visitor's own
+// choice (the `lang` cookie) picks English, never the browser's language
+function withoutBrowserLanguage(request: NextRequest): NextRequest {
+  if (!request.headers.has("accept-language")) return request;
+  const headers = new Headers(request.headers);
+  headers.delete("accept-language");
+  return new NextRequest(request, { headers });
+}
+
 export default async function proxy(request: NextRequest) {
   const { nextUrl } = request;
   const sessionExpired =
@@ -72,7 +81,7 @@ export default async function proxy(request: NextRequest) {
   const isSignedIn =
     !sessionExpired && Boolean(request.cookies.get(AUTH_COOKIE_NAME)?.value);
 
-  let response = intlMiddleware(request);
+  let response = intlMiddleware(withoutBrowserLanguage(request));
   const isRedirect = response.headers.has("location");
 
   // Let next-intl's own redirects (e.g. adding the locale prefix) run first;

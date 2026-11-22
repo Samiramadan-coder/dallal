@@ -2,9 +2,7 @@
 
 import {
   chartRanges,
-  formatPrice,
   headingFont,
-  metalRates,
   metals,
   priceHistory,
   TOLA_GRAMS,
@@ -14,16 +12,16 @@ import {
 } from "@/constants/marketplace";
 import { cn } from "@/lib/utils";
 import { useMetal } from "./use-metal";
+import { useCurrency } from "@/hook/use-currency";
+import { useMetalRates } from "@/hook/use-metal-rates";
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { TrendingDown, TrendingUp } from "lucide-react";
 
-const CURRENCY = { en: "AED", ar: "د.إ" };
-
+// Formats an amount in the browse country's currency
 function useMoney() {
-  const locale = useLocale();
-  const currency = CURRENCY[locale === "ar" ? "ar" : "en"];
-  return (value: number) => formatPrice(Number(value.toFixed(2)), currency, locale);
+  const { format } = useCurrency();
+  return (value: number) => format(Number(value.toFixed(2)));
 }
 
 function Change({ value, className }: { value: number; className?: string }) {
@@ -80,6 +78,7 @@ function RateCards() {
   const t = useTranslations("MetalPrices.cards");
   const [metal] = useMetal();
   const money = useMoney();
+  const metalRates = useMetalRates();
   const rates = metalRates[metal].slice(0, 4);
 
   return (
@@ -145,10 +144,12 @@ function RateCards() {
 }
 
 function PriceChart() {
+  const { label: currency } = useCurrency();
   const locale = useLocale();
   const t = useTranslations("MetalPrices");
   const [metal] = useMetal();
   const money = useMoney();
+  const metalRates = useMetalRates();
   const [range, setRange] = useState<ChartRange>("1m");
   const top = metalRates[metal][0];
 
@@ -186,7 +187,7 @@ function PriceChart() {
             {t("chart.title")}
           </h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            {t("chart.subtitle", { metal: t(`metals.${metal}`), karat: top.label })}
+            {t("chart.subtitle", { metal: t(`metals.${metal}`), karat: top.label, currency })}
           </p>
         </div>
         <div
@@ -271,10 +272,12 @@ function PriceChart() {
 }
 
 function ConversionTable() {
+  const { label: currency } = useCurrency();
   const locale = useLocale();
   const t = useTranslations("MetalPrices");
   const [metal] = useMetal();
   const money = useMoney();
+  const metalRates = useMetalRates();
   const rates = metalRates[metal].slice(0, 4);
 
   return (
@@ -288,7 +291,7 @@ function ConversionTable() {
         {t("conversion.title")}
       </h2>
       <p className="mt-1 text-xs text-muted-foreground">
-        {t("conversion.subtitle", { metal: t(`metals.${metal}`) })}
+        {t("conversion.subtitle", { metal: t(`metals.${metal}`), currency })}
       </p>
 
       <div className="-mx-5 mt-5 overflow-x-auto px-5 md:-mx-6 md:px-6">
@@ -324,7 +327,7 @@ function ConversionTable() {
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-[11px] text-muted-foreground">{t("conversion.note")}</p>
+      <p className="mt-4 text-[11px] text-muted-foreground">{t("conversion.note", { currency })}</p>
     </div>
   );
 }

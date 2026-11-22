@@ -4,13 +4,16 @@ import { cn } from "@/lib/utils";
 import Marquee from "react-fast-marquee";
 import { useLocale, useTranslations } from "next-intl";
 import { TrendingDown, TrendingUp } from "lucide-react";
-import { formatPrice, metalRates } from "@/constants/marketplace";
+import { useCurrency } from "@/hook/use-currency";
+import { useMetalRates } from "@/hook/use-metal-rates";
 import { usePathname } from "@/i18n/navigation";
 
 export default function PriceTicker() {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("Navbar.ticker");
+  const metalRates = useMetalRates();
+  const { format, label: currency } = useCurrency();
   const today = new Date().toLocaleDateString(
     locale === "ar" ? "ar-AE" : "en-GB",
     { day: "2-digit", month: "short", year: "numeric" },
@@ -31,7 +34,7 @@ export default function PriceTicker() {
   return (
     <div className="flex h-9 w-full overflow-hidden bg-card">
       <div className="flex shrink-0 items-center bg-[#caaa43] px-4 text-[11px] font-bold uppercase tracking-wider text-background sm:px-6">
-        {t("title")}
+        {t("title", { currency })}
       </div>
 
       <div
@@ -60,7 +63,7 @@ export default function PriceTicker() {
                     {item.name}
                   </span>
                   <span className="text-sm font-bold text-white">
-                    {formatPrice(item.price, t("currency"), locale)}
+                    {format(item.price)}
                   </span>
                   <span
                     dir="ltr"

@@ -5,10 +5,12 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { footerColumns } from "@/constants/shared";
-import { countries } from "@/constants/marketplace";
+import { useCountries } from "@/providers/countries";
 
 export default function Footer() {
   const t = useTranslations("Footer");
+  // From the API, in the page's language
+  const countries = useCountries();
   const locale = useLocale();
   const fontClass = locale === "en" ? "font-playfair" : "";
 
@@ -67,17 +69,25 @@ export default function Footer() {
           <ul className="flex flex-wrap gap-3">
             {countries.map((c) => (
               <li
-                key={c.key}
+                key={c.code}
                 className={cn(
                   "flex items-center gap-2 rounded-full border px-4 py-2 text-sm",
-                  c.available
+                  c.status === "live"
                     ? "border-primary/40 text-card-foreground"
                     : "border-primary/12 text-muted-foreground",
                 )}
               >
-                <span aria-hidden="true">{c.flag}</span>
+                {c.flag && (
+                <Image
+                  src={c.flag}
+                  alt=""
+                  width={20}
+                  height={14}
+                  className="h-3.5 w-5 rounded-xs object-cover"
+                />
+              )}
                 {c.name}
-                {!c.available && (
+                {c.status !== "live" && (
                   <span className="rounded-full bg-primary/12 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
                     {t("soon")}
                   </span>

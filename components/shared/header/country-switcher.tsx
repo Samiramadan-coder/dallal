@@ -10,12 +10,33 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
 import WaitlistDialog from "./waitlist-dialog";
 import { Bell, Check, ChevronDown } from "lucide-react";
 import { useSelectedCountry } from "@/hook/use-selected-country";
+
+// Country flag; the code stands in when the API has no flag image
+function CountryFlag({ country }: { country: Country }) {
+  if (!country.flag) {
+    return (
+      <span className="w-5 shrink-0 text-[11px] font-semibold text-[rgba(245,240,232,0.7)]">
+        {country.code}
+      </span>
+    );
+  }
+  return (
+    <Image
+      src={country.flag}
+      alt=""
+      width={20}
+      height={14}
+      className="h-3.5 w-5 shrink-0 rounded-xs object-cover"
+    />
+  );
+}
 
 // Desktop: compact trigger + dropdown list
 export function CountryDropdown({ countries }: { countries: Country[] }) {
@@ -34,9 +55,7 @@ export function CountryDropdown({ countries }: { countries: Country[] }) {
             type="button"
             className="group flex h-8 items-center gap-1.5 rounded-lg border border-primary/25 bg-primary/7 px-2.5 text-[11px] font-bold text-[rgba(245,240,232,0.9)] transition-colors hover:border-primary/50 data-[state=open]:border-primary/60"
           >
-            <span className="text-[rgba(245,240,232,0.6)]">
-              {selected.code}
-            </span>
+            <CountryFlag country={selected} />
             <span>{selected.currency}</span>
             <ChevronDown className="size-3 transition-transform group-data-[state=open]:rotate-180" />
           </button>
@@ -73,9 +92,7 @@ export function CountryDropdown({ countries }: { countries: Country[] }) {
                       "opacity-45 transition-opacity group-focus/item:opacity-70",
                   )}
                 >
-                  <span className="w-6 text-sm font-semibold text-[rgba(245,240,232,0.85)]">
-                    {country.code}
-                  </span>
+                  <CountryFlag country={country} />
                   <span className="flex min-w-0 flex-1 flex-col">
                     <span className="truncate text-sm font-bold text-[#F5F0E8]">
                       {country.name}
@@ -141,14 +158,7 @@ export function CountryGrid({ countries }: { countries: Country[] }) {
                 !live && "opacity-45 hover:opacity-70",
               )}
             >
-              <span
-                className={cn(
-                  "text-sm font-semibold",
-                  active ? "text-primary" : "text-[rgba(245,240,232,0.8)]",
-                )}
-              >
-                {country.code}
-              </span>
+              <CountryFlag country={country} />
               <span className="flex min-w-0 flex-col">
                 <span
                   className={cn(

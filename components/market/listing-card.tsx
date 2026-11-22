@@ -1,5 +1,7 @@
 "use client";
 
+import Price from "@/components/reusable/price";
+
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
@@ -7,7 +9,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { BadgeCheck, MapPin, Store } from "lucide-react";
 import SaveButton from "../reusable/save-button";
 import {
-  formatPrice,
   getStore,
   headingFont,
   type MarketListing,
@@ -26,7 +27,6 @@ export default function MarketListingCard({
   const locale = useLocale();
   const t = useTranslations("Market.card");
   const tCities = useTranslations("Cities");
-  const tListing = useTranslations("Listing");
   const title = listing.title[locale === "ar" ? "ar" : "en"];
 
   return (
@@ -72,7 +72,7 @@ export default function MarketListingCard({
             {title}
           </h3>
           <p className="text-lg font-bold text-[#1B6B4A]">
-            {formatPrice(listing.price, tListing("currency"), locale)}
+            <Price value={listing.price} mock approx />
           </p>
 
           <div className="mt-auto flex flex-col gap-1.5 border-t border-[#EFE9D8] pt-3 text-xs text-[#4A4840]">

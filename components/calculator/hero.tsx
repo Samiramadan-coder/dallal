@@ -2,10 +2,17 @@ import { cn } from "@/lib/utils";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headingFont, metalRates } from "@/constants/marketplace";
+import { getSelectedCountry } from "@/lib/api/selected-country";
+import { MOCK_CURRENCY, convert, currencyLabel } from "@/lib/currency";
 
 export default async function Hero() {
   const locale = await getLocale();
   const t = await getTranslations("Calculator.hero");
+  const country = await getSelectedCountry();
+  const code = country?.currency ?? MOCK_CURRENCY;
+  const currency = currencyLabel(code, locale);
+  // TODO: the country's rates from the API; the mock ones are in dirhams
+  const local = (price: number) => convert(price, MOCK_CURRENCY, code) ?? price;
   const font = headingFont(locale);
 
   const chips = [
@@ -62,7 +69,7 @@ export default async function Hero() {
               <span className="text-primary">{t("titleHighlight")}</span>
             </h1>
             <p className="mt-4 max-w-lg text-sm leading-relaxed text-[rgba(245,240,232,0.55)]">
-              {t("description")}
+              {t("description", { currency, country: country?.name ?? "" })}
             </p>
           </div>
 
@@ -97,10 +104,10 @@ export default async function Hero() {
                     </span>
                   </div>
                   <div className={cn(font, "mt-1 text-xl font-bold text-card-foreground")}>
-                    {chip.price.toFixed(2)}
+                    {local(chip.price).toFixed(2)}
                   </div>
                   <div className="mt-0.5 text-[9px] text-[rgba(245,240,232,0.35)]">
-                    {t("perGram")}
+                    {t("perGram", { currency })}
                   </div>
                 </div>
               );

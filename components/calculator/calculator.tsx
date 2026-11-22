@@ -11,13 +11,18 @@ import {
   Tag,
 } from "lucide-react";
 import {
-  metalRates,
   metals,
   TOLA_GRAMS,
   TROY_OUNCE_GRAMS,
   type Metal,
   type MetalRate,
 } from "@/constants/marketplace";
+import {
+  useBrowseCountry,
+  useCurrency,
+  useVatRate,
+} from "@/hook/use-currency";
+import { useMetalRates } from "@/hook/use-metal-rates";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
@@ -26,7 +31,6 @@ import { useLocale, useTranslations } from "next-intl";
 type Mode = "value" | "sell" | "compare" | "converter";
 type Unit = "g" | "tola" | "oz" | "kg";
 
-const VAT = 0.05;
 const unitGrams: Record<Unit, number> = {
   g: 1,
   tola: TOLA_GRAMS,
@@ -45,7 +49,7 @@ const modes: { key: Mode; icon: typeof CalculatorIcon }[] = [
 
 function useFormat() {
   const locale = useLocale();
-  const currency = locale === "ar" ? "د.إ" : "AED";
+  const { label: currency } = useCurrency();
   return {
     money: (v: number) => {
       const amount = v.toLocaleString("en-US", {
@@ -81,6 +85,7 @@ function PurityPicker({
   const t = useTranslations("Calculator.form");
   const locale = useLocale();
   const { money } = useFormat();
+  const metalRates = useMetalRates();
 
   return (
     <div>
@@ -274,6 +279,8 @@ function VatToggle({
   onChange: (v: boolean) => void;
 }) {
   const t = useTranslations("Calculator.form");
+  const country = useBrowseCountry();
+  const percent = Math.round(useVatRate() * 1000) / 10;
 
   return (
     <button
@@ -289,8 +296,8 @@ function VatToggle({
       )}
     >
       <div className="text-start">
-        <div className="text-sm font-bold text-foreground">{t("vat")}</div>
-        <div className="mt-0.5 text-[10px] text-muted-foreground">{t("vatHint")}</div>
+        <div className="text-sm font-bold text-foreground">{t("vat", { rate: percent })}</div>
+        <div className="mt-0.5 text-[10px] text-muted-foreground">{t("vatHint", { country: country?.name ?? "" })}</div>
       </div>
       <div
         className={cn(
@@ -324,7 +331,10 @@ function ResultCard({
   children: React.ReactNode;
   actions?: React.ReactNode;
 }) {
+  const { label } = useCurrency();
   const locale = useLocale();
+  // Empty amount, laid out like a real one
+  const placeholder = locale === "ar" ? `—.—— ${label}` : `${label} —.——`;
 
   return (
     <div
@@ -356,7 +366,7 @@ function ResultCard({
           {amount ? (
             <span className="text-[#E8D5A0]">{amount}</span>
           ) : (
-            <span className="text-[rgba(232,213,160,0.2)]">AED —.——</span>
+            <span className="text-[rgba(232,213,160,0.2)]">{placeholder}</span>
           )}
         </div>
       </div>
@@ -409,12 +419,14 @@ type Shared = {
 };
 
 function RateFootnote({ metal, rate }: { metal: Metal; rate: MetalRate }) {
+  const { label: currency } = useCurrency();
   const t = useTranslations("Calculator");
   return (
     <div className="mt-4 flex items-center justify-center gap-2">
       <Info className="size-3 text-muted-foreground" />
       <p className="text-[10px] text-muted-foreground">
         {t("result.rate", {
+          currency,
           price: rate.price.toFixed(2),
           metal: t(`metals.${metal}`),
           purity: rate.label,
@@ -429,6 +441,7 @@ function ValueMode(s: Shared) {
   const { money, num } = useFormat();
   const [making, setMaking] = useState(8);
   const [vat, setVat] = useState(false);
+  const vatRate = useVatRate();
 
   const w = parse(s.weight);
   const grams = w != null ? w * unitGrams[s.unit] : null;
@@ -436,7 +449,7 @@ function ValueMode(s: Shared) {
   const makingValue = metalValue != null ? (metalValue * making) / 100 : null;
   const subtotal =
     metalValue != null && makingValue != null ? metalValue + makingValue : null;
-  const vatValue = subtotal != null && vat ? subtotal * VAT : 0;
+  const vatValue = subtotal != null && vat ? subtotal * vatRate : 0;
   const total = subtotal != null ? subtotal + vatValue : null;
   const metalName = t(`metals.${s.metal}`);
 
@@ -491,7 +504,7 @@ function ValueMode(s: Shared) {
           />
           {vat && (
             <Row
-              label={t("result.vat")}
+              label={t("result.vat", { rate: Math.round(vatRate * 1000) / 10 })}
               hint={t("result.vatHint")}
               value={subtotal != null ? money(vatValue) : "—"}
             />
@@ -583,6 +596,7 @@ function CompareMode(s: Shared) {
   const w = parse(s.weight);
   const a = parse(asking);
   const market = w != null ? w * unitGrams[s.unit] * s.rate.price : null;
+  const { label: currency } = useCurrency();
   const diff = market && a != null ? ((a - market) / market) * 100 : null;
 
   const verdict =
@@ -626,7 +640,7 @@ function CompareMode(s: Shared) {
               className="w-full rounded-2xl border-2 border-[rgba(27,107,74,0.15)] bg-white px-5 py-4 pe-20 text-3xl font-bold text-foreground outline-none transition-all duration-200 placeholder:text-[#C4BFB6] focus:border-[#1B6B4A]"
             />
             <span className="absolute end-5 top-1/2 -translate-y-1/2 text-sm font-black uppercase tracking-wider text-muted-foreground">
-              AED
+              {currency}
             </span>
           </div>
         </div>
@@ -719,7 +733,7 @@ function CompareMode(s: Shared) {
 function ConverterMode({ metal }: { metal: Metal }) {
   const t = useTranslations("Calculator");
   const { num } = useFormat();
-  const rates = metalRates[metal];
+  const rates = useMetalRates()[metal];
   const metalName = t(`metals.${metal}`);
 
   // Weight units: store grams, render every unit from it.
@@ -894,6 +908,7 @@ export default function Calculator() {
   const t = useTranslations("Calculator");
   const [metal, setMetal] = useState<Metal>("gold");
   const [mode, setMode] = useState<Mode>("value");
+  const metalRates = useMetalRates();
   const [purity, setPurity] = useState(metalRates.gold[0].label);
   const [unit, setUnit] = useState<Unit>("g");
   const [weight, setWeight] = useState("");

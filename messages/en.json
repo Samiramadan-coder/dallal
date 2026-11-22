@@ -3,7 +3,9 @@
     "title": "Country suggestion",
     "message": "You seem to be in {country}. Switch to it?",
     "switch": "Switch",
-    "stay": "Stay in {country}"
+    "stay": "Stay in {country}",
+    "travel": "You are in {country} right now. Browse listings in {country}?",
+    "dismiss": "No, thanks"
   },
   "Navbar": {
     "browse": "Browse",
@@ -19,7 +21,7 @@
     "countryCurrency": "Country & currency",
     "comingSoon": "Coming soon",
     "ticker": {
-      "title": "Gold Today · AED",
+      "title": "Gold Today · {currency}",
       "gold": "Gold {karat}",
       "silver": "Silver",
       "platinum": "Platinum",
@@ -225,7 +227,7 @@
       "gold": "Gold",
       "silver": "Silver",
       "platinum": "Platinum",
-      "unit": "AED per gram",
+      "unit": "{currency} per gram",
       "allPrices": "All prices",
       "currency": "AED"
     },
@@ -242,7 +244,7 @@
     },
     "nearby": {
       "title": "Stores near you",
-      "description": "Verified stores with a trade licence, on the map in UAE.",
+      "description": "Verified stores with a trade licence, on the map in {country}.",
       "openMap": "Open the map",
       "mapSoon": "Map preview",
       "openNow": "Open now",
@@ -251,7 +253,7 @@
     },
     "featured": {
       "title": "Featured listings",
-      "description": "Boosted by their stores in UAE.",
+      "description": "Boosted by their stores in {country}.",
       "browseAll": "Browse all"
     },
     "sellGold": {
@@ -366,8 +368,8 @@
       "eyebrow": "Precious Metal Tools",
       "title": "Metal",
       "titleHighlight": "Calculator",
-      "description": "Calculate the exact AED value of any gold, silver or platinum piece using today's indicative rate in UAE — or check whether a seller's price is fair before you buy.",
-      "perGram": "AED / gram",
+      "description": "Calculate the exact {currency} value of any gold, silver or platinum piece using today's indicative rate in {country} — or check whether a seller's price is fair before you buy.",
+      "perGram": "{currency} / gram",
       "updated": "Indicative rates — last updated {time}",
       "silver": "Silver",
       "platinum": "Platinum"
@@ -432,8 +434,8 @@
       "making": "Making Charges",
       "makingRange": "Typical range in the Gulf: 5–15%",
       "makingHint": "Set to 0% for bullion bars and coins",
-      "vat": "Include VAT (5%)",
-      "vatHint": "Applies to new purchases in UAE",
+      "vat": "Include VAT ({rate}%)",
+      "vatHint": "Applies to new purchases in {country}",
       "asking": "Seller's Asking Price",
       "askingPlaceholder": "e.g. 4500"
     },
@@ -443,13 +445,13 @@
       "metalValueHint": "{weight} g × {price} / gram",
       "making": "Making Charges",
       "makingHint": "{value}% of {metal} value",
-      "vat": "VAT (5%)",
+      "vat": "VAT ({rate}%)",
       "vatHint": "On subtotal",
       "total": "Total",
       "disclaimer": "Estimate based on today's indicative market rate. Actual retail prices vary with design, brand, and condition.",
       "findListings": "Find Listings at This Price",
       "postPiece": "Post This Piece for Sale",
-      "rate": "Rate: AED {price}/g for {metal} {purity}",
+      "rate": "Rate: {currency} {price}/g for {metal} {purity}",
       "sellValue": "Metal value",
       "sellHint": "Raw {metal} only",
       "sellNote": "Stores usually buy at the metal value without making charge, and may deduct a small margin.",
@@ -552,14 +554,14 @@
     "filters": {
       "title": "Filters",
       "hint": "Pick a category to refine by karat, carat, brand and more.",
-      "price": "Price (AED)",
+      "price": "Price ({currency})",
       "min": "Min",
       "max": "Max",
-      "minLabel": "Minimum (AED)",
-      "maxLabel": "Maximum (AED)",
+      "minLabel": "Minimum ({currency})",
+      "maxLabel": "Maximum ({currency})",
       "location": "Location",
       "city": "City",
-      "allCities": "All UAE",
+      "allCities": "All {country}",
       "condition": "Condition",
       "sellerDelivery": "Seller & delivery",
       "negotiable": "Negotiable",
@@ -1361,17 +1363,17 @@
     "hero": {
       "breadcrumb": "Breadcrumb",
       "home": "Home",
-      "current": "Metal Prices in UAE",
+      "current": "Metal Prices in {country}",
       "soon": "Soon",
-      "eyebrow": "UAE — Live Rates · AED",
-      "title": "{metal} Prices in 🇦🇪 UAE",
+      "eyebrow": "{country} — Live Rates · {currency}",
+      "title": "{metal} Prices in {country}",
       "today": "Today",
       "description": {
-        "gold": "Live gold prices for 24K, 22K, 21K and 18K in AED, updated every minute.",
-        "silver": "Live silver prices for 999, 958, 925 and 900 in AED, updated every minute.",
-        "platinum": "Live platinum prices for 999, 950, 900 and 850 in AED, updated every minute."
+        "gold": "Live gold prices for 24K, 22K, 21K and 18K in {currency}, updated every minute.",
+        "silver": "Live silver prices for 999, 958, 925 and 900 in {currency}, updated every minute.",
+        "platinum": "Live platinum prices for 999, 950, 900 and 850 in {currency}, updated every minute."
       },
-      "vat": "VAT 5% applies.",
+      "vat": "VAT {rate}% applies.",
       "lastUpdated": "Last Updated",
       "marketOpen": "Market open"
     },
@@ -1384,7 +1386,7 @@
     },
     "chart": {
       "title": "Price history",
-      "subtitle": "{metal} {karat} — AED per gram",
+      "subtitle": "{metal} {karat} — {currency} per gram",
       "rangeLabel": "Chart range",
       "ranges": {
         "7d": "7D",
@@ -1399,7 +1401,7 @@
     "conversion": {
       "eyebrow": "Quick Reference",
       "title": "Weight Conversion Table",
-      "subtitle": "{metal} value by weight in AED",
+      "subtitle": "{metal} value by weight in {currency}",
       "weight": "Weight",
       "units": {
         "gram": "1 gram",
@@ -1409,11 +1411,11 @@
         "ounce": "1 ounce",
         "kg": "1 kg"
       },
-      "note": "Tola = 11.6638 g. Ounce = troy ounce, 31.1035 g. Values in AED, metal value only."
+      "note": "Tola = 11.6638 g. Ounce = troy ounce, 31.1035 g. Values in {currency}, metal value only."
     },
     "stores": {
       "title": "Gold price at stores near you",
-      "description": "Price per gram in AED: today's live rate plus each store's usual making charge.",
+      "description": "Price per gram in {currency}: today's live rate plus each store's usual making charge.",
       "openMap": "Open the store map",
       "km": "{value} km",
       "view": "View {name}"
@@ -1438,7 +1440,7 @@
     "faq": {
       "eyebrow": "Help & Answers",
       "title": "Frequently Asked Questions",
-      "description": "Everything you need to know about gold prices in UAE.",
+      "description": "Everything you need to know about gold prices in {country}.",
       "items": {
         "q1": {
           "q": "What is the gold price in UAE today?",
@@ -1705,10 +1707,11 @@
         "placeholder": "Your name",
         "required": "Please enter your name"
       },
-      "email": {
-        "label": "Email",
-        "required": "Please enter your email",
-        "invalid": "Please enter a valid email"
+      "contact": {
+        "label": "Email or phone number",
+        "placeholder": "name@example.com / +971501234567",
+        "required": "Please enter your email or phone number",
+        "invalid": "Enter a valid email or phone number"
       }
     },
     "submit": "Notify me",

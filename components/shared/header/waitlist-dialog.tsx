@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { Mail, User } from "lucide-react";
+import { AtSign, User } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, type FieldPath } from "react-hook-form";
 
@@ -68,7 +68,7 @@ function WaitlistForm({
   } = useForm<WaitlistFormData>({
     resolver: zodResolver(waitlistSchema(t)),
     // Signed-in users only need to confirm
-    defaultValues: { name: user?.name ?? "", email: user?.email ?? "" },
+    defaultValues: { name: user?.name ?? "", contact: user?.email ?? "" },
   });
 
   const onSubmit: SubmitHandler<WaitlistFormData> = async (data) => {
@@ -83,7 +83,9 @@ function WaitlistForm({
     }
 
     for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
-      setError(field as FieldPath<WaitlistFormData>, {
+      // The API reports the channel it got ("email" / "phone")
+      const name = field === "email" || field === "phone" ? "contact" : field;
+      setError(name as FieldPath<WaitlistFormData>, {
         type: "server",
         message,
       });
@@ -127,22 +129,21 @@ function WaitlistForm({
         </AuthField>
 
         <AuthField
-          id="waitlist_email"
-          label={t("fields.email.label")}
-          error={errors.email}
+          id="waitlist_contact"
+          label={t("fields.contact.label")}
+          error={errors.contact}
           required
         >
           <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
             <InputGroupAddon>
-              <Mail />
+              <AtSign />
             </InputGroupAddon>
             <InputGroupInput
-              {...register("email")}
-              {...fieldA11yProps("waitlist_email", errors.email)}
-              type="email"
+              {...register("contact")}
+              {...fieldA11yProps("waitlist_contact", errors.contact)}
               dir="ltr"
               autoComplete="email"
-              placeholder="name@example.com"
+              placeholder={t("fields.contact.placeholder")}
               className="placeholder:text-sm placeholder:text-[#B5B0A0]"
             />
           </InputGroup>

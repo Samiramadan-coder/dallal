@@ -7,6 +7,7 @@ import { getCountries } from "@/lib/api/global";
 import { DEFAULT_COUNTRY } from "@/lib/country";
 import { localizePath, PATHNAME_HEADER, splitPath } from "@/lib/auth-routes";
 import CountrySuggestion from "@/components/shared/country-suggestion";
+import { CountriesProvider } from "@/providers/countries";
 
 type Props = {
   children: React.ReactNode;
@@ -65,9 +66,9 @@ export default async function CountryLayout({ children, params }: Props) {
   if (countries.length > 0 && !isLive) notFound();
 
   return (
-    <>
+    <CountriesProvider countries={countries}>
       {children}
       <CountrySuggestion code={country} countries={countries} />
-    </>
+    </CountriesProvider>
   );
 }

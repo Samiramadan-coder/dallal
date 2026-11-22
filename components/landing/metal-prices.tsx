@@ -5,13 +5,17 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, TrendingDown, TrendingUp } from "lucide-react";
-import { formatPrice, headingFont, metalRates, type Metal } from "@/constants/marketplace";
+import { headingFont, type Metal } from "@/constants/marketplace";
+import { useCurrency } from "@/hook/use-currency";
+import { useMetalRates } from "@/hook/use-metal-rates";
 
 const metals: Metal[] = ["gold", "silver", "platinum"];
 
 export default function MetalPrices() {
   const locale = useLocale();
   const t = useTranslations("Home.metals");
+  const metalRates = useMetalRates();
+  const { format, label: currency } = useCurrency();
   const [metal, setMetal] = useState<Metal>("gold");
   const font = headingFont(locale);
 
@@ -54,7 +58,7 @@ export default function MetalPrices() {
           </div>
 
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
-            <span>{t("unit")}</span>
+            <span>{t("unit", { currency })}</span>
             <Link
               href="/metal-prices"
               className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
@@ -96,7 +100,7 @@ export default function MetalPrices() {
                 <div
                   className={`mt-1 ${font} text-xl font-bold text-card-foreground`}
                 >
-                  {formatPrice(rate.price, t("currency"), locale)}
+                  {format(rate.price)}
                 </div>
               </li>
             );

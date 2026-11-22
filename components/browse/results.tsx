@@ -1,12 +1,14 @@
 "use client";
 
+import Price from "@/components/reusable/price";
+
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { SearchX, MapPin } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import ListingCard from "../reusable/listing-card";
 import { useBrowseFilters } from "@/providers/browse-filters";
-import { formatPrice, type Listing } from "@/constants/marketplace";
+import { type Listing } from "@/constants/marketplace";
 
 // Deterministic pseudo-position on the map preview for each listing.
 function pinPosition(id: string) {
@@ -34,7 +36,7 @@ function MapView({ items }: { items: Listing[] }) {
               style={pos}
               className="absolute -translate-x-1/2 -translate-y-full rounded-full bg-[#1B6B4A] px-2.5 py-1 text-[11px] font-bold whitespace-nowrap text-card-foreground shadow-md transition-colors hover:bg-primary hover:text-background"
             >
-              {formatPrice(item.price, tListing("currency"), locale)}
+              <Price value={item.price} mock />
             </Link>
           );
         })}
@@ -64,7 +66,7 @@ function MapView({ items }: { items: Listing[] }) {
                   {item.title[lang]}
                 </p>
                 <p className="mt-0.5 text-sm font-bold text-[#1B6B4A]">
-                  {formatPrice(item.price, tListing("currency"), locale)}
+                  <Price value={item.price} mock approx />
                 </p>
                 <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-muted-foreground">
                   <MapPin className="size-3" />

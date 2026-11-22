@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useBrowseCountry, useCurrency } from "@/hook/use-currency";
 import { Check, ChevronDown } from "lucide-react";
 import { useBrowseFilters } from "@/providers/browse-filters";
 import {
@@ -91,6 +92,8 @@ function parsePrice(value: string) {
 export function FilterFields() {
   const t = useTranslations("Browse.filters");
   const tCities = useTranslations("Cities");
+  const country = useBrowseCountry();
+  const { label: currency } = useCurrency();
   const { filters, setFilters } = useBrowseFilters();
 
   const toggleCondition = (c: Condition) => {
@@ -106,14 +109,14 @@ export function FilterFields() {
         {t("hint")}
       </p>
 
-      <Section title={t("price")}>
+      <Section title={t("price", { currency })}>
         <div className="flex items-center gap-2">
           <input
             type="number"
             inputMode="decimal"
             min={0}
             placeholder={t("min")}
-            aria-label={t("minLabel")}
+            aria-label={t("minLabel", { currency })}
             value={filters.min_price ?? ""}
             onChange={(e) =>
               setFilters({ min_price: parsePrice(e.target.value) })
@@ -126,7 +129,7 @@ export function FilterFields() {
             inputMode="decimal"
             min={0}
             placeholder={t("max")}
-            aria-label={t("maxLabel")}
+            aria-label={t("maxLabel", { currency })}
             value={filters.max_price ?? ""}
             onChange={(e) =>
               setFilters({ max_price: parsePrice(e.target.value) })
@@ -146,7 +149,7 @@ export function FilterFields() {
           onChange={(e) => setFilters({ city: e.target.value || null })}
           className={inputClass}
         >
-          <option value="">{t("allCities")}</option>
+          <option value="">{t("allCities", { country: country?.name ?? "" })}</option>
           {cities.map((city) => (
             <option key={city.key} value={city.key}>
               {tCities(city.key)}

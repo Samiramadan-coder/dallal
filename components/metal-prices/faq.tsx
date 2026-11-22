@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { useBrowseCountry } from "@/hook/use-currency";
 import { headingFont } from "@/constants/marketplace";
 
 const items = ["q1", "q2", "q3", "q4", "q5", "q6"] as const;
@@ -11,6 +12,7 @@ const items = ["q1", "q2", "q3", "q4", "q5", "q6"] as const;
 export default function Faq() {
   const locale = useLocale();
   const t = useTranslations("MetalPrices.faq");
+  const country = useBrowseCountry()?.name ?? "";
   const [open, setOpen] = useState<string | null>("q1");
 
   return (
@@ -25,7 +27,7 @@ export default function Faq() {
           {t("title")}
         </h2>
         <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-          {t("description")}
+          {t("description", { country })}
         </p>
       </div>
 

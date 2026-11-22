@@ -3,6 +3,7 @@
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useBrowseFilters } from "@/providers/browse-filters";
+import { useCurrency } from "@/hook/use-currency";
 import { categories, conditionLabels, type City } from "@/constants/marketplace";
 
 export default function ActiveFilters() {
@@ -10,6 +11,7 @@ export default function ActiveFilters() {
   const tCities = useTranslations("Cities");
   const tCategories = useTranslations("Home.categories.items");
   const { filters, setFilters, resetFilters } = useBrowseFilters();
+  const { label: currency } = useCurrency();
 
   const chips: { key: string; label: string; clear: () => void }[] = [];
 
@@ -26,7 +28,7 @@ export default function ActiveFilters() {
     const max = filters.max_price?.toLocaleString("en-US") ?? "∞";
     chips.push({
       key: "price",
-      label: `AED ${min} – ${max}`,
+      label: `${currency} ${min} – ${max}`,
       clear: () => setFilters({ min_price: null, max_price: null }),
     });
   }

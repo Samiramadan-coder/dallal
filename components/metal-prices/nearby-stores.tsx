@@ -1,9 +1,12 @@
 import Image from "next/image";
+import Price from "@/components/reusable/price";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
+import { getSelectedCountry } from "@/lib/api/selected-country";
+import { currencyLabel } from "@/lib/currency";
 import { ArrowRight, BadgeCheck, MapPin, Star } from "lucide-react";
-import { formatPrice, headingFont, metalRates, stores } from "@/constants/marketplace";
+import { headingFont, metalRates, stores } from "@/constants/marketplace";
 
 // Mock: each store's distance and usual making charge (percent).
 const nearby = [
@@ -17,8 +20,9 @@ export default async function NearbyStores() {
   const locale = await getLocale();
   const t = await getTranslations("MetalPrices.stores");
   const tCities = await getTranslations("Cities");
-  const currency = locale === "ar" ? "د.إ" : "AED";
   const karats = metalRates.gold.slice(0, 3);
+  const country = await getSelectedCountry();
+  const currency = currencyLabel(country?.currency ?? "AED", locale);
 
   return (
     <section className="pb-10">
@@ -34,7 +38,7 @@ export default async function NearbyStores() {
               {t("title")}
             </h2>
             <p className="mt-1 max-w-xl text-xs text-muted-foreground">
-              {t("description")}
+              {t("description", { currency })}
             </p>
           </div>
           <Link
@@ -104,11 +108,10 @@ export default async function NearbyStores() {
                         key={k.label}
                         className="py-3 text-end font-semibold text-foreground"
                       >
-                        {formatPrice(
-                          Number((k.price * (1 + making / 100)).toFixed(2)),
-                          currency,
-                          locale,
-                        )}
+                        <Price
+                          value={Number((k.price * (1 + making / 100)).toFixed(2))}
+                          mock
+                        />
                       </td>
                     ))}
                   </tr>

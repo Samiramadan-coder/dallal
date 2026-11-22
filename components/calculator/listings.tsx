@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Price from "@/components/reusable/price";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ArrowRight, BadgeCheck, TrendingDown } from "lucide-react";
-import { formatPrice, headingFont } from "@/constants/marketplace";
+import { headingFont } from "@/constants/marketplace";
 
 // Mock: listings priced below the market value of their metal.
 const nearMarket = [
@@ -46,7 +47,6 @@ export default async function Listings() {
   const t = await getTranslations("Calculator.listings");
   const font = headingFont(locale);
   const lang = locale === "ar" ? "ar" : "en";
-  const currency = locale === "ar" ? "د.إ" : "AED";
 
   return (
     <section className="border-t border-[rgba(27,107,74,0.08)] py-16">
@@ -101,10 +101,10 @@ export default async function Listings() {
                 <div className="mt-3 flex items-center justify-between">
                   <div>
                     <div className={cn(font, "text-lg font-bold text-[#1B6B4A]")}>
-                      {formatPrice(item.price, currency, locale)}
+                      <Price value={item.price} mock approx />
                     </div>
                     <div className="text-[10px] text-muted-foreground line-through">
-                      {formatPrice(item.market, currency, locale)}
+                      <Price value={item.market} mock />
                     </div>
                   </div>
                   <div className="flex items-center gap-1 text-[10px] font-bold text-[#1B6B4A]">

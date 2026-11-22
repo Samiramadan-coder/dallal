@@ -1,5 +1,7 @@
 "use client";
 
+import Price from "@/components/reusable/price";
+
 import {
   BadgeCheck,
   Clock,
@@ -11,7 +13,6 @@ import {
 } from "lucide-react";
 import {
   conditionLabels,
-  formatPrice,
   getStore,
   headingFont,
   type Listing,
@@ -127,7 +128,7 @@ export default function ListingCard({
 
         <div className="mt-3">
           <p className={cn(font, "text-xl font-bold text-foreground")}>
-            {formatPrice(listing.price, t("currency"), locale)}
+            <Price value={listing.price} mock approx />
           </p>
           <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
             {listing.livePrice && (

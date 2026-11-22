@@ -73,15 +73,6 @@ export function priceHistory(metal: Metal, range: ChartRange, current: number) {
   return out;
 }
 
-export const countries = [
-  { key: "uae", name: "UAE", flag: "🇦🇪", available: true },
-  { key: "sa", name: "Saudi Arabia", flag: "🇸🇦", available: true },
-  { key: "kw", name: "Kuwait", flag: "🇰🇼", available: false },
-  { key: "qa", name: "Qatar", flag: "🇶🇦", available: false },
-  { key: "bh", name: "Bahrain", flag: "🇧🇭", available: false },
-  { key: "om", name: "Oman", flag: "🇴🇲", available: false },
-] as const;
-
 export type CategoryKey =
   | "goldJewelry"
   | "coinsBars"

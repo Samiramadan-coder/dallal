@@ -3,6 +3,7 @@ import { nearbyStores } from "@/constants/marketplace";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
 import { getTranslations } from "next-intl/server";
+import { getSelectedCountry } from "@/lib/api/selected-country";
 import { ArrowRight, BadgeCheck, MapPin, Star } from "lucide-react";
 
 // Decorative pin positions on the map preview (percentages).
@@ -16,6 +17,7 @@ const pins = [
 
 export default async function StoresNear() {
   const t = await getTranslations("Home.nearby");
+  const country = await getSelectedCountry();
   const tCities = await getTranslations("Cities");
 
   return (
@@ -28,7 +30,7 @@ export default async function StoresNear() {
           <SectionHeading
             id="stores-near-title"
             title={t("title")}
-            description={t("description")}
+            description={t("description", { country: country?.name ?? "" })}
           />
           <Link
             href="/browse?view=map"

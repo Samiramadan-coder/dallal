@@ -2,11 +2,13 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
 import { getTranslations } from "next-intl/server";
+import { getSelectedCountry } from "@/lib/api/selected-country";
 import { featuredListings } from "@/constants/marketplace";
 import ListingCard from "@/components/reusable/listing-card";
 
 export default async function FeaturedListings() {
   const t = await getTranslations("Home.featured");
+  const country = await getSelectedCountry();
 
   return (
     <section
@@ -18,7 +20,7 @@ export default async function FeaturedListings() {
           <SectionHeading
             id="featured-title"
             title={t("title")}
-            description={t("description")}
+            description={t("description", { country: country?.name ?? "" })}
           />
           <Link
             href="/browse"

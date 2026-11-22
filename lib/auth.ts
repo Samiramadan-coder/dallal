@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "@/i18n/server-navigation";
 import { api } from "@/lib/api/client";
 import { clearAuthToken, setAuthToken } from "@/lib/api/auth-token";
@@ -14,6 +15,7 @@ import {
 } from "@/lib/auth-routes";
 import { getCountryCode } from "@/lib/api/selected-country";
 import { getCountries } from "@/lib/api/global";
+import { COUNTRY_COOKIE } from "@/lib/country";
 import type { ForgotPasswordFormData } from "@/types/forgot-password";
 import type { OTPVerifyFormData } from "@/types/otp-verify";
 import type { ResetPasswordFormData } from "@/types/reset-password";
@@ -53,6 +55,18 @@ async function internationalPhone(
   const country = (await getCountries()).find((c) => c.id === countryId);
   const local = phone.replace(/\D/g, "").replace(/^0+/, "");
   return `${country?.dial_code ?? ""}${local}`;
+}
+
+// Live country of a phone ("+971501112233" → "ae"), longest dial code wins
+async function phoneCountry(phone: string): Promise<string | null> {
+  const full = "+" + String(phone).trim().replace(/^\+/, "");
+  const match = (await getCountries())
+    .filter(
+      (c) =>
+        c.status === "live" && c.dial_code && full.startsWith(c.dial_code),
+    )
+    .sort((a, b) => b.dial_code.length - a.dial_code.length)[0];
+  return match ? match.code.toLowerCase() : null;
 }
 
 // Sign Up. Returns the phone the OTP was sent to, for the verify page
@@ -105,10 +119,29 @@ export async function verifyOTP(
       GUEST,
     );
     await setAuthToken(res.data.token);
+
+    // The verified phone is the primary one: its country becomes the
+    // default browse country (remembered for URLs without a country)
+    const home = await phoneCountry(values.phone);
+    if (home) {
+      (await cookies()).set(COUNTRY_COOKIE, home, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 365,
+        sameSite: "lax",
+      });
+    }
+
     return {
       message: res.message,
-      // A newly verified account lands on its account page
-      redirectTo: await afterSignInUrl(callbackUrl, ACCOUNT_PATH),
+      // A newly verified account lands on its account page, in its country
+      redirectTo: safeCallbackUrl(
+        typeof callbackUrl === "string" ? callbackUrl : null,
+        localizePath(
+          ACCOUNT_PATH,
+          await resolveLocale(),
+          home ?? (await getCountryCode()),
+        ),
+      ),
     };
   });
 }

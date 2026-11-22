@@ -6,7 +6,17 @@ import { Link } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Clock, Radio } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { countries, headingFont } from "@/constants/marketplace";
+import {
+  useBrowseCountry,
+  useCurrency,
+  useVatRate,
+} from "@/hook/use-currency";
+import Image from "next/image";
+import { headingFont } from "@/constants/marketplace";
+import { useCountries } from "@/providers/countries";
+import { useSelectedCountry } from "@/hook/use-selected-country";
+import WaitlistDialog from "@/components/shared/header/waitlist-dialog";
+import type { Country } from "@/types/global";
 
 function LastUpdated() {
   const locale = useLocale();
@@ -47,8 +57,14 @@ function LastUpdated() {
 export default function Hero() {
   const locale = useLocale();
   const t = useTranslations("MetalPrices");
+  const country = useBrowseCountry()?.name ?? "";
+  const { label: currency } = useCurrency();
+  const vatRate = useVatRate();
   const [metal] = useMetal();
-  const [country, setCountry] = useState<string>("uae");
+  // The real country switch: changes prices and currency everywhere
+  const countries = useCountries();
+  const { selected, select, isLive } = useSelectedCountry(countries);
+  const [waitlist, setWaitlist] = useState<Country | null>(null);
 
   return (
     <div className="relative mt-30 overflow-hidden bg-card pb-14 pt-10">
@@ -76,29 +92,43 @@ export default function Hero() {
           </Link>
           <span>›</span>
           <span className="text-[rgba(245,240,232,0.7)]">
-            {t("hero.current")}
+            {t("hero.current", { country })}
           </span>
         </nav>
 
         <div className="mb-7 flex flex-wrap items-center gap-2">
           {countries.map((c) => {
-            const active = country === c.key;
+            const live = isLive(c);
+            const active = selected?.code === c.code;
             return (
               <button
-                key={c.key}
+                key={c.code}
                 type="button"
-                disabled={!c.available}
-                onClick={() => setCountry(c.key)}
+                aria-pressed={live ? active : undefined}
+                // Coming soon: "notify me" instead
+                onClick={() => (live ? select(c) : setWaitlist(c))}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-bold transition-all disabled:cursor-not-allowed disabled:opacity-45",
+                  "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-bold transition-all",
+                  !live && "opacity-45 hover:opacity-70",
                   active
                     ? "border-primary bg-primary text-background shadow-[0_2px_12px_color-mix(in_srgb,var(--primary)_40%,transparent)]"
-                    : "border-primary/20 bg-transparent text-[rgba(245,240,232,0.6)] enabled:hover:border-primary/50 enabled:hover:text-[rgba(245,240,232,0.9)]",
+                    : "border-primary/20 bg-transparent text-[rgba(245,240,232,0.6)] hover:border-primary/50 hover:text-[rgba(245,240,232,0.9)]",
                 )}
               >
-                <span className={cn(!c.available && "grayscale")}>{c.flag}</span>
+                {c.flag && (
+                  <Image
+                    src={c.flag}
+                    alt=""
+                    width={18}
+                    height={12}
+                    className={cn(
+                      "h-3 w-4.5 rounded-xs object-cover",
+                      !live && "grayscale",
+                    )}
+                  />
+                )}
                 <span>{c.name}</span>
-                {!c.available && (
+                {!live && (
                   <span className="text-[9px] uppercase tracking-wide text-primary">
                     {t("hero.soon")}
                   </span>
@@ -112,7 +142,7 @@ export default function Hero() {
           <div>
             <p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
               <Radio className="size-3.5" />
-              {t("hero.eyebrow")}
+              {t("hero.eyebrow", { country, currency })}
             </p>
             <h1
               className={cn(
@@ -120,12 +150,12 @@ export default function Hero() {
                 "text-balance text-4xl font-bold leading-tight text-card-foreground lg:text-5xl",
               )}
             >
-              {t("hero.title", { metal: t(`metals.${metal}`) })}{" "}
+              {t("hero.title", { metal: t(`metals.${metal}`), country })}{" "}
               <span className="gold-text">{t("hero.today")}</span>
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-[rgba(245,240,232,0.55)]">
-              {t(`hero.description.${metal}`)}
-              <span className="ms-1 text-primary">{t("hero.vat")}</span>
+              {t(`hero.description.${metal}`, { currency })}
+              <span className="ms-1 text-primary">{t("hero.vat", { rate: Math.round(vatRate * 1000) / 10 })}</span>
             </p>
           </div>
 
@@ -134,6 +164,11 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
+
+      <WaitlistDialog
+        country={waitlist}
+        onOpenChange={(open) => !open && setWaitlist(null)}
+      />
     </div>
   );
 }

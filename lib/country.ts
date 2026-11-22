@@ -41,3 +41,12 @@ export function resolveCountry(
     countries[0]
   );
 }
+
+// The user's own country: the one of their primary phone (set when the
+// phone is verified), else of any phone. Null for guests
+export function primaryCountry(
+  user: { phones?: { is_primary: boolean; country: Country }[] } | null,
+): Country | null {
+  const phones = user?.phones ?? [];
+  return (phones.find((p) => p.is_primary) ?? phones[0])?.country ?? null;
+}
