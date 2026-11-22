@@ -5,9 +5,11 @@ import Marquee from "react-fast-marquee";
 import { useLocale, useTranslations } from "next-intl";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { formatPrice, metalRates } from "@/constants/marketplace";
+import { usePathname } from "@/i18n/navigation";
 
 export default function PriceTicker() {
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("Navbar.ticker");
   const today = new Date().toLocaleDateString(
     locale === "ar" ? "ar-AE" : "en-GB",
@@ -22,13 +24,20 @@ export default function PriceTicker() {
     { ...metalRates.platinum[0], name: t("platinum") },
   ];
 
+  if (pathname.includes("auth")) {
+    return null;
+  }
+
   return (
     <div className="flex h-9 w-full overflow-hidden bg-card">
       <div className="flex shrink-0 items-center bg-[#caaa43] px-4 text-[11px] font-bold uppercase tracking-wider text-[#071E14] sm:px-6">
         {t("title")}
       </div>
 
-      <div dir="ltr" className="flex min-w-0 flex-1 items-center overflow-hidden">
+      <div
+        dir="ltr"
+        className="flex min-w-0 flex-1 items-center overflow-hidden"
+      >
         <Marquee
           speed={40}
           pauseOnHover
@@ -36,11 +45,17 @@ export default function PriceTicker() {
           direction={locale === "ar" ? "right" : "left"}
           className="w-full"
         >
-          <div className="flex items-center gap-8 px-6" dir={locale === "ar" ? "rtl" : "ltr"}>
+          <div
+            className="flex items-center gap-8 px-6"
+            dir={locale === "ar" ? "rtl" : "ltr"}
+          >
             {items.map((item) => {
               const up = item.change >= 0;
               return (
-                <span key={item.name} className="inline-flex items-center gap-2">
+                <span
+                  key={item.name}
+                  className="inline-flex items-center gap-2"
+                >
                   <span className="text-xs font-medium text-[#e8d5a0]">
                     {item.name}
                   </span>

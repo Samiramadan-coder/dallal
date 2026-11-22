@@ -13,7 +13,6 @@ import PriceTicker from "./price-ticker";
 import MobileMenu from "./mobile-control";
 import { links } from "@/constants/shared";
 import { useTranslations } from "next-intl";
-import { usePathname } from "@/i18n/navigation";
 import { DesktopControl } from "./desktop-control";
 import { useIsScroll } from "@/hook/use-is-scroll";
 
@@ -24,7 +23,6 @@ export default function Header({
 }) {
   const isScroll = useIsScroll(84);
   const t = useTranslations("Navbar");
-  const pathname = usePathname();
 
   return (
     <header
@@ -60,7 +58,7 @@ export default function Header({
         </div>
       </div>
 
-      {!pathname.includes("/auth") && <PriceTicker />}
+      <PriceTicker />
     </header>
   );
 }
