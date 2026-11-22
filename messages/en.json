@@ -1694,5 +1694,24 @@
       "storePage": "Store page",
       "planBilling": "Plan & billing"
     }
+  },
+  "Waitlist": {
+    "comingSoon": "Coming soon",
+    "title": "Get notified when {country} launches",
+    "description": "Dallal Hoolee is coming to {country} soon. Leave your details and we will let you know the moment it goes live.",
+    "fields": {
+      "name": {
+        "label": "Full name",
+        "placeholder": "Your name",
+        "required": "Please enter your name"
+      },
+      "email": {
+        "label": "Email",
+        "required": "Please enter your email",
+        "invalid": "Please enter a valid email"
+      }
+    },
+    "submit": "Notify me",
+    "success": "You are on the list. We will email you when {country} launches."
   }
 }

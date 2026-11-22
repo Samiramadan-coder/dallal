@@ -2,14 +2,14 @@
 
 import { Button } from "../../ui/button";
 import { Link } from "@/i18n/navigation";
-import GatedLink from "@/components/auth/gated-link";
 import { Country } from "@/types/global";
+import AccountMenu from "./account-menu";
+import ModeSwitcher from "./mode-switcher";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/providers/user-data";
 import LanguageSwitcher from "./language-switcher";
 import { CountryDropdown } from "./country-switcher";
-import AccountMenu from "./account-menu";
-import ModeSwitcher from "./mode-switcher";
+import GatedLink from "@/components/auth/gated-link";
 
 export function DesktopControl({ countries }: { countries: Country[] }) {
   const t = useTranslations("Navbar");
@@ -18,6 +18,7 @@ export function DesktopControl({ countries }: { countries: Country[] }) {
   return (
     <div className="flex items-center gap-3">
       <CountryDropdown countries={countries} />
+
       <LanguageSwitcher />
 
       {user ? (
