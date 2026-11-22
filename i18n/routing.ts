@@ -4,7 +4,7 @@ export const routing = defineRouting({
   locales: ["ar", "en"],
   // Arabic (RTL) is the default: its URLs have no prefix ("/sa/browse"),
   // English ones do ("/en/sa/browse")
-  defaultLocale: "ar",
+  defaultLocale: "en",
   localePrefix: "as-needed",
   // The visitor's chosen language, remembered for a year
   localeCookie: {
