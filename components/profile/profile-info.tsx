@@ -7,7 +7,8 @@ import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Camera } from "lucide-react";
 import { useLocale } from "next-intl";
 import { Button } from "../ui/button";
-import Input from "../form/input";
+import { Input } from "../ui/input";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import { useForm } from "react-hook-form";
 
 export default function ProfileInfo() {
@@ -67,21 +68,32 @@ export default function ProfileInfo() {
           </div>
 
           <form className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              register={register}
-              name="name"
+            <LabeledField
+              id="name"
               label="full name"
+              error={errors.name}
               required
-              errors={errors}
-            />
+            >
+              <Input
+                {...register("name")}
+                {...fieldA11yProps("name", errors.name)}
+                className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
+              />
+            </LabeledField>
 
-            <Input
-              register={register}
-              name="email"
+            <LabeledField
+              id="email"
               label="email address"
+              error={errors.email}
               required
-              errors={errors}
-            />
+            >
+              <Input
+                {...register("email")}
+                {...fieldA11yProps("email", errors.email)}
+                type="email"
+                className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
+              />
+            </LabeledField>
           </form>
         </div>
       </Card>

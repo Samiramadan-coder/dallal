@@ -64,6 +64,8 @@
       }
     },
     "Forms": {
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "welcome": "Member Access",
       "yourAccount": "Your Account",
       "accessListening": "Access your listings, messages, and offers.",

@@ -2,8 +2,22 @@
 
 import { toast } from "sonner";
 import { useState } from "react";
-import Input from "../form/input";
-import Select from "../form/select";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "../ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Input } from "../ui/input";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import { signUp } from "@/lib/auth";
 import SubmitBtn from "./submit-btn";
 import { Country } from "@/types/global";
@@ -13,11 +27,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
 import {
+  Controller,
   useForm,
   SubmitHandler,
   useWatch,
   type FieldPath,
 } from "react-hook-form";
+
+const inputGroupClass =
+  "h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white";
+const selectTriggerClass =
+  "w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white data-[size=default]:h-11";
 
 export default function SignUp({ countries }: { countries: Country[] }) {
   const router = useRouter();
@@ -60,105 +80,170 @@ export default function SignUp({ countries }: { countries: Country[] }) {
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <Select
-        control={control}
-        name="account_type"
+      <LabeledField
+        id="account_type"
         label={t("fields.type.label")}
-        placeholder={t("fields.type.placeholder")}
+        error={errors.account_type}
         required
-        errors={errors}
-        options={[
-          {
-            label: t("fields.type.options.individual"),
-            value: "individual",
-          },
-          {
-            label: t("fields.type.options.shop"),
-            value: "shop",
-          },
-        ]}
-      />
+      >
+        <Controller
+          control={control}
+          name="account_type"
+          render={({ field }) => (
+            <Select
+              name={field.name}
+              value={field.value ?? ""}
+              onValueChange={field.onChange}
+              onOpenChange={(open) => {
+                if (!open) field.onBlur();
+              }}
+            >
+              <SelectTrigger
+                ref={field.ref}
+                {...fieldA11yProps("account_type", errors.account_type)}
+                className={selectTriggerClass}
+              >
+                <SelectValue placeholder={t("fields.type.placeholder")} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="individual">
+                  {t("fields.type.options.individual")}
+                </SelectItem>
+                <SelectItem value="shop">
+                  {t("fields.type.options.shop")}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </LabeledField>
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="name"
+      <LabeledField
+        id="name"
         label={t("fields.name.label")}
-        placeholder={t("fields.name.placeholder")}
-      />
-
-      <Input
-        register={register}
+        error={errors.name}
         required
-        errors={errors}
-        name="email"
+      >
+        <Input
+          {...register("name")}
+          {...fieldA11yProps("name", errors.name)}
+          placeholder={t("fields.name.placeholder")}
+          className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
+        />
+      </LabeledField>
+
+      <LabeledField
+        id="email"
         label={t("fields.email.label")}
-        placeholder={t("fields.email.placeholder")}
-        prefix={<Mail className="size-4" />}
-      />
+        error={errors.email}
+        required
+      >
+        <InputGroup className={inputGroupClass}>
+          <InputGroupAddon>
+            <Mail />
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("email")}
+            {...fieldA11yProps("email", errors.email)}
+            type="email"
+            placeholder={t("fields.email.placeholder")}
+            className="placeholder:text-sm"
+          />
+        </InputGroup>
+      </LabeledField>
 
-      <Select
-        control={control}
-        name="country_id"
+      <LabeledField
+        id="country_id"
         label={t("fields.country.label")}
-        placeholder={t("fields.country.placeholder")}
+        error={errors.country_id}
         required
-        errors={errors}
-        options={countries.map((c) => ({
-          label: c.name,
-          value: c.id.toString(),
-        }))}
-      />
+      >
+        <Controller
+          control={control}
+          name="country_id"
+          render={({ field }) => (
+            <Select
+              name={field.name}
+              value={field.value ?? ""}
+              onValueChange={field.onChange}
+              onOpenChange={(open) => {
+                if (!open) field.onBlur();
+              }}
+            >
+              <SelectTrigger
+                ref={field.ref}
+                {...fieldA11yProps("country_id", errors.country_id)}
+                className={selectTriggerClass}
+              >
+                <SelectValue placeholder={t("fields.country.placeholder")} />
+              </SelectTrigger>
+              <SelectContent>
+                {countries.map((c) => (
+                  <SelectItem key={c.id} value={c.id.toString()}>
+                    {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </LabeledField>
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="phone"
+      <LabeledField
+        id="phone"
         label={t("fields.phone.label")}
-        placeholder={t("fields.phone.placeholder")}
-        prefix={
-          <div className="flex items-center gap-1">
-            <Phone className="size-4" />
-            <span className="text-sm">{choosedCountry?.dial_code}</span>
-          </div>
-        }
-      />
-
-      <Input
-        register={register}
+        error={errors.phone}
         required
-        errors={errors}
-        name="password"
-        label={t("fields.password.label")}
-        placeholder={t("fields.password.placeholder")}
-        type={showPassword ? "text" : "password"}
-        suffix={
-          showPassword ? (
-            <EyeOff className="size-4" onClick={() => setShowPassword(false)} />
-          ) : (
-            <Eye className="size-4" onClick={() => setShowPassword(true)} />
-          )
-        }
-      />
+      >
+        <InputGroup className={inputGroupClass}>
+          <InputGroupAddon>
+            <Phone />
+            <InputGroupText>{choosedCountry?.dial_code}</InputGroupText>
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("phone")}
+            {...fieldA11yProps("phone", errors.phone)}
+            placeholder={t("fields.phone.placeholder")}
+            className="placeholder:text-sm"
+          />
+        </InputGroup>
+      </LabeledField>
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="password_confirmation"
-        label={t("fields.passwordConfirmation.label")}
-        placeholder={t("fields.passwordConfirmation.placeholder")}
-        type={showPassword ? "text" : "password"}
-        suffix={
-          showPassword ? (
-            <EyeOff className="size-4" onClick={() => setShowPassword(false)} />
-          ) : (
-            <Eye className="size-4" onClick={() => setShowPassword(true)} />
-          )
-        }
-      />
+      {(["password", "password_confirmation"] as const).map((name) => {
+        const key = name === "password" ? "password" : "passwordConfirmation";
+
+        return (
+          <LabeledField
+            key={name}
+            id={name}
+            label={t(`fields.${key}.label`)}
+            error={errors[name]}
+            required
+          >
+            <InputGroup className={inputGroupClass}>
+              <InputGroupInput
+                {...register(name)}
+                {...fieldA11yProps(name, errors[name])}
+                type={showPassword ? "text" : "password"}
+                placeholder={t(`fields.${key}.placeholder`)}
+                className="placeholder:text-sm"
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  size="icon-xs"
+                  aria-label={tForms(
+                    showPassword ? "hidePassword" : "showPassword",
+                  )}
+                  aria-pressed={showPassword}
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? <EyeOff /> : <Eye />}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </LabeledField>
+        );
+      })}
 
       <SubmitBtn loading={isSubmitting}>{tForms("signUp")}</SubmitBtn>
     </form>

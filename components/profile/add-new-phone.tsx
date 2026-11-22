@@ -25,8 +25,20 @@ import {
 } from "../ui/input-otp";
 
 import { toast } from "sonner";
-import Input from "../form/input";
-import Select from "../form/select";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "../ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { useRef, useState } from "react";
@@ -106,37 +118,64 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-4"
           >
-            <Select
-              control={control}
-              name="country_id"
+            <LabeledField
+              id="country_id"
               label={t("countryLabel")}
               labelClassName="text-white"
-              placeholder={t("countryPlaceholder")}
-              triggerClassName="text-foreground"
+              error={errors.country_id}
               required
-              errors={errors}
-              options={countries.map((c) => ({
-                label: c.name,
-                value: c.id.toString(),
-              }))}
-            />
+            >
+              <Controller
+                control={control}
+                name="country_id"
+                render={({ field }) => (
+                  <Select
+                    name={field.name}
+                    value={field.value ?? ""}
+                    onValueChange={field.onChange}
+                    onOpenChange={(open) => {
+                      if (!open) field.onBlur();
+                    }}
+                  >
+                    <SelectTrigger
+                      ref={field.ref}
+                      {...fieldA11yProps("country_id", errors.country_id)}
+                      className="w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white text-foreground data-[size=default]:h-11"
+                    >
+                      <SelectValue placeholder={t("countryPlaceholder")} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {countries.map((c) => (
+                        <SelectItem key={c.id} value={c.id.toString()}>
+                          {c.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </LabeledField>
 
-            <Input
-              register={register}
-              required
-              errors={errors}
-              name="phone"
+            <LabeledField
+              id="phone"
               label={t("phoneLabel")}
-              placeholder={t("phonePlaceholder")}
-              inputClassName="text-foreground"
               labelClassName="text-white"
-              prefix={
-                <div className="flex items-center gap-1">
-                  <Phone className="size-4" />
-                  <span className="text-sm">{choosedCountry?.dial_code}</span>
-                </div>
-              }
-            />
+              error={errors.phone}
+              required
+            >
+              <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
+                <InputGroupAddon>
+                  <Phone />
+                  <InputGroupText>{choosedCountry?.dial_code}</InputGroupText>
+                </InputGroupAddon>
+                <InputGroupInput
+                  {...register("phone")}
+                  {...fieldA11yProps("phone", errors.phone)}
+                  placeholder={t("phonePlaceholder")}
+                  className="text-foreground placeholder:text-sm"
+                />
+              </InputGroup>
+            </LabeledField>
           </form>
           <DialogFooter>
             <DialogClose asChild>

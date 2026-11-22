@@ -6,7 +6,14 @@ import {
 } from "@/types/reset-password";
 import { toast } from "sonner";
 import { useState } from "react";
-import Input from "../form/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "../ui/input-group";
+import { Input } from "../ui/input";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import SubmitBtn from "./submit-btn";
 import { resetPassword } from "@/lib/auth";
 import { useTranslations } from "next-intl";
@@ -56,50 +63,59 @@ export default function ResetPassword({ phone }: { phone?: string }) {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="verification_code"
+      <LabeledField
+        id="verification_code"
         label={t("fields.verificationCode.label")}
-        placeholder={t("fields.verificationCode.placeholder")}
-      />
-
-      <Input
-        register={register}
+        error={errors.verification_code}
         required
-        errors={errors}
-        name="password"
-        label={t("fields.password.label")}
-        placeholder={t("fields.password.placeholder")}
-        type={showPassword ? "text" : "password"}
-        prefix={<Lock className="size-4" />}
-        suffix={
-          showPassword ? (
-            <EyeOff className="size-4" onClick={() => setShowPassword(false)} />
-          ) : (
-            <Eye className="size-4" onClick={() => setShowPassword(true)} />
-          )
-        }
-      />
+      >
+        <Input
+          {...register("verification_code")}
+          {...fieldA11yProps("verification_code", errors.verification_code)}
+          placeholder={t("fields.verificationCode.placeholder")}
+          className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
+        />
+      </LabeledField>
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="password_confirmation"
-        label={t("fields.passwordConfirmation.label")}
-        placeholder={t("fields.passwordConfirmation.placeholder")}
-        type={showPassword ? "text" : "password"}
-        prefix={<Lock className="size-4" />}
-        suffix={
-          showPassword ? (
-            <EyeOff className="size-4" onClick={() => setShowPassword(false)} />
-          ) : (
-            <Eye className="size-4" onClick={() => setShowPassword(true)} />
-          )
-        }
-      />
+      {(["password", "password_confirmation"] as const).map((name) => {
+        const key =
+          name === "password" ? "password" : "passwordConfirmation";
+
+        return (
+          <LabeledField
+            key={name}
+            id={name}
+            label={t(`fields.${key}.label`)}
+            error={errors[name]}
+            required
+          >
+            <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
+              <InputGroupAddon>
+                <Lock />
+              </InputGroupAddon>
+              <InputGroupInput
+                {...register(name)}
+                {...fieldA11yProps(name, errors[name])}
+                type={showPassword ? "text" : "password"}
+                placeholder={t(`fields.${key}.placeholder`)}
+                className="placeholder:text-sm"
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  size="icon-xs"
+                  aria-label={tForms(
+                    showPassword ? "hidePassword" : "showPassword",
+                  )}
+                  aria-pressed={showPassword}
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? <EyeOff /> : <Eye />}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </LabeledField>
+        );
+      })}
 
       <SubmitBtn loading={isSubmitting}>{tForms("resetPassword")}</SubmitBtn>
     </form>

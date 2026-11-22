@@ -5,8 +5,20 @@ import {
   ForgotPasswordFormData,
 } from "@/types/forgot-password";
 import { toast } from "sonner";
-import Input from "../form/input";
-import Select from "../form/select";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "../ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import { Phone } from "lucide-react";
 import SubmitBtn from "./submit-btn";
 import { Country } from "@/types/global";
@@ -15,6 +27,7 @@ import { useRouter } from "@/i18n/navigation";
 import { sendForgotPasswordOTP } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Controller,
   useForm,
   SubmitHandler,
   useWatch,
@@ -68,33 +81,62 @@ export default function ForgotPasswordForm({
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Select
-        control={control}
-        name="country_id"
+      <LabeledField
+        id="country_id"
         label={t("fields.country.label")}
-        placeholder={t("fields.country.placeholder")}
+        error={errors.country_id}
         required
-        errors={errors}
-        options={countries.map((c) => ({
-          label: c.name,
-          value: c.id.toString(),
-        }))}
-      />
+      >
+        <Controller
+          control={control}
+          name="country_id"
+          render={({ field }) => (
+            <Select
+              name={field.name}
+              value={field.value ?? ""}
+              onValueChange={field.onChange}
+              onOpenChange={(open) => {
+                if (!open) field.onBlur();
+              }}
+            >
+              <SelectTrigger
+                ref={field.ref}
+                {...fieldA11yProps("country_id", errors.country_id)}
+                className="w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white data-[size=default]:h-11"
+              >
+                <SelectValue placeholder={t("fields.country.placeholder")} />
+              </SelectTrigger>
+              <SelectContent>
+                {countries.map((c) => (
+                  <SelectItem key={c.id} value={c.id.toString()}>
+                    {c.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </LabeledField>
 
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="phone"
+      <LabeledField
+        id="phone"
         label={t("fields.phone.label")}
-        placeholder={t("fields.phone.placeholder")}
-        prefix={
-          <div className="flex items-center gap-1">
-            <Phone className="size-4" />
-            <span className="text-sm">{choosedCountry?.dial_code}</span>
-          </div>
-        }
-      />
+        error={errors.phone}
+        required
+      >
+        <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
+          <InputGroupAddon>
+            <Phone />
+            <InputGroupText>{choosedCountry?.dial_code}</InputGroupText>
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("phone")}
+            {...fieldA11yProps("phone", errors.phone)}
+            placeholder={t("fields.phone.placeholder")}
+            className="placeholder:text-sm"
+          />
+        </InputGroup>
+      </LabeledField>
 
       <SubmitBtn loading={isSubmitting}>{t("SendOtp")}</SubmitBtn>
     </form>

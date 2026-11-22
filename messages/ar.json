@@ -64,6 +64,8 @@
       }
     },
     "Forms": {
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
       "welcome": "دخول الأعضاء",
       "yourAccount": "حسابك",
       "accessListening": "يمكنك الوصول إلى إعلاناتك ورسائلك وعروضك.",

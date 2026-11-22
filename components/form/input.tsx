@@ -1,140 +1,82 @@
-"use client";
-
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import type { FieldError as FormFieldError } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
-import { Input as UiInput } from "@/components/ui/input";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 
-import {
-  get,
-  type FieldErrors,
-  type FieldValues,
-  type Path,
-  type UseFormRegister,
-} from "react-hook-form";
-
-type InputProps<T extends FieldValues> = {
-  name: Path<T>;
-  label?: string;
-  placeholder?: string;
+type LabeledFieldProps = {
+  // The control's id; the label points at it
+  id: string;
+  label: string;
+  error?: FormFieldError;
+  // Shows an asterisk; validation itself stays with the form's schema
   required?: boolean;
-  register: UseFormRegister<T>;
-  errors?: FieldErrors<T>;
+  // Shown at the end of the label row, e.g. a "Forgot password?" link
+  labelAction?: React.ReactNode;
   className?: string;
-  inputClassName?: string;
-  type?: React.HTMLInputTypeAttribute;
-  disabled?: boolean;
-  prefix?: ReactNode;
-  suffix?: ReactNode;
-  description?: ReactNode;
   labelClassName?: string;
+  errorClassName?: string;
+  children: React.ReactNode;
 };
 
-export default function Input<T extends FieldValues>({
-  name,
+function errorId(id: string) {
+  return `${id}-error`;
+}
+
+// Spread onto the control inside a LabeledField, so screen readers announce
+// it as invalid and read the error message
+export function fieldA11yProps(id: string, error?: FormFieldError) {
+  return {
+    id,
+    "aria-invalid": error ? true : undefined,
+    "aria-describedby": error ? errorId(id) : undefined,
+  };
+}
+
+// Label, control and error message. The class props let a form family
+// (e.g. auth) restyle every part without its own wrapper
+export function LabeledField({
+  id,
   label,
-  placeholder,
-  required,
-  register,
-  errors,
+  error,
+  required = false,
+  labelAction,
   className,
-  inputClassName,
-  type = "text",
-  disabled = false,
-  prefix,
-  suffix,
-  description,
   labelClassName,
-}: InputProps<T>) {
-  const error = get(errors, name);
-
-  const inputRegister =
-    type === "number"
-      ? register(name, {
-          valueAsNumber: true,
-        })
-      : register(name);
-
-  const hasAddon = Boolean(prefix || suffix);
+  errorClassName,
+  children,
+}: LabeledFieldProps) {
+  const labelElement = (
+    <FieldLabel
+      htmlFor={id}
+      className={cn("text-sm leading-snug font-medium", labelClassName)}
+    >
+      {label}
+      {required && (
+        <span aria-hidden="true" className="text-destructive">
+          *
+        </span>
+      )}
+    </FieldLabel>
+  );
 
   return (
-    <Field className={className} data-invalid={!!error}>
-      {label && (
-        <FieldLabel
-          htmlFor={name}
-          className={cn(
-            "text-xs font-semibold tracking-wider text-[#4A4840] uppercase",
-            required && "after:ms-1 after:text-destructive after:content-['*']",
-            labelClassName,
-          )}
-        >
-          {label}
-        </FieldLabel>
+    <Field data-invalid={!!error} className={cn("gap-2", className)}>
+      {labelAction ? (
+        <div className="flex items-center justify-between gap-3">
+          {labelElement}
+          {labelAction}
+        </div>
+      ) : (
+        labelElement
       )}
 
-      <FieldContent>
-        <div className="space-y-1.5">
-          {hasAddon ? (
-            <div
-              className={cn(
-                "flex h-11 overflow-hidden rounded-xl border border-[rgba(27,107,74,0.18)] bg-white",
-                "focus-within:ring-ring/50 focus-within:border-ring focus-within:ring-[3px]",
-                error && "border-destructive focus-within:ring-destructive/20",
-                disabled && "cursor-not-allowed opacity-50",
-              )}
-            >
-              {prefix && (
-                <div className="flex items-center px-3 text-xs text-muted-foreground">
-                  {prefix}
-                </div>
-              )}
+      {children}
 
-              <UiInput
-                {...inputRegister}
-                id={name}
-                type={type}
-                placeholder={placeholder}
-                aria-invalid={!!error}
-                disabled={disabled}
-                className={cn(
-                  "h-full min-w-0 flex-1 rounded-none border-0 bg-transparent shadow-none placeholder:text-sm",
-                  "focus-visible:ring-0 focus-visible:ring-offset-0",
-                  inputClassName,
-                )}
-              />
-
-              {suffix && (
-                <div className="flex items-center px-3 text-xs text-muted-foreground">
-                  {suffix}
-                </div>
-              )}
-            </div>
-          ) : (
-            <UiInput
-              {...inputRegister}
-              id={name}
-              type={type}
-              placeholder={placeholder}
-              aria-invalid={!!error}
-              disabled={disabled}
-              className={cn(
-                "h-11 border-[rgba(27,107,74,0.18)] placeholder:text-sm bg-white rounded-xl",
-                inputClassName,
-              )}
-            />
-          )}
-
-          <FieldError errors={[error]} />
-          {description && <FieldDescription>{description}</FieldDescription>}
-        </div>
-      </FieldContent>
+      <FieldError
+        id={errorId(id)}
+        className={cn("text-[13px]", errorClassName)}
+        errors={[error]}
+      />
     </Field>
   );
 }

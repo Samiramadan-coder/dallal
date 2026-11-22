@@ -2,7 +2,13 @@
 
 import { toast } from "sonner";
 import { useState } from "react";
-import Input from "../form/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "../ui/input-group";
+import { fieldA11yProps, LabeledField } from "../form/input";
 import { signIn } from "@/lib/auth";
 import SubmitBtn from "./submit-btn";
 import { useTranslations } from "next-intl";
@@ -56,45 +62,62 @@ export default function SignIn({
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        register={register}
-        required
-        errors={errors}
-        name="email_or_phone"
+      <LabeledField
+        id="email_or_phone"
         label={t("fields.emailOrPhone.label")}
-        placeholder={t("fields.emailOrPhone.placeholder")}
-        prefix={<Mail className="size-4" />}
-      />
-      <div>
-        <Input
-          register={register}
-          required
-          errors={errors}
-          name="password"
-          label={t("fields.password.label")}
-          placeholder={t("fields.password.placeholder")}
-          type={showPassword ? "text" : "password"}
-          prefix={<Lock className="size-4" />}
-          suffix={
-            showPassword ? (
-              <EyeOff
-                className="size-4"
-                onClick={() => setShowPassword(false)}
-              />
-            ) : (
-              <Eye className="size-4" onClick={() => setShowPassword(true)} />
-            )
-          }
-        />
-        <div className="mt-1 flex justify-end">
+        error={errors.email_or_phone}
+        required
+      >
+        <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
+          <InputGroupAddon>
+            <Mail />
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("email_or_phone")}
+            {...fieldA11yProps("email_or_phone", errors.email_or_phone)}
+            placeholder={t("fields.emailOrPhone.placeholder")}
+            className="placeholder:text-sm"
+          />
+        </InputGroup>
+      </LabeledField>
+
+      <LabeledField
+        id="password"
+        label={t("fields.password.label")}
+        error={errors.password}
+        required
+        labelAction={
           <Link
             href="/auth/forgot-password"
-            className="underline text-xs text-secondary cursor-pointer"
+            className="text-xs text-secondary underline"
           >
             {tForms("forgotPassword")}
           </Link>
-        </div>
-      </div>
+        }
+      >
+        <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
+          <InputGroupAddon>
+            <Lock />
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("password")}
+            {...fieldA11yProps("password", errors.password)}
+            type={showPassword ? "text" : "password"}
+            placeholder={t("fields.password.placeholder")}
+            className="placeholder:text-sm"
+          />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              size="icon-xs"
+              aria-label={tForms(showPassword ? "hidePassword" : "showPassword")}
+              aria-pressed={showPassword}
+              onClick={() => setShowPassword((v) => !v)}
+            >
+              {showPassword ? <EyeOff /> : <Eye />}
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+      </LabeledField>
       <SubmitBtn loading={isSubmitting}>{tForms("signIn")}</SubmitBtn>
     </form>
   );
