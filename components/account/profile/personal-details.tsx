@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import type { City, Country } from "@/types/global";
 import ChangePhoneDialog from "./change-phone-dialog";
+import { cardClass, controlClass, labelClass, submitClass } from "./styles";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -25,11 +26,6 @@ import {
   personalDetailsSchema,
   type PersonalDetailsFormValues,
 } from "@/types/profile";
-
-const labelClass =
-  "text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground";
-const controlClass =
-  "h-12 rounded-xl border-[#dbe7e1] bg-white px-4 text-[15px] text-foreground shadow-none";
 
 // Second card on the profile page: name, email, phone and city.
 // Only name and city are editable here; email is fixed and phones are
@@ -89,7 +85,7 @@ export default function PersonalDetails({
   };
 
   return (
-    <section className="rounded-2xl bg-white border border-[#efe8db] p-5 md:p-6">
+    <section className={cardClass}>
       <div className="flex items-center gap-2.5 mb-5">
         <span className="h-5 w-1 rounded-full bg-[#C9A24D]" aria-hidden />
         <h2 className="text-lg font-bold text-foreground ltr:font-playfair">
@@ -193,7 +189,7 @@ export default function PersonalDetails({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="h-11 rounded-xl bg-[#1B6B4A] px-6 text-sm font-semibold text-white hover:bg-[#155a3d]"
+              className={submitClass}
             >
               {isSubmitting && <Spinner />}
               {isSubmitting ? t("saving") : t("saveChanges")}

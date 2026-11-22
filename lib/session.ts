@@ -21,6 +21,7 @@ export const getCurrentUser = cache(async (): Promise<User | null> => {
       ...data.user,
       store: data.stores[0] ?? null,
       unread_counts: data.unread_counts,
+      kyc_status: data.kyc_status,
     };
   } catch (error) {
     unstable_rethrow(error);

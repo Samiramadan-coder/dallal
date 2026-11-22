@@ -1,5 +1,6 @@
 import z from "zod";
 import { T } from "./global";
+import { strongPasswordSchema } from "./password";
 
 export const addNewPhoneSchema = (t: T) =>
   z.object({
@@ -33,4 +34,37 @@ export const personalDetailsSchema = (t: T) =>
 
 export type PersonalDetailsFormValues = z.infer<
   ReturnType<typeof personalDetailsSchema>
+>;
+
+// `t` is the Profile.changePassword namespace
+export const changePasswordSchema = (t: T) =>
+  z
+    .object({
+      current_password: z.string().min(1, t("fields.currentPassword.required")),
+      password: strongPasswordSchema(t),
+      password_confirmation: z
+        .string()
+        .min(1, t("fields.passwordConfirmation.required")),
+    })
+    .superRefine(
+      ({ current_password, password, password_confirmation }, ctx) => {
+        if (password && password === current_password) {
+          ctx.addIssue({
+            code: "custom",
+            message: t("fields.password.same"),
+            path: ["password"],
+          });
+        }
+        if (password !== password_confirmation) {
+          ctx.addIssue({
+            code: "custom",
+            message: t("fields.passwordConfirmation.match"),
+            path: ["password_confirmation"],
+          });
+        }
+      },
+    );
+
+export type ChangePasswordFormValues = z.infer<
+  ReturnType<typeof changePasswordSchema>
 >;

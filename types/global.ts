@@ -74,4 +74,6 @@ export type User = ApiUser & {
   // The user's first store; null = no store
   store: UserStore | null;
   unread_counts: MeResponse["unread_counts"];
+  // null = never submitted
+  kyc_status: MeResponse["kyc_status"];
 };

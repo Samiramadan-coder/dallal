@@ -3,6 +3,10 @@
 import { refresh, updateTag } from "next/cache";
 
 import { api, toFormData } from "@/lib/api/client";
+import { clearAuthToken } from "@/lib/api/auth-token";
+import { resolveLocale } from "@/lib/api/locale";
+import { HOME_PATH } from "@/lib/auth-routes";
+import { redirect } from "@/i18n/server-navigation";
 import { runAction } from "@/lib/api/errors";
 import type { ActionResult } from "@/lib/api/errors";
 import type { Phone } from "@/types/global";
@@ -134,4 +138,42 @@ export async function confirmPhoneChange(values: {
     refresh();
     return { message: res?.message ?? null };
   });
+}
+
+// Change Password
+export async function changePassword(values: {
+  current_password: string;
+  password: string;
+  password_confirmation: string;
+}): Promise<ActionResult<{ message: string | null }>> {
+  return runAction(async () => {
+    const res = await api.put<{ message?: string }>("/v1/me/password", values);
+    return { message: res?.message ?? null };
+  });
+}
+
+// Delete Account, step 1: emails/texts a verification code
+export async function sendDeleteAccountCode(): Promise<
+  ActionResult<{ message: string | null }>
+> {
+  return runAction(async () => {
+    const res = await api.post<{ message?: string }>("/v1/me/delete/code");
+    return { message: res?.message ?? null };
+  });
+}
+
+// Delete Account, step 2. On success the token is cleared and the user is
+// sent home (like signOut), so this only returns on failure
+export async function deleteAccount(values: {
+  password: string;
+  code: string;
+}): Promise<ActionResult<{ message: string | null }>> {
+  const result = await runAction(async () => {
+    const res = await api.delete<{ message?: string }>("/v1/me", values);
+    return { message: res?.message ?? null };
+  });
+  if (!result.ok) return result;
+
+  await clearAuthToken();
+  return redirect({ href: HOME_PATH, locale: await resolveLocale() });
 }

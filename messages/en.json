@@ -1263,6 +1263,68 @@
       "changePhone": "Change",
       "addPhone": "Add"
     },
+    "accountStatus": {
+      "identity": "Identity",
+      "store": "Store",
+      "noStore": "No store",
+      "verifyIdentity": "Verify identity",
+      "verifyAgain": "Verify again",
+      "kyc": {
+        "verified": "Verified",
+        "pending": "Under review",
+        "rejected": "Rejected",
+        "notVerified": "Not verified"
+      }
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Permanently delete your account and all of its data.",
+      "button": "Delete account",
+      "dialogTitle": "Delete your account?",
+      "warning": "This permanently deletes your profile, listings, saved items and messages. It can’t be undone. We’ll send you a verification code to confirm.",
+      "confirmDescription": "Enter the verification code we sent you and your password to confirm.",
+      "sendCode": "Send verification code",
+      "codeSent": "A verification code was sent to you",
+      "code": "Verification code",
+      "codeRequired": "Enter the 6-digit code",
+      "resend": "Resend code",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "passwordRequired": "Enter your password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "confirm": "Delete my account",
+      "cancel": "Cancel"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "hint": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol.",
+      "submit": "Update password",
+      "saving": "Updating...",
+      "updated": "Your password was updated",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "fields": {
+        "currentPassword": {
+          "label": "Current password",
+          "placeholder": "Enter current password",
+          "required": "Enter your current password"
+        },
+        "password": {
+          "label": "New password",
+          "placeholder": "New password",
+          "required": "Enter a new password",
+          "weak": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol (e.g. ! @ # $).",
+          "same": "The new password must be different from the current one"
+        },
+        "passwordConfirmation": {
+          "label": "Confirm password",
+          "placeholder": "Confirm new password",
+          "required": "Confirm your new password",
+          "match": "Passwords do not match"
+        }
+      }
+    },
     "changePhone": {
       "title": "Change phone number",
       "description": "We will send a verification code to your new number.",
