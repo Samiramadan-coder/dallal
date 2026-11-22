@@ -2,9 +2,9 @@ import "server-only";
 
 import { cache } from "react";
 import { api } from "@/lib/api/client";
-import type { MeResponse, User } from "@/types/global";
 import { unstable_rethrow } from "next/navigation";
 import { getAuthToken } from "@/lib/api/auth-token";
+import type { MeResponse, User } from "@/types/global";
 
 // The signed-in user for Server Components, Server Actions and Route
 // Handlers. `cache` dedupes it per request, so the layout and any page or
@@ -16,6 +16,7 @@ export const getCurrentUser = cache(async (): Promise<User | null> => {
     // A 401 redirects to sign-in with ?session=expired, which makes the
     // proxy delete the stale cookie
     const { data } = await api.get<{ data: MeResponse }>("/v1/me");
+
     return {
       ...data.user,
       store: data.stores[0] ?? null,

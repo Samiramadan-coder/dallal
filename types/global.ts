@@ -50,6 +50,8 @@ export type ApiUser = {
   suspended_until: string | null;
   locale: string;
   avatar_url: string | null;
+  // ISO date; optional until the API sends it
+  created_at?: string | null;
   primary_country: Country | null;
   browse_country: Country | null;
   city_id: number | null;

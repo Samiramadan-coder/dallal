@@ -1,8 +1,8 @@
 "use server";
 
-import { updateTag } from "next/cache";
+import { refresh, updateTag } from "next/cache";
 
-import { api } from "@/lib/api/client";
+import { api, toFormData } from "@/lib/api/client";
 import { runAction } from "@/lib/api/errors";
 import type { ActionResult } from "@/lib/api/errors";
 import type { Phone } from "@/types/global";
@@ -63,5 +63,23 @@ export async function setPrimaryPhone(
     );
     updateTag("phones");
     return { message: res.message };
+  });
+}
+
+// Update Avatar
+// Multipart upload, so it goes through POST (PHP doesn't parse multipart
+// bodies on PUT/PATCH). refresh() re-renders the layout, which refetches
+// /me and pushes the new avatar_url into UserProvider
+export async function updateAvatar(
+  formData: FormData,
+): Promise<ActionResult<{ message: string | null }>> {
+  return runAction(async () => {
+    const avatar = formData.get("avatar");
+    const res = await api.post<{ message?: string }>(
+      "/v1/me",
+      toFormData({ avatar }),
+    );
+    refresh();
+    return { message: res?.message ?? null };
   });
 }

@@ -28,7 +28,9 @@ export default async function Page() {
         {t.rich("welcome", {
           name: firstName,
           count: accountStats.followedStores,
-          b: (chunks) => <b className="font-semibold text-foreground">{chunks}</b>,
+          b: (chunks) => (
+            <b className="font-semibold text-foreground">{chunks}</b>
+          ),
         })}
       </p>
 

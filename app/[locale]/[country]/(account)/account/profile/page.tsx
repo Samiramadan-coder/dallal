@@ -1,12 +1,27 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import SectionPlaceholder from "@/components/account/section-placeholder";
+import AccountPageHeader from "@/components/account/page-header";
+import ProfileAvatarCard from "@/components/account/profile/avatar-card";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Account.pages.profile");
   return { title: t("title") };
 }
 
-export default function Page() {
-  return <SectionPlaceholder section="profile" />;
+export default async function Page() {
+  const t = await getTranslations("Profile.profileData");
+
+  return (
+    <div>
+      <AccountPageHeader
+        eyebrow={t("accountSettings")}
+        title={t("profileInformation")}
+        description={t("personalInfoDescription")}
+      />
+
+      <div className="space-y-5 md:space-y-6">
+        <ProfileAvatarCard />
+      </div>
+    </div>
+  );
 }

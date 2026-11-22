@@ -62,8 +62,7 @@ async function phoneCountry(phone: string): Promise<string | null> {
   const full = "+" + String(phone).trim().replace(/^\+/, "");
   const match = (await getCountries())
     .filter(
-      (c) =>
-        c.status === "live" && c.dial_code && full.startsWith(c.dial_code),
+      (c) => c.status === "live" && c.dial_code && full.startsWith(c.dial_code),
     )
     .sort((a, b) => b.dial_code.length - a.dial_code.length)[0];
   return match ? match.code.toLowerCase() : null;
@@ -107,15 +106,19 @@ export async function resendOTP(
   });
 }
 
-// Verify the phone OTP; signs the user in on success
+// Verify the sign-up phone OTP; signs the user in on success
 export async function verifyOTP(
   values: OTPVerifyFormData,
   callbackUrl?: string | null,
 ): Promise<ActionResult<{ message: string; redirectTo: string }>> {
   return runAction(async () => {
     const res = await api.post<TokenResponse>(
-      "/v1/auth/phone/verify",
-      values,
+      "/v1/auth/otp/verify",
+      {
+        phone: values.phone,
+        code: values.verification_code,
+        purpose: "signup",
+      },
       GUEST,
     );
     await setAuthToken(res.data.token);

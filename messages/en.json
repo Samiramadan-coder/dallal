@@ -1237,9 +1237,17 @@
       "accountSettings": "Account Settings",
       "personalInfo": "Personal Information",
       "personalInfoDescription": "Manage your public profile and account credentials.",
+      "profileInformation": "Profile Information",
       "profileInfo": "Profile Info",
       "myPhones": "My Phones",
-      "uploadPhoto": "Upload Photo"
+      "uploadPhoto": "Upload Photo",
+      "memberSince": "Member since {date}",
+      "verified": "Verified",
+      "changePhoto": "Change photo",
+      "uploading": "Uploading...",
+      "avatarUpdated": "Profile photo updated",
+      "invalidImage": "Please choose a JPG, PNG or WebP image",
+      "imageTooLarge": "The image must be {size} MB or smaller"
     },
     "myPhones": {
       "phone": "Phone",

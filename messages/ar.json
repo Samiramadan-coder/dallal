@@ -1237,9 +1237,17 @@
       "accountSettings": "إعدادات الحساب",
       "personalInfo": "المعلومات الشخصية",
       "personalInfoDescription": "قم بإدارة ملفك الشخصي العام وبيانات اعتماد الحساب.",
+      "profileInformation": "معلومات الملف الشخصي",
       "profileInfo": "معلومات الملف الشخصي",
       "myPhones": "أرقام هاتفي",
-      "uploadPhoto": "تحميل صورة"
+      "uploadPhoto": "تحميل صورة",
+      "memberSince": "عضو منذ {date}",
+      "verified": "موثّق",
+      "changePhoto": "تغيير الصورة",
+      "uploading": "جارٍ الرفع...",
+      "avatarUpdated": "تم تحديث صورة الملف الشخصي",
+      "invalidImage": "يرجى اختيار صورة بصيغة JPG أو PNG أو WebP",
+      "imageTooLarge": "يجب ألا يتجاوز حجم الصورة {size} ميجابايت"
     },
     "myPhones": {
       "phone": "الهاتف",
