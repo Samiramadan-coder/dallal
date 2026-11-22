@@ -16,7 +16,7 @@ export const getCurrentUser = cache(async (): Promise<User | null> => {
   try {
     // A 401 redirects to sign-in with ?session=expired, which makes the
     // proxy delete the stale cookie
-    const res = await api.get<{ data: User }>("api/v1/auth/me");
+    const res = await api.get<{ data: User }>("/v1/auth/me");
     return res.data;
   } catch (error) {
     unstable_rethrow(error);

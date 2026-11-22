@@ -23,7 +23,7 @@ export default async function Page({
   const t = await getTranslations("Auth.Forms");
   const fontClass = locale === "en" ? "font-playfair" : "";
 
-  const countries = await api.get<{ data: Country[] }>("api/v1/countries", {
+  const countries = await api.get<{ data: Country[] }>("/v1/countries", {
     auth: false,
   });
 

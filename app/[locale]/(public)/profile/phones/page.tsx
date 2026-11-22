@@ -4,10 +4,10 @@ import MyPhones from "@/components/profile/my-phones";
 
 export default async function Page() {
   const [phones, countries] = await Promise.all([
-    api.get<{ data: Phone[] }>("api/v1/me/phones", {
+    api.get<{ data: Phone[] }>("/v1/me/phones", {
       next: { tags: ["phones"] },
     }),
-    api.get<{ data: Country[] }>("api/v1/countries", { auth: false }),
+    api.get<{ data: Country[] }>("/v1/countries", { auth: false }),
   ]);
 
   return (

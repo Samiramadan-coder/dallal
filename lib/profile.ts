@@ -19,7 +19,7 @@ export async function addNewPhone(
 ): Promise<ActionResult<{ message: string; phone: Phone }>> {
   return runAction(async () => {
     const res = await api.post<{ message: string; data: Phone }>(
-      "api/v1/me/phones",
+      "/v1/me/phones",
       values,
     );
     updateTag("phones");
@@ -32,9 +32,7 @@ export async function deletePhone(
   phoneId: number,
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
-    const res = await api.delete<MessageResponse>(
-      `api/v1/me/phones/${phoneId}`,
-    );
+    const res = await api.delete<MessageResponse>(`/v1/me/phones/${phoneId}`);
     updateTag("phones");
     return { message: res.message };
   });
@@ -47,7 +45,7 @@ export async function verifyPhone(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      `api/v1/me/phones/${phoneId}/verify`,
+      `/v1/me/phones/${phoneId}/verify`,
       values,
     );
     updateTag("phones");
@@ -61,7 +59,7 @@ export async function setPrimaryPhone(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      `api/v1/me/phones/${phoneId}/primary`,
+      `/v1/me/phones/${phoneId}/primary`,
     );
     updateTag("phones");
     return { message: res.message };

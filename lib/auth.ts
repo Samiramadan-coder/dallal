@@ -36,7 +36,7 @@ export async function signUp(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      "api/v1/auth/register",
+      "/v1/auth/register",
       values,
       GUEST,
     );
@@ -50,7 +50,7 @@ export async function resendOTP(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      "api/v1/auth/phone/resend",
+      "/v1/auth/phone/resend",
       { phone },
       GUEST,
     );
@@ -65,7 +65,7 @@ export async function verifyOTP(
 ): Promise<ActionResult<{ message: string; redirectTo: string }>> {
   return runAction(async () => {
     const res = await api.post<TokenResponse>(
-      "api/v1/auth/phone/verify",
+      "/v1/auth/phone/verify",
       values,
       GUEST,
     );
@@ -95,7 +95,7 @@ export async function signIn(
   return runAction(async (): Promise<SignInResult> => {
     try {
       const res = await api.post<TokenResponse>(
-        "api/v1/auth/login",
+        "/v1/auth/login",
         { ...values, device_name: "web" },
         GUEST,
       );
@@ -121,7 +121,7 @@ export async function sendForgotPasswordOTP(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      "api/v1/auth/password/forgot",
+      "/v1/auth/password/forgot",
       values,
       GUEST,
     );
@@ -135,7 +135,7 @@ export async function resetPassword(
 ): Promise<ActionResult<{ message: string }>> {
   return runAction(async () => {
     const res = await api.post<MessageResponse>(
-      "api/v1/auth/password/reset",
+      "/v1/auth/password/reset",
       values,
       GUEST,
     );
@@ -148,7 +148,7 @@ export async function resetPassword(
 // page without a token, which would bounce to sign-in
 export async function signOut(): Promise<void> {
   try {
-    await api.post("api/v1/auth/logout", undefined, {
+    await api.post("/v1/auth/logout", undefined, {
       skipAuthRedirect: true,
     });
   } catch (error) {
