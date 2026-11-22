@@ -31,7 +31,7 @@ export default function MarketListingCard({
 
   return (
     <article className="group relative flex w-full flex-col overflow-hidden rounded-2xl border border-[#E8E1D0] bg-white transition-shadow hover:shadow-md">
-      <SaveButton label={t("save")} />
+      <SaveButton label={t("save")} listingId={listing.id} />
 
       <Link
         href={`/listing/${listing.id}`}

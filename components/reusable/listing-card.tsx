@@ -97,7 +97,7 @@ export default function ListingCard({
           </div>
         )}
 
-        <SaveButton label={t("save")} />
+        <SaveButton label={t("save")} listingId={listing.id} />
       </div>
 
       <div className={cn("flex flex-1 flex-col", isList ? "p-5" : "p-4")}>

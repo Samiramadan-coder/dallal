@@ -8,14 +8,14 @@ import { getAuthToken } from "@/lib/api/auth-token";
 
 // The signed-in user for Server Components, Server Actions and Route
 // Handlers. `cache` dedupes it per request, so the layout and any page or
-// component can call it and /auth/me is only hit once
+// component can call it and /me is only hit once
 export const getCurrentUser = cache(async (): Promise<User | null> => {
   if (!(await getAuthToken())) return null;
 
   try {
     // A 401 redirects to sign-in with ?session=expired, which makes the
     // proxy delete the stale cookie
-    const res = await api.get<{ data: User }>("/v1/auth/me");
+    const res = await api.get<{ data: User }>("/v1/me");
     return res.data;
   } catch (error) {
     unstable_rethrow(error);

@@ -23,8 +23,13 @@ import { SignInFormData, signInSchema } from "@/types/sign-in";
 
 export default function SignIn({
   callbackUrl,
+  onSignedIn,
+  onUnverified,
 }: {
   callbackUrl?: string | null;
+  // Modal mode (see AuthGateDialog): called instead of navigating
+  onSignedIn?: () => void;
+  onUnverified?: (phone: string) => void;
 }) {
   const router = useRouter();
   // `redirectTo` is already localized, so it skips next-intl's router
@@ -48,11 +53,19 @@ export default function SignIn({
     if (result.ok) {
       if (result.data.status === "unverified") {
         toast.info(result.data.message);
+        if (onUnverified) {
+          onUnverified(result.data.phone);
+          return;
+        }
         router.push(otpVerifyHref(result.data.phone, callbackUrl));
         return;
       }
 
       toast.success(result.data.message);
+      if (onSignedIn) {
+        onSignedIn();
+        return;
+      }
       nextRouter.push(result.data.redirectTo);
       return;
     }

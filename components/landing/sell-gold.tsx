@@ -1,7 +1,7 @@
 import { headingFont } from "@/constants/marketplace";
-import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
 import { getLocale, getTranslations } from "next-intl/server";
+import GatedLink from "@/components/auth/gated-link";
 import { ArrowRight, Camera, Handshake, MessagesSquare } from "lucide-react";
 
 const steps = [
@@ -54,13 +54,13 @@ export default async function SellGold() {
           ))}
         </ol>
 
-        <Link
+        <GatedLink
           href="/sell/new"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-background hover:bg-[#D9B55A]"
         >
           {t("cta")}
           <ArrowRight className="size-4 rtl:rotate-180" />
-        </Link>
+        </GatedLink>
       </div>
     </section>
   );

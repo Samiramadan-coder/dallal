@@ -43,6 +43,8 @@ export default function OTPVerify({
   phone,
   displayPhone,
   callbackUrl,
+  onVerified,
+  onChangeNumber,
 }: {
   // International number without the leading "+"
   phone: string;
@@ -50,6 +52,9 @@ export default function OTPVerify({
   displayPhone: string;
   // Where to go once verified; verifyOTP drops it if unsafe
   callbackUrl?: string | null;
+  // Modal mode (see AuthGateDialog): called instead of navigating
+  onVerified?: () => void;
+  onChangeNumber?: () => void;
 }) {
   const router = useRouter();
   const locale = useLocale();
@@ -103,6 +108,10 @@ export default function OTPVerify({
 
     if (result.ok) {
       toast.success(result.data.message);
+      if (onVerified) {
+        onVerified();
+        return;
+      }
       // Already localized (the callbackUrl or home)
       router.push(result.data.redirectTo);
       return;
@@ -229,7 +238,7 @@ export default function OTPVerify({
           </button>
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={onChangeNumber ?? (() => router.back())}
             className={cn(
               linkButtonClass,
               "text-[#4A4840] hover:text-[#1A1A14]",

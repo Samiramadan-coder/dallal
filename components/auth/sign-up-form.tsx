@@ -51,12 +51,15 @@ export default function SignUp({
   countries,
   defaultCountryId,
   callbackUrl,
+  onSignedUp,
 }: {
   countries: Country[];
   // Where to go once the phone is verified
   callbackUrl?: string | null;
   // Pre-selects the country chosen in the header
   defaultCountryId?: number;
+  // Modal mode (see AuthGateDialog): called instead of opening the OTP page
+  onSignedUp?: (phone: string) => void;
 }) {
   const router = useRouter();
   const t = useTranslations("Auth.SignUp");
@@ -90,6 +93,10 @@ export default function SignUp({
 
     if (result.ok) {
       toast.success(result.data.message);
+      if (onSignedUp) {
+        onSignedUp(result.data.phone);
+        return;
+      }
       router.push(otpVerifyHref(result.data.phone, callbackUrl));
       return;
     }

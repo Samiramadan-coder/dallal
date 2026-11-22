@@ -1661,5 +1661,11 @@
     "termsIntro": "Please read these Terms carefully before using Dallal Hoolee. By creating an account or posting a listing, you agree to be bound by these Terms.",
     "privacyIntro": "This Privacy Policy explains how Dallal Hoolee collects, uses, and protects your personal information. We are committed to handling your data responsibly and transparently.",
     "contact": "For questions about this document, contact us at"
+  },
+  "AuthGate": {
+    "title": "Create a free account to continue",
+    "description": "Save listings, chat with verified stores and make offers. It only takes a minute.",
+    "verifyTitle": "Verify your phone",
+    "verifyDescription": "Enter the 6-digit code we sent to your phone."
   }
 }

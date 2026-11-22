@@ -3,6 +3,7 @@ import { getCountries } from "@/lib/api/global";
 import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/server-navigation";
 import { SIGN_IN_PATH } from "@/lib/auth-routes";
+import { formatPhoneForDisplay } from "@/lib/phone";
 
 type SearchParams = {
   phone?: string | string[];
@@ -26,22 +27,12 @@ export default async function Page({
     await redirect({ href: SIGN_IN_PATH, locale: await getLocale() });
   }
 
-  const full = "+" + digits;
-
-  // Split off the dial code for display: "+971 501112233"
   const countries = await getCountries();
-  const dialCode = countries
-    .map((c) => c.dial_code)
-    .filter((code) => code && full.startsWith(code))
-    .sort((a, b) => b.length - a.length)[0];
-  const displayPhone = dialCode
-    ? `${dialCode} ${full.slice(dialCode.length)}`
-    : full;
 
   return (
     <OTPVerify
       phone={digits}
-      displayPhone={displayPhone}
+      displayPhone={formatPhoneForDisplay(digits, countries)}
       callbackUrl={typeof callbackUrl === "string" ? callbackUrl : null}
     />
   );

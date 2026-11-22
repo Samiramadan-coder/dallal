@@ -6,6 +6,7 @@ import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/providers/user-data";
 import LanguageSwitcher from "./language-switcher";
+import GatedLink from "@/components/auth/gated-link";
 import { CountryDropdown } from "./country-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -41,11 +42,11 @@ export function DesktopControl({ countries }: { countries: Country[] }) {
         asChild
         className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
       >
-        <Link href="/post-listing">
+        <GatedLink href="/post-listing">
           <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
             {t("postListing")}
           </span>
-        </Link>
+        </GatedLink>
       </Button>
     </div>
   );

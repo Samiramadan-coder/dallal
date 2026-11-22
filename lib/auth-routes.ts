@@ -18,7 +18,13 @@ export const ACCOUNT_PATH = "/profile";
 
 // Pages that need a signed-in user (the route and all of its sub-paths).
 // Guest-only routes are never protected
-export const PROTECTED_ROUTES: readonly string[] = ["/profile"];
+// (the gated buttons in the UI open the sign-up modal instead; this covers
+// opening the URL directly)
+export const PROTECTED_ROUTES: readonly string[] = [
+  "/profile",
+  "/post-listing",
+  "/sell/new",
+];
 
 // Pages a signed-in user is sent away from. "/auth" covers sign-in,
 // sign-up, OTP verification, forgot and reset password

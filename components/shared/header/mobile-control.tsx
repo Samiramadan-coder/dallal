@@ -25,6 +25,7 @@ import { Separator } from "@/components/ui/separator";
 import LanguageSwitcher from "./language-switcher";
 import { useUser } from "@/providers/user-data";
 import { Country } from "@/types/global";
+import GatedLink from "@/components/auth/gated-link";
 import { CountryGrid } from "./country-switcher";
 
 export default function MobileMenu({ countries }: { countries: Country[] }) {
@@ -110,11 +111,11 @@ export default function MobileMenu({ countries }: { countries: Country[] }) {
                 className="h-9.5 px-4 py-2.5 rounded bg-primary hover:bg-[#E8D5A0] transition-all duration-200 shadow-[0_4px_16px_color-mix(in_srgb,var(--primary)_28%,transparent)]"
               >
                 <DrawerClose asChild>
-                  <Link href="/post-listing">
+                  <GatedLink href="/post-listing">
                     <span className="whitespace-nowrap text-[11px] xl:text-[12px] tracking-widest font-bold uppercase  text-primary-foreground">
                       {t("postListing")}
                     </span>
-                  </Link>
+                  </GatedLink>
                 </DrawerClose>
               </Button>
             </div>
