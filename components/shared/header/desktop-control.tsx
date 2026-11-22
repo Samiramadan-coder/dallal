@@ -8,7 +8,8 @@ import { useUser } from "@/providers/user-data";
 import LanguageSwitcher from "./language-switcher";
 import GatedLink from "@/components/auth/gated-link";
 import { CountryDropdown } from "./country-switcher";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AccountMenu from "./account-menu";
+import ModeSwitcher from "./mode-switcher";
 
 export function DesktopControl({ countries }: { countries: Country[] }) {
   const t = useTranslations("Navbar");
@@ -20,14 +21,10 @@ export function DesktopControl({ countries }: { countries: Country[] }) {
       <LanguageSwitcher />
 
       {user ? (
-        <Link href="/profile">
-          <Avatar>
-            <AvatarImage src={""} alt={user.name ?? ""} className="grayscale" />
-            <AvatarFallback className="text-white">
-              {user?.name?.[0] ?? "?"}
-            </AvatarFallback>
-          </Avatar>
-        </Link>
+        <>
+          <ModeSwitcher className="me-1" />
+          <AccountMenu />
+        </>
       ) : (
         <Button asChild variant="ghost" className="hover:bg-transparent">
           <Link href="/auth?action=sign-in">

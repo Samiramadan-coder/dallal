@@ -31,6 +31,13 @@ export type Phone = {
   country: Country;
 };
 
+// The store a user owns
+export type UserStore = {
+  id: number;
+  name: string;
+  logo: string | null;
+};
+
 export type User = {
   id: number;
   name: string;
@@ -38,4 +45,7 @@ export type User = {
   account_type: "individual" | "shop";
   status: "active" | "inactive";
   phones: Phone[];
+  // TODO: not returned by /v1/me yet; the store switcher stays hidden until
+  // it is. Null / missing = no store
+  store?: UserStore | null;
 };

@@ -1673,5 +1673,30 @@
     "description": "احفظ الإعلانات وتواصل مع المتاجر الموثّقة وقدّم عروضك. الأمر لا يستغرق سوى دقيقة.",
     "verifyTitle": "تأكيد رقم الجوال",
     "verifyDescription": "أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى جوالك."
+  },
+  "AccountMenu": {
+    "label": "قائمة الحساب",
+    "personal": "شخصي",
+    "switchLabel": "التبديل بين الحساب الشخصي والمتجر",
+    "switchToPersonal": "التبديل إلى الحساب الشخصي",
+    "switchToStore": "التبديل إلى متجري",
+    "openStore": "افتح متجرك",
+    "signOut": "تسجيل الخروج",
+    "items": {
+      "myAccount": "حسابي",
+      "saved": "المحفوظات",
+      "myListings": "إعلاناتي في السوق",
+      "myOffers": "عروضي",
+      "mySellRequests": "طلبات البيع الخاصة بي",
+      "searchAlerts": "تنبيهات البحث",
+      "settings": "الإعدادات",
+      "storeDashboard": "لوحة تحكم المتجر",
+      "listings": "الإعلانات",
+      "offersReservations": "العروض والحجوزات",
+      "sellRequests": "طلبات البيع",
+      "storeMessages": "رسائل المتجر",
+      "storePage": "صفحة المتجر",
+      "planBilling": "الباقة والفوترة"
+    }
   }
 }

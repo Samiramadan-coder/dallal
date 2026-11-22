@@ -1673,5 +1673,30 @@
     "description": "Save listings, chat with verified stores and make offers. It only takes a minute.",
     "verifyTitle": "Verify your phone",
     "verifyDescription": "Enter the 6-digit code we sent to your phone."
+  },
+  "AccountMenu": {
+    "label": "Account menu",
+    "personal": "Personal",
+    "switchLabel": "Switch between personal and store",
+    "switchToPersonal": "Switch to personal",
+    "switchToStore": "Switch to my store",
+    "openStore": "Open your store",
+    "signOut": "Sign out",
+    "items": {
+      "myAccount": "My account",
+      "saved": "Saved",
+      "myListings": "My market listings",
+      "myOffers": "My offers",
+      "mySellRequests": "My sell requests",
+      "searchAlerts": "Search alerts",
+      "settings": "Settings",
+      "storeDashboard": "Store dashboard",
+      "listings": "Listings",
+      "offersReservations": "Offers & reservations",
+      "sellRequests": "Sell requests",
+      "storeMessages": "Store messages",
+      "storePage": "Store page",
+      "planBilling": "Plan & billing"
+    }
   }
 }
