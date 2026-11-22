@@ -1716,5 +1716,104 @@
     },
     "submit": "Notify me",
     "success": "You are on the list. We will email you when {country} launches."
+  },
+  "Account": {
+    "signOut": "Sign out",
+    "comingSoon": "This section is coming soon.",
+    "accountType": {
+      "individual": "Personal account",
+      "shop": "Store account"
+    },
+    "nav": {
+      "overview": "Overview",
+      "saved": "Saved & following",
+      "alerts": "Search alerts",
+      "offers": "My offers",
+      "sellRequests": "Sell requests",
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "portfolio": "Gold portfolio",
+      "listings": "My listings",
+      "profile": "Profile",
+      "settings": "Settings"
+    },
+    "overview": {
+      "title": "My account",
+      "description": "Everything you follow, save and track",
+      "welcome": "Welcome back, <b>{name}</b>. You follow {count, plural, one {# store} other {# stores}}.",
+      "stats": {
+        "saved": "Saved listings",
+        "priceDrops": "Price drops",
+        "activeAlerts": "Active alerts",
+        "unread": "Unread"
+      },
+      "priceDrops": {
+        "title": "Latest price drops",
+        "all": "All saved",
+        "down": "Down"
+      },
+      "activity": {
+        "title": "Recent activity",
+        "all": "All notifications",
+        "types": {
+          "message": "New message from {name}",
+          "priceDrop": "Price drop on saved listing",
+          "offer": "New offer on your saved listing",
+          "verification": "Verification approved"
+        },
+        "ago": {
+          "minutes": "{count} min ago",
+          "hours": "{count, plural, one {# hour} other {# hours}} ago",
+          "days": "{count, plural, one {# day} other {# days}} ago"
+        }
+      },
+      "cta": {
+        "text": "Track offers you have sent and requests to sell your gold.",
+        "offers": "My offers",
+        "sellRequests": "Sell requests"
+      }
+    },
+    "pages": {
+      "saved": {
+        "title": "Saved & following",
+        "description": "Listings you saved and stores you follow"
+      },
+      "alerts": {
+        "title": "Search alerts",
+        "description": "Get notified when new listings match your searches"
+      },
+      "offers": {
+        "title": "My offers",
+        "description": "Offers you have sent to sellers"
+      },
+      "sellRequests": {
+        "title": "Sell requests",
+        "description": "Your requests to sell gold to stores"
+      },
+      "messages": {
+        "title": "Messages",
+        "description": "Your conversations with sellers and stores"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Updates on your listings, offers and alerts"
+      },
+      "portfolio": {
+        "title": "Gold portfolio",
+        "description": "Track the value of the gold you own"
+      },
+      "listings": {
+        "title": "My listings",
+        "description": "Items you have listed on the market"
+      },
+      "profile": {
+        "title": "Profile",
+        "description": "Your personal information and phone numbers"
+      },
+      "settings": {
+        "title": "Settings",
+        "description": "Password, language and notification preferences"
+      }
+    }
   }
 }

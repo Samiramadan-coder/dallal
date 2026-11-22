@@ -38,14 +38,38 @@ export type UserStore = {
   logo: string | null;
 };
 
-export type User = {
+// `data.user` of GET /v1/me
+export type ApiUser = {
   id: number;
   name: string;
   email: string;
-  account_type: "individual" | "shop";
-  status: "active" | "inactive";
+  account_level: string;
+  account_level_label: string;
+  status: "active" | "inactive" | "suspended";
+  status_label: string;
+  suspended_until: string | null;
+  locale: string;
+  avatar_url: string | null;
+  primary_country: Country | null;
+  browse_country: Country | null;
+  city_id: number | null;
+  phone_verified_at: string | null;
   phones: Phone[];
-  // TODO: not returned by /v1/me yet; the store switcher stays hidden until
-  // it is. Null / missing = no store
-  store?: UserStore | null;
+};
+
+// GET /v1/me
+export type MeResponse = {
+  user: ApiUser;
+  account_level: string;
+  kyc_status: string | null;
+  stores: UserStore[];
+  active_mode: "personal" | "store";
+  unread_counts: { messages: number; notifications: number };
+};
+
+// The signed-in user as the app uses it (see getCurrentUser)
+export type User = ApiUser & {
+  // The user's first store; null = no store
+  store: UserStore | null;
+  unread_counts: MeResponse["unread_counts"];
 };

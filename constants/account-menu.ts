@@ -1,5 +1,5 @@
 // Avatar menu items (header and mobile drawer). `key` is under
-// "AccountMenu.items". Pages other than /account don't exist yet
+// "AccountMenu.items". The /account sections live in constants/account.ts
 
 export type AccountMenuItem = { key: string; href: string };
 

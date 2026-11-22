@@ -1716,5 +1716,104 @@
     },
     "submit": "نبّهني",
     "success": "تمت إضافتك للقائمة. سنراسلك عند الإطلاق في {country}."
+  },
+  "Account": {
+    "signOut": "تسجيل الخروج",
+    "comingSoon": "هذا القسم قادم قريبًا.",
+    "accountType": {
+      "individual": "حساب شخصي",
+      "shop": "حساب متجر"
+    },
+    "nav": {
+      "overview": "نظرة عامة",
+      "saved": "المحفوظات والمتابعة",
+      "alerts": "تنبيهات البحث",
+      "offers": "عروضي",
+      "sellRequests": "طلبات البيع",
+      "messages": "الرسائل",
+      "notifications": "الإشعارات",
+      "portfolio": "محفظة الذهب",
+      "listings": "إعلاناتي",
+      "profile": "الملف الشخصي",
+      "settings": "الإعدادات"
+    },
+    "overview": {
+      "title": "حسابي",
+      "description": "كل ما تتابعه وتحفظه وتراقبه",
+      "welcome": "مرحبًا بعودتك، <b>{name}</b>. أنت تتابع {count, plural, one {متجرًا واحدًا} two {متجرين} few {# متاجر} many {# متجرًا} other {# متجر}}.",
+      "stats": {
+        "saved": "إعلانات محفوظة",
+        "priceDrops": "انخفاضات في السعر",
+        "activeAlerts": "تنبيهات نشطة",
+        "unread": "غير مقروءة"
+      },
+      "priceDrops": {
+        "title": "أحدث انخفاضات الأسعار",
+        "all": "كل المحفوظات",
+        "down": "انخفض"
+      },
+      "activity": {
+        "title": "النشاط الأخير",
+        "all": "كل الإشعارات",
+        "types": {
+          "message": "رسالة جديدة من {name}",
+          "priceDrop": "انخفاض سعر إعلان محفوظ",
+          "offer": "عرض جديد على إعلان محفوظ",
+          "verification": "تمت الموافقة على التوثيق"
+        },
+        "ago": {
+          "minutes": "منذ {count} دقيقة",
+          "hours": "منذ {count, plural, one {ساعة} two {ساعتين} few {# ساعات} other {# ساعة}}",
+          "days": "منذ {count, plural, one {يوم} two {يومين} few {# أيام} other {# يوم}}"
+        }
+      },
+      "cta": {
+        "text": "تابع العروض التي أرسلتها وطلبات بيع ذهبك.",
+        "offers": "عروضي",
+        "sellRequests": "طلبات البيع"
+      }
+    },
+    "pages": {
+      "saved": {
+        "title": "المحفوظات والمتابعة",
+        "description": "الإعلانات التي حفظتها والمتاجر التي تتابعها"
+      },
+      "alerts": {
+        "title": "تنبيهات البحث",
+        "description": "استلم إشعارًا عند ظهور إعلانات تطابق بحثك"
+      },
+      "offers": {
+        "title": "عروضي",
+        "description": "العروض التي أرسلتها للبائعين"
+      },
+      "sellRequests": {
+        "title": "طلبات البيع",
+        "description": "طلباتك لبيع الذهب للمتاجر"
+      },
+      "messages": {
+        "title": "الرسائل",
+        "description": "محادثاتك مع البائعين والمتاجر"
+      },
+      "notifications": {
+        "title": "الإشعارات",
+        "description": "تحديثات إعلاناتك وعروضك وتنبيهاتك"
+      },
+      "portfolio": {
+        "title": "محفظة الذهب",
+        "description": "تابع قيمة الذهب الذي تملكه"
+      },
+      "listings": {
+        "title": "إعلاناتي",
+        "description": "القطع التي عرضتها في السوق"
+      },
+      "profile": {
+        "title": "الملف الشخصي",
+        "description": "بياناتك الشخصية وأرقام هواتفك"
+      },
+      "settings": {
+        "title": "الإعدادات",
+        "description": "كلمة المرور واللغة وتفضيلات الإشعارات"
+      }
+    }
   }
 }

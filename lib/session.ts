@@ -2,7 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 import { api } from "@/lib/api/client";
-import type { User } from "@/types/global";
+import type { MeResponse, User } from "@/types/global";
 import { unstable_rethrow } from "next/navigation";
 import { getAuthToken } from "@/lib/api/auth-token";
 
@@ -15,8 +15,12 @@ export const getCurrentUser = cache(async (): Promise<User | null> => {
   try {
     // A 401 redirects to sign-in with ?session=expired, which makes the
     // proxy delete the stale cookie
-    const res = await api.get<{ data: User }>("/v1/me");
-    return res.data;
+    const { data } = await api.get<{ data: MeResponse }>("/v1/me");
+    return {
+      ...data.user,
+      store: data.stores[0] ?? null,
+      unread_counts: data.unread_counts,
+    };
   } catch (error) {
     unstable_rethrow(error);
     // Any other API failure shouldn't take the whole site down
