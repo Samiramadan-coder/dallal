@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "../../ui/button";
-import LanguageSwitcher from "./language-switcher";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/providers/user-data";
+import LanguageSwitcher from "./language-switcher";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function DesktopControl() {

@@ -13,9 +13,9 @@ import PriceTicker from "./price-ticker";
 import MobileMenu from "./mobile-control";
 import { links } from "@/constants/shared";
 import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
 import { DesktopControl } from "./desktop-control";
 import { useIsScroll } from "@/hook/use-is-scroll";
-import { usePathname } from "@/i18n/navigation";
 
 export default function Header({
   actLikeIsScroll,
