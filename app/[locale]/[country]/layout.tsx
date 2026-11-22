@@ -6,7 +6,7 @@ import { routing } from "@/i18n/routing";
 import { getCountries } from "@/lib/api/global";
 import { DEFAULT_COUNTRY } from "@/lib/country";
 import { localizePath, PATHNAME_HEADER, splitPath } from "@/lib/auth-routes";
-import RememberCountry from "@/components/shared/remember-country";
+import CountrySuggestion from "@/components/shared/country-suggestion";
 
 type Props = {
   children: React.ReactNode;
@@ -67,7 +67,7 @@ export default async function CountryLayout({ children, params }: Props) {
   return (
     <>
       {children}
-      <RememberCountry code={country} />
+      <CountrySuggestion code={country} countries={countries} />
     </>
   );
 }

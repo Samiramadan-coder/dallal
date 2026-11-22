@@ -1,4 +1,10 @@
 {
+  "CountrySuggestion": {
+    "title": "Country suggestion",
+    "message": "You seem to be in {country}. Switch to it?",
+    "switch": "Switch",
+    "stay": "Stay in {country}"
+  },
   "Navbar": {
     "browse": "Browse",
     "individualMarket": "Individual market",

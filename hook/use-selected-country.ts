@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { Country } from "@/types/global";
 import { resolveCountry } from "@/lib/country";
+import { writeCountryCookie } from "@/lib/country-cookie";
 import { useCountryParam, usePathname, useRouter } from "@/i18n/navigation";
 
 // Country code of the current URL ("sa")
@@ -23,6 +24,8 @@ export function useSelectedCountry(countries: Country[]) {
 
   const select = (country: Country) => {
     if (!isLive(country) || country.code.toLowerCase() === code) return;
+    // An explicit choice is the new preference
+    writeCountryCookie(country.code.toLowerCase());
     // Keep the current query string (filters, tabs…)
     const search = window.location.search;
     startTransition(() => {

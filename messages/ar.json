@@ -1,4 +1,10 @@
 {
+  "CountrySuggestion": {
+    "title": "اقتراح الدولة",
+    "message": "يبدو أنك في {country}. هل تريد التحويل إليها؟",
+    "switch": "تحويل",
+    "stay": "البقاء في {country}"
+  },
   "Navbar": {
     "browse": "تصفح",
     "individualMarket": "سوق الأفراد",

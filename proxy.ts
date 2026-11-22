@@ -24,6 +24,7 @@ import {
   isCountrySegment,
 } from "./lib/country";
 import { routing } from "./i18n/routing";
+import { suggestCountry } from "./lib/api/geo-suggest";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -56,7 +57,14 @@ function forwardRequestHeader(
   response.headers.set(`${REQUEST_HEADER_PREFIX}${name}`, value);
 }
 
-export default function proxy(request: NextRequest) {
+// Visitor's IP as reported by the hosting proxy / CDN in front of Next
+function getClientIp(request: NextRequest): string | null {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim() || null;
+  return request.headers.get("x-real-ip");
+}
+
+export default async function proxy(request: NextRequest) {
   const { nextUrl } = request;
   const sessionExpired =
     nextUrl.searchParams.get(SESSION_PARAM) === SESSION_EXPIRED;
@@ -73,18 +81,34 @@ export default function proxy(request: NextRequest) {
     const { locale, country, pathname } = splitPath(nextUrl.pathname);
 
     if (!country || country !== country.toLowerCase()) {
-      // No country in the URL ("/", "/browse"): use the remembered one.
+      // No country in the URL ("/", "/browse"): use the remembered one,
+      // else the one suggested for the visitor's location, else the default.
       // An upper-case one ("/SA/browse") is sent to its canonical form
       const remembered = request.cookies.get(COUNTRY_COOKIE)?.value;
+      let suggested: string | null = null;
+      if (!country && !isCountrySegment(remembered)) {
+        suggested = await suggestCountry(getClientIp(request));
+      }
+
       const target =
         country?.toLowerCase() ??
         (isCountrySegment(remembered)
           ? remembered!.toLowerCase()
-          : DEFAULT_COUNTRY);
+          : (suggested ?? DEFAULT_COUNTRY));
 
       const url = new URL(localizePath(pathname, locale, target), request.url);
       url.search = nextUrl.search;
       response = NextResponse.redirect(url, country ? 308 : 307);
+
+      // Remember it right away, so the API is asked once per visitor (the
+      // page then remembers whichever country is visited, see CountrySuggestion)
+      if (suggested) {
+        response.cookies.set(COUNTRY_COOKIE, suggested, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 365,
+          sameSite: "lax",
+        });
+      }
     } else if (!isSignedIn && isProtectedRoute(nextUrl.pathname)) {
       const callbackSearch = new URLSearchParams(nextUrl.search);
       callbackSearch.delete(SESSION_PARAM);
