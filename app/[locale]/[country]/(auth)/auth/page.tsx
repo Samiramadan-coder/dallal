@@ -37,9 +37,9 @@ export default async function Page({
           type="button"
           variant="ghost"
           className={cn(
-            "h-full rounded-xl text-sm font-bold uppercase text-muted-foreground hover:bg-transparent",
+            "h-full rounded-xl text-sm font-semibold text-muted-foreground hover:bg-transparent hover:text-[#4A4840]",
             action === "sign-up" &&
-              "bg-white text-secondary shadow-sm hover:bg-white",
+              "bg-white text-[#0F4A31] shadow-sm hover:bg-white hover:text-[#0F4A31]",
           )}
         >
           <Link href="/auth?action=sign-up">{t("signUp")}</Link>
@@ -50,9 +50,9 @@ export default async function Page({
           type="button"
           variant="ghost"
           className={cn(
-            "h-full rounded-xl text-sm font-bold uppercase text-muted-foreground hover:bg-transparent",
+            "h-full rounded-xl text-sm font-semibold text-muted-foreground hover:bg-transparent hover:text-[#4A4840]",
             (action === "sign-in" || !action) &&
-              "bg-white text-secondary shadow-sm hover:bg-white",
+              "bg-white text-[#0F4A31] shadow-sm hover:bg-white hover:text-[#0F4A31]",
           )}
         >
           <Link href="/auth?action=sign-in">{t("signIn")}</Link>

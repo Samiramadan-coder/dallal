@@ -8,7 +8,8 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "../ui/input-group";
-import { fieldA11yProps, LabeledField } from "../form/input";
+import { fieldA11yProps } from "../form/input";
+import AuthField from "./auth-field";
 import { signIn } from "@/lib/auth";
 import { otpVerifyHref } from "@/lib/auth-routes";
 import SubmitBtn from "./submit-btn";
@@ -64,7 +65,7 @@ export default function SignIn({
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <LabeledField
+      <AuthField
         id="email_or_phone"
         label={t("fields.emailOrPhone.label")}
         error={errors.email_or_phone}
@@ -78,12 +79,12 @@ export default function SignIn({
             {...register("email_or_phone")}
             {...fieldA11yProps("email_or_phone", errors.email_or_phone)}
             placeholder={t("fields.emailOrPhone.placeholder")}
-            className="placeholder:text-sm"
+            className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
         </InputGroup>
-      </LabeledField>
+      </AuthField>
 
-      <LabeledField
+      <AuthField
         id="password"
         label={t("fields.password.label")}
         error={errors.password}
@@ -91,7 +92,7 @@ export default function SignIn({
         labelAction={
           <Link
             href="/auth/forgot-password"
-            className="text-xs text-secondary underline"
+            className="text-xs font-semibold text-[#4A4840] underline underline-offset-2 hover:text-[#1A1A14]"
           >
             {tForms("forgotPassword")}
           </Link>
@@ -106,7 +107,7 @@ export default function SignIn({
             {...fieldA11yProps("password", errors.password)}
             type={showPassword ? "text" : "password"}
             placeholder={t("fields.password.placeholder")}
-            className="placeholder:text-sm"
+            className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
           <InputGroupAddon align="inline-end">
             <InputGroupButton
@@ -121,7 +122,7 @@ export default function SignIn({
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
-      </LabeledField>
+      </AuthField>
       <SubmitBtn loading={isSubmitting}>{tForms("signIn")}</SubmitBtn>
     </form>
   );

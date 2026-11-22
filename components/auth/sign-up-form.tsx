@@ -37,7 +37,8 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
-import { fieldA11yProps, LabeledField } from "../form/input";
+import { fieldA11yProps } from "../form/input";
+import AuthField from "./auth-field";
 import PasswordStrength from "../form/password-strength";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
 
@@ -101,7 +102,7 @@ export default function SignUp({
 
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
-      <LabeledField
+      <AuthField
         id="name"
         label={t("fields.name.label")}
         error={errors.name}
@@ -111,11 +112,11 @@ export default function SignUp({
           {...register("name")}
           {...fieldA11yProps("name", errors.name)}
           placeholder={t("fields.name.placeholder")}
-          className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
+          className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm placeholder:text-[#B5B0A0]"
         />
-      </LabeledField>
+      </AuthField>
 
-      <LabeledField
+      <AuthField
         id="country_id"
         label={t("fields.country.label")}
         error={errors.country_id}
@@ -170,9 +171,9 @@ export default function SignUp({
             </Select>
           )}
         />
-      </LabeledField>
+      </AuthField>
 
-      <LabeledField
+      <AuthField
         id="phone"
         label={t("fields.phone.label")}
         error={errors.phone}
@@ -187,12 +188,12 @@ export default function SignUp({
             {...register("phone")}
             {...fieldA11yProps("phone", errors.phone)}
             placeholder={t("fields.phone.placeholder")}
-            className="placeholder:text-sm"
+            className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
         </InputGroup>
-      </LabeledField>
+      </AuthField>
 
-      <LabeledField
+      <AuthField
         id="email"
         label={t("fields.email.label")}
         error={errors.email}
@@ -207,16 +208,16 @@ export default function SignUp({
             {...fieldA11yProps("email", errors.email)}
             type="email"
             placeholder={t("fields.email.placeholder")}
-            className="placeholder:text-sm"
+            className="placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
         </InputGroup>
-      </LabeledField>
+      </AuthField>
 
       {(["password", "password_confirmation"] as const).map((name) => {
         const key = name === "password" ? "password" : "passwordConfirmation";
 
         return (
-          <LabeledField
+          <AuthField
             key={name}
             id={name}
             label={t(`fields.${key}.label`)}
@@ -230,7 +231,7 @@ export default function SignUp({
                 type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
                 placeholder={t(`fields.${key}.placeholder`)}
-                className="placeholder:text-sm"
+                className="placeholder:text-sm placeholder:text-[#B5B0A0]"
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton
@@ -246,7 +247,7 @@ export default function SignUp({
               </InputGroupAddon>
             </InputGroup>
             {name === "password" && <PasswordStrength value={password} />}
-          </LabeledField>
+          </AuthField>
         );
       })}
 

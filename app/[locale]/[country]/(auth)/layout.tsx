@@ -26,8 +26,8 @@ export default async function AuthLayout({
         <div className="bg-card-foreground h-full overflow-auto min-h-[calc(100vh-84px)]">
           <div className="px-6 py-12 min-h-full flex items-center">
             <div className="max-w-110 mx-auto w-full">
-              <div className="mb-8">
-                <p className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">
+              <div className="mb-8 text-center lg:text-start">
+                <p className="text-[11px] font-bold tracking-[0.22em] rtl:tracking-normal uppercase text-primary mb-2">
                   {t("welcome")}
                 </p>
                 <h3 className="text-3xl font-bold ltr:font-playfair">

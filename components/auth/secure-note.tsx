@@ -8,10 +8,16 @@ export default function SecureNote({ className }: { className?: string }) {
 
   return (
     <p
-      className={cn("text-center text-[11px] text-muted-foreground", className)}
+      className={cn(
+        "text-center text-[11px] leading-relaxed text-muted-foreground",
+        className,
+      )}
     >
       {t("protectedBy")}{" "}
-      <Link href="/legal/privacy" className="underline underline-offset-2">
+      <Link
+        href="/legal/privacy"
+        className="underline underline-offset-2 hover:text-[#4A4840]"
+      >
         {t("privacyPolicy")}
       </Link>
     </p>

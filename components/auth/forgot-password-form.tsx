@@ -15,7 +15,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { sendForgotPasswordOTP } from "@/lib/auth";
 import { SIGN_IN_PATH } from "@/lib/auth-routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { fieldA11yProps, LabeledField } from "../form/input";
+import { fieldA11yProps } from "../form/input";
+import AuthField from "./auth-field";
 import { useForm, SubmitHandler, type FieldPath } from "react-hook-form";
 
 export default function ForgotPasswordForm() {
@@ -81,11 +82,10 @@ export default function ForgotPasswordForm() {
           </p>
         </div>
 
-        <LabeledField
+        <AuthField
           id="identifier"
           label={t("fields.identifier.label")}
           error={errors.identifier}
-          labelClassName="text-xs font-semibold text-[#4A4840]"
         >
           <Input
             {...register("identifier")}
@@ -93,7 +93,7 @@ export default function ForgotPasswordForm() {
             autoComplete="username"
             className="h-auto rounded-xl border-[rgba(27,107,74,0.18)] bg-white px-4 py-3 text-sm text-[#1A1A14] placeholder:text-[#B5B0A0] focus-visible:border-[#1B6B4A] focus-visible:ring-0 focus-visible:shadow-[0_0_0_3px_rgba(27,107,74,0.1)]"
           />
-        </LabeledField>
+        </AuthField>
 
         <SubmitBtn loading={isSubmitting}>{t("sendCode")}</SubmitBtn>
       </form>

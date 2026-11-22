@@ -21,7 +21,8 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowLeft, Eye, EyeOff, Lock } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { fieldA11yProps, LabeledField } from "../form/input";
+import { fieldA11yProps } from "../form/input";
+import AuthField from "./auth-field";
 import { FORGOT_PASSWORD_PATH, SIGN_IN_PATH } from "@/lib/auth-routes";
 import PasswordStrength from "../form/password-strength";
 import {
@@ -118,7 +119,7 @@ export default function ResetPassword({
           )}
         </div>
 
-        <LabeledField
+        <AuthField
           id="code"
           label={t("fields.verificationCode.label")}
           error={errors.code}
@@ -132,15 +133,15 @@ export default function ResetPassword({
             maxLength={6}
             dir="ltr"
             placeholder={t("fields.verificationCode.placeholder")}
-            className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white tracking-[0.3em] placeholder:tracking-normal placeholder:text-sm"
+            className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white tracking-[0.3em] placeholder:tracking-normal placeholder:text-sm placeholder:text-[#B5B0A0]"
           />
-        </LabeledField>
+        </AuthField>
 
         {(["password", "password_confirmation"] as const).map((name) => {
           const key = name === "password" ? "password" : "passwordConfirmation";
 
           return (
-            <LabeledField
+            <AuthField
               key={name}
               id={name}
               label={t(`fields.${key}.label`)}
@@ -157,7 +158,7 @@ export default function ResetPassword({
                   type={showPassword ? "text" : "password"}
                   autoComplete="new-password"
                   placeholder={t(`fields.${key}.placeholder`)}
-                  className="placeholder:text-sm"
+                  className="placeholder:text-sm placeholder:text-[#B5B0A0]"
                 />
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton
@@ -173,7 +174,7 @@ export default function ResetPassword({
                 </InputGroupAddon>
               </InputGroup>
               {name === "password" && <PasswordStrength value={password} />}
-            </LabeledField>
+            </AuthField>
           );
         })}
 
