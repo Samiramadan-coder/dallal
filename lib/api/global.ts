@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { api, type RequestOptions } from "./client";
 import { City, Country } from "@/types/global";
-import { unstable_rethrow } from "next/dist/client/components/unstable-rethrow.server";
+import { unstable_rethrow } from "next/navigation";
 
 // Countries and cities rarely change: public (no token) and cached for an hour
 // across all requests, per language. Refresh early with revalidateTag("countries")

@@ -1,15 +1,12 @@
 import ForgotPasswordForm from "@/components/auth/forgot-password-form";
-import { api } from "@/lib/api/client";
-import { Country } from "@/types/global";
+import { getCountries } from "@/lib/api/global";
 
 export default async function Page() {
-  const countries = await api.get<{ data: Country[] }>("/v1/countries", {
-    auth: false,
-  });
+  const countries = await getCountries();
 
   return (
     <div>
-      <ForgotPasswordForm countries={countries.data} />
+      <ForgotPasswordForm countries={countries} />
     </div>
   );
 }

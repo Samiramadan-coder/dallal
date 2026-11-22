@@ -1,5 +1,6 @@
 import { api } from "@/lib/api/client";
-import { Country, Phone } from "@/types/global";
+import { Phone } from "@/types/global";
+import { getCountries } from "@/lib/api/global";
 import MyPhones from "@/components/profile/my-phones";
 
 export default async function Page() {
@@ -7,12 +8,12 @@ export default async function Page() {
     api.get<{ data: Phone[] }>("/v1/me/phones", {
       next: { tags: ["phones"] },
     }),
-    api.get<{ data: Country[] }>("/v1/countries", { auth: false }),
+    getCountries(),
   ]);
 
   return (
     <div>
-      <MyPhones phones={phones.data} countries={countries.data} />
+      <MyPhones phones={phones.data} countries={countries} />
     </div>
   );
 }

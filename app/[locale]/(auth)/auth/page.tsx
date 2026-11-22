@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { api } from "@/lib/api/client";
-import { Country } from "@/types/global";
+import { getCountries } from "@/lib/api/global";
+import { getSelectedCountry } from "@/lib/api/selected-country";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import SignIn from "@/components/auth/sign-in-form";
@@ -23,9 +23,10 @@ export default async function Page({
   const t = await getTranslations("Auth.Forms");
   const fontClass = locale === "en" ? "font-playfair" : "";
 
-  const countries = await api.get<{ data: Country[] }>("/v1/countries", {
-    auth: false,
-  });
+  const [countries, selectedCountry] = await Promise.all([
+    getCountries(),
+    getSelectedCountry(),
+  ]);
 
   return (
     <>
@@ -74,7 +75,10 @@ export default async function Page({
           callbackUrl={typeof callbackUrl === "string" ? callbackUrl : null}
         />
       ) : (
-        <SignUp countries={countries.data} />
+        <SignUp
+          countries={countries}
+          defaultCountryId={selectedCountry?.id}
+        />
       )}
 
       <div className="w-full space-y-5 mt-4">

@@ -1,11 +1,10 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useSelectedCountry } from "@/hook/use-selected-country";
 import { Check, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Country } from "@/types/global";
-import { COUNTRY_COOKIE, resolveCountry } from "@/lib/country";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,42 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const CHANGE_EVENT = "country-change";
-
-const subscribe = (cb: () => void) => {
-  window.addEventListener(CHANGE_EVENT, cb);
-  return () => window.removeEventListener(CHANGE_EVENT, cb);
-};
-
-const readCookie = () => {
-  const match = document.cookie.match(
-    new RegExp(`(?:^|; )${COUNTRY_COOKIE}=([^;]*)`),
-  );
-  return match ? decodeURIComponent(match[1]) : null;
-};
-
-// Selected country code from the cookie (null on the server / before choosing)
-export function useSelectedCountryCode() {
-  return useSyncExternalStore(subscribe, readCookie, () => null);
-}
-
-// Selected country, persisted in a cookie so the server can read it too.
-// Falls back to the first live country.
-export function useSelectedCountry(countries: Country[]) {
-  const code = useSelectedCountryCode();
-
-  const isLive = (c: Country) => c.status === "live";
-  const selected = resolveCountry(countries, code);
-
-  const select = (country: Country) => {
-    if (!isLive(country)) return;
-    document.cookie = `${COUNTRY_COOKIE}=${encodeURIComponent(country.code)}; path=/; max-age=31536000; samesite=lax`;
-    window.dispatchEvent(new Event(CHANGE_EVENT));
-  };
-
-  return { selected, select, isLive };
-}
 
 // Desktop: compact trigger + dropdown list
 export function CountryDropdown({ countries }: { countries: Country[] }) {

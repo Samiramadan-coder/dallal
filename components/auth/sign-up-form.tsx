@@ -1,7 +1,5 @@
 "use client";
 
-import { toast } from "sonner";
-import { useState } from "react";
 import {
   InputGroup,
   InputGroupAddon,
@@ -9,6 +7,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from "../ui/input-group";
+
 import {
   Select,
   SelectContent,
@@ -16,16 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Input } from "../ui/input";
-import { fieldA11yProps, LabeledField } from "../form/input";
-import { signUp } from "@/lib/auth";
-import SubmitBtn from "./submit-btn";
-import { Country } from "@/types/global";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, Mail, Phone } from "lucide-react";
-import { SignUpFormData, signUpSchema } from "@/types/sign-up";
+
 import {
   Controller,
   useForm,
@@ -34,15 +24,37 @@ import {
   type FieldPath,
 } from "react-hook-form";
 
+import Image from "next/image";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Input } from "../ui/input";
+import { signUp } from "@/lib/auth";
+import SubmitBtn from "./submit-btn";
+import { Country } from "@/types/global";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff, Mail, Phone } from "lucide-react";
+import { fieldA11yProps, LabeledField } from "../form/input";
+import { SignUpFormData, signUpSchema } from "@/types/sign-up";
+
 const inputGroupClass =
   "h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white";
 const selectTriggerClass =
   "w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white data-[size=default]:h-11";
 
-export default function SignUp({ countries }: { countries: Country[] }) {
+export default function SignUp({
+  countries,
+  defaultCountryId,
+}: {
+  countries: Country[];
+  // Pre-selects the country chosen in the header
+  defaultCountryId?: number;
+}) {
   const router = useRouter();
   const t = useTranslations("Auth.SignUp");
   const tForms = useTranslations("Auth.Forms");
+  const tNav = useTranslations("Navbar");
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -53,6 +65,9 @@ export default function SignUp({ countries }: { countries: Country[] }) {
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpSchema(t)),
+    defaultValues: {
+      country_id: defaultCountryId ? String(defaultCountryId) : undefined,
+    },
   });
 
   // Watch the phone field to get its value for redirection after successful sign-up
@@ -179,8 +194,28 @@ export default function SignUp({ countries }: { countries: Country[] }) {
               </SelectTrigger>
               <SelectContent>
                 {countries.map((c) => (
-                  <SelectItem key={c.id} value={c.id.toString()}>
-                    {c.name}
+                  <SelectItem
+                    key={c.id}
+                    value={c.id.toString()}
+                    // Sign-up is only open in live countries
+                    disabled={c.status !== "live"}
+                  >
+                    <Image
+                      src={c.flag}
+                      alt=""
+                      width={20}
+                      height={14}
+                      className="h-3.5 w-5 rounded-xs object-cover"
+                    />
+                    <span>{c.name}</span>
+                    <span dir="ltr" className="text-muted-foreground text-xs">
+                      {c.dial_code}
+                    </span>
+                    {c.status !== "live" && (
+                      <span className="ms-auto rounded-full border border-primary/40 px-2 py-0.5 text-[10px] font-bold text-primary">
+                        {tNav("comingSoon")}
+                      </span>
+                    )}
                   </SelectItem>
                 ))}
               </SelectContent>
