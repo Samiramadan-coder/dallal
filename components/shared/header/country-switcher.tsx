@@ -5,6 +5,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Country } from "@/types/global";
+import { COUNTRY_COOKIE, resolveCountry } from "@/lib/country";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,10 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const COUNTRY_COOKIE = "country";
-
-// Selected country, persisted in a cookie so the server can read it later.
-// Falls back to the first live country.
 const CHANGE_EVENT = "country-change";
 
 const subscribe = (cb: () => void) => {
@@ -32,14 +29,18 @@ const readCookie = () => {
   return match ? decodeURIComponent(match[1]) : null;
 };
 
-function useSelectedCountry(countries: Country[]) {
-  const code = useSyncExternalStore(subscribe, readCookie, () => null);
+// Selected country code from the cookie (null on the server / before choosing)
+export function useSelectedCountryCode() {
+  return useSyncExternalStore(subscribe, readCookie, () => null);
+}
+
+// Selected country, persisted in a cookie so the server can read it too.
+// Falls back to the first live country.
+export function useSelectedCountry(countries: Country[]) {
+  const code = useSelectedCountryCode();
 
   const isLive = (c: Country) => c.status === "live";
-  const selected =
-    countries.find((c) => c.code === code && isLive(c)) ??
-    countries.find(isLive) ??
-    countries[0];
+  const selected = resolveCountry(countries, code);
 
   const select = (country: Country) => {
     if (!isLive(country)) return;

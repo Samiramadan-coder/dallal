@@ -205,7 +205,7 @@
       "keywordLabel": "Keyword",
       "placeholder": "Search gold rings, solitaire, Rolex…",
       "cityLabel": "City",
-      "allCities": "All UAE",
+      "allCities": "All {country}",
       "search": "Search",
       "sellGold": "Sell your gold"
     },

@@ -15,6 +15,13 @@ export type Country = {
   vat_rate: number;
 };
 
+export type City = {
+  id: number;
+  name: string;
+  lat: number;
+  lng: number;
+};
+
 export type Phone = {
   id: number;
   phone: string;

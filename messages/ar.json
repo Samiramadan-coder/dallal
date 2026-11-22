@@ -196,7 +196,7 @@
       "keywordLabel": "كلمة البحث",
       "placeholder": "ابحث عن خواتم ذهب، سوليتير، رولكس…",
       "cityLabel": "المدينة",
-      "allCities": "كل UAE",
+      "allCities": "كل {country}",
       "search": "بحث",
       "sellGold": "بِع ذهبك"
     },
