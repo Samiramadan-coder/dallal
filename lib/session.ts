@@ -1,11 +1,10 @@
 import "server-only";
 
 import { cache } from "react";
-import { unstable_rethrow } from "next/navigation";
-
 import { api } from "@/lib/api/client";
-import { getAuthToken } from "@/lib/api/auth-token";
 import type { User } from "@/types/global";
+import { unstable_rethrow } from "next/navigation";
+import { getAuthToken } from "@/lib/api/auth-token";
 
 // The signed-in user for Server Components, Server Actions and Route
 // Handlers. `cache` dedupes it per request, so the layout and any page or

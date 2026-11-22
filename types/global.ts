@@ -1,12 +1,18 @@
 export type T = (key: string) => string;
 
 export type Country = {
-  is_active: boolean;
-  dial_code: string;
+  cities_count: number;
   code: string;
+  currency: string;
+  dial_code: string;
   flag: string;
-  name: string;
   id: number;
+  is_active: boolean;
+  name: string;
+  rounding_step: number;
+  status: "live" | "coming_soon";
+  status_label: string;
+  vat_rate: number;
 };
 
 export type Phone = {
