@@ -5,16 +5,22 @@ import { useState } from "react";
 import Input from "../form/input";
 import { signIn } from "@/lib/auth";
 import SubmitBtn from "./submit-btn";
-import { saveToken } from "@/lib/cookies";
 import { useTranslations } from "next-intl";
+import { useRouter as useNextRouter } from "next/navigation";
 import { Link, useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, type FieldPath } from "react-hook-form";
 import { SignInFormData, signInSchema } from "@/types/sign-in";
 
-export default function SignIn() {
+export default function SignIn({
+  callbackUrl,
+}: {
+  callbackUrl?: string | null;
+}) {
   const router = useRouter();
+  // `redirectTo` is already localized, so it skips next-intl's router
+  const nextRouter = useNextRouter();
   const t = useTranslations("Auth.SignIn");
   const tForms = useTranslations("Auth.Forms");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,33 +35,23 @@ export default function SignIn() {
   });
 
   const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
-    const result = await signIn(data);
+    const result = await signIn(data, callbackUrl);
 
-    if (result.success) {
-      toast.success(result.message);
-      await saveToken(result.token);
-      router.push("/");
+    if (result.ok) {
+      if (result.data.status === "unverified") {
+        router.push(`/auth/otp-verify?phone=${result.data.phone}`);
+        return;
+      }
+
+      toast.success(result.data.message);
+      nextRouter.push(result.data.redirectTo);
       return;
     }
 
-    if (result.phone) {
-      router.push(`/auth/otp-verify?phone=${result.phone}`);
-      return;
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<SignInFormData>, { type: "server", message });
     }
-
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof SignInFormData, { type: "server", message });
-      });
-      return;
-    }
-
-    toast.error(t("error"));
+    toast.error(result.message);
   };
 
   return (

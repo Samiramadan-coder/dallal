@@ -36,7 +36,12 @@ import { Phone, Plus } from "lucide-react";
 import { addNewPhone, verifyPhone } from "@/lib/profile";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import {
+  Controller,
+  useForm,
+  useWatch,
+  type FieldPath,
+} from "react-hook-form";
 
 export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const t = useTranslations("Profile.myPhones");
@@ -63,29 +68,20 @@ export default function AddNewPhone({ countries }: { countries: Country[] }) {
   const onSubmit = async (data: AddNewPhoneFormValues) => {
     const result = await addNewPhone(data);
 
-    if (result.success) {
-      toast.success(result.message);
-      setPhoneId(result.phone.id);
+    if (result.ok) {
+      toast.success(result.data.message);
+      setPhoneId(result.data.phone.id);
       setIsDialogOpen(true);
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof AddNewPhoneFormValues, {
-          type: "server",
-          message,
-        });
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<AddNewPhoneFormValues>, {
+        type: "server",
+        message,
       });
-      return;
     }
-
-    toast.error(t("error"));
+    toast.error(result.message);
   };
 
   return (
@@ -196,28 +192,19 @@ function OTPVerificationDialog({
   const onSubmit = async (data: OTPVerificationFormValues) => {
     const result = await verifyPhone(phoneId, data);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       onClose();
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof OTPVerificationFormValues, {
-          type: "server",
-          message,
-        });
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<OTPVerificationFormValues>, {
+        type: "server",
+        message,
       });
-      return;
     }
-
-    toast.error(t("otpError"));
+    toast.error(result.message);
   };
   return (
     <Dialog open={isOpen}>

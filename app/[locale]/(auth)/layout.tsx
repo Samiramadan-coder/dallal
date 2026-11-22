@@ -1,19 +1,13 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import Header from "@/components/shared/header/header";
 import AuthHeroContent from "@/components/auth/auth-hero-content";
 
-export default async function AuthLayout({
+// Signed-in users are sent away from these pages by the proxy
+// (see GUEST_ONLY_ROUTES in lib/auth-routes.ts)
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-
-  if (cookieStore.get("token")?.value) {
-    return redirect("/");
-  }
-
   return (
     <main>
       <Header actLikeIsScroll />

@@ -13,12 +13,16 @@ import SubmitBtn from "./submit-btn";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { FieldError } from "../ui/field";
-import { saveToken } from "@/lib/cookies";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "next/navigation";
 import { resendOTP, verifyOTP } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  type FieldPath,
+} from "react-hook-form";
 import { OTPVerifyFormData, otpVerifySchema } from "@/types/otp-verify";
 
 export default function OTPVerify({ phone }: { phone: string }) {
@@ -46,44 +50,32 @@ export default function OTPVerify({ phone }: { phone: string }) {
     const result = await resendOTP(phone);
     setLoading(false);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-      return;
-    }
-
-    toast.error(t("errorInResend"));
+    toast.error(result.message);
   }
 
   // Handle form submission for OTP verification
   const onSubmit: SubmitHandler<OTPVerifyFormData> = async (data) => {
     const result = await verifyOTP(data);
 
-    if (result.success) {
-      toast.success(result.message);
-      await saveToken(result.token);
-      router.push("/");
+    if (result.ok) {
+      toast.success(result.data.message);
+      // Already localized (home of the current locale)
+      router.push(result.data.redirectTo);
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        toast.error(message);
-        setError(field as keyof OTPVerifyFormData, { type: "server", message });
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<OTPVerifyFormData>, {
+        type: "server",
+        message,
       });
-      return;
     }
-
-    toast.error(t("errorInVerify"));
+    toast.error(result.message);
   };
 
   return (

@@ -26,17 +26,12 @@ export default function SetPrimaryPhone({ phoneId }: { phoneId: number }) {
     const result = await setPrimaryPhone(phoneId);
     setLoading(false);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-      return;
-    }
-
-    toast.error(t("errorSettingPrimary"));
+    toast.error(result.message);
   }
 
   return (

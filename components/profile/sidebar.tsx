@@ -1,33 +1,29 @@
 "use client";
 
-import { useState } from "react";
-import { http } from "@/lib/http";
+import { useTransition } from "react";
+import { signOut } from "@/lib/auth";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
-import { deleteToken } from "@/lib/cookies";
 import { LogOut, Phone, User } from "lucide-react";
 import { useUser } from "@/providers/user-data";
 import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "../ui/item";
 
 export default function SideBar() {
   const pathname = usePathname();
   const locale = useLocale();
-  const { user, setUser } = useUser();
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
+  const [loading, startTransition] = useTransition();
   const t = useTranslations("Profile.profileData");
   const fontClass = locale === "en" ? "font-playfair" : "";
 
-  async function handleLogout() {
-    setLoading(true);
-    await http.post("/api/v1/auth/logout");
-    await deleteToken();
-    setUser(null);
-    router.push(`/`);
+  // The action clears the cookie and redirects home; the root layout then
+  // re-renders with no user, which resets the UserProvider
+  function handleLogout() {
+    startTransition(() => signOut());
   }
 
   const items = [

@@ -1,288 +1,161 @@
+"use server";
+
+import { redirect } from "@/i18n/navigation";
+import { api } from "@/lib/api/client";
+import { clearAuthToken, setAuthToken } from "@/lib/api/auth-token";
+import { ForbiddenError, runAction } from "@/lib/api/errors";
+import type { ActionResult } from "@/lib/api/errors";
+import { resolveLocale } from "@/lib/api/locale";
+import { HOME_PATH, localizePath, safeCallbackUrl } from "@/lib/auth-routes";
+import type { ForgotPasswordFormData } from "@/types/forgot-password";
+import type { OTPVerifyFormData } from "@/types/otp-verify";
+import type { ResetPasswordFormData } from "@/types/reset-password";
+import type { SignInFormData } from "@/types/sign-in";
 import type { SignUpFormData } from "@/types/sign-up";
-import { http, HttpError, ValidationError } from "./http";
-import { OTPVerifyFormData } from "@/types/otp-verify";
-import { SignInFormData } from "@/types/sign-in";
-import { ForgotPasswordFormData } from "@/types/forgot-password";
-import { ResetPasswordFormData } from "@/types/reset-password";
 
-// SignUpResponse represents the possible responses from the sign-up API.
-type SignUpResponse =
-  | {
-      success: true;
-      message: string;
-    }
-  | {
-      success: false;
-      errors?: Partial<Record<keyof SignUpFormData, string>>;
-      message?: string;
-    };
+type MessageResponse = { message: string };
+type TokenResponse = { message: string; data: { token: string } };
 
+// Guest endpoints: no token is sent, and a 401 (e.g. wrong credentials)
+// is shown as an error instead of redirecting to sign-in
+const GUEST = { auth: false, skipAuthRedirect: true } as const;
+
+// Where to go after signing in: the callbackUrl if it's safe, else home.
+// Already localized, so navigate with next/navigation's router
+async function afterSignInUrl(callbackUrl?: string | null): Promise<string> {
+  return safeCallbackUrl(
+    // Action arguments come from the client, so don't trust the type
+    typeof callbackUrl === "string" ? callbackUrl : null,
+    localizePath(HOME_PATH, await resolveLocale()),
+  );
+}
+
+// Sign Up
 export async function signUp(
-  formData: SignUpFormData,
-): Promise<SignUpResponse> {
-  try {
-    const { data } = await http.post<{ message: string }>(
-      "/api/v1/auth/register",
-      formData,
+  values: SignUpFormData,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      "api/v1/auth/register",
+      values,
+      GUEST,
     );
-
-    return {
-      success: true,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error In signUp", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof SignUpFormData, string>>;
-
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-
-    return { success: false };
-  }
+    return { message: res.message };
+  });
 }
 
-// Resend OTP function to request a new OTP for the given phone number.
-type ResendOTPResponse =
-  | {
-      success: true;
-      message?: string;
-    }
-  | {
-      success: false;
-      message?: string;
-    };
-
-export async function resendOTP(phone: string): Promise<ResendOTPResponse> {
-  try {
-    const { data } = await http.post<{ message: string }>(
-      "/api/v1/auth/phone/resend",
-      {
-        phone,
-      },
+// Resend the phone verification OTP
+export async function resendOTP(
+  phone: string,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      "api/v1/auth/phone/resend",
+      { phone },
+      GUEST,
     );
-
-    return {
-      success: true,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error in resendOTP", error);
-    if (error instanceof ValidationError) {
-      return {
-        success: false,
-        message: error.responseMessage,
-      };
-    }
-    return {
-      success: false,
-    };
-  }
+    return { message: res.message };
+  });
 }
 
-// Verify OTP function to validate the OTP for the given phone number.
-type VerifyOTPResponse =
-  | {
-      success: true;
-      token: string;
-      message: string;
-    }
-  | {
-      success: false;
-      errors?: Partial<Record<keyof OTPVerifyFormData, string>>;
-      message?: string;
-    };
-
+// Verify the phone OTP; signs the user in on success
 export async function verifyOTP(
-  formData: OTPVerifyFormData,
-): Promise<VerifyOTPResponse> {
-  try {
-    const { data } = await http.post<{
-      data: { token: string };
-      message: string;
-    }>("/api/v1/auth/phone/verify", formData);
-    return {
-      success: true,
-      token: data.data.token,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error in verifyOTP", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof OTPVerifyFormData, string>>;
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-
-    return {
-      success: false,
-    };
-  }
-}
-
-// SignIn
-type SignInResponse =
-  | {
-      success: true;
-      token: string;
-      message: string;
-    }
-  | {
-      success: false;
-      message?: string;
-      phone?: string;
-      errors?: Partial<Record<keyof SignInFormData, string>>;
-    };
-
-export async function signIn(
-  formData: SignInFormData,
-): Promise<SignInResponse> {
-  try {
-    const { data } = await http.post<{
-      data: { token: string };
-      message: string;
-    }>("/api/v1/auth/login", { ...formData, device_name: "web" });
-    return {
-      success: true,
-      token: data.data.token,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error in signIn", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof SignInFormData, string>>;
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-
-    if (error instanceof HttpError && error.status === 403) {
-      const responseData = (error.data as { data?: { phone?: string } })?.data;
-      console.error("SignIn forbidden (403) response:", responseData);
-      return {
-        success: false,
-        phone: responseData?.phone,
-      };
-    }
-
-    return {
-      success: false,
-    };
-  }
-}
-
-// Send Forgot Password OTP
-type SendForgotPasswordOTPResponse =
-  | {
-      success: true;
-      message: string;
-    }
-  | {
-      success: false;
-      message?: string;
-      errors?: Partial<Record<keyof ForgotPasswordFormData, string>>;
-    };
-
-export async function sendForgotPasswordOTP(
-  formData: ForgotPasswordFormData,
-): Promise<SendForgotPasswordOTPResponse> {
-  try {
-    const { data } = await http.post<{ message: string }>(
-      "/api/v1/auth/password/forgot",
-      formData,
+  values: OTPVerifyFormData,
+  callbackUrl?: string | null,
+): Promise<ActionResult<{ message: string; redirectTo: string }>> {
+  return runAction(async () => {
+    const res = await api.post<TokenResponse>(
+      "api/v1/auth/phone/verify",
+      values,
+      GUEST,
     );
+    await setAuthToken(res.data.token);
     return {
-      success: true,
-      message: data.message,
+      message: res.message,
+      redirectTo: await afterSignInUrl(callbackUrl),
     };
-  } catch (error) {
-    console.error("Error in sendForgotPasswordOTP", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof ForgotPasswordFormData, string>>;
+  });
+}
 
+export type SignInResult =
+  | { status: "signed-in"; message: string; redirectTo: string }
+  // The phone isn't verified yet (the API answers 403 with the phone)
+  | { status: "unverified"; phone: string };
+
+function unverifiedPhone(error: ForbiddenError): string | undefined {
+  const body = error.body as { data?: { phone?: unknown } } | undefined;
+  return typeof body?.data?.phone === "string" ? body.data.phone : undefined;
+}
+
+// Sign In
+export async function signIn(
+  values: SignInFormData,
+  callbackUrl?: string | null,
+): Promise<ActionResult<SignInResult>> {
+  return runAction(async (): Promise<SignInResult> => {
+    try {
+      const res = await api.post<TokenResponse>(
+        "api/v1/auth/login",
+        { ...values, device_name: "web" },
+        GUEST,
+      );
+      await setAuthToken(res.data.token);
       return {
-        success: false,
-        errors,
-        message: error.responseMessage,
+        status: "signed-in",
+        message: res.message,
+        redirectTo: await afterSignInUrl(callbackUrl),
       };
+    } catch (error) {
+      const phone =
+        error instanceof ForbiddenError ? unverifiedPhone(error) : undefined;
+      if (phone) return { status: "unverified", phone };
+      // runAction turns everything else into an ActionFailure
+      throw error;
     }
+  });
+}
 
-    return {
-      success: false,
-    };
-  }
+// Send the forgot-password OTP
+export async function sendForgotPasswordOTP(
+  values: ForgotPasswordFormData,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      "api/v1/auth/password/forgot",
+      values,
+      GUEST,
+    );
+    return { message: res.message };
+  });
 }
 
 // Reset Password
-type ResetPasswordResponse =
-  | {
-      success: true;
-      message: string;
-    }
-  | {
-      success: false;
-      message?: string;
-      errors?: Partial<Record<keyof ResetPasswordFormData, string>>;
-    };
-
 export async function resetPassword(
-  formData: ResetPasswordFormData,
-): Promise<ResetPasswordResponse> {
+  values: ResetPasswordFormData,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      "api/v1/auth/password/reset",
+      values,
+      GUEST,
+    );
+    return { message: res.message };
+  });
+}
+
+// Revokes the token on the API (best effort), clears the cookie and goes
+// home. Redirecting from here avoids re-rendering the current (protected)
+// page without a token, which would bounce to sign-in
+export async function signOut(): Promise<void> {
   try {
-    const { data } = await http.post<{
-      data: { token: string };
-      message: string;
-    }>("/api/v1/auth/password/reset", formData);
-    return {
-      success: true,
-      message: data.message,
-    };
+    await api.post("api/v1/auth/logout", undefined, {
+      skipAuthRedirect: true,
+    });
   } catch (error) {
-    console.error("Error in resetPassword", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof ResetPasswordFormData, string>>;
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-    return {
-      success: false,
-    };
+    // An expired token or an API hiccup shouldn't keep the user signed in
+    console.error("[auth] logout request failed", error);
   }
+
+  await clearAuthToken();
+  redirect({ href: HOME_PATH, locale: await resolveLocale() });
 }

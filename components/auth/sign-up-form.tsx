@@ -12,7 +12,12 @@ import { useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
-import { useForm, SubmitHandler, useWatch } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  useWatch,
+  type FieldPath,
+} from "react-hook-form";
 
 export default function SignUp({ countries }: { countries: Country[] }) {
   const router = useRouter();
@@ -39,27 +44,18 @@ export default function SignUp({ countries }: { countries: Country[] }) {
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     const result = await signUp(data);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       router.push(
         `/auth/otp-verify?phone=${choosedCountry?.dial_code + phone}`,
       );
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<SignUpFormData>, { type: "server", message });
     }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof SignUpFormData, { type: "server", message });
-      });
-      return;
-    }
-
-    toast.error(t("error"));
+    toast.error(result.message);
   };
 
   return (

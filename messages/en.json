@@ -1749,5 +1749,8 @@
       },
       "note": "Selling gold, bars, diamonds, luxury watches or stones from a personal account always goes through verified stores."
     }
+  },
+  "Api": {
+    "genericError": "Something went wrong. Please try again."
   }
 }

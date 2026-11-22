@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, type FieldPath } from "react-hook-form";
 
 export default function ResetPassword({ phone }: { phone?: string }) {
   const router = useRouter();
@@ -39,28 +39,19 @@ export default function ResetPassword({ phone }: { phone?: string }) {
   const onSubmit: SubmitHandler<ResetPasswordFormData> = async (data) => {
     const result = await resetPassword(data);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       router.push("/auth?action=sign-in");
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof ResetPasswordFormData, {
-          type: "server",
-          message,
-        });
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<ResetPasswordFormData>, {
+        type: "server",
+        message,
       });
-      return;
     }
-
-    toast.error(t("error"));
+    toast.error(result.message);
   };
 
   return (

@@ -14,7 +14,12 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { sendForgotPasswordOTP } from "@/lib/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler, useWatch } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  useWatch,
+  type FieldPath,
+} from "react-hook-form";
 
 export default function ForgotPasswordForm({
   countries,
@@ -44,30 +49,21 @@ export default function ForgotPasswordForm({
   const onSubmit: SubmitHandler<ForgotPasswordFormData> = async (data) => {
     const result = await sendForgotPasswordOTP(data);
 
-    if (result.success) {
-      toast.success(result.message);
+    if (result.ok) {
+      toast.success(result.data.message);
       router.push(
         `/auth/reset-password?phone=${choosedCountry?.dial_code + data.phone}`,
       );
       return;
     }
 
-    if (result.message) {
-      toast.error(result.message);
-    }
-
-    if (result.errors) {
-      Object.entries(result.errors).forEach(([field, message]) => {
-        if (!message) return;
-        setError(field as keyof ForgotPasswordFormData, {
-          type: "server",
-          message,
-        });
+    for (const [field, message] of Object.entries(result.fieldErrors ?? {})) {
+      setError(field as FieldPath<ForgotPasswordFormData>, {
+        type: "server",
+        message,
       });
-      return;
     }
-
-    toast.error(t("error"));
+    toast.error(result.message);
   };
 
   return (

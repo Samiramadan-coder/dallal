@@ -1,170 +1,69 @@
 "use server";
 
-import {
+import { updateTag } from "next/cache";
+
+import { api } from "@/lib/api/client";
+import { runAction } from "@/lib/api/errors";
+import type { ActionResult } from "@/lib/api/errors";
+import type { Phone } from "@/types/global";
+import type {
   AddNewPhoneFormValues,
   OTPVerificationFormValues,
 } from "@/types/profile";
-import { Phone } from "@/types/global";
-import { updateTag } from "next/cache";
-import { http, ValidationError } from "./http";
+
+type MessageResponse = { message: string };
 
 // Add New Phone
-type AddNewPhoneResponse =
-  | {
-      success: true;
-      message?: string;
-      phone: Phone;
-    }
-  | {
-      success: false;
-      message?: string;
-      errors?: Partial<Record<keyof AddNewPhoneFormValues, string>>;
-    };
-
 export async function addNewPhone(
-  formData: AddNewPhoneFormValues,
-): Promise<AddNewPhoneResponse> {
-  try {
-    const { data } = await http.post<{ message: string; data: Phone }>(
-      "/api/v1/me/phones",
-      formData,
+  values: AddNewPhoneFormValues,
+): Promise<ActionResult<{ message: string; phone: Phone }>> {
+  return runAction(async () => {
+    const res = await api.post<{ message: string; data: Phone }>(
+      "api/v1/me/phones",
+      values,
     );
     updateTag("phones");
-    return {
-      success: true,
-      message: data.message,
-      phone: data.data,
-    };
-  } catch (error) {
-    console.error("Error adding new phone:", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof AddNewPhoneFormValues, string>>;
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-    return { success: false };
-  }
+    return { message: res.message, phone: res.data };
+  });
 }
 
 // Delete Phone
-type DeletePhoneResponse =
-  | {
-      success: true;
-      message?: string;
-    }
-  | {
-      success: false;
-      message?: string;
-    };
-
 export async function deletePhone(
   phoneId: number,
-): Promise<DeletePhoneResponse> {
-  try {
-    const { data } = await http.delete<{ message: string }>(
-      `/api/v1/me/phones/${phoneId}`,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.delete<MessageResponse>(
+      `api/v1/me/phones/${phoneId}`,
     );
     updateTag("phones");
-    return {
-      success: true,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error deleting phone:", error);
-    if (error instanceof ValidationError) {
-      return {
-        success: false,
-        message: error.responseMessage,
-      };
-    }
-    return { success: false };
-  }
+    return { message: res.message };
+  });
 }
 
 // Verify Phone
-type VerifyPhoneResponse =
-  | {
-      success: true;
-      message?: string;
-    }
-  | {
-      success: false;
-      message?: string;
-      errors?: Partial<Record<keyof OTPVerificationFormValues, string>>;
-    };
-
 export async function verifyPhone(
   phoneId: number,
-  formData: OTPVerificationFormValues,
-): Promise<VerifyPhoneResponse> {
-  try {
-    const { data } = await http.post<{ message: string; data: Phone }>(
-      `/api/v1/me/phones/${phoneId}/verify`,
-      formData,
+  values: OTPVerificationFormValues,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      `api/v1/me/phones/${phoneId}/verify`,
+      values,
     );
     updateTag("phones");
-    return {
-      success: true,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error verifying phone:", error);
-    if (error instanceof ValidationError) {
-      const errors = Object.fromEntries(
-        Object.entries(error.errors).map(([field, messages]) => [
-          field,
-          messages[0] ?? "Invalid value",
-        ]),
-      ) as Partial<Record<keyof OTPVerificationFormValues, string>>;
-      return {
-        success: false,
-        errors,
-        message: error.responseMessage,
-      };
-    }
-    return { success: false };
-  }
+    return { message: res.message };
+  });
 }
 
 // Set Primary Phone
-type SetPrimaryPhoneResponse =
-  | {
-      success: true;
-      message?: string;
-    }
-  | {
-      success: false;
-      message?: string;
-    };
-
 export async function setPrimaryPhone(
   phoneId: number,
-): Promise<SetPrimaryPhoneResponse> {
-  try {
-    const { data } = await http.post<{ message: string }>(
-      `/api/v1/me/phones/${phoneId}/primary`,
+): Promise<ActionResult<{ message: string }>> {
+  return runAction(async () => {
+    const res = await api.post<MessageResponse>(
+      `api/v1/me/phones/${phoneId}/primary`,
     );
     updateTag("phones");
-    return {
-      success: true,
-      message: data.message,
-    };
-  } catch (error) {
-    console.error("Error setting primary phone:", error);
-    if (error instanceof ValidationError) {
-      return {
-        success: false,
-        message: error.responseMessage,
-      };
-    }
-    return { success: false };
-  }
+    return { message: res.message };
+  });
 }

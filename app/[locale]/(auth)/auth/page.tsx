@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { http } from "@/lib/http";
+import { api } from "@/lib/api/client";
 import { Country } from "@/types/global";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,8 @@ import { getLocale, getTranslations } from "next-intl/server";
 
 type SearchParams = {
   action?: "sign-in" | "sign-up";
+  // Set by the proxy / the API client when sign-in was required
+  callbackUrl?: string | string[];
 };
 
 export default async function Page({
@@ -17,17 +19,13 @@ export default async function Page({
   searchParams: Promise<SearchParams>;
 }) {
   const locale = await getLocale();
-  const { action } = await searchParams;
+  const { action, callbackUrl } = await searchParams;
   const t = await getTranslations("Auth.Forms");
   const fontClass = locale === "en" ? "font-playfair" : "";
 
-  const { data, ok } = await http.get<{
-    data: Country[];
-  }>("/api/v1/countries");
-
-  if (!ok) {
-    throw new Error("Failed to fetch countries data");
-  }
+  const countries = await api.get<{ data: Country[] }>("api/v1/countries", {
+    auth: false,
+  });
 
   return (
     <>
@@ -72,9 +70,11 @@ export default async function Page({
       </div>
 
       {action === "sign-in" || !action ? (
-        <SignIn />
+        <SignIn
+          callbackUrl={typeof callbackUrl === "string" ? callbackUrl : null}
+        />
       ) : (
-        <SignUp countries={data.data} />
+        <SignUp countries={countries.data} />
       )}
 
       <div className="w-full space-y-5 mt-4">

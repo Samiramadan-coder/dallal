@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import "@/assets/css/globals.css";
-import { http } from "@/lib/http";
 import { hasLocale } from "next-intl";
 import { User } from "@/types/global";
-import { cookies } from "next/headers";
+import { api } from "@/lib/api/client";
 import { routing } from "@/i18n/routing";
-import { notFound } from "next/navigation";
+import { getAuthToken } from "@/lib/api/auth-token";
 import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { UserProvider } from "@/providers/user-data";
+import { notFound, unstable_rethrow } from "next/navigation";
 import { DirectionProvider } from "@/components/ui/direction";
 import { Inter, Playfair_Display, Cairo } from "next/font/google";
 
@@ -45,9 +45,6 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  let user: User | null = null;
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -56,16 +53,18 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
   const dir = locale === "ar" ? "rtl" : "ltr";
 
-  if (token) {
-    const { data, ok } = await http.get<{
-      data: User;
-    }>("/api/v1/auth/me");
-
-    if (!ok) {
-      throw new Error("Failed to fetch user data");
+  let user: User | null = null;
+  if (await getAuthToken()) {
+    try {
+      // A 401 redirects to sign-in with ?session=expired, which makes the
+      // proxy delete the stale cookie
+      const res = await api.get<{ data: User }>("api/v1/auth/me");
+      user = res.data;
+    } catch (error) {
+      unstable_rethrow(error);
+      // Any other API failure shouldn't take the whole site down
+      console.error("[layout] failed to load the current user", error);
     }
-
-    user = data.data;
   }
 
   return (
