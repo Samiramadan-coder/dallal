@@ -19,3 +19,18 @@ export const otpVerificationSchema = (t: T) =>
 export type OTPVerificationFormValues = z.infer<
   ReturnType<typeof otpVerificationSchema>
 >;
+
+export const personalDetailsSchema = (t: T) =>
+  z.object({
+    name: z
+      .string()
+      .trim()
+      .min(2, t("nameRequired"))
+      .max(255, t("nameTooLong")),
+    // Select values are strings; converted to a number when sent
+    city_id: z.string(),
+  });
+
+export type PersonalDetailsFormValues = z.infer<
+  ReturnType<typeof personalDetailsSchema>
+>;

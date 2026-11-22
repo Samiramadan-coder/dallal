@@ -83,3 +83,55 @@ export async function updateAvatar(
     return { message: res?.message ?? null };
   });
 }
+
+// Update Personal Details
+export async function updatePersonalDetails(values: {
+  name: string;
+  city_id: number | null;
+  locale: string;
+}): Promise<ActionResult<{ message: string | null }>> {
+  return runAction(async () => {
+    const res = await api.post<{ message?: string }>("/v1/me", values);
+    refresh();
+    return { message: res?.message ?? null };
+  });
+}
+
+// Change Phone, step 1: sends an OTP to the new number. `phone` is the
+// number in international format ("+971559876543") for step 2, or null if
+// the API didn't return it
+export async function requestPhoneChange(values: {
+  country_id: number;
+  phone: string;
+}): Promise<ActionResult<{ message: string | null; phone: string | null }>> {
+  return runAction(async () => {
+    const res = await api.post<{
+      message?: string;
+      // `data.phone` is the Phone resource ({ id, phone, ... }), though
+      // accept a plain string too
+      data?: { phone?: Phone | string } | null;
+    }>("/v1/me/phone/change", values);
+
+    const phone = res?.data?.phone;
+    const international =
+      typeof phone === "string" ? phone : (phone?.phone ?? null);
+
+    return { message: res?.message ?? null, phone: international };
+  });
+}
+
+// Change Phone, step 2: confirms the new number with the OTP
+export async function confirmPhoneChange(values: {
+  phone: string;
+  code: string;
+}): Promise<ActionResult<{ message: string | null }>> {
+  return runAction(async () => {
+    const res = await api.post<{ message?: string }>(
+      "/v1/me/phone/confirm",
+      values,
+    );
+    updateTag("phones");
+    refresh();
+    return { message: res?.message ?? null };
+  });
+}

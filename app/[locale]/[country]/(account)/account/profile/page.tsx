@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { getCurrentUser } from "@/lib/session";
+import { getCities, getCountries } from "@/lib/api/global";
+import { getSelectedCountry } from "@/lib/api/selected-country";
 import AccountPageHeader from "@/components/account/page-header";
 import ProfileAvatarCard from "@/components/account/profile/avatar-card";
+import PersonalDetails from "@/components/account/profile/personal-details";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("Account.pages.profile");
@@ -9,7 +13,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const t = await getTranslations("Profile.profileData");
+  const [t, user] = await Promise.all([
+    getTranslations("Profile.profileData"),
+    getCurrentUser(),
+  ]);
+
+  // The user's city belongs to their primary country; fall back to the
+  // country in the URL when they haven't set one
+  const countryCode =
+    user?.primary_country?.code ?? (await getSelectedCountry())?.code;
+  const [cities, countries] = await Promise.all([
+    countryCode ? getCities(countryCode) : [],
+    getCountries(),
+  ]);
 
   return (
     <div>
@@ -21,6 +37,7 @@ export default async function Page() {
 
       <div className="space-y-5 md:space-y-6">
         <ProfileAvatarCard />
+        <PersonalDetails cities={cities} countries={countries} />
       </div>
     </div>
   );
