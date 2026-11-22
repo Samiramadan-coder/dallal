@@ -6,8 +6,14 @@ import { clearAuthToken, setAuthToken } from "@/lib/api/auth-token";
 import { ForbiddenError, runAction } from "@/lib/api/errors";
 import type { ActionResult } from "@/lib/api/errors";
 import { resolveLocale } from "@/lib/api/locale";
-import { HOME_PATH, localizePath, safeCallbackUrl } from "@/lib/auth-routes";
+import {
+  ACCOUNT_PATH,
+  HOME_PATH,
+  localizePath,
+  safeCallbackUrl,
+} from "@/lib/auth-routes";
 import { getCountryCode } from "@/lib/api/selected-country";
+import { getCountries } from "@/lib/api/global";
 import type { ForgotPasswordFormData } from "@/types/forgot-password";
 import type { OTPVerifyFormData } from "@/types/otp-verify";
 import type { ResetPasswordFormData } from "@/types/reset-password";
@@ -21,27 +27,55 @@ type TokenResponse = { message: string; data: { token: string } };
 // is shown as an error instead of redirecting to sign-in
 const GUEST = { auth: false, skipAuthRedirect: true } as const;
 
-// Where to go after signing in: the callbackUrl if it's safe, else home.
-// Already localized, so navigate with next/navigation's router
-async function afterSignInUrl(callbackUrl?: string | null): Promise<string> {
+// Where to go after signing in: the callbackUrl if it's safe, else
+// `fallback`. Already localized, so navigate with next/navigation's router
+async function afterSignInUrl(
+  callbackUrl?: string | null,
+  fallback: string = HOME_PATH,
+): Promise<string> {
   return safeCallbackUrl(
     // Action arguments come from the client, so don't trust the type
     typeof callbackUrl === "string" ? callbackUrl : null,
-    localizePath(HOME_PATH, await resolveLocale(), await getCountryCode()),
+    localizePath(fallback, await resolveLocale(), await getCountryCode()),
   );
 }
 
-// Sign Up
+type RegisterResponse = {
+  message: string;
+  data?: { phone?: unknown; user?: { phone?: unknown } };
+};
+
+// "0501112233" in the UAE → "+971501112233"
+async function internationalPhone(
+  phone: string,
+  countryId: number,
+): Promise<string> {
+  const country = (await getCountries()).find((c) => c.id === countryId);
+  const local = phone.replace(/\D/g, "").replace(/^0+/, "");
+  return `${country?.dial_code ?? ""}${local}`;
+}
+
+// Sign Up. Returns the phone the OTP was sent to, for the verify page
 export async function signUp(
   values: SignUpFormData,
-): Promise<ActionResult<{ message: string }>> {
+): Promise<ActionResult<{ message: string; phone: string }>> {
   return runAction(async () => {
-    const res = await api.post<MessageResponse>(
+    const countryId = Number(values.country_id);
+    const res = await api.post<RegisterResponse>(
       "/v1/auth/register",
-      values,
+      { ...values, country_id: countryId },
       GUEST,
     );
-    return { message: res.message };
+
+    // Prefer the number as the API stored it
+    const stored = res.data?.phone ?? res.data?.user?.phone;
+    return {
+      message: res.message,
+      phone:
+        typeof stored === "string"
+          ? stored
+          : await internationalPhone(values.phone, countryId),
+    };
   });
 }
 
@@ -73,7 +107,8 @@ export async function verifyOTP(
     await setAuthToken(res.data.token);
     return {
       message: res.message,
-      redirectTo: await afterSignInUrl(callbackUrl),
+      // A newly verified account lands on its account page
+      redirectTo: await afterSignInUrl(callbackUrl, ACCOUNT_PATH),
     };
   });
 }
@@ -81,11 +116,36 @@ export async function verifyOTP(
 export type SignInResult =
   | { status: "signed-in"; message: string; redirectTo: string }
   // The phone isn't verified yet (the API answers 403 with the phone)
-  | { status: "unverified"; phone: string };
+  // `message` says a code was sent, like after sign-up
+  | { status: "unverified"; phone: string; message: string };
 
 function unverifiedPhone(error: ForbiddenError): string | undefined {
   const body = error.body as { data?: { phone?: unknown } } | undefined;
-  return typeof body?.data?.phone === "string" ? body.data.phone : undefined;
+  const phone = body?.data?.phone;
+  if (typeof phone !== "string" || !phone.trim()) return undefined;
+
+  // Verify and resend take the number with its "+"
+  return "+" + phone.trim().replace(/^\+/, "");
+}
+
+// Sends a fresh code before the OTP page, as sign-up does, so the page's
+// resend countdown matches a code that was really sent. A failure (e.g. a throttled resend) mustn't block the user: the
+// page can still resend
+async function sendVerificationCode(
+  phone: string,
+  fallbackMessage: string,
+): Promise<string> {
+  try {
+    const res = await api.post<MessageResponse>(
+      "/v1/auth/phone/resend",
+      { phone },
+      GUEST,
+    );
+    return res.message;
+  } catch (error) {
+    console.error("[auth] sending the verification code failed", error);
+    return fallbackMessage;
+  }
 }
 
 // Sign In
@@ -109,7 +169,16 @@ export async function signIn(
     } catch (error) {
       const phone =
         error instanceof ForbiddenError ? unverifiedPhone(error) : undefined;
-      if (phone) return { status: "unverified", phone };
+      if (phone) {
+        return {
+          status: "unverified",
+          phone,
+          message: await sendVerificationCode(
+            phone,
+            (error as ForbiddenError).message,
+          ),
+        };
+      }
       // runAction turns everything else into an ActionFailure
       throw error;
     }

@@ -5,68 +5,41 @@ import {
   ForgotPasswordFormData,
 } from "@/types/forgot-password";
 import { toast } from "sonner";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from "../ui/input-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { fieldA11yProps, LabeledField } from "../form/input";
-import { Phone } from "lucide-react";
+import { cn } from "@/lib/utils";
 import SubmitBtn from "./submit-btn";
-import { Country } from "@/types/global";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import SecureNote from "./secure-note";
+import { ArrowLeft } from "lucide-react";
+import { Input } from "../ui/input";
+import { Link, useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { sendForgotPasswordOTP } from "@/lib/auth";
+import { SIGN_IN_PATH } from "@/lib/auth-routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Controller,
-  useForm,
-  SubmitHandler,
-  useWatch,
-  type FieldPath,
-} from "react-hook-form";
+import { fieldA11yProps, LabeledField } from "../form/input";
+import { useForm, SubmitHandler, type FieldPath } from "react-hook-form";
 
-export default function ForgotPasswordForm({
-  countries,
-}: {
-  countries: Country[];
-}) {
+export default function ForgotPasswordForm() {
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("Auth.ForgotPassword");
 
   const {
     register,
     handleSubmit,
     setError,
-    control,
     formState: { errors, isSubmitting },
   } = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema(t)),
-    defaultValues: {
-      country_id: "",
-      phone: "",
-    },
+    defaultValues: { identifier: "" },
   });
-
-  const country_id = useWatch({ control, name: "country_id" });
-  const choosedCountry = countries.find((c) => c.id === Number(country_id));
 
   const onSubmit: SubmitHandler<ForgotPasswordFormData> = async (data) => {
     const result = await sendForgotPasswordOTP(data);
 
     if (result.ok) {
       toast.success(result.data.message);
-      router.push(
-        `/auth/reset-password?phone=${choosedCountry?.dial_code + data.phone}`,
-      );
+      const params = new URLSearchParams({ identifier: data.identifier });
+      router.push(`/auth/reset-password?${params}`);
       return;
     }
 
@@ -80,65 +53,52 @@ export default function ForgotPasswordForm({
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <LabeledField
-        id="country_id"
-        label={t("fields.country.label")}
-        error={errors.country_id}
-        required
+    <>
+      <form
+        noValidate
+        className="flex flex-col gap-5"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <Controller
-          control={control}
-          name="country_id"
-          render={({ field }) => (
-            <Select
-              name={field.name}
-              value={field.value ?? ""}
-              onValueChange={field.onChange}
-              onOpenChange={(open) => {
-                if (!open) field.onBlur();
-              }}
-            >
-              <SelectTrigger
-                ref={field.ref}
-                {...fieldA11yProps("country_id", errors.country_id)}
-                className="w-full rounded-xl border-[rgba(27,107,74,0.18)] bg-white data-[size=default]:h-11"
-              >
-                <SelectValue placeholder={t("fields.country.placeholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                {countries.map((c) => (
-                  <SelectItem key={c.id} value={c.id.toString()}>
-                    {c.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </LabeledField>
+        <Link
+          href={SIGN_IN_PATH}
+          className="flex items-center gap-1.5 self-start text-xs font-semibold text-[#4A4840] hover:text-[#1A1A14]"
+        >
+          <ArrowLeft size={14} className="rtl:rotate-180" />
+          {t("backToSignIn")}
+        </Link>
 
-      <LabeledField
-        id="phone"
-        label={t("fields.phone.label")}
-        error={errors.phone}
-        required
-      >
-        <InputGroup className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white">
-          <InputGroupAddon>
-            <Phone />
-            <InputGroupText>{choosedCountry?.dial_code}</InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            {...register("phone")}
-            {...fieldA11yProps("phone", errors.phone)}
-            placeholder={t("fields.phone.placeholder")}
-            className="placeholder:text-sm"
+        <div>
+          <h1
+            className={cn(
+              "text-2xl font-bold text-[#1A1A14]",
+              locale === "en" && "font-playfair",
+            )}
+          >
+            {t("title")}
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-[#8A8678]">
+            {t("description")}
+          </p>
+        </div>
+
+        <LabeledField
+          id="identifier"
+          label={t("fields.identifier.label")}
+          error={errors.identifier}
+          labelClassName="text-xs font-semibold text-[#4A4840]"
+        >
+          <Input
+            {...register("identifier")}
+            {...fieldA11yProps("identifier", errors.identifier)}
+            autoComplete="username"
+            className="h-auto rounded-xl border-[rgba(27,107,74,0.18)] bg-white px-4 py-3 text-sm text-[#1A1A14] placeholder:text-[#B5B0A0] focus-visible:border-[#1B6B4A] focus-visible:ring-0 focus-visible:shadow-[0_0_0_3px_rgba(27,107,74,0.1)]"
           />
-        </InputGroup>
-      </LabeledField>
+        </LabeledField>
 
-      <SubmitBtn loading={isSubmitting}>{t("SendOtp")}</SubmitBtn>
-    </form>
+        <SubmitBtn loading={isSubmitting}>{t("sendCode")}</SubmitBtn>
+      </form>
+
+      <SecureNote className="mt-10" />
+    </>
   );
 }

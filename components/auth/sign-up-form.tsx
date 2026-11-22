@@ -28,14 +28,17 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { FieldError } from "../ui/field";
 import { signUp } from "@/lib/auth";
+import { otpVerifyHref } from "@/lib/auth-routes";
 import SubmitBtn from "./submit-btn";
 import { Country } from "@/types/global";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Mail, Phone } from "lucide-react";
 import { fieldA11yProps, LabeledField } from "../form/input";
+import PasswordStrength from "../form/password-strength";
 import { SignUpFormData, signUpSchema } from "@/types/sign-up";
 
 const inputGroupClass =
@@ -46,8 +49,11 @@ const selectTriggerClass =
 export default function SignUp({
   countries,
   defaultCountryId,
+  callbackUrl,
 }: {
   countries: Country[];
+  // Where to go once the phone is verified
+  callbackUrl?: string | null;
   // Pre-selects the country chosen in the header
   defaultCountryId?: number;
 }) {
@@ -67,13 +73,15 @@ export default function SignUp({
     resolver: zodResolver(signUpSchema(t)),
     defaultValues: {
       country_id: defaultCountryId ? String(defaultCountryId) : undefined,
+      accept_terms: false,
     },
   });
 
-  // Watch the phone field to get its value for redirection after successful sign-up
-  const phone = useWatch({ control, name: "phone" });
+  // The chosen country's dial code is shown before the phone input
   const country_id = useWatch({ control, name: "country_id" });
   const choosedCountry = countries.find((c) => c.id === Number(country_id));
+  // Drives the strength meter
+  const password = useWatch({ control, name: "password" }) ?? "";
 
   // Handle form submission
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
@@ -81,9 +89,7 @@ export default function SignUp({
 
     if (result.ok) {
       toast.success(result.data.message);
-      router.push(
-        `/auth/otp-verify?phone=${choosedCountry?.dial_code + phone}`,
-      );
+      router.push(otpVerifyHref(result.data.phone, callbackUrl));
       return;
     }
 
@@ -96,44 +102,6 @@ export default function SignUp({
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
       <LabeledField
-        id="account_type"
-        label={t("fields.type.label")}
-        error={errors.account_type}
-        required
-      >
-        <Controller
-          control={control}
-          name="account_type"
-          render={({ field }) => (
-            <Select
-              name={field.name}
-              value={field.value ?? ""}
-              onValueChange={field.onChange}
-              onOpenChange={(open) => {
-                if (!open) field.onBlur();
-              }}
-            >
-              <SelectTrigger
-                ref={field.ref}
-                {...fieldA11yProps("account_type", errors.account_type)}
-                className={selectTriggerClass}
-              >
-                <SelectValue placeholder={t("fields.type.placeholder")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="individual">
-                  {t("fields.type.options.individual")}
-                </SelectItem>
-                <SelectItem value="shop">
-                  {t("fields.type.options.shop")}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </LabeledField>
-
-      <LabeledField
         id="name"
         label={t("fields.name.label")}
         error={errors.name}
@@ -145,26 +113,6 @@ export default function SignUp({
           placeholder={t("fields.name.placeholder")}
           className="h-11 rounded-xl border-[rgba(27,107,74,0.18)] bg-white placeholder:text-sm"
         />
-      </LabeledField>
-
-      <LabeledField
-        id="email"
-        label={t("fields.email.label")}
-        error={errors.email}
-        required
-      >
-        <InputGroup className={inputGroupClass}>
-          <InputGroupAddon>
-            <Mail />
-          </InputGroupAddon>
-          <InputGroupInput
-            {...register("email")}
-            {...fieldA11yProps("email", errors.email)}
-            type="email"
-            placeholder={t("fields.email.placeholder")}
-            className="placeholder:text-sm"
-          />
-        </InputGroup>
       </LabeledField>
 
       <LabeledField
@@ -244,6 +192,26 @@ export default function SignUp({
         </InputGroup>
       </LabeledField>
 
+      <LabeledField
+        id="email"
+        label={t("fields.email.label")}
+        error={errors.email}
+        required
+      >
+        <InputGroup className={inputGroupClass}>
+          <InputGroupAddon>
+            <Mail />
+          </InputGroupAddon>
+          <InputGroupInput
+            {...register("email")}
+            {...fieldA11yProps("email", errors.email)}
+            type="email"
+            placeholder={t("fields.email.placeholder")}
+            className="placeholder:text-sm"
+          />
+        </InputGroup>
+      </LabeledField>
+
       {(["password", "password_confirmation"] as const).map((name) => {
         const key = name === "password" ? "password" : "passwordConfirmation";
 
@@ -260,6 +228,7 @@ export default function SignUp({
                 {...register(name)}
                 {...fieldA11yProps(name, errors[name])}
                 type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
                 placeholder={t(`fields.${key}.placeholder`)}
                 className="placeholder:text-sm"
               />
@@ -276,9 +245,57 @@ export default function SignUp({
                 </InputGroupButton>
               </InputGroupAddon>
             </InputGroup>
+            {name === "password" && <PasswordStrength value={password} />}
           </LabeledField>
         );
       })}
+
+      <div className="flex flex-col gap-1.5">
+        {/* Spans wrap the text so the label's flex layout keeps the spaces
+            around the links */}
+        <label
+          htmlFor="accept_terms"
+          className="flex cursor-pointer items-start gap-2.5 text-xs leading-relaxed text-[#4A4840]"
+        >
+          <input
+            {...register("accept_terms")}
+            {...fieldA11yProps("accept_terms", errors.accept_terms)}
+            type="checkbox"
+            className="mt-0.5 size-4 shrink-0 accent-[#0F4A31]"
+          />
+          <span>
+            {t.rich("fields.acceptTerms.label", {
+              terms: (chunks) => (
+                <Link
+                  href="/legal/terms"
+                  // A new tab keeps what was typed in the form
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold underline underline-offset-2"
+                >
+                  {chunks}
+                </Link>
+              ),
+              privacy: (chunks) => (
+                <Link
+                  href="/legal/privacy"
+                  // A new tab keeps what was typed in the form
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold underline underline-offset-2"
+                >
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </span>
+        </label>
+        {errors.accept_terms && (
+          <FieldError id="accept_terms-error">
+            {errors.accept_terms.message}
+          </FieldError>
+        )}
+      </div>
 
       <SubmitBtn loading={isSubmitting}>{tForms("signUp")}</SubmitBtn>
     </form>

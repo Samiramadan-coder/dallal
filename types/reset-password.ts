@@ -1,20 +1,20 @@
 import z from "zod";
 import { T } from "@/types/global";
+import { strongPasswordSchema } from "@/types/password";
 
 export const resetPasswordSchema = (t: T) =>
   z
     .object({
-      phone: z.string().optional(),
+      // The mobile number or email from forgot-password (hidden)
+      identifier: z.string().trim().min(1),
 
-      verification_code: z
+      code: z
         .string()
+        .trim()
         .min(1, t("fields.verificationCode.required"))
-        .max(6, t("fields.verificationCode.invalid")),
+        .regex(/^\d{6}$/, t("fields.verificationCode.invalid")),
 
-      password: z
-        .string()
-        .min(1, t("fields.password.required"))
-        .min(8, t("fields.password.minLength")),
+      password: strongPasswordSchema(t),
 
       password_confirmation: z
         .string()

@@ -10,6 +10,7 @@ import {
 } from "../ui/input-group";
 import { fieldA11yProps, LabeledField } from "../form/input";
 import { signIn } from "@/lib/auth";
+import { otpVerifyHref } from "@/lib/auth-routes";
 import SubmitBtn from "./submit-btn";
 import { useTranslations } from "next-intl";
 import { useRouter as useNextRouter } from "next/navigation";
@@ -45,7 +46,8 @@ export default function SignIn({
 
     if (result.ok) {
       if (result.data.status === "unverified") {
-        router.push(`/auth/otp-verify?phone=${result.data.phone}`);
+        toast.info(result.data.message);
+        router.push(otpVerifyHref(result.data.phone, callbackUrl));
         return;
       }
 
@@ -109,7 +111,9 @@ export default function SignIn({
           <InputGroupAddon align="inline-end">
             <InputGroupButton
               size="icon-xs"
-              aria-label={tForms(showPassword ? "hidePassword" : "showPassword")}
+              aria-label={tForms(
+                showPassword ? "hidePassword" : "showPassword",
+              )}
               aria-pressed={showPassword}
               onClick={() => setShowPassword((v) => !v)}
             >

@@ -199,6 +199,7 @@ export async function runAction<T>(
   try {
     return { ok: true, data: await fn() };
   } catch (error) {
+    console.log(error);
     return toActionResult(error);
   }
 }

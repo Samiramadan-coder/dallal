@@ -79,7 +79,7 @@
       "protectedBy": "Protected by 256-bit SSL encryption.",
       "privacyPolicy": "Privacy Policy",
       "signIn": "Sign In",
-      "signUp": "Sign Up",
+      "signUp": "Create Account",
       "forgotPassword": "Forgot Password?",
       "resetPassword": "Reset Password",
       "alreadyHaveAccount": "Already have an account?"
@@ -119,15 +119,6 @@
           "placeholder": "Select your country",
           "required": "Country is required"
         },
-        "type": {
-          "label": "Account Type",
-          "placeholder": "Select account type",
-          "required": "Account Type is required",
-          "options": {
-            "individual": "Individual",
-            "shop": "Shop"
-          }
-        },
         "phone": {
           "label": "Phone Number",
           "placeholder": "Enter your phone number",
@@ -137,34 +128,38 @@
           "label": "Password",
           "placeholder": "Min. 8 characters",
           "required": "Password is required",
-          "minLength": "Password must be at least 8 characters"
+          "weak": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol (e.g. ! @ # $)."
         },
         "passwordConfirmation": {
           "label": "Confirm Password",
           "placeholder": "Repeat password",
           "required": "Password confirmation is required",
           "match": "Passwords must match"
+        },
+        "acceptTerms": {
+          "label": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+          "required": "You must accept the terms and conditions"
         }
       }
     },
     "ForgotPassword": {
-      "SendOtp": "Send OTP",
-      "error": "An error occurred while sending the OTP. Please try again.",
+      "backToSignIn": "Back to sign in",
+      "title": "Reset your password",
+      "description": "Enter the mobile number or email on your account and we will send you a code.",
+      "sendCode": "Send code",
       "fields": {
-        "country": {
-          "label": "Country",
-          "placeholder": "Select your country",
-          "required": "Country is required"
-        },
-        "phone": {
-          "label": "Phone Number",
-          "placeholder": "Please enter your phone number",
-          "required": "Phone Number is required",
-          "invalid": "Please enter a valid phone number"
+        "identifier": {
+          "label": "Mobile number or email",
+          "required": "Enter your mobile number or email.",
+          "invalid": "Enter a valid mobile number or email."
         }
-      }
+      },
+      "error": "An error occurred while sending the OTP. Please try again."
     },
     "ResetPassword": {
+      "changeIdentifier": "Use a different number or email",
+      "title": "Choose a new password",
+      "description": "Enter the code we sent to",
       "error": "An error occurred while resetting the password. Please try again.",
       "fields": {
         "verificationCode": {
@@ -177,7 +172,7 @@
           "label": "New Password",
           "placeholder": "Min. 8 characters",
           "required": "New password is required",
-          "minLength": "Password must be at least 8 characters"
+          "weak": "Use at least 8 characters with an uppercase letter, a lowercase letter, a number and a symbol (e.g. ! @ # $)."
         },
         "passwordConfirmation": {
           "label": "Confirm New Password",
@@ -188,13 +183,27 @@
       }
     },
     "OTP": {
-      "title": "Verify Your Account",
-      "enterCode": "Enter the 6-digit code sent to your phone number.",
-      "continue": "Continue",
-      "resend": "Resend Code",
+      "title": "Enter the 6-digit code",
+      "sentViaWhatsapp": "Code sent via WhatsApp to",
+      "sentBySms": "Code sent by SMS to",
+      "verificationCode": "Verification code",
+      "resendIn": "Resend code in {time}",
+      "resend": "Resend code",
+      "sendBySms": "Send by SMS instead",
+      "sendViaWhatsapp": "Send via WhatsApp instead",
+      "changeNumber": "Wrong number? Change it",
+      "verifying": "Verifying…",
       "invalid": "Invalid code. Please try again.",
       "errorInResend": "An error occurred while resending the code. Please try again.",
       "errorInVerify": "An error occurred while verifying the code. Please try again."
+    },
+    "Password": {
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
     }
   },
   "Home": {

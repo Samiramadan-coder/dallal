@@ -11,7 +11,10 @@ import { addCountry, isCountrySegment } from "@/lib/country";
 // Shows the sign-in form when there's no `?action=sign-up`
 export const SIGN_IN_PATH = "/auth";
 export const FORGOT_PASSWORD_PATH = "/auth/forgot-password";
+export const OTP_VERIFY_PATH = "/auth/otp-verify";
 export const HOME_PATH = "/";
+// The signed-in user's account page
+export const ACCOUNT_PATH = "/profile";
 
 // Pages that need a signed-in user (the route and all of its sub-paths).
 // Guest-only routes are never protected
@@ -22,6 +25,17 @@ export const PROTECTED_ROUTES: readonly string[] = ["/profile"];
 export const GUEST_ONLY_ROUTES: readonly string[] = [SIGN_IN_PATH];
 
 export const CALLBACK_URL_PARAM = "callbackUrl";
+
+// The OTP page for an international phone ("+971501112233"). Encoded, so
+// the "+" doesn't arrive as a space; the callbackUrl survives verification
+export function otpVerifyHref(
+  phone: string,
+  callbackUrl?: string | null,
+): string {
+  const params = new URLSearchParams({ phone });
+  if (callbackUrl) params.set(CALLBACK_URL_PARAM, callbackUrl);
+  return `${OTP_VERIFY_PATH}?${params}`;
+}
 
 // Request header the proxy sets to the current path + search, so server
 // code can build a callbackUrl. Always overwritten, so it can't be spoofed
