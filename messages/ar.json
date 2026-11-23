@@ -233,14 +233,7 @@
     },
     "categories": {
       "title": "تسوّق حسب الفئة",
-      "description": "يُعرض من المتاجر الموثّقة فقط.",
-      "items": {
-        "goldJewelry": "مجوهرات ذهب",
-        "coinsBars": "عملات وسبائك",
-        "diamonds": "الماس",
-        "luxuryWatches": "ساعات فاخرة",
-        "stonesPearls": "أحجار كريمة ولؤلؤ"
-      }
+      "description": "يُعرض من المتاجر الموثّقة فقط."
     },
     "nearby": {
       "title": "متاجر بالقرب منك",

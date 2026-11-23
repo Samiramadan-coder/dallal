@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "./section-heading";
-import { categories, headingFont } from "@/constants/marketplace";
+import { getCategories } from "@/lib/api/catalog";
+import { headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
+
+// Placeholder until every category gets an image from the API
+const FALLBACK_IMAGE = "/listing-necklace.webp";
 
 export default async function Categories() {
   const locale = await getLocale();
   const t = await getTranslations("Home.categories");
+  const categories = await getCategories("merchant");
 
   return (
     <section
@@ -26,11 +31,11 @@ export default async function Categories() {
           {categories.map((category) => (
             <li key={category.key}>
               <Link
-                href={`/browse?category=${category.slug}`}
-                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl border border-primary/20"
+                href={`/browse?category=${category.key}`}
+                className="group relative block aspect-4/5 overflow-hidden rounded-2xl border border-primary/20"
               >
                 <Image
-                  src={category.image}
+                  src={category.image ?? FALLBACK_IMAGE}
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, 50vw"
@@ -40,7 +45,7 @@ export default async function Categories() {
                 <span
                   className={`absolute inset-x-0 bottom-0 p-4 ${headingFont(locale)} text-lg font-bold leading-tight text-card-foreground`}
                 >
-                  {t(`items.${category.key}`)}
+                  {category.name}
                 </span>
               </Link>
             </li>

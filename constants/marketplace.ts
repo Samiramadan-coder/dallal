@@ -73,22 +73,13 @@ export function priceHistory(metal: Metal, range: ChartRange, current: number) {
   return out;
 }
 
-export type CategoryKey =
-  | "goldJewelry"
-  | "coinsBars"
+// Category of the mock listings (real categories come from GET /v1/catalog)
+export type CategorySlug =
+  | "gold-jewelry"
+  | "coins-bars"
   | "diamonds"
-  | "luxuryWatches"
-  | "stonesPearls";
-
-export const categories = [
-  { key: "goldJewelry", slug: "gold-jewelry", image: "/listing-necklace.webp" },
-  { key: "coinsBars", slug: "coins-bars", image: "/listing-coin.webp" },
-  { key: "diamonds", slug: "diamonds", image: "/listing-ring.webp" },
-  { key: "luxuryWatches", slug: "luxury-watches", image: "/listing-watch.webp" },
-  { key: "stonesPearls", slug: "stones-pearls", image: "/listing-earrings.webp" },
-] as const satisfies readonly { key: CategoryKey; slug: string; image: string }[];
-
-export type CategorySlug = (typeof categories)[number]["slug"];
+  | "luxury-watches"
+  | "stones-pearls";
 
 export type City =
   | "dubai"

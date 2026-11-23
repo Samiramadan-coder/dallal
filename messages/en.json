@@ -233,14 +233,7 @@
     },
     "categories": {
       "title": "Shop by category",
-      "description": "Listed only by verified stores.",
-      "items": {
-        "goldJewelry": "Gold Jewelry",
-        "coinsBars": "Coins & Bars",
-        "diamonds": "Diamonds",
-        "luxuryWatches": "Luxury Watches",
-        "stonesPearls": "Precious Stones & Pearls"
-      }
+      "description": "Listed only by verified stores."
     },
     "nearby": {
       "title": "Stores near you",
