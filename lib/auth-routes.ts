@@ -24,6 +24,7 @@ export const PROTECTED_ROUTES: readonly string[] = [
   "/account",
   "/post-listing",
   "/sell/new",
+  "/market/new",
 ];
 
 // Pages a signed-in user is sent away from. "/auth" covers sign-in,

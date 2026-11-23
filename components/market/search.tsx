@@ -2,12 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
-import {
-  debounce,
-  defaultRateLimit,
-  parseAsString,
-  useQueryState,
-} from "nuqs";
+import { debounce, defaultRateLimit, parseAsString, useQueryState } from "nuqs";
 
 // Typing waits for a pause; the server re-renders with ?q= (shallow: false)
 // so the listings API can search once it lands

@@ -1418,6 +1418,11 @@
         "inspect": "Inspect the item before you pay, and never send a deposit to someone you have not met.",
         "stores": "Gold, diamonds and luxury watches are not sold here. Those are listed by verified stores only."
       }
+    },
+    "new": {
+      "title": "Post in the market",
+      "description": "List a pre-owned item for verified buyers near you",
+      "comingSoon": "The listing form is coming soon."
     }
   },
   "MetalPrices": {
@@ -1710,6 +1715,11 @@
         }
       },
       "note": "Selling gold, bars, diamonds, luxury watches or stones from a personal account always goes through verified stores."
+    },
+    "new": {
+      "title": "Sell your gold",
+      "description": "Tell us about your gold and get offers from verified stores in your city",
+      "comingSoon": "The sell request form is coming soon."
     }
   },
   "Api": {

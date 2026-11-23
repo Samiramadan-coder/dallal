@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 
 import { ShieldCheck } from "lucide-react";
+import GatedLink from "@/components/auth/gated-link";
 import { getTranslations } from "next-intl/server";
 import { getSelectedCountryCities } from "@/lib/api/selected-country";
 
@@ -28,12 +29,13 @@ export default async function Hero() {
         </p>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold tracking-wide text-background transition-colors hover:bg-[#E8D5A0]"
+          {/* Guests get the sign-up modal, then continue to the form */}
+          <GatedLink
+            href="/sell/new"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-bold tracking-wide text-background transition-colors hover:bg-[#E8D5A0]"
           >
             {t("start")}
-          </button>
+          </GatedLink>
 
           <div className="flex flex-wrap items-center gap-2 text-sm text-[rgba(245,240,232,0.85)]">
             <ShieldCheck size={18} className="text-primary" aria-hidden />
