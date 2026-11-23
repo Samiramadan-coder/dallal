@@ -9,8 +9,7 @@ import { useBrowseFilters } from "@/providers/browse-filters";
 
 export default function CategoryTabs() {
   const t = useTranslations("Browse");
-  const { categories, activeCategory, selectCategory, categoryCounts } =
-    useBrowseFilters();
+  const { categories, activeCategory, selectCategory } = useBrowseFilters();
 
   // Names come from the catalog, already in the page's language
   const tabs = [
@@ -50,16 +49,6 @@ export default function CategoryTabs() {
                 )}
               />
               {tab.label}
-              <span
-                className={cn(
-                  "rounded-full px-1.5 py-px text-[11px] font-bold",
-                  active
-                    ? "bg-card-foreground/20 text-card-foreground"
-                    : "bg-[rgba(27,107,74,0.08)] text-[#4A4840]",
-                )}
-              >
-                {categoryCounts[tab.key] ?? 0}
-              </span>
             </button>
           );
         })}

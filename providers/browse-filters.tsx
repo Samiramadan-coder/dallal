@@ -9,7 +9,7 @@ import {
   useQueryStates,
   type SingleParserBuilder,
 } from "nuqs";
-import { listings, type Listing, getStore } from "@/constants/marketplace";
+import { listings, type Listing } from "@/constants/marketplace";
 import { createContext, useContext, useMemo } from "react";
 import {
   TYPE_PARAM,
@@ -122,17 +122,6 @@ function isSet(value: FieldFilters[string]) {
   return value !== null && value !== undefined && value !== false && value !== "";
 }
 
-// Temporary: mock listings still use the old category slugs
-const MOCK_CATEGORY_KEYS: Record<string, string> = {
-  "gold-jewelry": "gold_jewellery",
-  "coins-bars": "bullion_coins",
-  diamonds: "diamonds",
-  "luxury-watches": "luxury_watches",
-  "stones-pearls": "gemstones_pearls",
-};
-const categoryOf = (listing: Listing) =>
-  MOCK_CATEGORY_KEYS[listing.category] ?? listing.category;
-
 type Filters = ReturnType<typeof useQueryStates<typeof filtersParsers>>[0];
 type SetFilters = ReturnType<typeof useQueryStates<typeof filtersParsers>>[1];
 
@@ -150,10 +139,9 @@ type BrowseFiltersContextType = {
   setFieldFilters: (values: FieldFilters) => void;
   // Switches category and drops the old category's filters
   selectCategory: (key: string | null) => void;
-  /** Listings matching every filter. */
+  // Static for now; the listings API will return them already filtered
+  // by the URL params above
   results: Listing[];
-  /** Count per category key ("" = all), using every filter except category. */
-  categoryCounts: Record<string, number>;
   // True when any filter other than search, sort and layout is set
   hasFilters: boolean;
   /** Clears every filter except search, sort and layout. */
@@ -163,61 +151,6 @@ type BrowseFiltersContextType = {
 const BrowseFiltersContext = createContext<BrowseFiltersContextType | null>(
   null,
 );
-
-// Category-field filters aren't matched yet: mock listings don't carry
-// those attributes. The listings API will filter by them
-function matches(listing: Listing, f: Filters) {
-  const store = getStore(listing.store);
-  const q = f.q.trim().toLowerCase();
-
-  if (q) {
-    const haystack = [
-      listing.title.en,
-      listing.title.ar,
-      listing.type,
-      store.name,
-      ...listing.specs,
-    ]
-      .join(" ")
-      .toLowerCase();
-    if (!q.split(/\s+/).every((word) => haystack.includes(word))) return false;
-  }
-  if (f.min_price != null && listing.price < f.min_price) return false;
-  if (f.max_price != null && listing.price > f.max_price) return false;
-  if (f.city && listing.city !== f.city) return false;
-  if (
-    f.condition.length &&
-    !f.condition.includes(listing.condition.replace("-", "_"))
-  )
-    return false;
-  if (f.negotiable && !listing.negotiable) return false;
-  if (f.rating4 && store.rating < 4) return false;
-  if (f.open_now && !store.open) return false;
-  if (f.delivers && !listing.delivers) return false;
-  return true;
-}
-
-function sortListings(items: Listing[], sort: SortOption) {
-  const sorted = [...items];
-  switch (sort) {
-    case "price_asc":
-      return sorted.sort((a, b) => a.price - b.price);
-    case "price_desc":
-      return sorted.sort((a, b) => b.price - a.price);
-    case "newest":
-      return sorted.sort((a, b) => a.ageHours - b.ageHours);
-    case "nearest":
-      return sorted.sort((a, b) => a.distance - b.distance);
-    default:
-      // Pinned first, then featured, then newest.
-      return sorted.sort(
-        (a, b) =>
-          Number(!!b.pinned) - Number(!!a.pinned) ||
-          Number(!!b.featured) - Number(!!a.featured) ||
-          a.ageHours - b.ageHours,
-      );
-  }
-}
 
 const nullAll = (keys: readonly string[]) =>
   Object.fromEntries(keys.map((key) => [key, null]));
@@ -260,22 +193,6 @@ export function BrowseFiltersProvider({
       if (fieldParams.length) setFieldFiltersState(nullAll(fieldParams));
     };
 
-    const withoutCategory = listings.filter((l) => matches(l, filters));
-    const categoryCounts: Record<string, number> = {
-      "": withoutCategory.length,
-    };
-    for (const l of withoutCategory) {
-      const key = categoryOf(l);
-      categoryCounts[key] = (categoryCounts[key] ?? 0) + 1;
-    }
-
-    const results = sortListings(
-      withoutCategory.filter(
-        (l) => !activeCategory || categoryOf(l) === activeCategory.key,
-      ),
-      filters.sort,
-    );
-
     const hasFilters =
       !!activeCategory ||
       filters.min_price != null ||
@@ -306,8 +223,7 @@ export function BrowseFiltersProvider({
         clearFields();
         setFilters({ category: key || null });
       },
-      results,
-      categoryCounts,
+      results: listings,
       hasFilters,
       resetFilters: () => {
         clearFields();
