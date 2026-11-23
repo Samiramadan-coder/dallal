@@ -142,7 +142,7 @@ export default function PersonalDetails({
               <button
                 type="button"
                 onClick={() => setIsChangingPhone(true)}
-                className="absolute inset-y-0 end-1.5 my-1.5 rounded-lg px-3 text-xs font-semibold text-[#1B6B4A] hover:bg-[#e8f2ec]"
+                className="absolute inset-y-0 inset-e-1.5 my-1.5 rounded-lg px-3 text-xs font-semibold text-[#1B6B4A] hover:bg-[#e8f2ec]"
               >
                 {primaryPhone ? t("changePhone") : t("addPhone")}
               </button>

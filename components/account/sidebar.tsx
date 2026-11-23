@@ -56,7 +56,10 @@ export default function AccountSidebar() {
     <aside className="hidden lg:flex w-64 shrink-0 flex-col overflow-hidden rounded-2xl bg-background text-card-foreground sticky top-40 h-[calc(100vh-200px)] min-h-120">
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/6">
         <Avatar className="size-12 ring-2 ring-primary/40">
-          <AvatarImage src={user?.avatar_url ?? undefined} alt={user?.name ?? ""} />
+          <AvatarImage
+            src={user?.avatar_url ?? undefined}
+            alt={user?.name ?? ""}
+          />
           <AvatarFallback className="bg-secondary text-card-foreground font-semibold">
             {user?.name?.[0] ?? "U"}
           </AvatarFallback>
@@ -128,12 +131,12 @@ export function AccountMobileNav() {
   const { user } = useUser();
 
   return (
-    <nav className="lg:hidden -mx-4 sm:-mx-5 mb-6 overflow-x-auto [scrollbar-width:none]">
+    <nav className="lg:hidden -mx-4 sm:-mx-5 mb-6 overflow-x-auto scrollbar-none">
       <ul className="flex gap-2 px-4 sm:px-5 w-max">
         {ACCOUNT_SECTIONS.map((item) => {
           const Icon = ICONS[item.key];
           const active = isActive(pathname, item.href);
-            const badge = item.unread ? user?.unread_counts[item.unread] : 0;
+          const badge = item.unread ? user?.unread_counts[item.unread] : 0;
           return (
             <li key={item.key}>
               <Link
