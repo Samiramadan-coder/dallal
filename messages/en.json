@@ -554,6 +554,10 @@
     "filters": {
       "title": "Filters",
       "hint": "Pick a category to refine by karat, carat, brand and more.",
+      "type": "Type",
+      "categoryFilters": "{category} filters",
+      "fieldMin": "{label}: minimum",
+      "fieldMax": "{label}: maximum",
       "price": "Price ({currency})",
       "min": "Min",
       "max": "Max",
@@ -600,6 +604,12 @@
     },
     "map": {
       "preview": "Map preview"
+    },
+    "error": {
+      "title": "We couldn't load listings",
+      "description": "Something went wrong while loading this page. Check your connection and try again.",
+      "retry": "Try again",
+      "home": "Back to home"
     }
   },
   "About": {

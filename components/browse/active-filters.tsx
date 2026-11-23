@@ -2,33 +2,131 @@
 
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useBrowseFilters } from "@/providers/browse-filters";
+import {
+  getCategoryFilterFields,
+  useBrowseFilters,
+} from "@/providers/browse-filters";
 import { useCurrency } from "@/hook/use-currency";
-import { categories, conditionLabels, type City } from "@/constants/marketplace";
+import { type City } from "@/constants/marketplace";
+import { TYPE_PARAM, maxParam, minParam, unitParam } from "@/lib/catalog";
+import type { CatalogOption } from "@/types/catalog";
+
+type Chip = { key: string; label: string; clear: () => void };
+
+const labelOf = (options: CatalogOption[] | null, value: string) =>
+  options?.find((o) => o.value === value)?.label ?? value;
+
+const range = (min: number | null, max: number | null) =>
+  `${min?.toLocaleString("en-US") ?? "0"} – ${max?.toLocaleString("en-US") ?? "∞"}`;
 
 export default function ActiveFilters() {
   const t = useTranslations("Browse");
   const tCities = useTranslations("Cities");
-  const tCategories = useTranslations("Home.categories.items");
-  const { filters, setFilters, resetFilters } = useBrowseFilters();
+  const {
+    filters,
+    setFilters,
+    activeCategory,
+    commonFields,
+    fieldFilters,
+    setFieldFilters,
+    selectCategory,
+    resetFilters,
+  } = useBrowseFilters();
   const { label: currency } = useCurrency();
 
-  const chips: { key: string; label: string; clear: () => void }[] = [];
+  const chips: Chip[] = [];
 
-  const category = categories.find((c) => c.slug === filters.category);
-  if (category) {
+  // One chip per picked value of a multi-select filter
+  const listChips = (
+    param: string,
+    selected: string[],
+    options: CatalogOption[] | null,
+    set: (value: string[] | null) => void,
+  ) => {
+    for (const value of selected) {
+      chips.push({
+        key: `${param}-${value}`,
+        label: labelOf(options, value),
+        clear: () => {
+          const next = selected.filter((x) => x !== value);
+          set(next.length ? next : null);
+        },
+      });
+    }
+  };
+
+  if (activeCategory) {
     chips.push({
       key: "category",
-      label: tCategories(category.key),
-      clear: () => setFilters({ category: null }),
+      label: activeCategory.name,
+      clear: () => selectCategory(null),
     });
+
+    listChips(
+      TYPE_PARAM,
+      (fieldFilters[TYPE_PARAM] as string[]) ?? [],
+      activeCategory.types.map((type) => ({
+        value: type.key,
+        label: type.name,
+      })),
+      (v) => setFieldFilters({ [TYPE_PARAM]: v }),
+    );
+
+    for (const field of getCategoryFilterFields(activeCategory)) {
+      const value = fieldFilters[field.key];
+      switch (field.type) {
+        case "select":
+          listChips(field.key, (value as string[]) ?? [], field.options, (v) =>
+            setFieldFilters({ [field.key]: v }),
+          );
+          break;
+        case "bool":
+          if (value) {
+            chips.push({
+              key: field.key,
+              label: field.label,
+              clear: () => setFieldFilters({ [field.key]: null }),
+            });
+          }
+          break;
+        case "text":
+          if (value) {
+            chips.push({
+              key: field.key,
+              label: `${field.label}: ${value}`,
+              clear: () => setFieldFilters({ [field.key]: null }),
+            });
+          }
+          break;
+        case "number":
+        case "unit_number": {
+          const min = (fieldFilters[minParam(field.key)] as number | null) ?? null;
+          const max = (fieldFilters[maxParam(field.key)] as number | null) ?? null;
+          if (min == null && max == null) break;
+          const unit =
+            field.type === "unit_number"
+              ? ((fieldFilters[unitParam(field.key)] as string) ??
+                field.units?.[0]?.value)
+              : undefined;
+          chips.push({
+            key: field.key,
+            label: `${field.label}: ${range(min, max)}${unit ? ` ${unit}` : ""}`,
+            clear: () =>
+              setFieldFilters({
+                [minParam(field.key)]: null,
+                [maxParam(field.key)]: null,
+              }),
+          });
+          break;
+        }
+      }
+    }
   }
+
   if (filters.min_price != null || filters.max_price != null) {
-    const min = filters.min_price?.toLocaleString("en-US") ?? "0";
-    const max = filters.max_price?.toLocaleString("en-US") ?? "∞";
     chips.push({
       key: "price",
-      label: `${currency} ${min} – ${max}`,
+      label: `${currency} ${range(filters.min_price, filters.max_price)}`,
       clear: () => setFilters({ min_price: null, max_price: null }),
     });
   }
@@ -39,16 +137,12 @@ export default function ActiveFilters() {
       clear: () => setFilters({ city: null }),
     });
   }
-  for (const c of filters.condition) {
-    chips.push({
-      key: `condition-${c}`,
-      label: conditionLabels[c],
-      clear: () => {
-        const next = filters.condition.filter((x) => x !== c);
-        setFilters({ condition: next.length ? next : null });
-      },
-    });
-  }
+  listChips(
+    "condition",
+    filters.condition,
+    commonFields.find((f) => f.key === "condition")?.options ?? null,
+    (v) => setFilters({ condition: v }),
+  );
   const toggles = [
     ["negotiable", "negotiable"],
     ["rating4", "rating4"],

@@ -1,38 +1,23 @@
 "use client";
 
-import {
-  ArrowRight,
-  Coins,
-  Crown,
-  Diamond,
-  Gem,
-  LayoutGrid,
-  Watch,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { categories } from "@/constants/marketplace";
+import CategoryIcon from "@/components/reusable/category-icon";
 import { useBrowseFilters } from "@/providers/browse-filters";
-
-const icons = {
-  "": LayoutGrid,
-  "gold-jewelry": Crown,
-  "coins-bars": Coins,
-  diamonds: Diamond,
-  "luxury-watches": Watch,
-  "stones-pearls": Gem,
-} as const;
 
 export default function CategoryTabs() {
   const t = useTranslations("Browse");
-  const tCategories = useTranslations("Home.categories.items");
-  const { filters, setFilters, categoryCounts } = useBrowseFilters();
+  const { categories, activeCategory, selectCategory, categoryCounts } =
+    useBrowseFilters();
 
+  // Names come from the catalog, already in the page's language
   const tabs = [
-    { slug: "" as const, label: t("all") },
-    ...categories.map((c) => ({ slug: c.slug, label: tCategories(c.key) })),
+    { key: "", label: t("all"), icon: null },
+    ...categories.map((c) => ({ key: c.key, label: c.name, icon: c.icon })),
   ];
+  const activeKey = activeCategory?.key ?? "";
 
   return (
     <div className="-mx-4 flex items-center gap-4 overflow-x-auto px-4 pb-1 md:mx-0 md:px-0">
@@ -42,15 +27,14 @@ export default function CategoryTabs() {
         className="flex w-fit shrink-0 items-center gap-1 rounded-xl border border-[rgba(27,107,74,0.1)] bg-white p-1 shadow-sm"
       >
         {tabs.map((tab) => {
-          const Icon = icons[tab.slug];
-          const active = filters.category === tab.slug;
+          const active = activeKey === tab.key;
           return (
             <button
-              key={tab.slug || "all"}
+              key={tab.key || "all"}
               type="button"
               role="tab"
               aria-selected={active}
-              onClick={() => setFilters({ category: tab.slug || null })}
+              onClick={() => selectCategory(tab.key || null)}
               className={cn(
                 "flex items-center gap-2 whitespace-nowrap rounded-lg px-3.5 py-2 text-sm font-semibold tracking-wide transition-all duration-150",
                 active
@@ -58,7 +42,8 @@ export default function CategoryTabs() {
                   : "text-[#4A4840] hover:bg-[rgba(27,107,74,0.06)] hover:text-[#1B6B4A]",
               )}
             >
-              <Icon
+              <CategoryIcon
+                icon={tab.icon}
                 className={cn(
                   "size-4",
                   active ? "text-[#E8D5A0]" : "text-muted-foreground",
@@ -73,7 +58,7 @@ export default function CategoryTabs() {
                     : "bg-[rgba(27,107,74,0.08)] text-[#4A4840]",
                 )}
               >
-                {categoryCounts[tab.slug] ?? 0}
+                {categoryCounts[tab.key] ?? 0}
               </span>
             </button>
           );
