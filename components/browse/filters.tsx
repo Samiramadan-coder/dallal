@@ -3,15 +3,23 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { useBrowseCountry, useCurrency } from "@/hook/use-currency";
+import { useBrowseCountry } from "@/hook/use-currency";
 import { Check, ChevronDown } from "lucide-react";
 import {
   getCategoryFilterFields,
   useBrowseFilters,
 } from "@/providers/browse-filters";
-import { cities } from "@/constants/marketplace";
 import { TYPE_PARAM, maxParam, minParam, unitParam } from "@/lib/catalog";
 import type { CatalogField, CatalogOption } from "@/types/catalog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const ALL = "all";
 
 const inputClass =
   "w-full rounded-lg border border-[rgba(27,107,74,0.2)] bg-white px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-[#1B6B4A] focus:outline-none focus:ring-2 focus:ring-[rgba(27,107,74,0.12)]";
@@ -297,22 +305,23 @@ function CategoryFieldFilter({ field }: { field: CatalogField }) {
 /** Filter fields, shared by the desktop sidebar and the mobile sheet. */
 export function FilterFields() {
   const t = useTranslations("Browse.filters");
-  const tCities = useTranslations("Cities");
   const country = useBrowseCountry();
-  const { label: currency } = useCurrency();
   const {
     filters,
     setFilters,
     activeCategory,
     commonFields,
+    cities,
     fieldFilters,
     setFieldFilters,
   } = useBrowseFilters();
 
-  const conditionOptions =
-    commonFields.find((f) => f.key === "condition")?.options ?? [];
-  const negotiableLabel =
-    commonFields.find((f) => f.key === "negotiable")?.label ?? t("negotiable");
+  // Each common filter shows only while the catalog offers it as one
+  const common = (key: string) =>
+    commonFields.find((f) => f.key === key && f.filterable);
+  const cityField = common("city_id");
+  const conditionField = common("condition");
+  const negotiable = common("negotiable");
 
   return (
     <div>
@@ -340,70 +349,58 @@ export function FilterFields() {
         </p>
       )}
 
-      <Section title={t("price", { currency })}>
-        <RangeInputs
-          min={filters.min_price}
-          max={filters.max_price}
-          onMin={(v) => setFilters({ min_price: v })}
-          onMax={(v) => setFilters({ max_price: v })}
-          minLabel={t("minLabel", { currency })}
-          maxLabel={t("maxLabel", { currency })}
-        />
-      </Section>
+      {cityField && cities.length > 0 && (
+        <Section title={cityField.label}>
+          <Select
+            // Radix items can't use "", so "all" stands for no city
+            value={filters.city_id != null ? String(filters.city_id) : ALL}
+            onValueChange={(v) =>
+              setFilters({ city_id: v === ALL ? null : Number(v) })
+            }
+          >
+            <SelectTrigger
+              aria-label={cityField.label}
+              className={cn(inputClass, "data-[size=default]:h-10")}
+            >
+              {/* Label given directly, so it shows before hydration too */}
+              <SelectValue>
+                {cities.find((c) => c.id === filters.city_id)?.name ??
+                  t("allCities", { country: country?.name ?? "" })}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value={ALL}>
+                {t("allCities", { country: country?.name ?? "" })}
+              </SelectItem>
+              {cities.map((city) => (
+                <SelectItem key={city.id} value={String(city.id)}>
+                  {city.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Section>
+      )}
 
-      <Section title={t("location")}>
-        <label className="sr-only" htmlFor="city-select">
-          {t("city")}
-        </label>
-        <select
-          id="city-select"
-          value={filters.city}
-          onChange={(e) => setFilters({ city: e.target.value || null })}
-          className={inputClass}
-        >
-          <option value="">
-            {t("allCities", { country: country?.name ?? "" })}
-          </option>
-          {cities.map((city) => (
-            <option key={city.key} value={city.key}>
-              {tCities(city.key)}
-            </option>
-          ))}
-        </select>
-      </Section>
-
-      {conditionOptions.length > 0 && (
-        <Section title={t("condition")}>
+      {conditionField?.options?.length ? (
+        <Section title={conditionField.label}>
           <CheckboxList
-            options={conditionOptions}
+            options={conditionField.options}
             selected={filters.condition}
             onChange={(v) => setFilters({ condition: v })}
           />
         </Section>
-      )}
+      ) : null}
 
-      <Section title={t("sellerDelivery")}>
-        <Toggle
-          label={negotiableLabel}
-          checked={filters.negotiable}
-          onChange={(v) => setFilters({ negotiable: v || null })}
-        />
-        <Toggle
-          label={t("rating4")}
-          checked={filters.rating4}
-          onChange={(v) => setFilters({ rating4: v || null })}
-        />
-        <Toggle
-          label={t("openNow")}
-          checked={filters.open_now}
-          onChange={(v) => setFilters({ open_now: v || null })}
-        />
-        <Toggle
-          label={t("delivers")}
-          checked={filters.delivers}
-          onChange={(v) => setFilters({ delivers: v || null })}
-        />
-      </Section>
+      {negotiable && (
+        <div className="py-2.5">
+          <Toggle
+            label={negotiable.label}
+            checked={filters.negotiable}
+            onChange={(v) => setFilters({ negotiable: v || null })}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -6,8 +6,6 @@ import {
   getCategoryFilterFields,
   useBrowseFilters,
 } from "@/providers/browse-filters";
-import { useCurrency } from "@/hook/use-currency";
-import { type City } from "@/constants/marketplace";
 import { TYPE_PARAM, maxParam, minParam, unitParam } from "@/lib/catalog";
 import type { CatalogOption } from "@/types/catalog";
 
@@ -21,18 +19,18 @@ const range = (min: number | null, max: number | null) =>
 
 export default function ActiveFilters() {
   const t = useTranslations("Browse");
-  const tCities = useTranslations("Cities");
   const {
     filters,
     setFilters,
     activeCategory,
     commonFields,
+    cities,
     fieldFilters,
     setFieldFilters,
     selectCategory,
+    fixedCategory,
     resetFilters,
   } = useBrowseFilters();
-  const { label: currency } = useCurrency();
 
   const chips: Chip[] = [];
 
@@ -56,11 +54,14 @@ export default function ActiveFilters() {
   };
 
   if (activeCategory) {
-    chips.push({
-      key: "category",
-      label: activeCategory.name,
-      clear: () => selectCategory(null),
-    });
+    // A route's category isn't a removable filter
+    if (!fixedCategory) {
+      chips.push({
+        key: "category",
+        label: activeCategory.name,
+        clear: () => selectCategory(null),
+      });
+    }
 
     listChips(
       TYPE_PARAM,
@@ -123,18 +124,13 @@ export default function ActiveFilters() {
     }
   }
 
-  if (filters.min_price != null || filters.max_price != null) {
+  // Ids that aren't a city of this country get no chip
+  const city = cities.find((c) => c.id === filters.city_id);
+  if (city) {
     chips.push({
-      key: "price",
-      label: `${currency} ${range(filters.min_price, filters.max_price)}`,
-      clear: () => setFilters({ min_price: null, max_price: null }),
-    });
-  }
-  if (filters.city) {
-    chips.push({
-      key: "city",
-      label: tCities(filters.city as City),
-      clear: () => setFilters({ city: null }),
+      key: "city_id",
+      label: city.name,
+      clear: () => setFilters({ city_id: null }),
     });
   }
   listChips(
@@ -143,20 +139,14 @@ export default function ActiveFilters() {
     commonFields.find((f) => f.key === "condition")?.options ?? null,
     (v) => setFilters({ condition: v }),
   );
-  const toggles = [
-    ["negotiable", "negotiable"],
-    ["rating4", "rating4"],
-    ["open_now", "openNow"],
-    ["delivers", "delivers"],
-  ] as const;
-  for (const [param, label] of toggles) {
-    if (filters[param]) {
-      chips.push({
-        key: param,
-        label: t(`filters.${label}`),
-        clear: () => setFilters({ [param]: null }),
-      });
-    }
+  if (filters.negotiable) {
+    chips.push({
+      key: "negotiable",
+      label:
+        commonFields.find((f) => f.key === "negotiable")?.label ??
+        "negotiable",
+      clear: () => setFilters({ negotiable: null }),
+    });
   }
 
   if (!chips.length) return null;

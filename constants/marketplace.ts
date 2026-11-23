@@ -400,16 +400,6 @@ export const marketCategories = [
 
 export type MarketCategoryKey = (typeof marketCategories)[number]["key"];
 
-/** Listing counts per market category (mock). */
-export const marketCategoryCounts: Record<MarketCategoryKey, number> = {
-  tools: 3,
-  silver: 4,
-  watches: 2,
-  accessories: 2,
-  antiques: 2,
-  beads: 2,
-};
-
 export type MarketListing = {
   id: string;
   title: { en: string; ar: string };

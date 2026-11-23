@@ -71,11 +71,6 @@ export default async function Hero({ q }: { q: string }) {
           </button>
         </form>
       </div>
-
-      <div
-        aria-hidden
-        className="h-1 bg-[repeating-linear-gradient(90deg,#C9A445_0_12px,transparent_12px_20px)]"
-      />
     </section>
   );
 }

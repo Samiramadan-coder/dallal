@@ -4,6 +4,7 @@ import {
   parseAsArrayOf,
   parseAsBoolean,
   parseAsFloat,
+  parseAsInteger,
   parseAsString,
   parseAsStringLiteral,
   useQueryStates,
@@ -21,6 +22,7 @@ import {
 } from "@/lib/catalog";
 import type { FieldFilters } from "@/types/browse";
 import type { CatalogCategory, CatalogField } from "@/types/catalog";
+import type { City } from "@/types/global";
 
 export const sortOptions = [
   "recommended",
@@ -42,15 +44,11 @@ const filtersParsers = {
   q: parseAsString.withDefault("").withOptions(typing),
   // Catalog category key, e.g. ?category=gold_jewellery
   category: parseAsString.withDefault("").withOptions(click),
-  min_price: parseAsFloat.withOptions(typing),
-  max_price: parseAsFloat.withOptions(typing),
-  city: parseAsString.withDefault("").withOptions(click),
+  // Catalog common field `city_id`; ids from GET /v1/countries/{code}/cities
+  city_id: parseAsInteger.withOptions(click),
   // Catalog condition values (new, like_new, good, fair)
   condition: parseAsArrayOf(parseAsString).withDefault([]).withOptions(click),
   negotiable: parseAsBoolean.withDefault(false).withOptions(click),
-  rating4: parseAsBoolean.withDefault(false).withOptions(click),
-  open_now: parseAsBoolean.withDefault(false).withOptions(click),
-  delivers: parseAsBoolean.withDefault(false).withOptions(click),
   sort: parseAsStringLiteral(sortOptions)
     .withDefault("recommended")
     .withOptions(click),
@@ -132,8 +130,13 @@ type BrowseFiltersContextType = {
   categories: CatalogCategory[];
   // The URL's category; null = all (or an unknown key)
   activeCategory: CatalogCategory | null;
+  // The category comes from the route (/market/[category]), not ?category=,
+  // so it can't be changed or cleared
+  fixedCategory: boolean;
   // Fields every listing has (condition, negotiable…)
   commonFields: CatalogField[];
+  // Cities of the browse country, for the city_id filter
+  cities: City[];
   // Filters of the active category, keyed by URL param
   fieldFilters: FieldFilters;
   setFieldFilters: (values: FieldFilters) => void;
@@ -156,19 +159,27 @@ const nullAll = (keys: readonly string[]) =>
   Object.fromEntries(keys.map((key) => [key, null]));
 
 export function BrowseFiltersProvider({
-  categories,
+  categories = [],
+  category,
   commonFields,
+  cities,
   children,
 }: {
-  categories: CatalogCategory[];
+  // Categories picked with ?category= (browse tabs)
+  categories?: CatalogCategory[];
+  // A fixed category instead, e.g. from the route
+  category?: CatalogCategory;
   commonFields: CatalogField[];
+  cities: City[];
   children: React.ReactNode;
 }) {
   const [filters, setFilters] = useQueryStates(filtersParsers);
+  const fixedCategory = !!category;
 
   const activeCategory = useMemo(
-    () => categories.find((c) => c.key === filters.category) ?? null,
-    [categories, filters.category],
+    () =>
+      category ?? categories.find((c) => c.key === filters.category) ?? null,
+    [category, categories, filters.category],
   );
 
   // Rebuilt when the category changes, so only its params are read
@@ -194,15 +205,10 @@ export function BrowseFiltersProvider({
     };
 
     const hasFilters =
-      !!activeCategory ||
-      filters.min_price != null ||
-      filters.max_price != null ||
-      !!filters.city ||
+      (!!activeCategory && !fixedCategory) ||
+      filters.city_id != null ||
       filters.condition.length > 0 ||
       filters.negotiable ||
-      filters.rating4 ||
-      filters.open_now ||
-      filters.delivers ||
       Object.entries(fieldFilters).some(
         // The unit alone isn't a filter
         ([param, v]) =>
@@ -214,11 +220,13 @@ export function BrowseFiltersProvider({
       setFilters,
       categories,
       activeCategory,
+      fixedCategory,
       commonFields,
+      cities,
       fieldFilters: fieldFilters as FieldFilters,
       setFieldFilters: (values) => setFieldFiltersState(values),
       selectCategory: (key) => {
-        if ((key ?? "") === filters.category) return;
+        if (fixedCategory || (key ?? "") === filters.category) return;
         // Both updates land in the same URL change
         clearFields();
         setFilters({ category: key || null });
@@ -229,14 +237,9 @@ export function BrowseFiltersProvider({
         clearFields();
         setFilters({
           category: null,
-          min_price: null,
-          max_price: null,
-          city: null,
+          city_id: null,
           condition: null,
           negotiable: null,
-          rating4: null,
-          open_now: null,
-          delivers: null,
         });
       },
     };
@@ -245,7 +248,9 @@ export function BrowseFiltersProvider({
     setFilters,
     categories,
     activeCategory,
+    fixedCategory,
     commonFields,
+    cities,
     fieldFilters,
     setFieldFiltersState,
   ]);
