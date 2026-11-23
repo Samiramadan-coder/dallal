@@ -7,13 +7,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import MarketListingCard from "@/components/market/listing-card";
 import { headingFont, marketListings } from "@/constants/marketplace";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  // Only fills the search box; the listings API will do the searching
-  const { q = "" } = await searchParams;
+export default async function Page() {
   // getCatalog() falls back to an empty catalog when the API fails, which
   // would quietly drop the categories: show ./error.tsx (with retry) instead.
   // Cached, so <Categories /> reuses this request
@@ -26,7 +20,7 @@ export default async function Page({
 
   return (
     <div className="min-h-screen bg-card-foreground">
-      <Hero q={q} />
+      <Hero />
 
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 py-8 sm:px-6 md:py-10">
         <Categories />

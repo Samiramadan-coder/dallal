@@ -1,14 +1,12 @@
 import { cn } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
-import { Plus, Search } from "lucide-react";
+import { Plus } from "lucide-react";
+import MarketSearch from "./search";
+import GatedLink from "@/components/auth/gated-link";
 import { headingFont } from "@/constants/marketplace";
 import { getLocale, getTranslations } from "next-intl/server";
-import { localizePath } from "@/lib/auth-routes";
-import { getCountryCode } from "@/lib/api/selected-country";
 
-export default async function Hero({ q }: { q: string }) {
+export default async function Hero() {
   const locale = await getLocale();
-  const countryCode = await getCountryCode();
   const t = await getTranslations("Market.hero");
 
   return (
@@ -32,44 +30,17 @@ export default async function Hero({ q }: { q: string }) {
             </p>
           </div>
 
-          <Link
+          {/* Guests get the sign-up modal, then continue to the form */}
+          <GatedLink
             href="/market/new"
-            className="inline-flex items-center justify-center gap-2 self-start rounded-xl bg-primary px-5 py-3 text-sm font-bold text-background transition-colors hover:bg-[#D4B55A] md:self-auto"
+            className="inline-flex cursor-pointer items-center justify-center gap-2 self-start rounded-xl bg-primary px-5 py-3 text-sm font-bold text-background transition-colors hover:bg-[#D4B55A] md:self-auto"
           >
             <Plus className="size-4" />
             {t("post")}
-          </Link>
+          </GatedLink>
         </div>
 
-        <form
-          role="search"
-          action={localizePath("/market", locale, countryCode)}
-          className="flex max-w-2xl gap-2"
-        >
-          <label htmlFor="market-search" className="sr-only">
-            {t("searchLabel")}
-          </label>
-          <div className="relative flex-1">
-            <Search
-              aria-hidden
-              className="pointer-events-none absolute start-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-            <input
-              id="market-search"
-              type="search"
-              name="q"
-              defaultValue={q}
-              placeholder={t("placeholder")}
-              className="h-12 w-full rounded-xl border border-transparent bg-white ps-11 pe-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
-            />
-          </div>
-          <button
-            type="submit"
-            className="h-12 rounded-xl bg-primary px-5 text-sm font-bold text-background hover:bg-[#D4B55A]"
-          >
-            {t("search")}
-          </button>
-        </form>
+        <MarketSearch />
       </div>
     </section>
   );

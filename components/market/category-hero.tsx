@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
+import GatedLink from "../auth/gated-link";
 import { ChevronRight, Plus } from "lucide-react";
 import { headingFont } from "@/constants/marketplace";
-import { getLocale, getTranslations } from "next-intl/server";
 import type { CatalogCategory } from "@/types/catalog";
+import { getLocale, getTranslations } from "next-intl/server";
 
 // Header of /market/[category]: breadcrumb, category name and post button
 export default async function CategoryHero({
@@ -41,13 +42,13 @@ export default async function CategoryHero({
           )}
         </div>
 
-        <Link
+        <GatedLink
           href="/market/new"
           className="inline-flex items-center justify-center gap-2 self-start rounded-xl bg-primary px-5 py-3 text-sm font-bold text-background transition-colors hover:bg-[#D4B55A] md:self-auto"
         >
           <Plus className="size-4" />
           {t("post")}
-        </Link>
+        </GatedLink>
       </div>
     </section>
   );

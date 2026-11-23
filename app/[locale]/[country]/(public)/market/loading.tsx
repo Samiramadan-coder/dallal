@@ -6,7 +6,7 @@ const bar = "rounded bg-[#F0EBE0]";
 export default function Loading() {
   return (
     <div className="min-h-screen bg-card-foreground">
-      <Hero q="" />
+      <Hero />
 
       <div
         aria-busy="true"
